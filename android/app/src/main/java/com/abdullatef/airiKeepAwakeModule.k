@@ -1,4 +1,4 @@
-package com.pocketpal
+package com.abdullatef.airi
 
 import android.view.WindowManager
 import com.facebook.react.bridge.ReactApplicationContext
