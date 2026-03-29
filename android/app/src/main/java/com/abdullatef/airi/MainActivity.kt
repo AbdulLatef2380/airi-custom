@@ -1,4 +1,4 @@
-package com.pocketpal
+package com.abdullatef.airi
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
