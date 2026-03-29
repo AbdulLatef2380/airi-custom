@@ -1,4 +1,4 @@
-package com.pocketpal
+package com.abdullatef.airi
 
 import android.app.Application
 import com.facebook.react.PackageList
