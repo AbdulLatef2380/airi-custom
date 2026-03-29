@@ -85,7 +85,7 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace "com.pocketpal"
+    namespace "com.abdullatef.airi"
     defaultConfig {
         applicationId "com.abdullatef.airi"
         minSdkVersion rootProject.ext.minSdkVersion
