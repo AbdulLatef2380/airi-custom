@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "412770563682",
+    "project_id": "android-security-test",
+    "storage_bucket": "android-security-test.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:412770563682:android:0101acb57a26475fbd433b",
+        "android_client_info": {
+          "package_name": "com.abdullatef.airi"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHug97HUVAf8LzmBc8ayxD3KcIXU_CfWA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:412770563682:android:2646efeb46785c43bd433b",
+        "android_client_info": {
+          "package_name": "com.company.SpiderRAT"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHug97HUVAf8LzmBc8ayxD3KcIXU_CfWA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
