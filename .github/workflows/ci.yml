@@ -51,7 +51,11 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      # keystore مؤقت
+      # 🔥 حل المشكلة: احذف أي keystore قديم قبل الإنشاء
+      - name: Clean old keystore
+        run: rm -f android/app/debug.keystore
+
+      # 🔐 إنشاء keystore جديد بدون تعارض
       - name: Generate debug keystore
         working-directory: android/app
         run: |
