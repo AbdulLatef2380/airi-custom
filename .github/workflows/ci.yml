@@ -1,7 +1,39 @@
-build-android:
+name: CI Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+permissions:
+  contents: read
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+
+  build-and-test:
     runs-on: ubuntu-latest
-    needs: [build-and-test, detect-changes]
-    if: needs.detect-changes.outputs.translation_only != 'true'
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'yarn'
+
+      - run: npm install -g yarn
+      - run: yarn install
+
+      - run: yarn lint
+      - run: yarn typecheck
+      - run: yarn test --coverage
+
+  build-android:
+    runs-on: ubuntu-latest
+    needs: build-and-test
 
     steps:
       - uses: actions/checkout@v4
@@ -11,11 +43,6 @@ build-android:
           node-version: '22'
           cache: 'yarn'
 
-      - uses: actions/cache@v4
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('yarn.lock') }}
-
       - run: npm install -g yarn
       - run: yarn install
 
@@ -23,9 +50,8 @@ build-android:
         with:
           java-version: '17'
           distribution: 'temurin'
-          cache: 'gradle'
 
-      # ✅ keystore مؤقت (بدل Secrets)
+      # keystore مؤقت
       - name: Generate debug keystore
         working-directory: android/app
         run: |
@@ -48,26 +74,17 @@ build-android:
           keyPassword=android
           EOF
 
-      - name: Create .env
-        run: |
-          cat > .env << 'EOL'
-          FIREBASE_FUNCTIONS_URL=https://dummy-url.com
-          SUPABASE_URL=https://dummy.supabase.co
-          SUPABASE_ANON_KEY=dummy
-          EOL
-
-      # 🔥 Build
       - name: Build APK
         working-directory: android
         run: ./gradlew assembleRelease --stacktrace
 
-      - name: Build AAB
-        working-directory: android
-        run: ./gradlew bundleRelease
-
       - uses: actions/upload-artifact@v4
         with:
-          name: android-builds
-          path: |
-            android/app/build/outputs/apk/release/*.apk
-            android/app/build/outputs/bundle/release/*.aab
+          name: android-apk
+          path: android/app/build/outputs/apk/release/*.apk
+
+  build-ios:
+    if: false
+    runs-on: macos-latest
+    steps:
+      - run: echo "iOS disabled"
