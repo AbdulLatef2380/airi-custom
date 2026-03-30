@@ -12,39 +12,6 @@ permissions:
   contents: read
 
 jobs:
-  detect-changes:
-    runs-on: ubuntu-latest
-    outputs:
-      translation_only: ${{ steps.check.outputs.translation_only }}
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v4   # ✅ كان v3
-
-      - name: Check if translation-only
-        id: check
-        run: |
-          if [ "${{ github.event_name }}" = "pull_request" ]; then
-            CHANGED=$(git diff --name-only origin/${{ github.base_ref }}...HEAD)
-          else
-            CHANGED=$(git diff --name-only HEAD~1)
-          fi
-
-          echo "Changed files:"
-          echo "$CHANGED"
-
-          TRANSLATION_ONLY="true"
-          while IFS= read -r file; do
-            if [ -z "$file" ]; then
-              continue
-            fi
-            case "$file" in
-              src/locales/*) ;;
-              *) TRANSLATION_ONLY="false"; break ;;
-            esac
-          done <<< "$CHANGED"
-
-          echo "translation_only=$TRANSLATION_ONLY" >> "$GITHUB_OUTPUT"
-
   build-and-test:
     runs-on: ubuntu-latest
     steps:
