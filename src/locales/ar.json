@@ -1,0 +1,247 @@
+{
+  "common": {
+    "cancel": "إلغاء",
+    "delete": "حذف",
+    "dismiss": "تجاهل",
+    "rename": "إعادة تسمية",
+    "reset": "إعادة تعيين",
+    "save": "حفظ",
+    "update": "تحديث",
+    "error": "خطأ",
+    "export": "تصدير",
+    "networkError": "خطأ في الشبكة. يرجى المحاولة مرة أخرى.",
+    "downloadETA": "الوقت المتبقي",
+    "calculating": "جاري الحساب...",
+    "second": "ث",
+    "seconds": "ث",
+    "year": "سنة",
+    "years": "سنوات",
+    "month": "شهر",
+    "months": "أشهر",
+    "week": "أسبوع",
+    "weeks": "أسابيع",
+    "day": "يوم",
+    "days": "أيام",
+    "hour": "ساعة",
+    "hours": "ساعات",
+    "minute": "د",
+    "minutes": "د",
+    "justNow": "الآن",
+    "ok": "موافق",
+    "close": "إغلاق",
+    "clear": "مسح الكل",
+    "gallery": "المعرض"
+  },
+  "settings": {
+    "modelInitializationSettings": "إعدادات تهيئة النموذج",
+    "metal": "Metal",
+    "metalDescription": "واجهة برمجة Apple للتسريع بالأجهزة.",
+    "openCL": "OpenCL (تجريبي)",
+    "openCLDescription": "تسريع GPU لمعالجات Adreno. معالجة أسرع للمدخلات.",
+    "contextSize": "حجم السياق",
+    "contextSizePlaceholder": "أدخل حجم السياق (الحد الأدنى {{minContextSize}})",
+    "invalidContextSizeError": "يرجى إدخال رقم صحيح (الحد الأدنى {{minContextSize}})",
+    "modelReloadNotice": "إعادة تحميل النموذج مطلوبة لتطبيق التغييرات.",
+    "advancedSettings": "الإعدادات المتقدمة",
+    "batchSize": "حجم الدفعة",
+    "cpuThreads": "خيوط المعالج",
+    "flashAttention": "Flash Attention",
+    "flashAttentionAuto": "تلقائي",
+    "flashAttentionOn": "تشغيل",
+    "flashAttentionOff": "إيقاف",
+    "memorySettings": "إعدادات الذاكرة",
+    "useMlock": "استخدام قفل الذاكرة",
+    "useMmap": "تعيين الذاكرة",
+    "modelLoadingSettings": "إعدادات تحميل النموذج",
+    "autoOffloadLoad": "تحميل/تفريغ تلقائي",
+    "autoOffloadLoadDescription": "تفريغ النموذج عند إخفاء التطبيق.",
+    "autoNavigateToChat": "الانتقال التلقائي للمحادثة",
+    "autoNavigateToChatDescription": "الانتقال للمحادثة عند بدء التحميل.",
+    "appSettings": "إعدادات التطبيق",
+    "language": "اللغة",
+    "darkMode": "الوضع الليلي",
+    "displayMemoryUsage": "عرض استخدام الذاكرة",
+    "displayMemoryUsageDescription": "عرض استخدام الذاكرة في صفحة المحادثة.",
+    "exportOptions": "خيارات التصدير",
+    "exportLegacyChats": "تصدير المحادثات القديمة",
+    "exportButton": "تصدير",
+    "importChats": "استيراد جلسات المحادثة",
+    "importButton": "استيراد",
+    "importSuccess": "تم استيراد {{count}} جلسة محادثة بنجاح.",
+    "importError": "فشل استيراد المحادثات. يرجى التحقق من تنسيق الملف.",
+    "apiSettingsTitle": "إعدادات API",
+    "huggingFaceTokenLabel": "رمز Hugging Face",
+    "tokenIsSetDescription": "الرمز مُعيَّن. مطلوب للوصول إلى النماذج المقيدة.",
+    "setTokenDescription": "عيِّن رمزاً للوصول إلى النماذج المقيدة من Hugging Face.",
+    "setTokenButton": "تعيين الرمز",
+    "cacheStorageTitle": "التخزين المؤقت والمساحة",
+    "clearPalCaches": "مسح ذاكرة التخزين المؤقت للاختصارات",
+    "clearCachesButton": "مسح التخزين المؤقت",
+    "addRemoteModel": "إضافة نموذج بعيد",
+    "yourServers": "خوادمك",
+    "selectModel": "اختيار نموذج",
+    "addModel": "إضافة نموذج",
+    "connected": "متصل",
+    "connecting": "جاري الاتصال...",
+    "noModelsAvailable": "لا تتوفر نماذج على هذا الخادم.",
+    "saveChanges": "حفظ التغييرات",
+    "removeServer": "إزالة الخادم",
+    "retryConnection": "إعادة المحاولة",
+    "manageServers": "إدارة الخوادم"
+  },
+  "memory": {
+    "shortWarning": "تحذير الذاكرة",
+    "memoryTight": "الذاكرة ممتلئة",
+    "lowMemory": "ذاكرة منخفضة",
+    "alerts": {
+      "memoryWarningTitle": "تحذير الذاكرة",
+      "memoryWarningMessage": "قد يتجاوز هذا النموذج الذاكرة المتاحة، مما قد يسبب عدم استقرار. هل تريد المتابعة؟",
+      "cancel": "إلغاء",
+      "continue": "متابعة"
+    }
+  },
+  "storage": {
+    "checkFailed": "فشل التحقق من التخزين",
+    "lowStorage": "التخزين منخفض! النموذج {{modelSize}} > {{freeSpace}} متاح"
+  },
+  "generation": {
+    "modelNotInitialized": "لم يتم تهيئة سياق النموذج",
+    "failedToGenerate": "فشل إنشاء المخرجات"
+  },
+  "models": {
+    "fileManagement": {
+      "fileAlreadyExists": "الملف موجود مسبقاً",
+      "fileAlreadyExistsMessage": "يوجد ملف بهذا الاسم. ماذا تريد أن تفعل؟",
+      "replace": "استبدال",
+      "keepBoth": "الاحتفاظ بكليهما"
+    },
+    "labels": {
+      "localModel": "محلي",
+      "hfModel": "HF",
+      "unknownGroup": "غير معروف",
+      "availableToUse": "جاهز للاستخدام",
+      "availableToDownload": "متاح للتنزيل",
+      "useAddButtonForMore": "استخدم زر + للعثور على مزيد من النماذج"
+    },
+    "vision": "الرؤية",
+    "mmproj": "النموذج الإسقاطي",
+    "buttons": {
+      "addFromHuggingFace": "إضافة من Hugging Face",
+      "addLocalModel": "إضافة نموذج محلي",
+      "reset": "إعادة تعيين"
+    },
+    "modelCard": {
+      "alerts": {
+        "deleteTitle": "حذف النموذج",
+        "deleteMessage": "هل أنت متأكد من حذف هذا النموذج المنزَّل؟",
+        "removeTitle": "إزالة النموذج",
+        "removeMessage": "هل أنت متأكد من إزالة هذا النموذج من القائمة؟"
+      },
+      "buttons": {
+        "settings": "الإعدادات",
+        "download": "تنزيل",
+        "remove": "إزالة",
+        "load": "تحميل",
+        "offload": "تفريغ"
+      },
+      "labels": {
+        "skills": "المهارات: ",
+        "vision": "الرؤية",
+        "modelName": "اسم النموذج",
+        "contextLength": "طول السياق",
+        "architecture": "المعمارية",
+        "author": "المؤلف",
+        "viewModelCardOnHuggingFace": "عرض بطاقة النموذج على Hugging Face"
+      }
+    },
+    "modelSettings": {
+      "template": {
+        "label": "القالب:",
+        "editButton": "تعديل",
+        "dialogTitle": "تعديل قالب المحادثة",
+        "closeButton": "إغلاق"
+      },
+      "stopWords": {
+        "label": "كلمات الإيقاف",
+        "placeholder": "إضافة كلمة إيقاف جديدة"
+      },
+      "tokenSettings": {
+        "systemPrompt": "موجه النظام"
+      }
+    },
+    "modelDescription": {
+      "size": "الحجم: ",
+      "parameters": "المعاملات: ",
+      "separator": " | ",
+      "notAvailable": "غير متاح"
+    },
+    "search": {
+      "noResults": "لم يتم العثور على نماذج",
+      "loadingMore": "تحميل المزيد...",
+      "searchPlaceholder": "البحث في نماذج Hugging Face",
+      "errorOccurred": "تعذر تحميل النماذج. يرجى المحاولة مرة أخرى.",
+      "filters": {
+        "author": "المؤلف",
+        "sortBy": "ترتيب حسب",
+        "clearFilters": "مسح الفلاتر",
+        "showFilters": "عرض الفلاتر",
+        "hideFilters": "إخفاء الفلاتر",
+        "sortRelevance": "الأكثر صلة",
+        "sortDownloads": "التنزيلات",
+        "sortRecent": "المُحدَّث مؤخراً",
+        "sortLikes": "الأكثر إعجاباً"
+      }
+    }
+  },
+  "about": {
+    "screenTitle": "معلومات التطبيق",
+    "description": "تطبيق يجلب نماذج اللغة مباشرة إلى هاتفك. يعمل على أكتاف llama.cpp و llama.rn.",
+    "supportProject": "دعم المشروع",
+    "githubButton": "تقييم على GitHub",
+    "sponsorButton": "كن راعياً",
+    "versionCopiedTitle": "تم نسخ الإصدار",
+    "versionCopiedDescription": "تم نسخ معلومات الإصدار إلى الحافظة"
+  },
+  "feedback": {
+    "title": "إرسال ملاحظات",
+    "description": "رأيك يهمنا! أخبرنا كيف يساعدك التطبيق وما الذي يمكننا فعله لجعله أكثر فائدة.",
+    "shareThoughtsButton": "مشاركة أفكارك",
+    "useCase": {
+      "label": "ما الذي تستخدم التطبيق من أجله؟",
+      "placeholder": "مثال: التلخيص، لعب الأدوار، إلخ."
+    },
+    "featureRequests": {
+      "label": "طلب ميزة",
+      "placeholder": "ما الميزات التي تود رؤيتها؟"
+    },
+    "generalFeedback": {
+      "label": "ملاحظات عامة",
+      "placeholder": "شارك أي أفكار أخرى لديك."
+    },
+    "submit": "إرسال الملاحظات",
+    "validation": {
+      "required": "يرجى تقديم بعض الملاحظات على الأقل"
+    },
+    "success": "شكراً على ملاحظاتك!",
+    "error": {
+      "general": "خطأ في إرسال الملاحظات. يرجى المحاولة مرة أخرى."
+    }
+  },
+  "errors": {
+    "unexpectedError": "حدث خطأ غير متوقع",
+    "hfAuthenticationError": "خطأ مصادقة Hugging Face: الرمز مفقود أو غير صالح",
+    "authenticationError": "خطأ المصادقة: الرمز مفقود أو غير صالح",
+    "hfAuthorizationError": "خطأ تفويض Hugging Face: لا توجد صلاحية للوصول لهذا المورد",
+    "serverError": "خطأ الخادم: مشكلة في خادم API",
+    "networkError": "خطأ الشبكة: تعذر الاتصال بـ API",
+    "downloadSetupFailedTitle": "فشل إعداد التنزيل",
+    "downloadSetupFailedMessage": "فشل تجهيز النموذج للتنزيل: {{message}}",
+    "cameraErrorTitle": "خطأ الكاميرا",
+    "cameraErrorMessage": "فشل التقاط الصورة",
+    "galleryErrorTitle": "خطأ المعرض",
+    "galleryErrorMessage": "فشل اختيار الصور"
+  },
+  "simulator": {
+    "cameraNotAvailable": "الكاميرا غير متاحة في المحاكي. يرجى استخدام جهاز حقيقي."
+  }
+}

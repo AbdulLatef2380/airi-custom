@@ -41,3 +41,17 @@ PocketPal AI is a React Native mobile application that enables users to run Smal
 - Native compilation (Android/iOS) is not possible in the Replit environment without Android Studio or Xcode.
 - The Metro server can be connected to by physical devices or emulators for development.
 - Dependencies are installed with `--ignore-scripts` to skip native compilation steps.
+
+## Fork Changes (AIRI.AI)
+This is a fork of PocketPal AI renamed to AIRI.AI with the following changes:
+- **Package name**: `com.abdullatef.airi` (was `com.pocketpalai`)
+- **App name**: AIRI AI
+- **Native files**: `android/app/src/main/java/com/abdullatef/airi/`
+- **Codegen specs**: Still use `com.pocketpal.specs` (set in `package.json` codegenConfig) — do NOT change
+- **Arabic language**: Added `ar` to `src/locales/` i18n system
+- **App icon**: Custom AI-branded icons in all mipmap-* folders
+
+## Android Build Fixes Applied
+1. `MainApplication.kt` — removed broken `com.pocketpal.*` imports; `KeepAwakePackage`, `HardwareInfoPackage`, `StorefrontPackage` are same-package (no import needed); fixed `DownloadPackage` import to `com.abdullatef.airi.download.DownloadPackage`
+2. `KeepAwakeModule.kt` — copied from misnamed `KeepAwakeModule.k` (wrong extension, Kotlin compiler ignored it)
+3. Signing — `build.gradle` auto-falls back to debug keystore if release credentials are absent
