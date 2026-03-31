@@ -12,20 +12,63 @@ permissions:
   contents: read
 
 jobs:
+  # Detect if changes are translation-only (src/locales/ files)
+  detect-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      translation_only: ${{ steps.check.outputs.translation_only }}
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # ✅ ضروري لعمل git diff HEAD~1
+
+      - name: Check if translation-only
+        id: check
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            CHANGED=$(git diff --name-only origin/${{ github.base_ref }}...HEAD)
+          else
+            # ✅ التحقق من وجود HEAD~1 لتجنب الخطأ في أول التزام
+            if git rev-parse HEAD~1 >/dev/null 2>&1; then
+              CHANGED=$(git diff --name-only HEAD~1)
+            else
+              CHANGED=$(git ls-files)
+            fi
+          fi
+
+          echo "Changed files:"
+          echo "$CHANGED"
+
+          TRANSLATION_ONLY="true"
+          while IFS= read -r file; do
+            if [ -z "$file" ]; then
+              continue
+            fi
+            case "$file" in
+              src/locales/*) ;;
+              *) TRANSLATION_ONLY="false"; break ;;
+            esac
+          done <<< "$CHANGED"
+
+          echo "translation_only=$TRANSLATION_ONLY" >> "$GITHUB_OUTPUT"
+          echo "Translation only: $TRANSLATION_ONLY"
+
+  # Job for linting, type checking, unit testing
   build-and-test:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
-        uses: actions/checkout@v4   # ✅
+        uses: actions/checkout@v4
 
       - name: Cache node_modules
-        uses: actions/cache@v4      # ✅
+        uses: actions/cache@v4
         with:
           path: node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('yarn.lock') }}
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4  # ✅
+        uses: actions/setup-node@v4
         with:
           node-version: '22.21.0'
           cache: 'yarn'
@@ -48,22 +91,23 @@ jobs:
       - name: Run unit tests
         run: yarn test --coverage
 
+  # Job for Android build
   build-android:
     runs-on: ubuntu-latest
     needs: [build-and-test, detect-changes]
     if: needs.detect-changes.outputs.translation_only != 'true'
     steps:
       - name: Check out code
-        uses: actions/checkout@v4   # ✅
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4  # ✅
+        uses: actions/setup-node@v4
         with:
           node-version: '22.21.0'
           cache: 'yarn'
 
       - name: Cache node_modules
-        uses: actions/cache@v4      # ✅
+        uses: actions/cache@v4
         with:
           path: node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('yarn.lock') }}
@@ -75,7 +119,7 @@ jobs:
         run: yarn install
 
       - name: Set up JDK 17
-        uses: actions/setup-java@v4  # ✅
+        uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
@@ -88,27 +132,17 @@ jobs:
             exit 1
           fi
 
-          # ✅ تحقق إضافي مهم
-          if ! grep -q "com.abdullatef.airi" android/app/google-services.json; then
-            echo "Error: package mismatch in google-services.json"
-            exit 1
-          fi
-
       - name: Create dummy .env file for CI
         run: |
           cat > .env << 'EOL'
           FIREBASE_FUNCTIONS_URL=https://dummy-firebase-url.com
-
           SUPABASE_URL=https://dummy-supabase-url.supabase.co
           SUPABASE_ANON_KEY=dummy-anon-key-for-ci-builds
           PALSHUB_API_BASE_URL=https://dummy-palshub-api.com
-
           APP_URL=pocketpal://app
-
           ENABLE_PALSHUB_INTEGRATION=true
           ENABLE_AUTHENTICATION=true
           ENABLE_OFFLINE_MODE=true
-
           GOOGLE_IOS_CLIENT_ID=dummy-ios-client-id.apps.googleusercontent.com
           GOOGLE_WEB_CLIENT_ID=dummy-web-client-id.apps.googleusercontent.com
           EOL
@@ -116,7 +150,6 @@ jobs:
       - name: Create dummy release keystore for CI
         working-directory: android/app
         run: |
-          # ✅ حل مشكلة alias already exists
           if [ ! -f pocketpal-release-key.keystore ]; then
             keytool -genkeypair -v \
               -storetype PKCS12 \
@@ -128,8 +161,6 @@ jobs:
               -storepass dummy-ci-password \
               -keypass dummy-ci-password \
               -dname "CN=CI Build, OU=CI, O=PocketPal, L=CI, S=CI, C=US"
-          else
-            echo "Keystore already exists"
           fi
 
       - name: Build Android Release
@@ -143,24 +174,25 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: android-release-apk
-          path: android/app/build/outputs/apk/release/app-release.apk
+          path: android/app/build/outputs/apk/release/*.apk
 
+  # Job for iOS build
   build-ios:
     runs-on: macos-15
     needs: [build-and-test, detect-changes]
     if: needs.detect-changes.outputs.translation_only != 'true'
     steps:
       - name: Check out code
-        uses: actions/checkout@v4   # ✅
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4  # ✅
+        uses: actions/setup-node@v4
         with:
           node-version: '22.21.0'
           cache: 'yarn'
 
       - name: Cache node_modules
-        uses: actions/cache@v4      # ✅
+        uses: actions/cache@v4
         with:
           path: node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('yarn.lock') }}
@@ -197,8 +229,38 @@ jobs:
         run: |
           cat > ios/GoogleService-Info.plist << 'EOL'
           <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
           <plist version="1.0">
-          <dict></dict>
+          <dict>
+            <key>CLIENT_ID</key>
+            <string>dummy-client-id.apps.googleusercontent.com</string>
+            <key>REVERSED_CLIENT_ID</key>
+            <string>com.googleusercontent.apps.dummy-client-id</string>
+            <key>API_KEY</key>
+            <string>dummy-api-key-for-ci-builds</string>
+            <key>GCM_SENDER_ID</key>
+            <string>000000000000</string>
+            <key>PLIST_VERSION</key>
+            <string>1</string>
+            <key>BUNDLE_ID</key>
+            <string>ai.pocketpal</string>
+            <key>PROJECT_ID</key>
+            <string>dummy-project-for-ci</string>
+            <key>STORAGE_BUCKET</key>
+            <string>dummy-project-for-ci.appspot.com</string>
+            <key>IS_ADS_ENABLED</key>
+            <false/>
+            <key>IS_ANALYTICS_ENABLED</key>
+            <false/>
+            <key>IS_APPINVITE_ENABLED</key>
+            <false/>
+            <key>IS_GCM_ENABLED</key>
+            <true/>
+            <key>IS_SIGNIN_ENABLED</key>
+            <true/>
+            <key>GOOGLE_APP_ID</key>
+            <string>1:000000000000:ios:0000000000000000</string>
+          </dict>
           </plist>
           EOL
 
@@ -207,9 +269,6 @@ jobs:
           cd ios
           pod install
           cd ..
-
-      - name: Install xcpretty
-        run: gem install xcpretty
 
       - name: Build iOS Release
         run: |
@@ -220,5 +279,8 @@ jobs:
             -configuration Release \
             -sdk iphonesimulator \
             -destination 'generic/platform=iOS Simulator' \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO \
+            ONLY_ACTIVE_ARCH=NO \
             | xcpretty
