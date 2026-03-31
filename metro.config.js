@@ -1,6 +1,5 @@
 const {getDefaultConfig, mergeConfig} = require('@react-native/metro-config');
-
-//const localPackagePaths = ['localpath/code/llama.rn'];
+const path = require('path');
 
 /**
  * Metro configuration
@@ -14,9 +13,11 @@ const {assetExts, sourceExts} = defaultConfig.resolver;
 
 const config = {
   resolver: {
-    //nodeModulesPaths: [...localPackagePaths], // update to resolver
     assetExts: assetExts.filter(ext => ext !== 'svg'),
     sourceExts: [...sourceExts, 'svg'],
+    blockList: [
+      new RegExp(`${path.join(__dirname, '.local').replace(/\\/g, '\\\\')}.*`),
+    ],
   },
   transformer: {
     babelTransformerPath: require.resolve(
@@ -28,10 +29,13 @@ const config = {
         inlineRequires: true,
       },
     }),
-    // Make sure decorators are properly transformed
     enableBabelRuntime: true,
   },
-  //watchFolders: [...localPackagePaths],
+  server: {
+    enhanceMiddleware: (middleware) => {
+      return middleware;
+    },
+  },
 };
 
 module.exports = mergeConfig(getDefaultConfig(__dirname), config);
