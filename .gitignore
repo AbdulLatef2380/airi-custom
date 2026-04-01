@@ -94,3 +94,10 @@ e2e/testspec-*-allmodels.yml
 # E2E pipeline
 e2e/devices.json
 e2e/reports/
+
+# Replit internal files
+.agents/
+attached_assets/
+
+# Non-standard icon master (oversized, not a real Android resource)
+android/app/src/main/res/mipmap-xxxhdpi/icon_master_1024.png
