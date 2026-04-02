@@ -1,4 +1,4 @@
-const {getDefaultConfig, mergeConfig} = require('@react-native/metro-config');
+const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config');
 const path = require('path');
 
 /**
@@ -9,7 +9,7 @@ const path = require('path');
  */
 
 const defaultConfig = getDefaultConfig(__dirname);
-const {assetExts, sourceExts} = defaultConfig.resolver;
+const { assetExts, sourceExts } = defaultConfig.resolver;
 
 const config = {
   resolver: {
@@ -32,10 +32,10 @@ const config = {
     enableBabelRuntime: true,
   },
   server: {
-    enhanceMiddleware: (middleware) => {
+    enhanceMiddleware: middleware => {
       return middleware;
     },
   },
 };
 
-module.exports = mergeConfig(getDefaultConfig(__dirname), config);
+module.exports = mergeConfig(defaultConfig, config);
