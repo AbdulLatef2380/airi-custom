@@ -1,6 +1,6 @@
 // Import the mocked module
 jest.mock('../src/utils/keepAwake');
-import {activateKeepAwake, deactivateKeepAwake} from '../src/utils/keepAwake';
+import { activateKeepAwake, deactivateKeepAwake } from '../src/utils/keepAwake';
 
 describe('keepAwake', () => {
   beforeEach(() => {

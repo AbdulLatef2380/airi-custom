@@ -22,14 +22,14 @@ describe('fetchModels', () => {
 
   it('returns model list from server', async () => {
     const mockModels = [
-      {id: 'model-1', object: 'model', owned_by: 'system'},
-      {id: 'model-2', object: 'model', owned_by: 'library'},
+      { id: 'model-1', object: 'model', owned_by: 'system' },
+      { id: 'model-2', object: 'model', owned_by: 'library' },
     ];
 
     global.fetch = jest.fn().mockResolvedValueOnce({
       ok: true,
       headers: mockHeaders(),
-      json: () => Promise.resolve({data: mockModels}),
+      json: () => Promise.resolve({ data: mockModels }),
     });
 
     const result = await fetchModels('http://localhost:1234');
@@ -38,7 +38,7 @@ describe('fetchModels', () => {
       'http://localhost:1234/v1/models',
       expect.objectContaining({
         method: 'GET',
-        headers: {'Content-Type': 'application/json'},
+        headers: { 'Content-Type': 'application/json' },
       }),
     );
     expect(result).toEqual(mockModels);
@@ -48,7 +48,7 @@ describe('fetchModels', () => {
     global.fetch = jest.fn().mockResolvedValueOnce({
       ok: true,
       headers: mockHeaders(),
-      json: () => Promise.resolve({data: []}),
+      json: () => Promise.resolve({ data: [] }),
     });
 
     await fetchModels('http://localhost:1234', 'sk-test-key');
@@ -103,7 +103,7 @@ describe('fetchModels', () => {
     global.fetch = jest.fn().mockResolvedValueOnce({
       ok: true,
       headers: mockHeaders(),
-      json: () => Promise.resolve({data: []}),
+      json: () => Promise.resolve({ data: [] }),
     });
 
     await fetchModels('http://localhost:1234///');
@@ -121,12 +121,12 @@ describe('fetchModelsWithHeaders', () => {
   });
 
   it('returns models and response headers', async () => {
-    const mockModels = [{id: 'model-1', object: 'model', owned_by: 'system'}];
+    const mockModels = [{ id: 'model-1', object: 'model', owned_by: 'system' }];
 
     global.fetch = jest.fn().mockResolvedValueOnce({
       ok: true,
-      headers: mockHeaders({server: 'llama.cpp'}),
-      json: () => Promise.resolve({data: mockModels}),
+      headers: mockHeaders({ server: 'llama.cpp' }),
+      json: () => Promise.resolve({ data: mockModels }),
     });
 
     const result = await fetchModelsWithHeaders('http://localhost:8080');
@@ -144,8 +144,8 @@ describe('detectServerType', () => {
   it('detects llama.cpp from Server header', async () => {
     const result = await detectServerType(
       'http://localhost:8080',
-      [{id: 'model-1', object: 'model', owned_by: 'system'}],
-      {server: 'llama.cpp'},
+      [{ id: 'model-1', object: 'model', owned_by: 'system' }],
+      { server: 'llama.cpp' },
     );
     expect(result).toBe('llama.cpp');
   });
@@ -153,7 +153,7 @@ describe('detectServerType', () => {
   it('detects LM Studio from owned_by field', async () => {
     const result = await detectServerType(
       'http://localhost:1234',
-      [{id: 'model-1', object: 'model', owned_by: 'organization_owner'}],
+      [{ id: 'model-1', object: 'model', owned_by: 'organization_owner' }],
       {},
     );
     expect(result).toBe('LM Studio');
@@ -166,13 +166,13 @@ describe('detectServerType', () => {
 
     const result = await detectServerType(
       'http://localhost:11434',
-      [{id: 'model-1', object: 'model', owned_by: 'ollama'}],
+      [{ id: 'model-1', object: 'model', owned_by: 'ollama' }],
       {},
     );
     expect(result).toBe('Ollama');
     expect(global.fetch).toHaveBeenCalledWith(
       'http://localhost:11434',
-      expect.objectContaining({method: 'GET'}),
+      expect.objectContaining({ method: 'GET' }),
     );
   });
 
@@ -183,7 +183,7 @@ describe('detectServerType', () => {
 
     const result = await detectServerType(
       'http://localhost:9999',
-      [{id: 'model-1', object: 'model', owned_by: 'custom'}],
+      [{ id: 'model-1', object: 'model', owned_by: 'custom' }],
       {},
     );
     expect(result).toBe('');
@@ -194,7 +194,7 @@ describe('detectServerType', () => {
 
     const result = await detectServerType(
       'http://localhost:9999',
-      [{id: 'model-1', object: 'model', owned_by: 'custom'}],
+      [{ id: 'model-1', object: 'model', owned_by: 'custom' }],
       {},
     );
     expect(result).toBe('');
@@ -203,8 +203,8 @@ describe('detectServerType', () => {
   it('prefers llama.cpp header over LM Studio owned_by', async () => {
     const result = await detectServerType(
       'http://localhost:8080',
-      [{id: 'model-1', object: 'model', owned_by: 'organization_owner'}],
-      {server: 'llama.cpp'},
+      [{ id: 'model-1', object: 'model', owned_by: 'organization_owner' }],
+      { server: 'llama.cpp' },
     );
     expect(result).toBe('llama.cpp');
   });
@@ -217,19 +217,19 @@ describe('testConnection', () => {
 
   it('returns ok with model count on success', async () => {
     const mockModels = [
-      {id: 'model-1', object: 'model', owned_by: 'system'},
-      {id: 'model-2', object: 'model', owned_by: 'system'},
-      {id: 'model-3', object: 'model', owned_by: 'system'},
+      { id: 'model-1', object: 'model', owned_by: 'system' },
+      { id: 'model-2', object: 'model', owned_by: 'system' },
+      { id: 'model-3', object: 'model', owned_by: 'system' },
     ];
 
     global.fetch = jest.fn().mockResolvedValueOnce({
       ok: true,
       headers: mockHeaders(),
-      json: () => Promise.resolve({data: mockModels}),
+      json: () => Promise.resolve({ data: mockModels }),
     });
 
     const result = await testConnection('http://localhost:1234');
-    expect(result).toEqual({ok: true, modelCount: 3});
+    expect(result).toEqual({ ok: true, modelCount: 3 });
   });
 
   it('returns error on failure', async () => {
@@ -361,7 +361,7 @@ describe('streamChatCompletion', () => {
   it('streams tokens and returns full completion result', async () => {
     const onToken = jest.fn();
     const resultPromise = streamChatCompletion(
-      {messages: [{role: 'user', content: 'Hi'}], model: 'test-model'},
+      { messages: [{ role: 'user', content: 'Hi' }], model: 'test-model' },
       'http://localhost:1234',
       undefined,
       undefined,
@@ -399,17 +399,17 @@ describe('streamChatCompletion', () => {
     expect(onToken).toHaveBeenCalledTimes(2);
     // content is accumulated (matching llama.rn behavior), token is delta
     expect(onToken).toHaveBeenCalledWith(
-      expect.objectContaining({content: 'Hello', token: 'Hello'}),
+      expect.objectContaining({ content: 'Hello', token: 'Hello' }),
     );
     expect(onToken).toHaveBeenCalledWith(
-      expect.objectContaining({content: 'Hello world', token: ' world'}),
+      expect.objectContaining({ content: 'Hello world', token: ' world' }),
     );
   });
 
   it('sends correct request headers and body', async () => {
     const resultPromise = streamChatCompletion(
       {
-        messages: [{role: 'user', content: 'Hi'}],
+        messages: [{ role: 'user', content: 'Hi' }],
         model: 'test-model',
         temperature: 0.7,
         top_p: 0.9,
@@ -447,7 +447,7 @@ describe('streamChatCompletion', () => {
 
   it('maps finish_reason "length" to stopped_limit', async () => {
     const resultPromise = streamChatCompletion(
-      {messages: [{role: 'user', content: 'Hi'}], model: 'test-model'},
+      { messages: [{ role: 'user', content: 'Hi' }], model: 'test-model' },
       'http://localhost:1234',
     );
 
@@ -468,7 +468,7 @@ describe('streamChatCompletion', () => {
 
   it('maps finish_reason "content_filter" to interrupted', async () => {
     const resultPromise = streamChatCompletion(
-      {messages: [{role: 'user', content: 'Hi'}], model: 'test-model'},
+      { messages: [{ role: 'user', content: 'Hi' }], model: 'test-model' },
       'http://localhost:1234',
     );
 
@@ -489,7 +489,7 @@ describe('streamChatCompletion', () => {
   it('skips malformed SSE events', async () => {
     const onToken = jest.fn();
     const resultPromise = streamChatCompletion(
-      {messages: [{role: 'user', content: 'Hi'}], model: 'test-model'},
+      { messages: [{ role: 'user', content: 'Hi' }], model: 'test-model' },
       'http://localhost:1234',
       undefined,
       undefined,
@@ -513,7 +513,7 @@ describe('streamChatCompletion', () => {
   it('handles reasoning_content in streaming delta', async () => {
     const onToken = jest.fn();
     const resultPromise = streamChatCompletion(
-      {messages: [{role: 'user', content: 'Hi'}], model: 'test-model'},
+      { messages: [{ role: 'user', content: 'Hi' }], model: 'test-model' },
       'http://localhost:1234',
       undefined,
       undefined,
@@ -538,14 +538,14 @@ describe('streamChatCompletion', () => {
     expect(result.content).toBe('answer');
     expect(onToken).toHaveBeenCalledTimes(2);
     expect(onToken).toHaveBeenCalledWith(
-      expect.objectContaining({reasoning_content: 'thinking...'}),
+      expect.objectContaining({ reasoning_content: 'thinking...' }),
     );
   });
 
   it('handles delta.reasoning field (LM Studio format)', async () => {
     const onToken = jest.fn();
     const resultPromise = streamChatCompletion(
-      {messages: [{role: 'user', content: 'Hi'}], model: 'test-model'},
+      { messages: [{ role: 'user', content: 'Hi' }], model: 'test-model' },
       'http://localhost:1234',
       undefined,
       undefined,
@@ -570,18 +570,18 @@ describe('streamChatCompletion', () => {
     expect(result.content).toBe('answer');
     expect(onToken).toHaveBeenCalledTimes(2);
     expect(onToken).toHaveBeenCalledWith(
-      expect.objectContaining({reasoning_content: 'let me think...'}),
+      expect.objectContaining({ reasoning_content: 'let me think...' }),
     );
   });
 
   it('rejects on 401 response', async () => {
     const resultPromise = streamChatCompletion(
-      {messages: [{role: 'user', content: 'Hi'}], model: 'test-model'},
+      { messages: [{ role: 'user', content: 'Hi' }], model: 'test-model' },
       'http://localhost:1234',
     );
 
     const xhr = MockXHR.instances[0];
-    xhr.simulateErrorResponse(401, {error: {message: 'Invalid API key'}});
+    xhr.simulateErrorResponse(401, { error: { message: 'Invalid API key' } });
 
     await expect(resultPromise).rejects.toThrow(
       'Unauthorized: Invalid or missing API key',
@@ -590,7 +590,7 @@ describe('streamChatCompletion', () => {
 
   it('rejects on network error', async () => {
     const resultPromise = streamChatCompletion(
-      {messages: [{role: 'user', content: 'Hi'}], model: 'test-model'},
+      { messages: [{ role: 'user', content: 'Hi' }], model: 'test-model' },
       'http://localhost:1234',
     );
 
@@ -602,13 +602,13 @@ describe('streamChatCompletion', () => {
 
   it('rejects on server error response with body', async () => {
     const resultPromise = streamChatCompletion(
-      {messages: [{role: 'user', content: 'Hi'}], model: 'test-model'},
+      { messages: [{ role: 'user', content: 'Hi' }], model: 'test-model' },
       'http://localhost:1234',
     );
 
     const xhr = MockXHR.instances[0];
     xhr.simulateErrorResponse(500, {
-      error: {message: 'Internal Server Error'},
+      error: { message: 'Internal Server Error' },
     });
 
     await expect(resultPromise).rejects.toThrow(
@@ -619,7 +619,7 @@ describe('streamChatCompletion', () => {
   it('handles abort via AbortController', async () => {
     const controller = new AbortController();
     const resultPromise = streamChatCompletion(
-      {messages: [{role: 'user', content: 'Hi'}], model: 'test-model'},
+      { messages: [{ role: 'user', content: 'Hi' }], model: 'test-model' },
       'http://localhost:1234',
       undefined,
       controller.signal,
@@ -641,7 +641,7 @@ describe('streamChatCompletion', () => {
 
   it('captures server-side timings from SSE events (llama.cpp)', async () => {
     const resultPromise = streamChatCompletion(
-      {messages: [{role: 'user', content: 'Hi'}], model: 'test-model'},
+      { messages: [{ role: 'user', content: 'Hi' }], model: 'test-model' },
       'http://localhost:1234',
     );
 
@@ -670,7 +670,7 @@ describe('streamChatCompletion', () => {
 
   it('returns no timings when server does not provide them', async () => {
     const resultPromise = streamChatCompletion(
-      {messages: [{role: 'user', content: 'Hi'}], model: 'test-model'},
+      { messages: [{ role: 'user', content: 'Hi' }], model: 'test-model' },
       'http://localhost:1234',
     );
 
@@ -694,7 +694,7 @@ describe('streamChatCompletion', () => {
 
     await expect(
       streamChatCompletion(
-        {messages: [{role: 'user', content: 'Hi'}], model: 'test-model'},
+        { messages: [{ role: 'user', content: 'Hi' }], model: 'test-model' },
         'http://localhost:1234',
         undefined,
         controller.signal,

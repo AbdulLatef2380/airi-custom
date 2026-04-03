@@ -9,12 +9,12 @@ describe('PalsHubApiService', () => {
   });
 
   it('throws when PALSHUB_API_BASE_URL is not configured', async () => {
-    jest.doMock('@env', () => ({PALSHUB_API_BASE_URL: undefined}));
+    jest.doMock('@env', () => ({ PALSHUB_API_BASE_URL: undefined }));
     jest.doMock('../supabase', () => ({
       getAuthHeaders: jest.fn().mockResolvedValue({}),
     }));
 
-    const {palsHubApiService, PalsHubError} = require('../PalsHubApiService');
+    const { palsHubApiService, PalsHubError } = require('../PalsHubApiService');
 
     await expect(palsHubApiService.getPals()).rejects.toThrow(PalsHubError);
     await expect(palsHubApiService.getPals()).rejects.toThrow(
@@ -23,7 +23,7 @@ describe('PalsHubApiService', () => {
   });
 
   it('builds correct URL and maps response in getPals', async () => {
-    jest.doMock('@env', () => ({PALSHUB_API_BASE_URL: 'https://api.test'}));
+    jest.doMock('@env', () => ({ PALSHUB_API_BASE_URL: 'https://api.test' }));
     jest.doMock('../supabase', () => ({
       getAuthHeaders: jest.fn().mockResolvedValue({}),
     }));
@@ -33,12 +33,12 @@ describe('PalsHubApiService', () => {
       ok: true,
       json: async () => ({
         pals: [],
-        pagination: {page: 2, limit: 5, total: 0, has_more: false},
+        pagination: { page: 2, limit: 5, total: 0, has_more: false },
         filters_applied: {},
       }),
     });
 
-    const {palsHubApiService} = require('../PalsHubApiService');
+    const { palsHubApiService } = require('../PalsHubApiService');
 
     const result = await palsHubApiService.getPals({
       query: 'foo',
@@ -65,14 +65,14 @@ describe('PalsHubApiService', () => {
   });
 
   it('enforces auth guards for getLibrary', async () => {
-    jest.doMock('@env', () => ({PALSHUB_API_BASE_URL: 'https://api.test'}));
+    jest.doMock('@env', () => ({ PALSHUB_API_BASE_URL: 'https://api.test' }));
     jest.doMock('../supabase', () => ({
       getAuthHeaders: jest.fn().mockResolvedValue({}),
     }));
 
     // case: no user
     jest.doMock('../AuthService', () => ({
-      authService: {user: null, session: {access_token: 't'}},
+      authService: { user: null, session: { access_token: 't' } },
     }));
     const api1 = require('../PalsHubApiService');
     await expect(api1.palsHubApiService.getLibrary()).rejects.toThrow(
@@ -81,12 +81,12 @@ describe('PalsHubApiService', () => {
 
     // fresh module for case: no session
     jest.resetModules();
-    jest.doMock('@env', () => ({PALSHUB_API_BASE_URL: 'https://api.test'}));
+    jest.doMock('@env', () => ({ PALSHUB_API_BASE_URL: 'https://api.test' }));
     jest.doMock('../supabase', () => ({
       getAuthHeaders: jest.fn().mockResolvedValue({}),
     }));
     jest.doMock('../AuthService', () => ({
-      authService: {user: {id: 'u1'}, session: null},
+      authService: { user: { id: 'u1' }, session: null },
     }));
     const api2 = require('../PalsHubApiService');
     await expect(api2.palsHubApiService.getLibrary()).rejects.toThrow(
@@ -103,12 +103,12 @@ describe('PalsHubApiService', () => {
         PALSHUB_API_BASE_URL: 'https://api.test.com',
       }));
       jest.doMock('../AuthService', () => ({
-        authService: {user: null, session: null},
+        authService: { user: null, session: null },
       }));
       jest.doMock('../supabase', () => ({
         getAuthHeaders: jest.fn().mockResolvedValue({}),
       }));
-      const {palsHubApiService} = require('../PalsHubApiService');
+      const { palsHubApiService } = require('../PalsHubApiService');
       service = palsHubApiService;
     });
 
@@ -125,9 +125,9 @@ describe('PalsHubApiService', () => {
           display_name: 'Test Creator',
           avatar_url: 'https://example.com/avatar.jpg',
         },
-        categories: [{id: 'cat-1', name: 'Productivity', icon: 'briefcase'}],
-        tags: [{id: 'tag-1', name: 'writing'}],
-        stats: {rating: 4.5, review_count: 42},
+        categories: [{ id: 'cat-1', name: 'Productivity', icon: 'briefcase' }],
+        tags: [{ id: 'tag-1', name: 'writing' }],
+        stats: { rating: 4.5, review_count: 42 },
         is_owned: true,
         created_at: '2024-01-01T00:00:00Z',
         updated_at: '2024-01-02T00:00:00Z',
@@ -139,7 +139,7 @@ describe('PalsHubApiService', () => {
           downloadUrl: 'https://example.com/model.gguf',
           size: 1024000,
         },
-        model_settings: {temperature: 0.7},
+        model_settings: { temperature: 0.7 },
         protection_level: 'reveal_on_purchase' as const,
       };
 
@@ -163,7 +163,7 @@ describe('PalsHubApiService', () => {
         is_free: true,
         categories: [],
         tags: [],
-        stats: {rating: null, review_count: 0},
+        stats: { rating: null, review_count: 0 },
         is_owned: false,
         created_at: '2024-01-01T00:00:00Z',
       };
@@ -185,7 +185,7 @@ describe('PalsHubApiService', () => {
         is_free: true,
         categories: [],
         tags: [],
-        stats: {rating: null, review_count: 0},
+        stats: { rating: null, review_count: 0 },
         is_owned: false,
         created_at: '2024-01-01T00:00:00Z',
       };
@@ -205,14 +205,14 @@ describe('PalsHubApiService', () => {
         price_cents: 0,
         is_free: true,
         categories: [
-          {id: 'cat-1', name: 'Productivity', icon: 'briefcase'},
-          {id: 'cat-2', name: 'Creative'},
+          { id: 'cat-1', name: 'Productivity', icon: 'briefcase' },
+          { id: 'cat-2', name: 'Creative' },
         ],
         tags: [
-          {id: 'tag-1', name: 'writing'},
-          {id: 'tag-2', name: 'coding'},
+          { id: 'tag-1', name: 'writing' },
+          { id: 'tag-2', name: 'coding' },
         ],
-        stats: {rating: null, review_count: 0},
+        stats: { rating: null, review_count: 0 },
         is_owned: false,
         created_at: '2024-01-01T00:00:00Z',
       };
@@ -235,7 +235,7 @@ describe('PalsHubApiService', () => {
         is_free: true,
         categories: [],
         tags: [],
-        stats: {rating: null, review_count: 0},
+        stats: { rating: null, review_count: 0 },
         is_owned: false,
         created_at: '2024-01-01T00:00:00Z',
       };
@@ -261,7 +261,7 @@ describe('PalsHubApiService', () => {
           is_free: true,
           categories: [],
           tags: [],
-          stats: {rating: null, review_count: 0},
+          stats: { rating: null, review_count: 0 },
           is_owned: false,
           created_at: '2024-01-01T00:00:00Z',
           protection_level: level,
@@ -280,14 +280,14 @@ describe('PalsHubApiService', () => {
         is_free: true,
         categories: [],
         tags: [],
-        stats: {rating: null, review_count: 0},
+        stats: { rating: null, review_count: 0 },
         is_owned: false,
         created_at: '2024-01-01T00:00:00Z',
         model_settings: {
           temperature: 0.8,
           top_p: 0.95,
           custom: 'value',
-          nested: {param: 'test'},
+          nested: { param: 'test' },
         },
       };
 
@@ -297,7 +297,7 @@ describe('PalsHubApiService', () => {
         temperature: 0.8,
         top_p: 0.95,
         custom: 'value',
-        nested: {param: 'test'},
+        nested: { param: 'test' },
       });
     });
   });

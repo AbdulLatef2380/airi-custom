@@ -1,7 +1,7 @@
 import React from 'react';
 
-import {render} from '../../../../../jest/test-utils';
-import {FABGroup} from '../FABGroup';
+import { render } from '../../../../../jest/test-utils';
+import { FABGroup } from '../FABGroup';
 
 // FAB.Group from react-native-paper renders all action items in the tree but
 // marks them as hidden (accessibilityElementsHidden) when closed.
@@ -18,58 +18,58 @@ describe('FABGroup', () => {
   });
 
   it('renders the FAB group', () => {
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <FABGroup
         onAddHFModel={mockOnAddHFModel}
         onAddLocalModel={mockOnAddLocalModel}
         onAddRemoteModel={mockOnAddRemoteModel}
       />,
-      {withNavigation: true},
+      { withNavigation: true },
     );
 
     expect(getByTestId('fab-group')).toBeTruthy();
   });
 
   it('renders all three action buttons (HF, local, remote)', () => {
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <FABGroup
         onAddHFModel={mockOnAddHFModel}
         onAddLocalModel={mockOnAddLocalModel}
         onAddRemoteModel={mockOnAddRemoteModel}
       />,
-      {withNavigation: true},
+      { withNavigation: true },
     );
 
     // FAB actions are rendered but hidden when FAB is closed; query with
     // includeHiddenElements following the existing ModelsScreen test pattern
-    expect(getByTestId('hf-fab', {includeHiddenElements: true})).toBeTruthy();
+    expect(getByTestId('hf-fab', { includeHiddenElements: true })).toBeTruthy();
     expect(
-      getByTestId('local-fab', {includeHiddenElements: true}),
+      getByTestId('local-fab', { includeHiddenElements: true }),
     ).toBeTruthy();
     expect(
-      getByTestId('remote-fab', {includeHiddenElements: true}),
+      getByTestId('remote-fab', { includeHiddenElements: true }),
     ).toBeTruthy();
   });
 
   it('renders accessibility labels for all actions', () => {
-    const {getByLabelText} = render(
+    const { getByLabelText } = render(
       <FABGroup
         onAddHFModel={mockOnAddHFModel}
         onAddLocalModel={mockOnAddLocalModel}
         onAddRemoteModel={mockOnAddRemoteModel}
       />,
-      {withNavigation: true},
+      { withNavigation: true },
     );
 
     // Accessibility labels for screen readers
     expect(
-      getByLabelText('Add from Hugging Face', {includeHiddenElements: true}),
+      getByLabelText('Add from Hugging Face', { includeHiddenElements: true }),
     ).toBeTruthy();
     expect(
-      getByLabelText('Add Local Model', {includeHiddenElements: true}),
+      getByLabelText('Add Local Model', { includeHiddenElements: true }),
     ).toBeTruthy();
     expect(
-      getByLabelText('Add Remote Model', {includeHiddenElements: true}),
+      getByLabelText('Add Remote Model', { includeHiddenElements: true }),
     ).toBeTruthy();
   });
 });

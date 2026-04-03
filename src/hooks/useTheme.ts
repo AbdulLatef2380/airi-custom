@@ -1,9 +1,9 @@
-import {useTheme as usePaperTheme, MD3Theme} from 'react-native-paper';
+import { useTheme as usePaperTheme, MD3Theme } from 'react-native-paper';
 
-import {uiStore} from '../store';
+import { uiStore } from '../store';
 
-import {Theme} from '../utils/types';
-import {darkTheme, lightTheme} from '../utils/theme';
+import { Theme } from '../utils/types';
+import { darkTheme, lightTheme } from '../utils/theme';
 
 export const useTheme = (): Theme => {
   const paperTheme = usePaperTheme<MD3Theme>();

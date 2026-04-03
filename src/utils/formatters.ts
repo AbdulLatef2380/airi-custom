@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
-import {l10n} from '../locales';
-import {defaultModels} from '../store/defaultModels';
-import {ModelOrigin} from './types';
+import { l10n } from '../locales';
+import { defaultModels } from '../store/defaultModels';
+import { ModelOrigin } from './types';
 
 /**
  * Formats a byte value into a human-readable string with appropriate units
@@ -191,7 +191,7 @@ export const getOriginalModelName = (model: {
   // For preset models, look up the original name from defaultModels
   if (model.origin === ModelOrigin.PRESET) {
     const defaultModel = defaultModels.find(
-      (dm: {id: string}) => dm.id === model.id,
+      (dm: { id: string }) => dm.id === model.id,
     );
     if (defaultModel) {
       return defaultModel.name;

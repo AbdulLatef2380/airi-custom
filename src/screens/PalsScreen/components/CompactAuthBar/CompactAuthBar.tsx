@@ -1,13 +1,13 @@
-import React, {useContext} from 'react';
-import {View} from 'react-native';
-import {Text, Button, IconButton} from 'react-native-paper';
-import {observer} from 'mobx-react-lite';
+import React, { useContext } from 'react';
+import { View } from 'react-native';
+import { Text, Button, IconButton } from 'react-native-paper';
+import { observer } from 'mobx-react-lite';
 
-import {LockIcon, XIcon} from '../../../../assets/icons';
+import { LockIcon, XIcon } from '../../../../assets/icons';
 
-import {useTheme} from '../../../../hooks';
-import {L10nContext} from '../../../../utils';
-import {createStyles} from './styles';
+import { useTheme } from '../../../../hooks';
+import { L10nContext } from '../../../../utils';
+import { createStyles } from './styles';
 
 interface CompactAuthBarProps {
   isAuthenticated: boolean;
@@ -18,7 +18,7 @@ interface CompactAuthBarProps {
 }
 
 export const CompactAuthBar: React.FC<CompactAuthBarProps> = observer(
-  ({isAuthenticated, onSignInPress, onDismiss}) => {
+  ({ isAuthenticated, onSignInPress, onDismiss }) => {
     const theme = useTheme();
     const styles = createStyles(theme);
     const l10n = useContext(L10nContext);

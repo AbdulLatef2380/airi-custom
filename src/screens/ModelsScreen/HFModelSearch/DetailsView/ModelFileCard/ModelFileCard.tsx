@@ -1,7 +1,7 @@
-import React, {FC, useState, useContext, useMemo} from 'react';
-import {Alert, View, StyleSheet, Pressable} from 'react-native';
-import {computed} from 'mobx';
-import {observer} from 'mobx-react';
+import React, { FC, useState, useContext, useMemo } from 'react';
+import { Alert, View, StyleSheet, Pressable } from 'react-native';
+import { computed } from 'mobx';
+import { observer } from 'mobx-react';
 import LinearGradient from 'react-native-linear-gradient';
 import {
   IconButton,
@@ -12,9 +12,9 @@ import {
   Chip,
 } from 'react-native-paper';
 
-import {useTheme, useMemoryCheck} from '../../../../../hooks';
-import {createStyles} from './styles';
-import {modelStore} from '../../../../../store';
+import { useTheme, useMemoryCheck } from '../../../../../hooks';
+import { createStyles } from './styles';
+import { modelStore } from '../../../../../store';
 import {
   formatBytes,
   hfAsModel,
@@ -23,16 +23,16 @@ import {
   getVisionModelSizeBreakdown,
   isVisionRepo,
 } from '../../../../../utils';
-import {t} from '../../../../../locales';
-import {isLegacyQuantization} from '../../../../../utils/modelSettings';
+import { t } from '../../../../../locales';
+import { isLegacyQuantization } from '../../../../../utils/modelSettings';
 import {
   HuggingFaceModel,
   Model,
   ModelFile,
   ModelOrigin,
 } from '../../../../../utils/types';
-import {VisionDownloadSheet} from '../../../../../components';
-import {ChevronRightIcon} from '../../../../../assets/icons';
+import { VisionDownloadSheet } from '../../../../../components';
+import { ChevronRightIcon } from '../../../../../assets/icons';
 
 interface ModelFileCardProps {
   modelFile: ModelFile;
@@ -47,7 +47,7 @@ type Warning = {
 };
 
 export const ModelFileCard: FC<ModelFileCardProps> = observer(
-  ({modelFile, hfModel}) => {
+  ({ modelFile, hfModel }) => {
     const [showWarning, setShowWarning] = useState(false);
     const [showVisionSheet, setShowVisionSheet] = useState(false);
     const theme = useTheme();
@@ -110,7 +110,7 @@ export const ModelFileCard: FC<ModelFileCardProps> = observer(
       [convertedModel, modelStore.models],
     );
 
-    const {shortMemoryWarning, multimodalWarning} = useMemoryCheck(
+    const { shortMemoryWarning, multimodalWarning } = useMemoryCheck(
       convertedModel,
       projectionModelForCheck,
     );
@@ -168,7 +168,7 @@ export const ModelFileCard: FC<ModelFileCardProps> = observer(
             l10n.models.modelFile.alerts.removeTitle,
             l10n.models.modelFile.alerts.removeMessage,
             [
-              {text: l10n.common.cancel, style: 'cancel'},
+              { text: l10n.common.cancel, style: 'cancel' },
               {
                 text: l10n.models.modelFile.buttons.remove,
                 onPress: () => {
@@ -204,7 +204,7 @@ export const ModelFileCard: FC<ModelFileCardProps> = observer(
       } else {
         // Direct download with default projection for all models
         // VisionDownloadSheet is only opened via the vision chip
-        modelStore.downloadHFModel(hfModel, modelFile, {enableVision: true});
+        modelStore.downloadHFModel(hfModel, modelFile, { enableVision: true });
       }
     };
 
@@ -223,7 +223,7 @@ export const ModelFileCard: FC<ModelFileCardProps> = observer(
           l10n.models.modelFile.alerts.deleteTitle,
           l10n.models.modelFile.alerts.deleteMessage,
           [
-            {text: l10n.common.cancel, style: 'cancel'},
+            { text: l10n.common.cancel, style: 'cancel' },
             {
               text: l10n.common.delete,
               onPress: async () => {
@@ -277,11 +277,11 @@ export const ModelFileCard: FC<ModelFileCardProps> = observer(
         <LinearGradient
           colors={[theme.dark ? HF_YELLOW + '90' : HF_YELLOW, 'transparent']}
           locations={[1, 1]}
-          start={{x: 0, y: 0}}
-          end={{x: 1, y: 0}}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 0 }}
           style={[
             StyleSheet.absoluteFill,
-            {width: `${downloadProgress}%`},
+            { width: `${downloadProgress}%` },
             styles.gradientBackground,
           ]}
         />
@@ -426,7 +426,7 @@ export const ModelFileCard: FC<ModelFileCardProps> = observer(
             action={{
               label: l10n.common.dismiss,
               onPress: handleDismissWarning,
-              labelStyle: {color: theme.colors.inverseSecondary},
+              labelStyle: { color: theme.colors.inverseSecondary },
             }}>
             <View style={styles.snackbarContent}>
               {warnings.map((warning, index) => (

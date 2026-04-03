@@ -1,4 +1,4 @@
-import {l10n, supportedLanguages} from '../../src/locales';
+import { l10n, supportedLanguages } from '../../src/locales';
 
 export class UIStore {
   static readonly GROUP_KEYS = {

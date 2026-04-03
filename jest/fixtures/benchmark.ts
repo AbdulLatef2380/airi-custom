@@ -1,4 +1,4 @@
-import {BenchmarkResult, DeviceInfo} from '../../src/utils/types';
+import { BenchmarkResult, DeviceInfo } from '../../src/utils/types';
 
 export const mockResult: BenchmarkResult = {
   config: {

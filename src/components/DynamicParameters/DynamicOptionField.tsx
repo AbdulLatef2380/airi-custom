@@ -1,10 +1,10 @@
 import React from 'react';
 
-import {Controller, useFormContext} from 'react-hook-form';
+import { Controller, useFormContext } from 'react-hook-form';
 
-import type {ParameterDefinition} from '../../types/pal';
+import type { ParameterDefinition } from '../../types/pal';
 
-import {Selector, SelectorOption} from '..';
+import { Selector, SelectorOption } from '..';
 
 interface DynamicOptionFieldProps {
   parameter: ParameterDefinition;
@@ -20,7 +20,7 @@ export const DynamicOptionField: React.FC<DynamicOptionFieldProps> = ({
   disabled = false,
   error,
 }) => {
-  const {control} = useFormContext();
+  const { control } = useFormContext();
 
   // Convert parameter options to selector options
   const options: SelectorOption[] = (parameter.options || []).map(option => ({
@@ -35,7 +35,7 @@ export const DynamicOptionField: React.FC<DynamicOptionFieldProps> = ({
       rules={{
         required: parameter.required ? `${parameter.label} is required` : false,
       }}
-      render={({field: {onChange, value}}) => (
+      render={({ field: { onChange, value } }) => (
         <Selector
           options={options}
           value={value || ''}

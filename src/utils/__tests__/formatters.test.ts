@@ -4,8 +4,8 @@ import {
   getDisplayNameFromFilename,
   getOriginalModelName,
 } from '../formatters';
-import {defaultModels} from '../../store/defaultModels';
-import {ModelOrigin} from '../types';
+import { defaultModels } from '../../store/defaultModels';
+import { ModelOrigin } from '../types';
 
 describe('formatBytes', () => {
   it('should format bytes correctly', () => {

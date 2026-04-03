@@ -1,19 +1,19 @@
-import type {ReactNode} from 'react';
-import React, {useContext} from 'react';
-import {View, TouchableOpacity, Animated} from 'react-native';
+import type { ReactNode } from 'react';
+import React, { useContext } from 'react';
+import { View, TouchableOpacity, Animated } from 'react-native';
 
-import {Text} from 'react-native-paper';
+import { Text } from 'react-native-paper';
 import Clipboard from '@react-native-clipboard/clipboard';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 
-import {useTheme} from '../../hooks';
+import { useTheme } from '../../hooks';
 
-import {styles} from './styles';
+import { styles } from './styles';
 
-import {UserContext, L10nContext} from '../../utils';
-import {MessageType} from '../../utils/types';
-import {t} from '../../locales';
+import { UserContext, L10nContext } from '../../utils';
+import { MessageType } from '../../utils/types';
+import { t } from '../../locales';
 
 const hapticOptions = {
   enableVibrateFallback: true,
@@ -36,7 +36,7 @@ export const Bubble = ({
   const user = useContext(UserContext);
   const l10n = useContext(L10nContext);
   const currentUserIsAuthor = user?.id === message.author.id;
-  const {copyable, timings} = message.metadata || {};
+  const { copyable, timings } = message.metadata || {};
 
   // Build timing string from whichever parts are available
   const timingParts: string[] = [];
@@ -63,7 +63,7 @@ export const Bubble = ({
   }
   const fullTimingsString = timingParts.join(', ');
 
-  const {contentContainer, dateHeaderContainer, dateHeader, iconContainer} =
+  const { contentContainer, dateHeaderContainer, dateHeader, iconContainer } =
     styles({
       currentUserIsAuthor,
       message,
@@ -84,7 +84,7 @@ export const Bubble = ({
       style={[
         contentContainer,
         {
-          transform: [{scale}],
+          transform: [{ scale }],
         },
       ]}>
       {child}

@@ -1,4 +1,4 @@
-import React, {useCallback, useState, useEffect, useMemo} from 'react';
+import React, { useCallback, useState, useEffect, useMemo } from 'react';
 import {
   Alert,
   Linking,
@@ -9,9 +9,9 @@ import {
   Platform,
 } from 'react-native';
 
-import {observer} from 'mobx-react-lite';
-import {useNavigation} from '@react-navigation/native';
-import {DrawerNavigationProp} from '@react-navigation/drawer';
+import { observer } from 'mobx-react-lite';
+import { useNavigation } from '@react-navigation/native';
+import { DrawerNavigationProp } from '@react-navigation/drawer';
 import {
   Card,
   Icon,
@@ -26,14 +26,17 @@ import {
   HelperText,
 } from 'react-native-paper';
 
-import {ProjectionModelSelector, MemoryRequirement} from '../../../components';
+import {
+  ProjectionModelSelector,
+  MemoryRequirement,
+} from '../../../components';
 
-import {useTheme, useMemoryCheck, useStorageCheck} from '../../../hooks';
+import { useTheme, useMemoryCheck, useStorageCheck } from '../../../hooks';
 
-import {createStyles} from './styles';
+import { createStyles } from './styles';
 
-import {uiStore, modelStore, serverStore} from '../../../store';
-import {t} from '../../../locales';
+import { uiStore, modelStore, serverStore } from '../../../store';
+import { t } from '../../../locales';
 
 import {
   Model,
@@ -80,7 +83,7 @@ if (
 }
 
 export const ModelCard: React.FC<ModelCardProps> = observer(
-  ({model, activeModelId, onOpenSettings, onOpenServerDetails}) => {
+  ({ model, activeModelId, onOpenSettings, onOpenServerDetails }) => {
     const l10n = React.useContext(L10nContext);
     const theme = useTheme();
     const styles = createStyles(theme);
@@ -110,9 +113,9 @@ export const ModelCard: React.FC<ModelCardProps> = observer(
       [model, modelStore.models],
     );
 
-    const {memoryWarning, shortMemoryWarning, multimodalWarning} =
+    const { memoryWarning, shortMemoryWarning, multimodalWarning } =
       useMemoryCheck(model, projectionModelForCheck);
-    const {isOk: storageOk, message: storageNOkMessage} = useStorageCheck(
+    const { isOk: storageOk, message: storageNOkMessage } = useStorageCheck(
       model,
       {
         enablePeriodicCheck: true,
@@ -137,7 +140,7 @@ export const ModelCard: React.FC<ModelCardProps> = observer(
     // Check integrity when model is downloaded (skip remote models — no local file)
     useEffect(() => {
       if (isDownloaded && !isRemoteModel) {
-        checkModelFileIntegrity(model).then(({errorMessage}) => {
+        checkModelFileIntegrity(model).then(({ errorMessage }) => {
           setIntegrityError(errorMessage);
         });
       } else {
@@ -172,7 +175,7 @@ export const ModelCard: React.FC<ModelCardProps> = observer(
             }
 
             Alert.alert(l10n.models.multimodal.cannotDeleteTitle, message, [
-              {text: l10n.common.ok, style: 'default'},
+              { text: l10n.common.ok, style: 'default' },
             ]);
             return;
           }
@@ -182,7 +185,7 @@ export const ModelCard: React.FC<ModelCardProps> = observer(
             l10n.models.multimodal.deleteProjectionTitle,
             l10n.models.multimodal.deleteProjectionMessage,
             [
-              {text: l10n.common.cancel, style: 'cancel'},
+              { text: l10n.common.cancel, style: 'cancel' },
               {
                 text: l10n.common.delete,
                 style: 'destructive',
@@ -196,7 +199,7 @@ export const ModelCard: React.FC<ModelCardProps> = observer(
                       error instanceof Error
                         ? error.message
                         : 'Unknown error occurred',
-                      [{text: l10n.common.ok, style: 'default'}],
+                      [{ text: l10n.common.ok, style: 'default' }],
                     );
                   }
                 },
@@ -209,7 +212,7 @@ export const ModelCard: React.FC<ModelCardProps> = observer(
             l10n.models.modelCard.alerts.deleteTitle,
             l10n.models.modelCard.alerts.deleteMessage,
             [
-              {text: l10n.common.cancel, style: 'cancel'},
+              { text: l10n.common.cancel, style: 'cancel' },
               {
                 text: l10n.common.delete,
                 onPress: async () => {
@@ -236,7 +239,7 @@ export const ModelCard: React.FC<ModelCardProps> = observer(
         l10n.models.modelCard.alerts.removeTitle,
         l10n.models.modelCard.alerts.removeMessage,
         [
-          {text: l10n.common.cancel, style: 'cancel'},
+          { text: l10n.common.cancel, style: 'cancel' },
           {
             text: l10n.models.modelCard.buttons.remove,
             style: 'destructive',
@@ -345,7 +348,7 @@ export const ModelCard: React.FC<ModelCardProps> = observer(
           serverName: sName,
         }),
         [
-          {text: l10n.common.cancel, style: 'cancel'},
+          { text: l10n.common.cancel, style: 'cancel' },
           {
             text: l10n.common.delete,
             style: 'destructive',

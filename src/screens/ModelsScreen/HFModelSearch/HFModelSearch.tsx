@@ -1,15 +1,15 @@
-import React, {useState, useCallback, useMemo, useEffect} from 'react';
+import React, { useState, useCallback, useMemo, useEffect } from 'react';
 
-import {observer} from 'mobx-react';
+import { observer } from 'mobx-react';
 import debounce from 'lodash/debounce';
 
-import {SearchView} from './SearchView';
-import {DetailsView} from './DetailsView';
+import { SearchView } from './SearchView';
+import { DetailsView } from './DetailsView';
 
-import {hfStore} from '../../../store';
+import { hfStore } from '../../../store';
 
-import {HuggingFaceModel} from '../../../utils/types';
-import {Sheet} from '../../../components';
+import { HuggingFaceModel } from '../../../utils/types';
+import { Sheet } from '../../../components';
 
 interface HFModelSearchProps {
   visible: boolean;
@@ -19,7 +19,7 @@ interface HFModelSearchProps {
 const DEBOUNCE_DELAY = 500;
 
 export const HFModelSearch: React.FC<HFModelSearchProps> = observer(
-  ({visible, onDismiss}) => {
+  ({ visible, onDismiss }) => {
     const [detailsVisible, setDetailsVisible] = useState(false);
     const [selectedModel, setSelectedModel] = useState<HuggingFaceModel | null>(
       null,
@@ -61,7 +61,7 @@ export const HFModelSearch: React.FC<HFModelSearchProps> = observer(
       await hfStore.fetchModelData(model.id);
       const updatedModel = hfStore.getModelById(model.id);
       if (updatedModel) {
-        setSelectedModel({...updatedModel});
+        setSelectedModel({ ...updatedModel });
       }
     };
 

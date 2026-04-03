@@ -1,5 +1,5 @@
-import {Model} from '@nozbe/watermelondb';
-import {field, readonly, date} from '@nozbe/watermelondb/decorators';
+import { Model } from '@nozbe/watermelondb';
+import { field, readonly, date } from '@nozbe/watermelondb/decorators';
 
 export default class CachedPal extends Model {
   static table = 'cached_pals';

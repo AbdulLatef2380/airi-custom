@@ -1,4 +1,4 @@
-import {Model} from '../../utils/types';
+import { Model } from '../../utils/types';
 
 // Form data structure for the pal sheet
 export interface PalFormData {

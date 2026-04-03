@@ -1,7 +1,7 @@
-import {makeAutoObservable, runInAction} from 'mobx';
-import {makePersistable} from 'mobx-persist-store';
+import { makeAutoObservable, runInAction } from 'mobx';
+import { makePersistable } from 'mobx-persist-store';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {BenchmarkResult} from '../utils/types';
+import { BenchmarkResult } from '../utils/types';
 import {
   migrateBenchmarkResults,
   migrateBenchmarkResult,

@@ -2,8 +2,8 @@
  * Utility functions for detecting thinking capabilities in models
  */
 
-import {LlamaContext} from 'llama.rn';
-import {Model} from './types';
+import { LlamaContext } from 'llama.rn';
+import { Model } from './types';
 
 // List of known thinking-capable model architectures
 const KNOWN_THINKING_CAPABLE_ARCHITECTURES = ['qwen3', 'smollm3'];

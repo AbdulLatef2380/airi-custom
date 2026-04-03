@@ -11,7 +11,7 @@ import {
   hasAnyCapabilities,
   createCapabilitiesFromLegacyType,
 } from '../pal-capabilities';
-import type {Pal} from '../../types/pal';
+import type { Pal } from '../../types/pal';
 
 describe('pal-capabilities', () => {
   const createMockPal = (capabilities = {}): Pal => ({
@@ -29,8 +29,8 @@ describe('pal-capabilities', () => {
 
   describe('capability check functions', () => {
     it('should detect video capability', () => {
-      const palWithVideo = createMockPal({video: true});
-      const palWithoutVideo = createMockPal({video: false});
+      const palWithVideo = createMockPal({ video: true });
+      const palWithoutVideo = createMockPal({ video: false });
       const palNoCapabilities = createMockPal();
 
       expect(hasVideoCapability(palWithVideo)).toBe(true);
@@ -39,56 +39,56 @@ describe('pal-capabilities', () => {
     });
 
     it('should detect multimodal capability', () => {
-      const palWithMultimodal = createMockPal({multimodal: true});
-      const palWithoutMultimodal = createMockPal({multimodal: false});
+      const palWithMultimodal = createMockPal({ multimodal: true });
+      const palWithoutMultimodal = createMockPal({ multimodal: false });
 
       expect(hasMultimodalCapability(palWithMultimodal)).toBe(true);
       expect(hasMultimodalCapability(palWithoutMultimodal)).toBe(false);
     });
 
     it('should detect realtime capability', () => {
-      const palWithRealtime = createMockPal({realtime: true});
-      const palWithoutRealtime = createMockPal({realtime: false});
+      const palWithRealtime = createMockPal({ realtime: true });
+      const palWithoutRealtime = createMockPal({ realtime: false });
 
       expect(hasRealtimeCapability(palWithRealtime)).toBe(true);
       expect(hasRealtimeCapability(palWithoutRealtime)).toBe(false);
     });
 
     it('should detect audio capability', () => {
-      const palWithAudio = createMockPal({audio: true});
-      const palWithoutAudio = createMockPal({audio: false});
+      const palWithAudio = createMockPal({ audio: true });
+      const palWithoutAudio = createMockPal({ audio: false });
 
       expect(hasAudioCapability(palWithAudio)).toBe(true);
       expect(hasAudioCapability(palWithoutAudio)).toBe(false);
     });
 
     it('should detect web capability', () => {
-      const palWithWeb = createMockPal({web: true});
-      const palWithoutWeb = createMockPal({web: false});
+      const palWithWeb = createMockPal({ web: true });
+      const palWithoutWeb = createMockPal({ web: false });
 
       expect(hasWebCapability(palWithWeb)).toBe(true);
       expect(hasWebCapability(palWithoutWeb)).toBe(false);
     });
 
     it('should detect code capability', () => {
-      const palWithCode = createMockPal({code: true});
-      const palWithoutCode = createMockPal({code: false});
+      const palWithCode = createMockPal({ code: true });
+      const palWithoutCode = createMockPal({ code: false });
 
       expect(hasCodeCapability(palWithCode)).toBe(true);
       expect(hasCodeCapability(palWithoutCode)).toBe(false);
     });
 
     it('should detect memory capability', () => {
-      const palWithMemory = createMockPal({memory: true});
-      const palWithoutMemory = createMockPal({memory: false});
+      const palWithMemory = createMockPal({ memory: true });
+      const palWithoutMemory = createMockPal({ memory: false });
 
       expect(hasMemoryCapability(palWithMemory)).toBe(true);
       expect(hasMemoryCapability(palWithoutMemory)).toBe(false);
     });
 
     it('should detect tools capability', () => {
-      const palWithTools = createMockPal({tools: true});
-      const palWithoutTools = createMockPal({tools: false});
+      const palWithTools = createMockPal({ tools: true });
+      const palWithoutTools = createMockPal({ tools: false });
 
       expect(hasToolsCapability(palWithTools)).toBe(true);
       expect(hasToolsCapability(palWithoutTools)).toBe(false);
@@ -132,7 +132,7 @@ describe('pal-capabilities', () => {
 
   describe('hasAnyCapabilities', () => {
     it('should return true when pal has at least one capability', () => {
-      const pal = createMockPal({video: true});
+      const pal = createMockPal({ video: true });
 
       expect(hasAnyCapabilities(pal)).toBe(true);
     });

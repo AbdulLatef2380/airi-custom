@@ -28,14 +28,18 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
-import {ChatPage} from '../pages/ChatPage';
-import {Selectors} from '../helpers/selectors';
+import { ChatPage } from '../pages/ChatPage';
+import { Selectors } from '../helpers/selectors';
 import {
   downloadAndLoadModel,
   waitForInferenceComplete,
 } from '../helpers/model-actions';
-import {QUICK_TEST_MODEL, TIMEOUTS, getModelsToTest} from '../fixtures/models';
-import {SCREENSHOT_DIR} from '../wdio.shared.conf';
+import {
+  QUICK_TEST_MODEL,
+  TIMEOUTS,
+  getModelsToTest,
+} from '../fixtures/models';
+import { SCREENSHOT_DIR } from '../wdio.shared.conf';
 
 declare const driver: WebdriverIO.Browser;
 declare const browser: WebdriverIO.Browser;
@@ -50,9 +54,7 @@ interface VisualCapture {
 }
 
 const capturesJson = process.env.VISUAL_CAPTURES;
-const captures: VisualCapture[] = capturesJson
-  ? JSON.parse(capturesJson)
-  : [];
+const captures: VisualCapture[] = capturesJson ? JSON.parse(capturesJson) : [];
 
 const models = getModelsToTest(true);
 const model = models[0] || QUICK_TEST_MODEL;
@@ -80,7 +82,7 @@ describe('Visual Capture', () => {
 
     // Ensure screenshot output directory exists
     if (!fs.existsSync(VISUAL_DIR)) {
-      fs.mkdirSync(VISUAL_DIR, {recursive: true});
+      fs.mkdirSync(VISUAL_DIR, { recursive: true });
     }
   });
 
@@ -94,13 +96,16 @@ describe('Visual Capture', () => {
       const testName = this.currentTest.title.replace(/\s+/g, '-');
       try {
         if (!fs.existsSync(VISUAL_DIR)) {
-          fs.mkdirSync(VISUAL_DIR, {recursive: true});
+          fs.mkdirSync(VISUAL_DIR, { recursive: true });
         }
         await driver.saveScreenshot(
           path.join(VISUAL_DIR, `failure-${testName}-${timestamp}.png`),
         );
       } catch (e) {
-        console.error('Failed to capture failure screenshot:', (e as Error).message);
+        console.error(
+          'Failed to capture failure screenshot:',
+          (e as Error).message,
+        );
       }
     }
   });
@@ -112,7 +117,7 @@ describe('Visual Capture', () => {
 
       // Wait for AI response to appear
       const aiMessage = browser.$(Selectors.chat.aiMessage);
-      await aiMessage.waitForExist({timeout: TIMEOUTS.inference});
+      await aiMessage.waitForExist({ timeout: TIMEOUTS.inference });
 
       // Wait for inference to complete
       const timingText = await waitForInferenceComplete();

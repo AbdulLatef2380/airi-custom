@@ -1,6 +1,6 @@
-import {ColorValue, StyleSheet} from 'react-native';
+import { ColorValue, StyleSheet } from 'react-native';
 
-const styles = ({color, size}: {color: ColorValue; size: number}) =>
+const styles = ({ color, size }: { color: ColorValue; size: number }) =>
   StyleSheet.create({
     circle: {
       backgroundColor: 'transparent',

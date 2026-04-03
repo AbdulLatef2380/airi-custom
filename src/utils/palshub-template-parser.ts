@@ -4,7 +4,7 @@
  */
 
 import Mustache from 'mustache';
-import type {ParameterDefinition} from '../types/pal';
+import type { ParameterDefinition } from '../types/pal';
 
 interface MustacheSchemaDefinition {
   type?: string;

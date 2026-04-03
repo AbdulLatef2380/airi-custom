@@ -1,7 +1,7 @@
-import {defaultCompletionParams} from '../utils/completionSettingsVersions';
+import { defaultCompletionParams } from '../utils/completionSettingsVersions';
 
 // Default completion settings without prompt and stop
-const defaultCompletionSettings = {...defaultCompletionParams};
+const defaultCompletionSettings = { ...defaultCompletionParams };
 delete defaultCompletionSettings.prompt;
 delete defaultCompletionSettings.stop;
 

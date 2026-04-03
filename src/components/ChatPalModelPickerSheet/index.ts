@@ -1,1 +1,1 @@
-export {ChatPalModelPickerSheet} from './ChatPalModelPickerSheet';
+export { ChatPalModelPickerSheet } from './ChatPalModelPickerSheet';

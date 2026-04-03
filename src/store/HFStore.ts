@@ -1,15 +1,15 @@
-import {makeAutoObservable, runInAction} from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {makePersistable} from 'mobx-persist-store';
+import { makePersistable } from 'mobx-persist-store';
 import * as Keychain from 'react-native-keychain';
 
-import {fetchGGUFSpecs, fetchModelFilesDetails, fetchModels} from '../api/hf';
+import { fetchGGUFSpecs, fetchModelFilesDetails, fetchModels } from '../api/hf';
 
-import {hasEnoughSpace, hfAsModel} from '../utils';
-import {processHFSearchResults} from '../utils/hf';
-import {ErrorState, createErrorState} from '../utils/errors';
+import { hasEnoughSpace, hfAsModel } from '../utils';
+import { processHFSearchResults } from '../utils/hf';
+import { ErrorState, createErrorState } from '../utils/errors';
 
-import {HuggingFaceModel} from '../utils/types';
+import { HuggingFaceModel } from '../utils/types';
 
 // Service name for keychain storage
 const HF_TOKEN_SERVICE = 'hf_token_service';
@@ -189,7 +189,7 @@ class HFStore {
           detail => detail.path === file.rfilename,
         );
         if (!details) {
-          return {...file};
+          return { ...file };
         }
 
         const enrichedFile = {
@@ -283,14 +283,14 @@ class HFStore {
   }
 
   // Helper method to get sort parameters
-  private getSortParams(): {sort: string; direction: string} | null {
+  private getSortParams(): { sort: string; direction: string } | null {
     switch (this.searchFilters.sortBy) {
       case 'lastModified':
-        return {sort: 'lastModified', direction: '-1'};
+        return { sort: 'lastModified', direction: '-1' };
       case 'likes':
-        return {sort: 'likes', direction: '-1'};
+        return { sort: 'likes', direction: '-1' };
       case 'downloads':
-        return {sort: 'downloads', direction: '-1'};
+        return { sort: 'downloads', direction: '-1' };
       case 'relevance':
       default:
         return null; // No sorting - use HF's default relevance ranking
@@ -311,7 +311,7 @@ class HFStore {
       const authToken = this.shouldUseToken ? this.hfToken : null;
       const sortParams = this.getSortParams();
 
-      const {models, nextLink} = await fetchModels({
+      const { models, nextLink } = await fetchModels({
         search: this.searchQuery,
         author: this.searchFilters.author || undefined,
         limit: 10,
@@ -374,7 +374,7 @@ class HFStore {
 
     try {
       const authToken = this.shouldUseToken ? this.hfToken : null;
-      const {models, nextLink} = await fetchModels({
+      const { models, nextLink } = await fetchModels({
         nextPageUrl: this.nextPageLink,
         authToken: authToken,
       });

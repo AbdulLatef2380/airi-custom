@@ -1,10 +1,10 @@
 import React from 'react';
 
-import {fireEvent, render} from '../../../../jest/test-utils';
+import { fireEvent, render } from '../../../../jest/test-utils';
 
-import {ModelsResetDialog} from '../ModelsResetDialog';
+import { ModelsResetDialog } from '../ModelsResetDialog';
 
-import {l10n} from '../../../locales';
+import { l10n } from '../../../locales';
 
 describe('ModelsResetDialog', () => {
   const mockOnDismiss = jest.fn();
@@ -15,7 +15,7 @@ describe('ModelsResetDialog', () => {
   });
 
   it('renders correctly when visible', () => {
-    const {getByTestId, getByText} = render(
+    const { getByTestId, getByText } = render(
       <ModelsResetDialog
         testID="reset-dialog"
         visible={true}
@@ -38,7 +38,7 @@ describe('ModelsResetDialog', () => {
   });
 
   it('is not visible when visible prop is false', () => {
-    const {queryByTestId} = render(
+    const { queryByTestId } = render(
       <ModelsResetDialog
         testID="reset-dialog"
         visible={false}
@@ -51,7 +51,7 @@ describe('ModelsResetDialog', () => {
   });
 
   it('calls onDismiss when cancel button is pressed', () => {
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <ModelsResetDialog
         testID="reset-dialog"
         visible={true}
@@ -68,7 +68,7 @@ describe('ModelsResetDialog', () => {
   });
 
   it('calls onReset when proceed button is pressed', () => {
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <ModelsResetDialog
         testID="reset-dialog"
         visible={true}
@@ -85,7 +85,7 @@ describe('ModelsResetDialog', () => {
   });
 
   it('calls onDismiss when dialog backdrop is pressed', () => {
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <ModelsResetDialog
         testID="reset-dialog"
         visible={true}

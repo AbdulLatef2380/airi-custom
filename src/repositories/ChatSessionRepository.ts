@@ -1,4 +1,4 @@
-import {Q} from '@nozbe/watermelondb';
+import { Q } from '@nozbe/watermelondb';
 import * as RNFS from '@dr.pogodin/react-native-fs';
 
 import {
@@ -9,17 +9,17 @@ import {
   GlobalSetting,
 } from '../database';
 
-import {SessionMetaData} from '../store/ChatSessionStore';
+import { SessionMetaData } from '../store/ChatSessionStore';
 
-import {MessageType} from '../utils/types';
-import {CompletionParams} from '../utils/completionTypes';
+import { MessageType } from '../utils/types';
+import { CompletionParams } from '../utils/completionTypes';
 import {
   defaultCompletionParams,
   migrateCompletionSettings,
 } from '../utils/completionSettingsVersions';
 
 // Default completion settings without prompt and stop
-const defaultCompletionSettings = {...defaultCompletionParams};
+const defaultCompletionSettings = { ...defaultCompletionParams };
 delete defaultCompletionSettings.prompt;
 delete defaultCompletionSettings.stop;
 
@@ -400,7 +400,7 @@ class ChatSessionRepository {
       return;
     }
 
-    const {exportChatSession} = await import('../utils/exportUtils');
+    const { exportChatSession } = await import('../utils/exportUtils');
 
     for (const id of ids) {
       await exportChatSession(id);

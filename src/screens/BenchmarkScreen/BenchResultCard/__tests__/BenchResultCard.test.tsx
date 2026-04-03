@@ -1,8 +1,13 @@
 import React from 'react';
-import {Linking, Alert} from 'react-native';
-import {fireEvent, render, act, waitFor} from '../../../../../jest/test-utils';
-import {BenchResultCard} from '../BenchResultCard';
-import {BenchmarkResult, CacheType} from '../../../../utils/types';
+import { Linking, Alert } from 'react-native';
+import {
+  fireEvent,
+  render,
+  act,
+  waitFor,
+} from '../../../../../jest/test-utils';
+import { BenchResultCard } from '../BenchResultCard';
+import { BenchmarkResult, CacheType } from '../../../../utils/types';
 import {
   NetworkError,
   AppCheckError,
@@ -78,7 +83,7 @@ describe('BenchResultCard', () => {
   });
 
   it('renders benchmark result data correctly', () => {
-    const {getByText} = render(
+    const { getByText } = render(
       <BenchResultCard
         result={mockResult}
         onDelete={mockOnDelete}
@@ -106,8 +111,8 @@ describe('BenchResultCard', () => {
 
   it('formats different durations correctly', () => {
     // Test with milliseconds
-    const shortResult = {...mockResult, wallTimeMs: 500};
-    const {getByText, rerender} = render(
+    const shortResult = { ...mockResult, wallTimeMs: 500 };
+    const { getByText, rerender } = render(
       <BenchResultCard
         result={shortResult}
         onDelete={mockOnDelete}
@@ -117,7 +122,7 @@ describe('BenchResultCard', () => {
     expect(getByText('500ms')).toBeTruthy();
 
     // Test with seconds
-    const secondsResult = {...mockResult, wallTimeMs: 3500};
+    const secondsResult = { ...mockResult, wallTimeMs: 3500 };
     rerender(
       <BenchResultCard
         result={secondsResult}
@@ -128,7 +133,7 @@ describe('BenchResultCard', () => {
     expect(getByText('3s')).toBeTruthy();
 
     // Test with minutes and seconds
-    const minutesResult = {...mockResult, wallTimeMs: 125000}; // 2m 5s
+    const minutesResult = { ...mockResult, wallTimeMs: 125000 }; // 2m 5s
     rerender(
       <BenchResultCard
         result={minutesResult}
@@ -140,7 +145,7 @@ describe('BenchResultCard', () => {
   });
 
   it('handles delete button press', () => {
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <BenchResultCard
         result={mockResult}
         onDelete={mockOnDelete}
@@ -155,7 +160,7 @@ describe('BenchResultCard', () => {
   });
 
   it('shows submitted state correctly', () => {
-    const {getByText} = render(
+    const { getByText } = render(
       <BenchResultCard
         result={mockSubmittedResult}
         onDelete={mockOnDelete}
@@ -168,7 +173,7 @@ describe('BenchResultCard', () => {
   });
 
   it('disables sharing for local models', () => {
-    const {getByText} = render(
+    const { getByText } = render(
       <BenchResultCard
         result={mockLocalModelResult}
         onDelete={mockOnDelete}
@@ -180,7 +185,7 @@ describe('BenchResultCard', () => {
   });
 
   it('opens leaderboard when link is clicked', () => {
-    const {getByText} = render(
+    const { getByText } = render(
       <BenchResultCard
         result={mockResult}
         onDelete={mockOnDelete}
@@ -197,7 +202,7 @@ describe('BenchResultCard', () => {
   });
 
   it('submits benchmark data when submit button is pressed', async () => {
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <BenchResultCard
         result={mockResult}
         onDelete={mockOnDelete}
@@ -218,7 +223,7 @@ describe('BenchResultCard', () => {
       new NetworkError('No internet connection. Please connect and try again.'),
     );
 
-    const {getByTestId, getByText} = render(
+    const { getByTestId, getByText } = render(
       <BenchResultCard
         result={mockResult}
         onDelete={mockOnDelete}
@@ -242,7 +247,7 @@ describe('BenchResultCard', () => {
       new AppCheckError('App verification failed.'),
     );
 
-    const {getByTestId, getByText} = render(
+    const { getByTestId, getByText } = render(
       <BenchResultCard
         result={mockResult}
         onDelete={mockOnDelete}
@@ -266,7 +271,7 @@ describe('BenchResultCard', () => {
       new ServerError('Our servers are experiencing issues.'),
     );
 
-    const {getByTestId, getByText} = render(
+    const { getByTestId, getByText } = render(
       <BenchResultCard
         result={mockResult}
         onDelete={mockOnDelete}
@@ -288,7 +293,7 @@ describe('BenchResultCard', () => {
   it('handles unknown errors', async () => {
     mockOnShare.mockRejectedValueOnce(new Error('Unknown error occurred'));
 
-    const {getByTestId, getByText} = render(
+    const { getByTestId, getByText } = render(
       <BenchResultCard
         result={mockResult}
         onDelete={mockOnDelete}
@@ -310,7 +315,7 @@ describe('BenchResultCard', () => {
   it('allows retrying after a network error', async () => {
     mockOnShare.mockRejectedValueOnce(new NetworkError('Network error'));
 
-    const {getByTestId, getByText} = render(
+    const { getByTestId, getByText } = render(
       <BenchResultCard
         result={mockResult}
         onDelete={mockOnDelete}
@@ -338,7 +343,7 @@ describe('BenchResultCard', () => {
   });
 
   it('opens leaderboard when link is clicked on submitted results', () => {
-    const {getByText} = render(
+    const { getByText } = render(
       <BenchResultCard
         result={mockSubmittedResult}
         onDelete={mockOnDelete}
@@ -362,7 +367,7 @@ describe('BenchResultCard', () => {
       wallTimeMs: undefined,
     };
 
-    const {queryByText} = render(
+    const { queryByText } = render(
       <BenchResultCard
         result={minimalResult}
         onDelete={mockOnDelete}
@@ -395,7 +400,7 @@ describe('BenchResultCard', () => {
         },
       };
 
-      const {getByText} = render(
+      const { getByText } = render(
         <BenchResultCard
           result={resultWithAuto}
           onDelete={mockOnDelete}
@@ -425,7 +430,7 @@ describe('BenchResultCard', () => {
         },
       };
 
-      const {getByText} = render(
+      const { getByText } = render(
         <BenchResultCard
           result={resultWithOn}
           onDelete={mockOnDelete}
@@ -455,7 +460,7 @@ describe('BenchResultCard', () => {
         },
       };
 
-      const {getByText} = render(
+      const { getByText } = render(
         <BenchResultCard
           result={resultWithOff}
           onDelete={mockOnDelete}
@@ -485,7 +490,7 @@ describe('BenchResultCard', () => {
         },
       };
 
-      const {getByText} = render(
+      const { getByText } = render(
         <BenchResultCard
           result={legacyResult}
           onDelete={mockOnDelete}
@@ -516,7 +521,7 @@ describe('BenchResultCard', () => {
         },
       };
 
-      const {getByText} = render(
+      const { getByText } = render(
         <BenchResultCard
           result={legacyResult}
           onDelete={mockOnDelete}
@@ -548,7 +553,7 @@ describe('BenchResultCard', () => {
         },
       };
 
-      const {getByText} = render(
+      const { getByText } = render(
         <BenchResultCard
           result={resultWithOff}
           onDelete={mockOnDelete}

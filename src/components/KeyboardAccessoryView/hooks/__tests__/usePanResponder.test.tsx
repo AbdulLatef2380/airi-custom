@@ -1,21 +1,21 @@
 import React from 'react';
-import {render} from '@testing-library/react-native';
-import {View, Platform, Animated} from 'react-native';
+import { render } from '@testing-library/react-native';
+import { View, Platform, Animated } from 'react-native';
 
-import {usePanResponder} from '../usePanResponder';
+import { usePanResponder } from '../usePanResponder';
 
 // Mock Platform
 const mockPlatform = Platform as any;
 
 // Test component that uses the hook
 const TestComponent = () => {
-  const {panHandlers, positionY} = usePanResponder();
+  const { panHandlers, positionY } = usePanResponder();
 
   return (
     <View testID="test-component" {...panHandlers}>
       <Animated.View
         testID="animated-view"
-        style={{transform: [{translateY: positionY}]}}
+        style={{ transform: [{ translateY: positionY }] }}
       />
     </View>
   );
@@ -29,7 +29,7 @@ describe('usePanResponder', () => {
   it('returns pan handlers and position Y on iOS', () => {
     mockPlatform.OS = 'ios';
 
-    const {getByTestId} = render(<TestComponent />);
+    const { getByTestId } = render(<TestComponent />);
 
     const testComponent = getByTestId('test-component');
     const animatedView = getByTestId('animated-view');
@@ -41,7 +41,7 @@ describe('usePanResponder', () => {
   it('returns empty pan handlers on Android', () => {
     mockPlatform.OS = 'android';
 
-    const {getByTestId} = render(<TestComponent />);
+    const { getByTestId } = render(<TestComponent />);
 
     const testComponent = getByTestId('test-component');
     const animatedView = getByTestId('animated-view');
@@ -55,7 +55,7 @@ describe('usePanResponder', () => {
 
     const TestComponentWithState = () => {
       const [count, setCount] = React.useState(0);
-      const {panHandlers, positionY} = usePanResponder();
+      const { panHandlers, positionY } = usePanResponder();
 
       React.useEffect(() => {
         if (count < 2) {
@@ -67,13 +67,13 @@ describe('usePanResponder', () => {
         <View testID="test-component" {...panHandlers}>
           <Animated.View
             testID="animated-view"
-            style={{transform: [{translateY: positionY}]}}
+            style={{ transform: [{ translateY: positionY }] }}
           />
         </View>
       );
     };
 
-    const {getByTestId} = render(<TestComponentWithState />);
+    const { getByTestId } = render(<TestComponentWithState />);
 
     const testComponent = getByTestId('test-component');
     const animatedView = getByTestId('animated-view');
@@ -86,7 +86,7 @@ describe('usePanResponder', () => {
     mockPlatform.OS = 'ios';
 
     const TestComponentWithHandlers = () => {
-      const {panHandlers, positionY} = usePanResponder();
+      const { panHandlers, positionY } = usePanResponder();
 
       // Test that pan handlers have the expected properties for iOS
       const hasOnMoveShouldSetPanResponder =
@@ -105,13 +105,13 @@ describe('usePanResponder', () => {
           />
           <Animated.View
             testID="animated-view"
-            style={{transform: [{translateY: positionY}]}}
+            style={{ transform: [{ translateY: positionY }] }}
           />
         </View>
       );
     };
 
-    const {getByTestId} = render(<TestComponentWithHandlers />);
+    const { getByTestId } = render(<TestComponentWithHandlers />);
 
     const testComponent = getByTestId('test-component');
     const animatedView = getByTestId('animated-view');
@@ -124,7 +124,7 @@ describe('usePanResponder', () => {
     mockPlatform.OS = 'android';
 
     const TestComponentWithHandlers = () => {
-      const {panHandlers, positionY} = usePanResponder();
+      const { panHandlers, positionY } = usePanResponder();
 
       // Test that pan handlers is empty object for Android
       const handlerKeys = Object.keys(panHandlers);
@@ -134,13 +134,13 @@ describe('usePanResponder', () => {
           <View testID="handler-keys-count" data-value={handlerKeys.length} />
           <Animated.View
             testID="animated-view"
-            style={{transform: [{translateY: positionY}]}}
+            style={{ transform: [{ translateY: positionY }] }}
           />
         </View>
       );
     };
 
-    const {getByTestId} = render(<TestComponentWithHandlers />);
+    const { getByTestId } = render(<TestComponentWithHandlers />);
 
     const testComponent = getByTestId('test-component');
     const animatedView = getByTestId('animated-view');
@@ -155,7 +155,7 @@ describe('usePanResponder', () => {
     mockPlatform.OS = 'ios';
 
     const TestComponentWithValue = () => {
-      const {panHandlers, positionY} = usePanResponder();
+      const { panHandlers, positionY } = usePanResponder();
 
       // Access the initial value of the Animated.Value
       const initialValue = (positionY as any)._value;
@@ -165,13 +165,13 @@ describe('usePanResponder', () => {
           <View testID="initial-value" data-value={initialValue} />
           <Animated.View
             testID="animated-view"
-            style={{transform: [{translateY: positionY}]}}
+            style={{ transform: [{ translateY: positionY }] }}
           />
         </View>
       );
     };
 
-    const {getByTestId} = render(<TestComponentWithValue />);
+    const { getByTestId } = render(<TestComponentWithValue />);
 
     const testComponent = getByTestId('test-component');
     const animatedView = getByTestId('animated-view');
@@ -187,7 +187,7 @@ describe('usePanResponder', () => {
 
     const TestComponentWithRerender = () => {
       const [renderCount, setRenderCount] = React.useState(0);
-      const {panHandlers, positionY} = usePanResponder();
+      const { panHandlers, positionY } = usePanResponder();
 
       // Store the first positionY reference
       const positionYRef = React.useRef(positionY);
@@ -204,13 +204,13 @@ describe('usePanResponder', () => {
           <View testID="same-reference" data-value={isSameReference} />
           <Animated.View
             testID="animated-view"
-            style={{transform: [{translateY: positionY}]}}
+            style={{ transform: [{ translateY: positionY }] }}
           />
         </View>
       );
     };
 
-    const {getByTestId} = render(<TestComponentWithRerender />);
+    const { getByTestId } = render(<TestComponentWithRerender />);
 
     const testComponent = getByTestId('test-component');
     const animatedView = getByTestId('animated-view');

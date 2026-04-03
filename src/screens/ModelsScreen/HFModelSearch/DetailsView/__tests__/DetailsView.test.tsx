@@ -1,19 +1,19 @@
 import React from 'react';
-import {render as baseRender} from '../../../../../../jest/test-utils';
-import {DetailsView} from '../DetailsView';
+import { render as baseRender } from '../../../../../../jest/test-utils';
+import { DetailsView } from '../DetailsView';
 import {
   mockHFModel1,
   mockHFModel2,
 } from '../../../../../../jest/fixtures/models';
-import {formatNumber, timeAgo} from '../../../../../utils';
-import {l10n} from '../../../../../locales';
+import { formatNumber, timeAgo } from '../../../../../utils';
+import { l10n } from '../../../../../locales';
 
 const render = (ui: React.ReactElement, options: any = {}) =>
-  baseRender(ui, {withBottomSheetProvider: true, ...options});
+  baseRender(ui, { withBottomSheetProvider: true, ...options });
 
 describe('DetailsView', () => {
   it('renders basic model information', () => {
-    const {getByText} = render(<DetailsView hfModel={mockHFModel1} />);
+    const { getByText } = render(<DetailsView hfModel={mockHFModel1} />);
 
     // Check author and model name are displayed
     expect(getByText(mockHFModel1.author)).toBeDefined();
@@ -21,7 +21,7 @@ describe('DetailsView', () => {
   });
 
   it('renders model statistics', () => {
-    const {getByText} = render(<DetailsView hfModel={mockHFModel1} />);
+    const { getByText } = render(<DetailsView hfModel={mockHFModel1} />);
 
     // Check stats are displayed with correct formatting
     expect(
@@ -32,8 +32,8 @@ describe('DetailsView', () => {
   });
 
   it('shows trending indicator for high trending score', () => {
-    const {getByText} = render(
-      <DetailsView hfModel={{...mockHFModel2, trendingScore: 21}} />,
+    const { getByText } = render(
+      <DetailsView hfModel={{ ...mockHFModel2, trendingScore: 21 }} />,
     );
 
     // mockHFModel2 has trendingScore > 20
@@ -41,7 +41,7 @@ describe('DetailsView', () => {
   });
 
   it('renders model files section', () => {
-    const {getByText, getByTestId} = render(
+    const { getByText, getByTestId } = render(
       <DetailsView hfModel={mockHFModel1} />,
     );
 

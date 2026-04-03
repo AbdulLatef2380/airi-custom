@@ -1,10 +1,10 @@
 import React from 'react';
-import {Alert, Linking} from 'react-native';
-import {render, fireEvent, waitFor} from '../../../../../jest/test-utils';
+import { Alert, Linking } from 'react-native';
+import { render, fireEvent, waitFor } from '../../../../../jest/test-utils';
 
-import {PalDetailSheet} from '../PalDetailSheet';
-import {palsHubService} from '../../../../services';
-import {palStore} from '../../../../store';
+import { PalDetailSheet } from '../PalDetailSheet';
+import { palsHubService } from '../../../../services';
+import { palStore } from '../../../../store';
 import {
   createPalsHubPal,
   mockPalsHubPal,
@@ -14,8 +14,8 @@ import {
 
 // Mock Sheet component
 jest.mock('../../../Sheet/Sheet', () => {
-  const {View, ScrollView, Button} = require('react-native');
-  const MockSheet = ({children, isVisible, onClose, title}: any) => {
+  const { View, ScrollView, Button } = require('react-native');
+  const MockSheet = ({ children, isVisible, onClose, title }: any) => {
     if (!isVisible) {
       return null;
     }
@@ -27,17 +27,17 @@ jest.mock('../../../Sheet/Sheet', () => {
       </View>
     );
   };
-  MockSheet.ScrollView = ({children, contentContainerStyle}: any) => (
+  MockSheet.ScrollView = ({ children, contentContainerStyle }: any) => (
     <ScrollView
       testID="sheet-scroll-view"
       contentContainerStyle={contentContainerStyle}>
       {children}
     </ScrollView>
   );
-  MockSheet.Actions = ({children}: any) => (
+  MockSheet.Actions = ({ children }: any) => (
     <View testID="sheet-actions">{children}</View>
   );
-  return {Sheet: MockSheet};
+  return { Sheet: MockSheet };
 });
 
 // Mock Alert
@@ -84,7 +84,7 @@ describe('PalDetailSheet', () => {
 
   describe('Rendering', () => {
     it('renders correctly when visible', async () => {
-      const {getByTestId} = render(<PalDetailSheet {...defaultProps} />);
+      const { getByTestId } = render(<PalDetailSheet {...defaultProps} />);
 
       await waitFor(() => {
         expect(getByTestId('sheet')).toBeTruthy();
@@ -93,7 +93,7 @@ describe('PalDetailSheet', () => {
     });
 
     it('does not render when not visible', () => {
-      const {queryByTestId} = render(
+      const { queryByTestId } = render(
         <PalDetailSheet {...defaultProps} isVisible={false} />,
       );
 
@@ -101,7 +101,7 @@ describe('PalDetailSheet', () => {
     });
 
     it('does not render when pal is null', () => {
-      const {queryByTestId} = render(
+      const { queryByTestId } = render(
         <PalDetailSheet {...defaultProps} pal={null} />,
       );
 
@@ -109,7 +109,7 @@ describe('PalDetailSheet', () => {
     });
 
     it('displays pal title', async () => {
-      const {getByText} = render(<PalDetailSheet {...defaultProps} />);
+      const { getByText } = render(<PalDetailSheet {...defaultProps} />);
 
       await waitFor(() => {
         expect(getByText('PalsHub Test Pal')).toBeTruthy();
@@ -117,7 +117,7 @@ describe('PalDetailSheet', () => {
     });
 
     it('displays creator name', async () => {
-      const {getByText} = render(<PalDetailSheet {...defaultProps} />);
+      const { getByText } = render(<PalDetailSheet {...defaultProps} />);
 
       await waitFor(() => {
         expect(getByText(/TestCreator/)).toBeTruthy();
@@ -125,7 +125,7 @@ describe('PalDetailSheet', () => {
     });
 
     it('displays description', async () => {
-      const {getByText} = render(<PalDetailSheet {...defaultProps} />);
+      const { getByText } = render(<PalDetailSheet {...defaultProps} />);
 
       await waitFor(() => {
         expect(getByText('A test pal from PalsHub')).toBeTruthy();
@@ -133,7 +133,7 @@ describe('PalDetailSheet', () => {
     });
 
     it('displays categories when available', async () => {
-      const {getByText} = render(<PalDetailSheet {...defaultProps} />);
+      const { getByText } = render(<PalDetailSheet {...defaultProps} />);
 
       await waitFor(() => {
         expect(getByText('Productivity')).toBeTruthy();
@@ -141,7 +141,7 @@ describe('PalDetailSheet', () => {
     });
 
     it('displays tags when available', async () => {
-      const {getByText} = render(<PalDetailSheet {...defaultProps} />);
+      const { getByText } = render(<PalDetailSheet {...defaultProps} />);
 
       await waitFor(() => {
         expect(getByText('assistant')).toBeTruthy();
@@ -149,7 +149,7 @@ describe('PalDetailSheet', () => {
     });
 
     it('displays rating when available', async () => {
-      const {getByText} = render(<PalDetailSheet {...defaultProps} />);
+      const { getByText } = render(<PalDetailSheet {...defaultProps} />);
 
       await waitFor(() => {
         expect(getByText('4.5')).toBeTruthy();
@@ -157,7 +157,7 @@ describe('PalDetailSheet', () => {
     });
 
     it('displays review count', async () => {
-      const {getByText} = render(<PalDetailSheet {...defaultProps} />);
+      const { getByText } = render(<PalDetailSheet {...defaultProps} />);
 
       await waitFor(() => {
         expect(getByText('10')).toBeTruthy();
@@ -190,7 +190,7 @@ describe('PalDetailSheet', () => {
       const fetchError = new Error('Network error');
       (palsHubService.getPal as jest.Mock).mockRejectedValueOnce(fetchError);
 
-      const {getByText} = render(<PalDetailSheet {...defaultProps} />);
+      const { getByText } = render(<PalDetailSheet {...defaultProps} />);
 
       await waitFor(() => {
         // Should still display basic pal information
@@ -201,7 +201,7 @@ describe('PalDetailSheet', () => {
 
   describe('Free Pal Actions', () => {
     it('shows download button for free pals', async () => {
-      const {getByText} = render(<PalDetailSheet {...defaultProps} />);
+      const { getByText } = render(<PalDetailSheet {...defaultProps} />);
 
       await waitFor(() => {
         expect(getByText(/Get Free/i)).toBeTruthy();
@@ -209,7 +209,7 @@ describe('PalDetailSheet', () => {
     });
 
     it('downloads pal when download button is pressed', async () => {
-      const {getByText, getByTestId} = render(
+      const { getByText, getByTestId } = render(
         <PalDetailSheet {...defaultProps} />,
       );
 
@@ -239,7 +239,7 @@ describe('PalDetailSheet', () => {
     it('shows downloaded state when pal is already downloaded', async () => {
       (palStore.isPalsHubPalDownloaded as jest.Mock).mockReturnValue(true);
 
-      const {getByTestId} = render(<PalDetailSheet {...defaultProps} />);
+      const { getByTestId } = render(<PalDetailSheet {...defaultProps} />);
 
       await waitFor(() => {
         expect(getByTestId('downloaded-button')).toBeTruthy();
@@ -252,7 +252,7 @@ describe('PalDetailSheet', () => {
         downloadError,
       );
 
-      const {getByText} = render(<PalDetailSheet {...defaultProps} />);
+      const { getByText } = render(<PalDetailSheet {...defaultProps} />);
 
       // Wait for component to render with the button
       await waitFor(() => {
@@ -279,7 +279,7 @@ describe('PalDetailSheet', () => {
         mockPremiumPalsHubPal,
       );
 
-      const {getByTestId} = render(
+      const { getByTestId } = render(
         <PalDetailSheet {...defaultProps} pal={mockPremiumPalsHubPal} />,
       );
 
@@ -289,7 +289,7 @@ describe('PalDetailSheet', () => {
     });
 
     it('does not show download button for unowned premium pals', async () => {
-      const {queryByText} = render(
+      const { queryByText } = render(
         <PalDetailSheet {...defaultProps} pal={mockPremiumPalsHubPal} />,
       );
 
@@ -300,7 +300,7 @@ describe('PalDetailSheet', () => {
     });
 
     it('shows informational text for unowned premium pals', async () => {
-      const {getByTestId} = render(
+      const { getByTestId } = render(
         <PalDetailSheet {...defaultProps} pal={mockPremiumPalsHubPal} />,
       );
 
@@ -310,7 +310,7 @@ describe('PalDetailSheet', () => {
     });
 
     it('hides system prompt for unowned premium pals', async () => {
-      const {queryByText} = render(
+      const { queryByText } = render(
         <PalDetailSheet {...defaultProps} pal={mockPremiumPalsHubPal} />,
       );
 
@@ -322,7 +322,7 @@ describe('PalDetailSheet', () => {
     });
 
     it('shows premium pal message for unowned premium pals', async () => {
-      const {getByTestId} = render(
+      const { getByTestId } = render(
         <PalDetailSheet {...defaultProps} pal={mockPremiumPalsHubPal} />,
       );
 
@@ -341,7 +341,7 @@ describe('PalDetailSheet', () => {
     });
 
     it('shows download button for owned premium pals', async () => {
-      const {getByText} = render(
+      const { getByText } = render(
         <PalDetailSheet {...defaultProps} pal={mockOwnedPremiumPal} />,
       );
 
@@ -351,7 +351,7 @@ describe('PalDetailSheet', () => {
     });
 
     it('downloads owned premium pal when download button is pressed', async () => {
-      const {getByTestId} = render(
+      const { getByTestId } = render(
         <PalDetailSheet {...defaultProps} pal={mockOwnedPremiumPal} />,
       );
 
@@ -373,7 +373,7 @@ describe('PalDetailSheet', () => {
     });
 
     it('shows system prompt for owned premium pals', async () => {
-      const {getByText} = render(
+      const { getByText } = render(
         <PalDetailSheet {...defaultProps} pal={mockOwnedPremiumPal} />,
       );
 
@@ -385,7 +385,7 @@ describe('PalDetailSheet', () => {
     });
 
     it('does not show premium info text for owned premium pals', async () => {
-      const {getByTestId} = render(
+      const { getByTestId } = render(
         <PalDetailSheet {...defaultProps} pal={mockOwnedPremiumPal} />,
       );
 
@@ -403,7 +403,7 @@ describe('PalDetailSheet', () => {
       });
       (palsHubService.getPal as jest.Mock).mockResolvedValue(palWithoutCreator);
 
-      const {getByText} = render(
+      const { getByText } = render(
         <PalDetailSheet {...defaultProps} pal={palWithoutCreator} />,
       );
 
@@ -420,7 +420,7 @@ describe('PalDetailSheet', () => {
         palWithoutDescription,
       );
 
-      const {getByText} = render(
+      const { getByText } = render(
         <PalDetailSheet {...defaultProps} pal={palWithoutDescription} />,
       );
 
@@ -438,7 +438,7 @@ describe('PalDetailSheet', () => {
         palWithoutCategories,
       );
 
-      const {getByText} = render(
+      const { getByText } = render(
         <PalDetailSheet {...defaultProps} pal={palWithoutCategories} />,
       );
 
@@ -453,7 +453,7 @@ describe('PalDetailSheet', () => {
       });
       (palsHubService.getPal as jest.Mock).mockResolvedValue(palWithoutTags);
 
-      const {getByText} = render(
+      const { getByText } = render(
         <PalDetailSheet {...defaultProps} pal={palWithoutTags} />,
       );
 
@@ -465,7 +465,7 @@ describe('PalDetailSheet', () => {
 
   describe('Close Behavior', () => {
     it('calls onClose when close button is pressed', async () => {
-      const {getByTestId} = render(<PalDetailSheet {...defaultProps} />);
+      const { getByTestId } = render(<PalDetailSheet {...defaultProps} />);
 
       await waitFor(() => {
         const closeButton = getByTestId('sheet-close-button');
@@ -478,7 +478,7 @@ describe('PalDetailSheet', () => {
     it('calls onClose after successful download', async () => {
       // Create a fresh onClose mock for this test
       const onCloseMock = jest.fn();
-      const {getByTestId, getByText} = render(
+      const { getByTestId, getByText } = render(
         <PalDetailSheet {...defaultProps} onClose={onCloseMock} />,
       );
 
@@ -520,7 +520,7 @@ describe('PalDetailSheet', () => {
         downloadPromise,
       );
 
-      const {getByText, getByTestId} = render(
+      const { getByText, getByTestId } = render(
         <PalDetailSheet {...defaultProps} />,
       );
 
@@ -553,7 +553,7 @@ describe('PalDetailSheet', () => {
     it('shows buy button for US users viewing unowned premium pals', async () => {
       (palStore as any).isUSRegion = true;
 
-      const {getByTestId} = render(
+      const { getByTestId } = render(
         <PalDetailSheet {...defaultProps} pal={mockPremiumPalsHubPal} />,
       );
 
@@ -565,7 +565,7 @@ describe('PalDetailSheet', () => {
     it('shows info text (not buy button) for non-US users viewing unowned premium pals', async () => {
       (palStore as any).isUSRegion = false;
 
-      const {queryByTestId} = render(
+      const { queryByTestId } = render(
         <PalDetailSheet {...defaultProps} pal={mockPremiumPalsHubPal} />,
       );
 
@@ -577,7 +577,7 @@ describe('PalDetailSheet', () => {
     it('opens correct palshub URL when buy button is pressed', async () => {
       (palStore as any).isUSRegion = true;
 
-      const {getByTestId} = render(
+      const { getByTestId } = render(
         <PalDetailSheet {...defaultProps} pal={mockPremiumPalsHubPal} />,
       );
 
@@ -598,7 +598,7 @@ describe('PalDetailSheet', () => {
         mockOwnedPremiumPal,
       );
 
-      const {queryByTestId} = render(
+      const { queryByTestId } = render(
         <PalDetailSheet {...defaultProps} pal={mockOwnedPremiumPal} />,
       );
 
@@ -611,7 +611,7 @@ describe('PalDetailSheet', () => {
       (palStore as any).isUSRegion = true;
       (palsHubService.getPal as jest.Mock).mockResolvedValue(mockPalsHubPal);
 
-      const {queryByTestId} = render(
+      const { queryByTestId } = render(
         <PalDetailSheet {...defaultProps} pal={mockPalsHubPal} />,
       );
 

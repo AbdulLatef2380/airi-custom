@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Modal,
 } from 'react-native';
-import {IconButton} from 'react-native-paper';
+import { IconButton } from 'react-native-paper';
 
 import ParsedText from 'react-native-parsed-text';
 import {
@@ -16,12 +16,12 @@ import {
   REGEX_LINK,
 } from '@flyerhq/react-native-link-preview';
 
-import {useTheme} from '../../hooks';
+import { useTheme } from '../../hooks';
 
-import {styles} from './styles';
-import {MarkdownView} from '../MarkdownView';
+import { styles } from './styles';
+import { MarkdownView } from '../MarkdownView';
 
-import {MessageType} from '../../utils/types';
+import { MessageType } from '../../utils/types';
 import {
   excludeDerivedMessageProps,
   getUserName,
@@ -130,13 +130,13 @@ export const TextMessage = ({
         parse={[
           {
             onPress: handleEmailPress,
-            style: [text, {textDecorationLine: 'underline'}],
+            style: [text, { textDecorationLine: 'underline' }],
             type: 'email',
           },
           {
             onPress: handleUrlPress,
             pattern: REGEX_LINK,
-            style: [text, {textDecorationLine: 'underline'}],
+            style: [text, { textDecorationLine: 'underline' }],
           },
         ]}
         style={text}>
@@ -166,7 +166,7 @@ export const TextMessage = ({
             key={index}
             style={imageThumbnail}
             onPress={() => setSelectedImageIndex(index)}>
-            <Image source={{uri}} style={imageContent} resizeMode="cover" />
+            <Image source={{ uri }} style={imageContent} resizeMode="cover" />
           </TouchableOpacity>
         ))}
       </View>
@@ -194,7 +194,7 @@ export const TextMessage = ({
             onPress={() => setSelectedImageIndex(null)}
           />
           <Image
-            source={{uri: imageUris[selectedImageIndex]}}
+            source={{ uri: imageUris[selectedImageIndex] }}
             style={imagePreviewContent}
             resizeMode="contain"
           />

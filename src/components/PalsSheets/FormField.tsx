@@ -1,11 +1,11 @@
-import React, {forwardRef} from 'react';
-import {View, TextInput as RNTextInput} from 'react-native';
-import {Text} from 'react-native-paper';
-import {Controller, useFormContext} from 'react-hook-form';
+import React, { forwardRef } from 'react';
+import { View, TextInput as RNTextInput } from 'react-native';
+import { Text } from 'react-native-paper';
+import { Controller, useFormContext } from 'react-hook-form';
 
-import {useTheme} from '../../hooks';
-import {createStyles} from './styles';
-import {TextInput} from '../TextInput';
+import { useTheme } from '../../hooks';
+import { createStyles } from './styles';
+import { TextInput } from '../TextInput';
 // Generic form field that works with any form data
 interface FormFieldProps {
   name: string;
@@ -36,7 +36,7 @@ const FormField = forwardRef<RNTextInput, FormFieldProps>(
     const styles = createStyles(theme);
     const {
       control,
-      formState: {errors},
+      formState: { errors },
     } = useFormContext();
 
     return (
@@ -49,7 +49,7 @@ const FormField = forwardRef<RNTextInput, FormFieldProps>(
         <Controller
           control={control}
           name={name}
-          render={({field: {onChange, value}}) => (
+          render={({ field: { onChange, value } }) => (
             <TextInput
               testID={`form-field-${name}`}
               ref={ref}
@@ -73,4 +73,4 @@ const FormField = forwardRef<RNTextInput, FormFieldProps>(
 
 FormField.displayName = 'FormField';
 
-export {FormField};
+export { FormField };

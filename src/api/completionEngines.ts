@@ -1,6 +1,6 @@
-import {LlamaContext} from 'llama.rn';
+import { LlamaContext } from 'llama.rn';
 
-import {streamChatCompletion} from './openai';
+import { streamChatCompletion } from './openai';
 import {
   ApiCompletionParams,
   CompletionEngine,

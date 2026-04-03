@@ -1,15 +1,15 @@
 import React from 'react';
-import {FormProvider, useForm} from 'react-hook-form';
-import {render, fireEvent} from '../../../../jest/test-utils';
-import {DynamicDateTimeTagField} from '../DynamicDateTimeTagField';
-import type {ParameterDefinition} from '../../../types/pal';
+import { FormProvider, useForm } from 'react-hook-form';
+import { render, fireEvent } from '../../../../jest/test-utils';
+import { DynamicDateTimeTagField } from '../DynamicDateTimeTagField';
+import type { ParameterDefinition } from '../../../types/pal';
 
 // Wrapper component to provide form context
 const TestWrapper: React.FC<{
   children: React.ReactNode;
   defaultValues?: Record<string, any>;
-}> = ({children, defaultValues = {}}) => {
-  const methods = useForm({defaultValues});
+}> = ({ children, defaultValues = {} }) => {
+  const methods = useForm({ defaultValues });
   return <FormProvider {...methods}>{children}</FormProvider>;
 };
 
@@ -24,7 +24,7 @@ describe('DynamicDateTimeTagField', () => {
   };
 
   it('should render with label and description', () => {
-    const {getByText} = render(
+    const { getByText } = render(
       <TestWrapper>
         <DynamicDateTimeTagField parameter={mockParameter} />
       </TestWrapper>,
@@ -35,9 +35,9 @@ describe('DynamicDateTimeTagField', () => {
   });
 
   it('should show required indicator when required', () => {
-    const requiredParameter = {...mockParameter, required: true};
+    const requiredParameter = { ...mockParameter, required: true };
 
-    const {getByText} = render(
+    const { getByText } = render(
       <TestWrapper>
         <DynamicDateTimeTagField parameter={requiredParameter} />
       </TestWrapper>,
@@ -47,7 +47,7 @@ describe('DynamicDateTimeTagField', () => {
   });
 
   it('should show placeholder text when no value', () => {
-    const {getByText} = render(
+    const { getByText } = render(
       <TestWrapper>
         <DynamicDateTimeTagField parameter={mockParameter} />
       </TestWrapper>,
@@ -62,7 +62,7 @@ describe('DynamicDateTimeTagField', () => {
       placeholder: undefined,
     };
 
-    const {getByText} = render(
+    const { getByText } = render(
       <TestWrapper>
         <DynamicDateTimeTagField parameter={parameterWithoutPlaceholder} />
       </TestWrapper>,
@@ -72,7 +72,7 @@ describe('DynamicDateTimeTagField', () => {
   });
 
   it('should insert datetime tag when button is pressed', () => {
-    const {getByTestId, getByText} = render(
+    const { getByTestId, getByText } = render(
       <TestWrapper>
         <DynamicDateTimeTagField parameter={mockParameter} />
       </TestWrapper>,
@@ -88,8 +88,8 @@ describe('DynamicDateTimeTagField', () => {
   });
 
   it('should show tag info when value is {{datetime}}', () => {
-    const {getByText} = render(
-      <TestWrapper defaultValues={{testDateTime: '{{datetime}}'}}>
+    const { getByText } = render(
+      <TestWrapper defaultValues={{ testDateTime: '{{datetime}}' }}>
         <DynamicDateTimeTagField parameter={mockParameter} />
       </TestWrapper>,
     );
@@ -101,7 +101,7 @@ describe('DynamicDateTimeTagField', () => {
   });
 
   it('should be disabled when disabled prop is true', () => {
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <TestWrapper>
         <DynamicDateTimeTagField parameter={mockParameter} disabled={true} />
       </TestWrapper>,
@@ -112,7 +112,7 @@ describe('DynamicDateTimeTagField', () => {
   });
 
   it('should not insert tag when disabled', () => {
-    const {getByTestId, queryByText} = render(
+    const { getByTestId, queryByText } = render(
       <TestWrapper>
         <DynamicDateTimeTagField parameter={mockParameter} disabled={true} />
       </TestWrapper>,
@@ -126,7 +126,7 @@ describe('DynamicDateTimeTagField', () => {
   });
 
   it('should display error message when provided', () => {
-    const {getByText} = render(
+    const { getByText } = render(
       <TestWrapper>
         <DynamicDateTimeTagField
           parameter={mockParameter}
@@ -144,7 +144,7 @@ describe('DynamicDateTimeTagField', () => {
       description: undefined,
     };
 
-    const {queryByText} = render(
+    const { queryByText } = render(
       <TestWrapper>
         <DynamicDateTimeTagField parameter={parameterWithoutDescription} />
       </TestWrapper>,

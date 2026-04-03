@@ -1,4 +1,4 @@
-import {compareReports, MemoryReport} from '../../e2e/scripts/memory-compare';
+import { compareReports, MemoryReport } from '../../e2e/scripts/memory-compare';
 
 function makeReport(memoryMap: Record<string, number> = {}): MemoryReport {
   const defaults: Record<string, number> = {
@@ -10,7 +10,7 @@ function makeReport(memoryMap: Record<string, number> = {}): MemoryReport {
     post_chat_idle: 320,
     model_unloaded: 105,
   };
-  const merged = {...defaults, ...memoryMap};
+  const merged = { ...defaults, ...memoryMap };
 
   return {
     version: '1.0',
@@ -42,8 +42,8 @@ describe('compareReports', () => {
   });
 
   it('passes when delta is high % but low absolute (below mb threshold)', () => {
-    const baseline = makeReport({app_launch: 100});
-    const current = makeReport({app_launch: 120}); // +20% but only +20 MB
+    const baseline = makeReport({ app_launch: 100 });
+    const current = makeReport({ app_launch: 120 }); // +20% but only +20 MB
 
     const result = compareReports(baseline, current);
 
@@ -52,8 +52,8 @@ describe('compareReports', () => {
   });
 
   it('passes when delta is high absolute but low % (below pct threshold)', () => {
-    const baseline = makeReport({model_loaded: 3000});
-    const current = makeReport({model_loaded: 3150}); // +150 MB but only +5%
+    const baseline = makeReport({ model_loaded: 3000 });
+    const current = makeReport({ model_loaded: 3150 }); // +150 MB but only +5%
 
     const result = compareReports(baseline, current);
 
@@ -62,8 +62,8 @@ describe('compareReports', () => {
   });
 
   it('fails when delta exceeds BOTH thresholds', () => {
-    const baseline = makeReport({model_loaded: 1000});
-    const current = makeReport({model_loaded: 1500}); // +500 MB and +50%
+    const baseline = makeReport({ model_loaded: 1000 });
+    const current = makeReport({ model_loaded: 1500 }); // +500 MB and +50%
 
     const result = compareReports(baseline, current);
 
@@ -75,21 +75,21 @@ describe('compareReports', () => {
   });
 
   it('respects custom thresholds', () => {
-    const baseline = makeReport({chat_active: 200});
-    const current = makeReport({chat_active: 260}); // +60 MB, +30%
+    const baseline = makeReport({ chat_active: 200 });
+    const current = makeReport({ chat_active: 260 }); // +60 MB, +30%
 
     // Default thresholds (10%, 200 MB) — passes (60 MB < 200 MB)
     expect(compareReports(baseline, current).pass).toBe(true);
 
     // Custom thresholds (5%, 50 MB) — fails (both exceeded)
-    const result = compareReports(baseline, current, {pct: 5, mb: 50});
+    const result = compareReports(baseline, current, { pct: 5, mb: 50 });
     expect(result.pass).toBe(false);
     expect(result.regressions).toHaveLength(1);
   });
 
   it('reports deltas for all checkpoints even when passing', () => {
-    const baseline = makeReport({app_launch: 100, model_loaded: 300});
-    const current = makeReport({app_launch: 105, model_loaded: 310});
+    const baseline = makeReport({ app_launch: 100, model_loaded: 300 });
+    const current = makeReport({ app_launch: 105, model_loaded: 310 });
 
     const result = compareReports(baseline, current);
 
@@ -108,7 +108,7 @@ describe('compareReports', () => {
         {
           label: 'app_launch',
           timestamp: new Date().toISOString(),
-          native: {pss_total: memMb * 1024 * 1024, available_memory: 3e9},
+          native: { pss_total: memMb * 1024 * 1024, available_memory: 3e9 },
         },
       ],
     });
@@ -128,7 +128,7 @@ describe('compareReports', () => {
         {
           label: 'extra_checkpoint',
           timestamp: new Date().toISOString(),
-          native: {phys_footprint: 999 * 1024 * 1024, available_memory: 1e9},
+          native: { phys_footprint: 999 * 1024 * 1024, available_memory: 1e9 },
         },
       ],
     };
@@ -142,8 +142,8 @@ describe('compareReports', () => {
   });
 
   it('includes peak comparison in result', () => {
-    const baseline = makeReport({chat_active: 500});
-    const current = makeReport({chat_active: 520});
+    const baseline = makeReport({ chat_active: 500 });
+    const current = makeReport({ chat_active: 520 });
 
     const result = compareReports(baseline, current);
 
@@ -152,8 +152,8 @@ describe('compareReports', () => {
   });
 
   it('detects memory decrease (negative delta) without flagging', () => {
-    const baseline = makeReport({model_loaded: 1000});
-    const current = makeReport({model_loaded: 800}); // -200 MB, improvement
+    const baseline = makeReport({ model_loaded: 1000 });
+    const current = makeReport({ model_loaded: 800 }); // -200 MB, improvement
 
     const result = compareReports(baseline, current);
 

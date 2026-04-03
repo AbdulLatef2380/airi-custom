@@ -1,5 +1,5 @@
-import {StyleSheet, Platform} from 'react-native';
-import {Theme} from '../../utils/types';
+import { StyleSheet, Platform } from 'react-native';
+import { Theme } from '../../utils/types';
 
 export const createStyles = (theme: Theme) => {
   const bubbleBackground = theme.colors.thinkingBubbleBackground;
@@ -12,7 +12,7 @@ export const createStyles = (theme: Theme) => {
       ...Platform.select({
         ios: {
           shadowColor: shadowColor,
-          shadowOffset: {width: 0, height: 2},
+          shadowOffset: { width: 0, height: 2 },
           shadowOpacity: 0.4,
           shadowRadius: 12,
         },

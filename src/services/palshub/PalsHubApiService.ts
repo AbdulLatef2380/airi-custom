@@ -1,6 +1,6 @@
-import {authService} from './AuthService';
-import {getAuthHeaders} from './supabase';
-import {PALSHUB_API_BASE_URL} from '@env';
+import { authService } from './AuthService';
+import { getAuthHeaders } from './supabase';
+import { PALSHUB_API_BASE_URL } from '@env';
 import type {
   PalsQuery,
   LibraryQuery,
@@ -454,7 +454,7 @@ class PalsHubApiService {
   async getCategories(): Promise<CategoriesResponse> {
     try {
       // Get a small sample of pals to extract categories
-      const response = await this.getPals({limit: 50});
+      const response = await this.getPals({ limit: 50 });
       const categoriesMap = new Map();
 
       response.pals.forEach(pal => {
@@ -483,7 +483,7 @@ class PalsHubApiService {
   async getTags(query: TagsQuery = {}): Promise<TagsResponse> {
     try {
       // Get a larger sample of pals to extract tags
-      const response = await this.getPals({limit: query.limit || 50});
+      const response = await this.getPals({ limit: query.limit || 50 });
       const tagsMap = new Map();
 
       response.pals.forEach(pal => {
@@ -503,7 +503,7 @@ class PalsHubApiService {
         );
       }
 
-      return {tags};
+      return { tags };
     } catch (error) {
       if (error instanceof PalsHubError) {
         throw error;

@@ -1,1 +1,1 @@
-export {ContentReportSheet} from './ContentReportSheet';
+export { ContentReportSheet } from './ContentReportSheet';

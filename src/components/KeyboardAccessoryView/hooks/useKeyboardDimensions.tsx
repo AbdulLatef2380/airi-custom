@@ -8,7 +8,7 @@ import {
   Platform,
   ScaledSize,
 } from 'react-native';
-import {useSafeAreaFrame} from 'react-native-safe-area-context';
+import { useSafeAreaFrame } from 'react-native-safe-area-context';
 
 /**
  * Utility hook used to calculate keyboard dimensions.
@@ -20,14 +20,14 @@ import {useSafeAreaFrame} from 'react-native-safe-area-context';
  * @returns `keyboardHeight` Keyboard's height
  */
 export const useKeyboardDimensions = (useListenersOnAndroid?: boolean) => {
-  const {height, y} = useSafeAreaFrame();
+  const { height, y } = useSafeAreaFrame();
   const [state, setState] = React.useState({
     keyboardEndPositionY: height,
     keyboardHeight: 0,
   });
 
   React.useEffect(() => {
-    const handleDimensionsChange = ({window}: {window: ScaledSize}) =>
+    const handleDimensionsChange = ({ window }: { window: ScaledSize }) =>
       setState(current => ({
         ...current,
         keyboardEndPositionY: window.height,
@@ -41,14 +41,14 @@ export const useKeyboardDimensions = (useListenersOnAndroid?: boolean) => {
 
     const updateKeyboardDimensions = (event: KeyboardEvent) =>
       setState(current => {
-        const {screenY: keyboardEndPositionY} = event.endCoordinates;
+        const { screenY: keyboardEndPositionY } = event.endCoordinates;
         const keyboardHeight = height - keyboardEndPositionY + y;
 
         if (keyboardHeight === current.keyboardHeight) {
           return current;
         }
 
-        const {duration, easing} = event;
+        const { duration, easing } = event;
 
         if (duration && easing) {
           // We have to pass the duration equal to minimal

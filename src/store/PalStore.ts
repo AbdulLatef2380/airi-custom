@@ -16,23 +16,23 @@
  * @see src/components/PalsSheets/PalSheet.tsx for unified UI component
  */
 
-import {v4 as uuidv4} from 'uuid';
-import {makeAutoObservable, runInAction} from 'mobx';
+import { v4 as uuidv4 } from 'uuid';
+import { makeAutoObservable, runInAction } from 'mobx';
 
-import {fetchModelInfo, fetchModelFilesDetails} from '../api/hf';
+import { fetchModelInfo, fetchModelFilesDetails } from '../api/hf';
 
-import {HF_DOMAIN} from '../config/urls';
+import { HF_DOMAIN } from '../config/urls';
 
-import {palRepository} from '../repositories/PalRepository';
+import { palRepository } from '../repositories/PalRepository';
 
-import {hfAsModel} from '../utils';
-import {isUSStorefront} from '../utils/region';
-import {palsHubService} from '../services';
-import {defaultModels} from './defaultModels';
-import {parsePalsHubTemplate} from '../utils/palshub-template-parser';
-import {getDisplayNameFromFilename} from '../utils/formatters';
+import { hfAsModel } from '../utils';
+import { isUSStorefront } from '../utils/region';
+import { palsHubService } from '../services';
+import { defaultModels } from './defaultModels';
+import { parsePalsHubTemplate } from '../utils/palshub-template-parser';
+import { getDisplayNameFromFilename } from '../utils/formatters';
 
-import type {Pal, ParameterDefinition} from '../types/pal';
+import type { Pal, ParameterDefinition } from '../types/pal';
 import type {
   ModelReference,
   PalsHubPal,
@@ -40,10 +40,10 @@ import type {
   SyncState,
 } from '../types/palshub';
 
-import {ModelOrigin} from '../utils/types';
-import {createSiblingsFromFileDetails} from '../utils/hf';
-import type {Model, HuggingFaceModel, ModelFile} from '../utils/types';
-import {downloadPalThumbnail, deletePalThumbnail} from '../utils/imageUtils';
+import { ModelOrigin } from '../utils/types';
+import { createSiblingsFromFileDetails } from '../utils/hf';
+import type { Model, HuggingFaceModel, ModelFile } from '../utils/types';
+import { downloadPalThumbnail, deletePalThumbnail } from '../utils/imageUtils';
 
 class PalStore {
   // Core pals storage
@@ -55,7 +55,7 @@ class PalStore {
   userCreatedPals: PalsHubPal[] = [];
   isLoadingPalsHub: boolean = false;
   searchFilters: SearchFilters = {};
-  syncState: SyncState = {status: 'idle'};
+  syncState: SyncState = { status: 'idle' };
 
   // Region state
   isUSRegion: boolean = false;
@@ -414,10 +414,10 @@ class PalStore {
       filename: modelRef.filename,
       isLocal: false,
       origin: ModelOrigin.HF,
-      defaultChatTemplate: {...defaultModel.defaultChatTemplate},
-      chatTemplate: {...defaultModel.chatTemplate},
-      defaultCompletionSettings: {...defaultModel.defaultCompletionSettings},
-      completionSettings: {...defaultModel.completionSettings},
+      defaultChatTemplate: { ...defaultModel.defaultChatTemplate },
+      chatTemplate: { ...defaultModel.chatTemplate },
+      defaultCompletionSettings: { ...defaultModel.defaultCompletionSettings },
+      completionSettings: { ...defaultModel.completionSettings },
       defaultStopWords: [...(defaultModel.defaultStopWords || [])],
       stopWords: [...(defaultModel.stopWords || [])],
     };
@@ -505,7 +505,7 @@ class PalStore {
     try {
       runInAction(() => {
         this.isLoadingPalsHub = true;
-        this.syncState = {status: 'syncing'};
+        this.syncState = { status: 'syncing' };
       });
 
       const response = await palsHubService.getPals(filters);
@@ -513,7 +513,7 @@ class PalStore {
       runInAction(() => {
         this.cachedPalsHubPals = response.pals;
         this.isLoadingPalsHub = false;
-        this.syncState = {status: 'success'};
+        this.syncState = { status: 'success' };
       });
 
       return response;
@@ -525,7 +525,7 @@ class PalStore {
       runInAction(() => {
         this.cachedPalsHubPals = []; // Set empty array instead of failing
         this.isLoadingPalsHub = false;
-        this.syncState = {status: 'success'}; // Don't show error state for missing config
+        this.syncState = { status: 'success' }; // Don't show error state for missing config
       });
 
       // Return empty response instead of throwing
@@ -543,7 +543,7 @@ class PalStore {
     try {
       runInAction(() => {
         this.isLoadingPalsHub = true;
-        this.syncState = {status: 'syncing'};
+        this.syncState = { status: 'syncing' };
       });
 
       const response = await palsHubService.getLibrary();
@@ -551,7 +551,7 @@ class PalStore {
       runInAction(() => {
         this.userLibrary = response.pals;
         this.isLoadingPalsHub = false;
-        this.syncState = {status: 'success'};
+        this.syncState = { status: 'success' };
       });
 
       return response;
@@ -563,7 +563,7 @@ class PalStore {
       runInAction(() => {
         this.userLibrary = []; // Set empty array instead of failing
         this.isLoadingPalsHub = false;
-        this.syncState = {status: 'success'}; // Don't show error state for missing config
+        this.syncState = { status: 'success' }; // Don't show error state for missing config
       });
 
       // Return empty response instead of throwing
@@ -581,7 +581,7 @@ class PalStore {
     try {
       runInAction(() => {
         this.isLoadingPalsHub = true;
-        this.syncState = {status: 'syncing'};
+        this.syncState = { status: 'syncing' };
       });
 
       const response = await palsHubService.getMyPals();
@@ -589,7 +589,7 @@ class PalStore {
       runInAction(() => {
         this.userCreatedPals = response.pals;
         this.isLoadingPalsHub = false;
-        this.syncState = {status: 'success'};
+        this.syncState = { status: 'success' };
       });
 
       return response;
@@ -601,7 +601,7 @@ class PalStore {
       runInAction(() => {
         this.userCreatedPals = []; // Set empty array instead of failing
         this.isLoadingPalsHub = false;
-        this.syncState = {status: 'success'}; // Don't show error state for missing config
+        this.syncState = { status: 'success' }; // Don't show error state for missing config
       });
 
       // Return empty response instead of throwing
@@ -729,7 +729,7 @@ class PalStore {
               required: false,
             },
           ],
-          capabilities: {video: true},
+          capabilities: { video: true },
           color: ['#9E204F', '#F6E1EA'], // Original Lookie colors
           source: 'local',
         };
@@ -747,5 +747,5 @@ class PalStore {
 export const palStore = new PalStore();
 
 // Export types for external use
-export type {Pal} from '../types/pal';
-export type {LegacyPalData} from '../utils/pal-migration';
+export type { Pal } from '../types/pal';
+export type { LegacyPalData } from '../utils/pal-migration';

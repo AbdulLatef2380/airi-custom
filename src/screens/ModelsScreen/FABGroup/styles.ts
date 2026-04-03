@@ -1,7 +1,7 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
-import {Theme} from '../../../utils/types';
-import {uiStore} from '../../../store';
+import { Theme } from '../../../utils/types';
+import { uiStore } from '../../../store';
 
 export const createStyles = (theme: Theme) => {
   const isDark = uiStore.colorScheme === 'dark';

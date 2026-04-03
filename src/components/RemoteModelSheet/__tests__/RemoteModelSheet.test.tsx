@@ -1,12 +1,12 @@
 import React from 'react';
-import {render, fireEvent} from '../../../../jest/test-utils';
-import {RemoteModelSheet} from '../RemoteModelSheet';
-import {serverStore} from '../../../store';
+import { render, fireEvent } from '../../../../jest/test-utils';
+import { RemoteModelSheet } from '../RemoteModelSheet';
+import { serverStore } from '../../../store';
 
 // Mock the Sheet component following HFTokenSheet test pattern
 jest.mock('../../Sheet', () => {
-  const {View, Button} = require('react-native');
-  const MockSheet = ({children, isVisible, onClose, title}: any) => {
+  const { View, Button } = require('react-native');
+  const MockSheet = ({ children, isVisible, onClose, title }: any) => {
     if (!isVisible) {
       return null;
     }
@@ -18,13 +18,13 @@ jest.mock('../../Sheet', () => {
       </View>
     );
   };
-  MockSheet.ScrollView = ({children}: any) => (
+  MockSheet.ScrollView = ({ children }: any) => (
     <View testID="sheet-scroll-view">{children}</View>
   );
-  MockSheet.Actions = ({children}: any) => (
+  MockSheet.Actions = ({ children }: any) => (
     <View testID="sheet-actions">{children}</View>
   );
-  return {Sheet: MockSheet};
+  return { Sheet: MockSheet };
 });
 
 // Mock the openai API module
@@ -32,7 +32,7 @@ jest.mock('../../../api/openai', () => ({
   fetchModels: jest.fn(),
   fetchModelsWithHeaders: jest
     .fn()
-    .mockResolvedValue({models: [], headers: {}}),
+    .mockResolvedValue({ models: [], headers: {} }),
   detectServerType: jest.fn().mockResolvedValue(''),
 }));
 
@@ -49,7 +49,7 @@ describe('RemoteModelSheet', () => {
   });
 
   it('renders nothing when not visible', () => {
-    const {queryByTestId} = render(
+    const { queryByTestId } = render(
       <RemoteModelSheet isVisible={false} onDismiss={jest.fn()} />,
     );
 
@@ -57,7 +57,7 @@ describe('RemoteModelSheet', () => {
   });
 
   it('renders the sheet with URL input when visible', () => {
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <RemoteModelSheet isVisible={true} onDismiss={jest.fn()} />,
     );
 
@@ -66,7 +66,7 @@ describe('RemoteModelSheet', () => {
   });
 
   it('renders the Add Model button', () => {
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <RemoteModelSheet isVisible={true} onDismiss={jest.fn()} />,
     );
 
@@ -76,7 +76,7 @@ describe('RemoteModelSheet', () => {
   it('shows privacy notice when not acknowledged', () => {
     serverStore.privacyNoticeAcknowledged = false;
 
-    const {getByText} = render(
+    const { getByText } = render(
       <RemoteModelSheet isVisible={true} onDismiss={jest.fn()} />,
     );
 
@@ -91,7 +91,7 @@ describe('RemoteModelSheet', () => {
   it('hides privacy notice when acknowledged', () => {
     serverStore.privacyNoticeAcknowledged = true;
 
-    const {queryByText} = render(
+    const { queryByText } = render(
       <RemoteModelSheet isVisible={true} onDismiss={jest.fn()} />,
     );
 
@@ -104,7 +104,7 @@ describe('RemoteModelSheet', () => {
 
   it('calls onDismiss when sheet close is triggered', () => {
     const mockDismiss = jest.fn();
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <RemoteModelSheet isVisible={true} onDismiss={mockDismiss} />,
     );
 
@@ -114,10 +114,10 @@ describe('RemoteModelSheet', () => {
 
   it('shows server chips when servers exist', () => {
     serverStore.servers = [
-      {id: 'srv-1', name: 'LM Studio', url: 'http://localhost:1234'},
+      { id: 'srv-1', name: 'LM Studio', url: 'http://localhost:1234' },
     ];
 
-    const {getByText, getByTestId} = render(
+    const { getByText, getByTestId } = render(
       <RemoteModelSheet isVisible={true} onDismiss={jest.fn()} />,
     );
 
@@ -128,7 +128,7 @@ describe('RemoteModelSheet', () => {
   it('does not show server chips when no servers exist', () => {
     serverStore.servers = [];
 
-    const {queryByText} = render(
+    const { queryByText } = render(
       <RemoteModelSheet isVisible={true} onDismiss={jest.fn()} />,
     );
 
@@ -137,7 +137,7 @@ describe('RemoteModelSheet', () => {
   });
 
   it('disables Add Model button when no model is selected', () => {
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <RemoteModelSheet isVisible={true} onDismiss={jest.fn()} />,
     );
 

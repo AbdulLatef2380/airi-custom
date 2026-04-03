@@ -1,6 +1,6 @@
-import React, {useRef, ReactNode, useState} from 'react';
+import React, { useRef, ReactNode, useState } from 'react';
 
-import {observer} from 'mobx-react';
+import { observer } from 'mobx-react';
 
 import {
   Bubble,
@@ -8,21 +8,21 @@ import {
   ErrorSnackbar,
   ModelErrorReportSheet,
 } from '../../components';
-import {PalSheet} from '../../components/PalsSheets';
+import { PalSheet } from '../../components/PalsSheets';
 
-import {useChatSession} from '../../hooks';
-import {usePendingMessage} from '../../hooks/useDeepLinking';
-import {Pal} from '../../types/pal';
+import { useChatSession } from '../../hooks';
+import { usePendingMessage } from '../../hooks/useDeepLinking';
+import { Pal } from '../../types/pal';
 
-import {modelStore, chatSessionStore, palStore, uiStore} from '../../store';
-import {hasVideoCapability} from '../../utils/pal-capabilities';
+import { modelStore, chatSessionStore, palStore, uiStore } from '../../store';
+import { hasVideoCapability } from '../../utils/pal-capabilities';
 
-import {L10nContext} from '../../utils';
-import {MessageType} from '../../utils/types';
-import {ErrorState} from '../../utils/errors';
-import {user, assistant} from '../../utils/chat';
+import { L10nContext } from '../../utils';
+import { MessageType } from '../../utils/types';
+import { ErrorState } from '../../utils/errors';
+import { user, assistant } from '../../utils/chat';
 
-import {VideoPalScreen} from './VideoPalScreen';
+import { VideoPalScreen } from './VideoPalScreen';
 
 const renderBubble = ({
   child,
@@ -64,11 +64,11 @@ export const ChatScreen: React.FC = observer(() => {
   const [isErrorReportVisible, setIsErrorReportVisible] = useState(false);
   const [errorToReport, setErrorToReport] = useState<ErrorState | null>(null);
 
-  const {handleSendPress, handleStopPress, isMultimodalEnabled} =
+  const { handleSendPress, handleStopPress, isMultimodalEnabled } =
     useChatSession(currentMessageInfo, user, assistant);
 
   // Handle deep linking for message prefill
-  const {pendingMessage, clearPendingMessage} = usePendingMessage();
+  const { pendingMessage, clearPendingMessage } = usePendingMessage();
 
   // Callback handler for opening pal sheet
   const handleOpenPalSheet = React.useCallback((_pal: Pal) => {

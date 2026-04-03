@@ -1,7 +1,7 @@
-import {Model, ModelOrigin, ModelType} from '../utils/types';
-import {chatTemplates} from '../utils/chat';
-import {defaultCompletionParams} from '../utils/completionSettingsVersions';
-import {Platform} from 'react-native';
+import { Model, ModelOrigin, ModelType } from '../utils/types';
+import { chatTemplates } from '../utils/chat';
+import { defaultCompletionParams } from '../utils/completionSettingsVersions';
+import { Platform } from 'react-native';
 
 export const MODEL_LIST_VERSION = 14;
 
@@ -28,7 +28,7 @@ const crossPlatformModels: Model[] = [
     filename: 'gemma-2-2b-it-Q6_K.gguf',
     isLocal: false,
     origin: ModelOrigin.PRESET,
-    defaultChatTemplate: {...chatTemplates.gemmaIt},
+    defaultChatTemplate: { ...chatTemplates.gemmaIt },
     chatTemplate: chatTemplates.gemmaIt,
     defaultCompletionSettings: {
       ...defaultCompletionParams,
@@ -75,7 +75,7 @@ const crossPlatformModels: Model[] = [
     filename: 'Gemmasutra-Mini-2B-v1-Q6_K.gguf',
     isLocal: false,
     origin: ModelOrigin.PRESET,
-    defaultChatTemplate: {...chatTemplates.gemmasutra},
+    defaultChatTemplate: { ...chatTemplates.gemmasutra },
     chatTemplate: chatTemplates.gemmasutra,
     defaultCompletionSettings: {
       ...defaultCompletionParams,
@@ -122,7 +122,7 @@ const crossPlatformModels: Model[] = [
     filename: 'Phi-3.5-mini-instruct.Q4_K_M.gguf',
     isLocal: false,
     origin: ModelOrigin.PRESET,
-    defaultChatTemplate: {...chatTemplates.phi3},
+    defaultChatTemplate: { ...chatTemplates.phi3 },
     chatTemplate: chatTemplates.phi3,
     defaultCompletionSettings: {
       ...defaultCompletionParams,
@@ -167,7 +167,7 @@ const crossPlatformModels: Model[] = [
     filename: 'qwen2.5-1.5b-instruct-q8_0.gguf',
     isLocal: false,
     origin: ModelOrigin.PRESET,
-    defaultChatTemplate: {...chatTemplates.qwen25},
+    defaultChatTemplate: { ...chatTemplates.qwen25 },
     chatTemplate: chatTemplates.qwen25,
     defaultCompletionSettings: {
       ...defaultCompletionParams,
@@ -212,7 +212,7 @@ const crossPlatformModels: Model[] = [
     filename: 'qwen2.5-3b-instruct-q5_k_m.gguf',
     isLocal: false,
     origin: ModelOrigin.PRESET,
-    defaultChatTemplate: {...chatTemplates.qwen25},
+    defaultChatTemplate: { ...chatTemplates.qwen25 },
     chatTemplate: chatTemplates.qwen25,
     defaultCompletionSettings: {
       ...defaultCompletionParams,
@@ -259,7 +259,7 @@ const crossPlatformModels: Model[] = [
     filename: 'llama-3.2-1b-instruct-q8_0.gguf',
     isLocal: false,
     origin: ModelOrigin.PRESET,
-    defaultChatTemplate: {...chatTemplates.llama32},
+    defaultChatTemplate: { ...chatTemplates.llama32 },
     chatTemplate: chatTemplates.llama32,
     defaultCompletionSettings: {
       ...defaultCompletionParams,
@@ -303,7 +303,7 @@ const crossPlatformModels: Model[] = [
     filename: 'Llama-3.2-3B-Instruct-Q6_K.gguf',
     isLocal: false,
     origin: ModelOrigin.PRESET,
-    defaultChatTemplate: {...chatTemplates.llama32},
+    defaultChatTemplate: { ...chatTemplates.llama32 },
     chatTemplate: chatTemplates.llama32,
     defaultCompletionSettings: {
       ...defaultCompletionParams,

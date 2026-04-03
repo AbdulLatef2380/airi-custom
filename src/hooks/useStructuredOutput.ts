@@ -1,10 +1,10 @@
-import {useCallback, useRef, useState, useContext} from 'react';
+import { useCallback, useRef, useState, useContext } from 'react';
 
-import {toJS} from 'mobx';
+import { toJS } from 'mobx';
 
-import {modelStore} from '../store';
-import {safeParseJSON} from '../utils';
-import {L10nContext} from '../utils';
+import { modelStore } from '../store';
+import { safeParseJSON } from '../utils';
+import { L10nContext } from '../utils';
 
 export const useStructuredOutput = () => {
   const [isGenerating, setIsGenerating] = useState(false);
@@ -45,7 +45,7 @@ export const useStructuredOutput = () => {
         stopRef.current = () => modelStore.context?.stopCompletion();
 
         const result = await modelStore.context.completion({
-          messages: [{role: 'user', content: prompt}],
+          messages: [{ role: 'user', content: prompt }],
           response_format: {
             type: 'json_schema',
             json_schema: {

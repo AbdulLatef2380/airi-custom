@@ -1,7 +1,7 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
-import {Theme} from '../../utils/types';
-import {fontStyles} from '../../utils/theme';
+import { Theme } from '../../utils/types';
+import { fontStyles } from '../../utils/theme';
 
 export const createStyles = ({
   theme,

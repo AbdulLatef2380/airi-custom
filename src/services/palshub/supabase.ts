@@ -1,5 +1,5 @@
-import {createClient} from '@supabase/supabase-js';
-import {SUPABASE_URL, SUPABASE_ANON_KEY} from '@env';
+import { createClient } from '@supabase/supabase-js';
+import { SUPABASE_URL, SUPABASE_ANON_KEY } from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Check if Supabase is configured
@@ -26,11 +26,11 @@ export const getAuthHeaders = async () => {
 
   try {
     const {
-      data: {session},
+      data: { session },
     } = await supabase.auth.getSession();
 
     return session?.access_token
-      ? {Authorization: `Bearer ${session.access_token}`}
+      ? { Authorization: `Bearer ${session.access_token}` }
       : {};
   } catch (error) {
     console.warn('Failed to get auth headers:', error);
@@ -46,7 +46,7 @@ export const isAuthenticated = async (): Promise<boolean> => {
 
   try {
     const {
-      data: {session},
+      data: { session },
     } = await supabase.auth.getSession();
     return !!session?.user;
   } catch (error) {
@@ -63,7 +63,7 @@ export const getCurrentUser = async () => {
 
   try {
     const {
-      data: {user},
+      data: { user },
     } = await supabase.auth.getUser();
     return user;
   } catch (error) {

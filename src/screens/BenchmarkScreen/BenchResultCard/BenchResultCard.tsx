@@ -1,17 +1,21 @@
-import React, {useState, useContext} from 'react';
-import {View, Linking} from 'react-native';
+import React, { useState, useContext } from 'react';
+import { View, Linking } from 'react-native';
 
-import {Card, Text, Button, Tooltip} from 'react-native-paper';
+import { Card, Text, Button, Tooltip } from 'react-native-paper';
 
-import {useTheme} from '../../../hooks';
-import {L10nContext} from '../../../utils';
-import {t} from '../../../locales';
+import { useTheme } from '../../../hooks';
+import { L10nContext } from '../../../utils';
+import { t } from '../../../locales';
 
-import {createStyles} from './styles';
+import { createStyles } from './styles';
 
-import {BenchmarkResult} from '../../../utils/types';
-import {formatBytes, formatNumber} from '../../../utils';
-import {NetworkError, AppCheckError, ServerError} from '../../../utils/errors';
+import { BenchmarkResult } from '../../../utils/types';
+import { formatBytes, formatNumber } from '../../../utils';
+import {
+  NetworkError,
+  AppCheckError,
+  ServerError,
+} from '../../../utils/errors';
 
 type Props = {
   result: BenchmarkResult;
@@ -21,7 +25,7 @@ type Props = {
 
 type ErrorType = 'network' | 'appCheck' | 'server' | 'generic' | null;
 
-export const BenchResultCard = ({result, onDelete, onShare}: Props) => {
+export const BenchResultCard = ({ result, onDelete, onShare }: Props) => {
   const theme = useTheme();
   const styles = createStyles(theme);
   const l10n = useContext(L10nContext);

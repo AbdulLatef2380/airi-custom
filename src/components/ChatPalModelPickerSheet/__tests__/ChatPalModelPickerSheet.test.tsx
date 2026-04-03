@@ -1,12 +1,12 @@
 import React from 'react';
-import {render, fireEvent, waitFor} from '@testing-library/react-native';
-import {Alert, Keyboard} from 'react-native';
+import { render, fireEvent, waitFor } from '@testing-library/react-native';
+import { Alert, Keyboard } from 'react-native';
 
-import {ChatPalModelPickerSheet} from '../ChatPalModelPickerSheet';
-import {modelStore, chatSessionStore} from '../../../store';
-import {user} from '../../../../jest/fixtures';
-import {UserContext, L10nContext} from '../../../utils';
-import {l10n} from '../../../locales';
+import { ChatPalModelPickerSheet } from '../ChatPalModelPickerSheet';
+import { modelStore, chatSessionStore } from '../../../store';
+import { user } from '../../../../jest/fixtures';
+import { UserContext, L10nContext } from '../../../utils';
+import { l10n } from '../../../locales';
 
 // Mock stores
 jest.mock('../../../store', () => ({
@@ -25,7 +25,7 @@ jest.mock('../../../store', () => ({
         supportsMultimodal: true,
       },
     ],
-    activeModel: {id: 'model1', name: 'Test Model 1'},
+    activeModel: { id: 'model1', name: 'Test Model 1' },
     activeModelId: 'model1',
     initContext: jest.fn(),
     selectModel: jest.fn(),
@@ -42,13 +42,13 @@ jest.mock('../../../store', () => ({
         id: 'pal1',
         name: 'Test Assistant',
         palType: 'assistant', // Use string literal instead of enum
-        defaultModel: {id: 'model1', name: 'Test Model 1'},
+        defaultModel: { id: 'model1', name: 'Test Model 1' },
       },
       {
         id: 'pal2',
         name: 'Test Roleplay',
         palType: 'roleplay', // Use string literal instead of enum
-        defaultModel: {id: 'model2', name: 'Test Model 2'},
+        defaultModel: { id: 'model2', name: 'Test Model 2' },
       },
     ],
   },
@@ -63,32 +63,36 @@ jest.mock('@gorhom/bottom-sheet', () => {
   const mockReact = require('react');
   return {
     __esModule: true,
-    default: mockReact.forwardRef(({children}: any, ref: any) =>
-      mockReact.createElement('View', {ref, testID: 'bottom-sheet'}, children),
-    ),
-    BottomSheetFlatList: ({data, renderItem}: any) =>
+    default: mockReact.forwardRef(({ children }: any, ref: any) =>
       mockReact.createElement(
         'View',
-        {testID: 'bottom-sheet-flatlist'},
+        { ref, testID: 'bottom-sheet' },
+        children,
+      ),
+    ),
+    BottomSheetFlatList: ({ data, renderItem }: any) =>
+      mockReact.createElement(
+        'View',
+        { testID: 'bottom-sheet-flatlist' },
         data?.map((item: any, index: number) =>
           mockReact.createElement(
             'View',
-            {key: item.id},
-            renderItem({item, index}),
+            { key: item.id },
+            renderItem({ item, index }),
           ),
         ),
       ),
     BottomSheetFlatListMethods: {},
-    BottomSheetScrollView: ({children}: any) =>
+    BottomSheetScrollView: ({ children }: any) =>
       mockReact.createElement(
         'View',
-        {testID: 'bottom-sheet-scrollview'},
+        { testID: 'bottom-sheet-scrollview' },
         children,
       ),
-    BottomSheetView: ({children}: any) =>
+    BottomSheetView: ({ children }: any) =>
       mockReact.createElement(
         'View',
-        {testID: 'bottom-sheet-flatlist'},
+        { testID: 'bottom-sheet-flatlist' },
         children,
       ),
   };
@@ -123,7 +127,7 @@ describe('ChatPalModelPickerSheet', () => {
   });
 
   it('renders correctly when visible', () => {
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <UserContext.Provider value={user}>
         <L10nContext.Provider value={l10n.en}>
           <ChatPalModelPickerSheet {...defaultProps} />
@@ -136,7 +140,7 @@ describe('ChatPalModelPickerSheet', () => {
   });
 
   it('does not render when not visible', () => {
-    const {queryByTestId} = render(
+    const { queryByTestId } = render(
       <UserContext.Provider value={user}>
         <L10nContext.Provider value={l10n.en}>
           <ChatPalModelPickerSheet {...defaultProps} isVisible={false} />
@@ -148,7 +152,7 @@ describe('ChatPalModelPickerSheet', () => {
   });
 
   it('dismisses keyboard when sheet becomes visible', () => {
-    const {rerender} = render(
+    const { rerender } = render(
       <UserContext.Provider value={user}>
         <L10nContext.Provider value={l10n.en}>
           <ChatPalModelPickerSheet {...defaultProps} isVisible={false} />
@@ -196,7 +200,7 @@ describe('ChatPalModelPickerSheet', () => {
   });
 
   it('displays models and pals tabs', () => {
-    const {getByText} = render(
+    const { getByText } = render(
       <UserContext.Provider value={user}>
         <L10nContext.Provider value={l10n.en}>
           <ChatPalModelPickerSheet {...defaultProps} />
@@ -213,7 +217,7 @@ describe('ChatPalModelPickerSheet', () => {
   });
 
   it('switches tabs when tab is pressed', () => {
-    const {getByText} = render(
+    const { getByText } = render(
       <UserContext.Provider value={user}>
         <L10nContext.Provider value={l10n.en}>
           <ChatPalModelPickerSheet {...defaultProps} />
@@ -231,7 +235,7 @@ describe('ChatPalModelPickerSheet', () => {
   });
 
   it('calls onModelSelect when model is selected', async () => {
-    const {getByText} = render(
+    const { getByText } = render(
       <UserContext.Provider value={user}>
         <L10nContext.Provider value={l10n.en}>
           <ChatPalModelPickerSheet {...defaultProps} />
@@ -251,7 +255,7 @@ describe('ChatPalModelPickerSheet', () => {
   });
 
   it('calls onPalSelect when pal is selected', async () => {
-    const {getByText} = render(
+    const { getByText } = render(
       <UserContext.Provider value={user}>
         <L10nContext.Provider value={l10n.en}>
           <ChatPalModelPickerSheet {...defaultProps} />
@@ -277,7 +281,7 @@ describe('ChatPalModelPickerSheet', () => {
   });
 
   it('shows model switch confirmation when pal has different default model', async () => {
-    const {getByText} = render(
+    const { getByText } = render(
       <UserContext.Provider value={user}>
         <L10nContext.Provider value={l10n.en}>
           <ChatPalModelPickerSheet {...defaultProps} />
@@ -312,7 +316,7 @@ describe('ChatPalModelPickerSheet', () => {
   });
 
   it('calls onClose when sheet is closed', () => {
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <UserContext.Provider value={user}>
         <L10nContext.Provider value={l10n.en}>
           <ChatPalModelPickerSheet {...defaultProps} />
@@ -331,7 +335,7 @@ describe('ChatPalModelPickerSheet', () => {
   });
 
   it('enables content panning gesture for scrolling', () => {
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <UserContext.Provider value={user}>
         <L10nContext.Provider value={l10n.en}>
           <ChatPalModelPickerSheet {...defaultProps} />

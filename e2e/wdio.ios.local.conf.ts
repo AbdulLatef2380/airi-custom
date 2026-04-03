@@ -15,23 +15,26 @@
  *   E2E_XCODE_SIGNING_ID  - Code signing identity (default: 'Apple Development')
  */
 
-import {config as sharedConfig} from './wdio.shared.conf';
-import type {Options} from '@wdio/types';
+import { config as sharedConfig } from './wdio.shared.conf';
+import type { Options } from '@wdio/types';
 
 // Env-var-driven configuration with backward-compatible defaults
 const DEVICE_NAME = process.env.E2E_DEVICE_NAME || 'iPhone 17 Pro';
 const PLATFORM_VERSION = process.env.E2E_PLATFORM_VERSION || '26.0';
 const DEVICE_UDID = process.env.E2E_DEVICE_UDID; // undefined = simulator auto-selection
-const APP_PATH = process.env.E2E_APP_PATH || '../ios/build/Build/Products/Release-iphonesimulator/PocketPal.app';
+const APP_PATH =
+  process.env.E2E_APP_PATH ||
+  '../ios/build/Build/Products/Release-iphonesimulator/PocketPal.app';
 const APPIUM_PORT = parseInt(process.env.E2E_APPIUM_PORT || '4723', 10);
 const XCODE_ORG_ID = process.env.E2E_XCODE_ORG_ID;
-const XCODE_SIGNING_ID = process.env.E2E_XCODE_SIGNING_ID || 'Apple Development';
+const XCODE_SIGNING_ID =
+  process.env.E2E_XCODE_SIGNING_ID || 'Apple Development';
 
 export const config: Options.Testrunner = {
   ...sharedConfig,
 
   // Override port if non-default
-  ...(APPIUM_PORT !== 4723 && {port: APPIUM_PORT}),
+  ...(APPIUM_PORT !== 4723 && { port: APPIUM_PORT }),
 
   capabilities: [
     {
@@ -46,7 +49,7 @@ export const config: Options.Testrunner = {
       'appium:newCommandTimeout': 300,
       'appium:autoAcceptAlerts': true,
       // Only include UDID if explicitly set (real devices need it)
-      ...(DEVICE_UDID && {'appium:udid': DEVICE_UDID}),
+      ...(DEVICE_UDID && { 'appium:udid': DEVICE_UDID }),
       // Code signing for real devices (WebDriverAgent needs to be signed)
       ...(XCODE_ORG_ID && {
         'appium:xcodeOrgId': XCODE_ORG_ID,

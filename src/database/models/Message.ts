@@ -1,12 +1,12 @@
-import {Model} from '@nozbe/watermelondb';
-import {field, text} from '@nozbe/watermelondb/decorators';
-import {MessageType, User} from '../../utils/types';
+import { Model } from '@nozbe/watermelondb';
+import { field, text } from '@nozbe/watermelondb/decorators';
+import { MessageType, User } from '../../utils/types';
 
 export default class Message extends Model {
   static table = 'messages';
 
   static associations = {
-    chat_sessions: {type: 'belongs_to' as const, key: 'session_id'},
+    chat_sessions: { type: 'belongs_to' as const, key: 'session_id' },
   };
 
   @text('session_id') sessionId!: string;

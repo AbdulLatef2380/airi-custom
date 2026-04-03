@@ -1,26 +1,26 @@
 import * as React from 'react';
-import {Dimensions, StyleSheet} from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 
-import {observer} from 'mobx-react';
-import {NavigationContainer} from '@react-navigation/native';
-import {Provider as PaperProvider} from 'react-native-paper';
-import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
-import {createDrawerNavigator} from '@react-navigation/drawer';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {KeyboardProvider} from 'react-native-keyboard-controller';
+import { observer } from 'mobx-react';
+import { NavigationContainer } from '@react-navigation/native';
+import { Provider as PaperProvider } from 'react-native-paper';
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { KeyboardProvider } from 'react-native-keyboard-controller';
 import {
   gestureHandlerRootHOC,
   GestureHandlerRootView,
 } from 'react-native-gesture-handler';
 
-import {uiStore} from './src/store';
-import {useTheme} from './src/hooks';
-import {useDeepLinking} from './src/hooks/useDeepLinking';
-import {Theme} from './src/utils/types';
+import { uiStore } from './src/store';
+import { useTheme } from './src/hooks';
+import { useDeepLinking } from './src/hooks/useDeepLinking';
+import { Theme } from './src/utils/types';
 
-import {l10n, initLocale} from './src/locales';
-import {L10nContext} from './src/utils';
-import {ROUTES} from './src/utils/navigationConstants';
+import { l10n, initLocale } from './src/locales';
+import { L10nContext } from './src/utils';
+import { ROUTES } from './src/utils/navigationConstants';
 
 import {
   SidebarContent,

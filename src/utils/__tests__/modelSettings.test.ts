@@ -1,4 +1,4 @@
-import {defaultCompletionParams} from '../completionSettingsVersions';
+import { defaultCompletionParams } from '../completionSettingsVersions';
 import {
   isLegacyQuantization,
   validateNumericField,

@@ -1,11 +1,11 @@
 import React from 'react';
-import {TouchableOpacity} from 'react-native';
-import {DrawerNavigationProp} from '@react-navigation/drawer';
-import {useNavigation} from '@react-navigation/native';
+import { TouchableOpacity } from 'react-native';
+import { DrawerNavigationProp } from '@react-navigation/drawer';
+import { useNavigation } from '@react-navigation/native';
 
-import {styles} from './styles';
-import {MenuIcon} from '../../assets/icons';
-import {useTheme} from '../../hooks';
+import { styles } from './styles';
+import { MenuIcon } from '../../assets/icons';
+import { useTheme } from '../../hooks';
 
 export const HeaderLeft: React.FC = () => {
   const theme = useTheme();

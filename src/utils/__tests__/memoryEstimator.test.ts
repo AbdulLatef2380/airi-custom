@@ -1,6 +1,6 @@
-import {getModelMemoryRequirement} from '../memoryEstimator';
-import {Model} from '../types';
-import {createDefaultContextInitParams} from '../contextInitParamsVersions';
+import { getModelMemoryRequirement } from '../memoryEstimator';
+import { Model } from '../types';
+import { createDefaultContextInitParams } from '../contextInitParamsVersions';
 
 describe('memoryEstimator', () => {
   const contextSettings = createDefaultContextInitParams();
@@ -14,7 +14,7 @@ describe('memoryEstimator', () => {
 
   describe('getModelMemoryRequirement', () => {
     it('uses fallback estimation when no metadata', () => {
-      const model = {...baseModel} as Model;
+      const model = { ...baseModel } as Model;
       const result = getModelMemoryRequirement(
         model,
         undefined,
@@ -129,8 +129,8 @@ describe('memoryEstimator', () => {
     });
 
     it('includes projection model size in estimation', () => {
-      const model = {...baseModel} as Model;
-      const projectionModel = {size: 500 * 1e6} as Model; // 500MB
+      const model = { ...baseModel } as Model;
+      const projectionModel = { size: 500 * 1e6 } as Model; // 500MB
 
       const withoutProj = getModelMemoryRequirement(
         model,

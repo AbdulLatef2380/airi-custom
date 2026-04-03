@@ -1,6 +1,6 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
-import {Theme} from '../../utils';
+import { Theme } from '../../utils';
 
 export const createStyles = (theme: Theme) =>
   StyleSheet.create({

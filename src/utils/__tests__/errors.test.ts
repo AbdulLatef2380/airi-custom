@@ -62,8 +62,8 @@ describe('errors.ts', () => {
     it('should handle axios 401 errors', () => {
       const axiosError = {
         isAxiosError: true,
-        response: {status: 401},
-        config: {url: 'https://huggingface.co/api/models'},
+        response: { status: 401 },
+        config: { url: 'https://huggingface.co/api/models' },
       };
       jest.spyOn(axios, 'isAxiosError').mockReturnValue(true);
 
@@ -79,8 +79,8 @@ describe('errors.ts', () => {
     it('should handle axios 403 errors', () => {
       const axiosError = {
         isAxiosError: true,
-        response: {status: 403},
-        config: {url: 'https://api.example.com'},
+        response: { status: 403 },
+        config: { url: 'https://api.example.com' },
       };
       jest.spyOn(axios, 'isAxiosError').mockReturnValue(true);
 
@@ -94,8 +94,8 @@ describe('errors.ts', () => {
     it('should handle axios 500+ errors', () => {
       const axiosError = {
         isAxiosError: true,
-        response: {status: 502},
-        config: {url: 'https://huggingface.co/api'},
+        response: { status: 502 },
+        config: { url: 'https://huggingface.co/api' },
       };
       jest.spyOn(axios, 'isAxiosError').mockReturnValue(true);
 
@@ -110,7 +110,7 @@ describe('errors.ts', () => {
       const axiosError = {
         isAxiosError: true,
         code: 'ECONNABORTED',
-        config: {url: 'https://huggingface.co/api'},
+        config: { url: 'https://huggingface.co/api' },
       };
       jest.spyOn(axios, 'isAxiosError').mockReturnValue(true);
 
@@ -124,7 +124,7 @@ describe('errors.ts', () => {
       const axiosError = {
         isAxiosError: true,
         code: 'ERR_NETWORK',
-        config: {url: 'https://huggingface.co/api'},
+        config: { url: 'https://huggingface.co/api' },
       };
       jest.spyOn(axios, 'isAxiosError').mockReturnValue(true);
 
@@ -137,8 +137,8 @@ describe('errors.ts', () => {
     it('should auto-detect HuggingFace service from URL', () => {
       const axiosError = {
         isAxiosError: true,
-        response: {status: 401},
-        config: {url: 'https://hf.co/api/models'},
+        response: { status: 401 },
+        config: { url: 'https://hf.co/api/models' },
       };
       jest.spyOn(axios, 'isAxiosError').mockReturnValue(true);
 
@@ -197,7 +197,7 @@ describe('errors.ts', () => {
 
     it('should handle object errors with message property (JSI bridge errors)', () => {
       // Errors from native JSI calls may not be proper Error instances
-      const jsiError = {message: 'Native error: out of memory'};
+      const jsiError = { message: 'Native error: out of memory' };
 
       const errorState = createErrorState(jsiError, 'modelInit');
 
@@ -217,7 +217,7 @@ describe('errors.ts', () => {
 
     it('should include metadata when provided', () => {
       const error = new Error('Test error');
-      const metadata = {modelId: 'test-model', extra: 'data'};
+      const metadata = { modelId: 'test-model', extra: 'data' };
 
       const errorState = createErrorState(
         error,

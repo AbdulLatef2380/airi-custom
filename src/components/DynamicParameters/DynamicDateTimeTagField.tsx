@@ -1,11 +1,11 @@
 import React from 'react';
-import {View, TouchableOpacity} from 'react-native';
-import {Text} from 'react-native-paper';
-import {Controller, useFormContext} from 'react-hook-form';
+import { View, TouchableOpacity } from 'react-native';
+import { Text } from 'react-native-paper';
+import { Controller, useFormContext } from 'react-hook-form';
 
-import type {ParameterDefinition} from '../../types/pal';
-import {useTheme} from '../../hooks';
-import {createStyles} from './styles';
+import type { ParameterDefinition } from '../../types/pal';
+import { useTheme } from '../../hooks';
+import { createStyles } from './styles';
 
 interface DynamicDateTimeTagFieldProps {
   parameter: ParameterDefinition;
@@ -15,10 +15,10 @@ interface DynamicDateTimeTagFieldProps {
 
 export const DynamicDateTimeTagField: React.FC<
   DynamicDateTimeTagFieldProps
-> = ({parameter, disabled = false, error}) => {
+> = ({ parameter, disabled = false, error }) => {
   const theme = useTheme();
   const styles = createStyles(theme);
-  const {control} = useFormContext();
+  const { control } = useFormContext();
 
   const handleInsertDateTime = (onChange: (value: string) => void) => {
     onChange('{{datetime}}');
@@ -42,7 +42,7 @@ export const DynamicDateTimeTagField: React.FC<
             ? `${parameter.label} is required`
             : false,
         }}
-        render={({field: {onChange, value}}) => (
+        render={({ field: { onChange, value } }) => (
           <View>
             <TouchableOpacity
               style={[

@@ -4,11 +4,11 @@ import {
   Menu as PaperMenu,
   MenuProps as PaperMenuProps,
 } from 'react-native-paper';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import {useTheme} from '../../../hooks';
+import { useTheme } from '../../../hooks';
 
-import {createStyles} from './styles';
+import { createStyles } from './styles';
 
 interface SubMenuProps extends Omit<PaperMenuProps, 'theme'> {}
 

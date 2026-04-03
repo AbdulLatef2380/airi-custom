@@ -1,12 +1,12 @@
-import {renderHook, waitFor} from '@testing-library/react-native';
+import { renderHook, waitFor } from '@testing-library/react-native';
 
-import {largeDiskModel, basicModel} from '../../../jest/fixtures/models';
+import { largeDiskModel, basicModel } from '../../../jest/fixtures/models';
 
-import {useStorageCheck} from '../useStorageCheck';
+import { useStorageCheck } from '../useStorageCheck';
 
 describe('useStorageCheck', () => {
   it('returns storage OK status when there is enough space', async () => {
-    const {result} = renderHook(() => useStorageCheck(basicModel));
+    const { result } = renderHook(() => useStorageCheck(basicModel));
 
     expect(result.current).toEqual({
       isOk: true,
@@ -15,7 +15,7 @@ describe('useStorageCheck', () => {
   });
 
   it('returns storage low message when there is not enough space', async () => {
-    const {result} = renderHook(() => useStorageCheck(largeDiskModel));
+    const { result } = renderHook(() => useStorageCheck(largeDiskModel));
 
     await waitFor(() => {
       expect(result.current.isOk).toBe(false);
@@ -30,7 +30,9 @@ describe('useStorageCheck', () => {
   });
 
   it('does not update state when unmounted (cleanup test)', async () => {
-    const {result, unmount} = renderHook(() => useStorageCheck(largeDiskModel));
+    const { result, unmount } = renderHook(() =>
+      useStorageCheck(largeDiskModel),
+    );
 
     const initialValue = result.current;
     unmount();

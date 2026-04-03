@@ -5,8 +5,8 @@
  * Uses shared Selectors utility for consistent cross-platform selectors
  */
 
-import {BasePage, ChainableElement} from './BasePage';
-import {Selectors, byPartialText} from '../helpers/selectors';
+import { BasePage, ChainableElement } from './BasePage';
+import { Selectors, byPartialText } from '../helpers/selectors';
 
 declare const browser: WebdriverIO.Browser;
 

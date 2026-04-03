@@ -1,12 +1,12 @@
 import * as React from 'react';
-import {Image, ImageBackground, Text, View} from 'react-native';
+import { Image, ImageBackground, Text, View } from 'react-native';
 
-import {useTheme} from '../../hooks';
+import { useTheme } from '../../hooks';
 
 import styles from './styles';
 
-import {MessageType, Size} from '../../utils/types';
-import {formatBytes, UserContext} from '../../utils';
+import { MessageType, Size } from '../../utils/types';
+import { formatBytes, UserContext } from '../../utils';
 
 export interface ImageMessageProps {
   message: MessageType.DerivedImage;
@@ -18,7 +18,7 @@ export interface ImageMessageProps {
  * aspect ratios, renders blurred image as a background which is visible
  * if the image is narrow, renders image in form of a file if aspect
  * ratio is very small or very big. */
-export const ImageMessage = ({message, messageWidth}: ImageMessageProps) => {
+export const ImageMessage = ({ message, messageWidth }: ImageMessageProps) => {
   const theme = useTheme();
   const user = React.useContext(UserContext);
   const defaultHeight = message.height ?? 0;
@@ -49,8 +49,8 @@ export const ImageMessage = ({message, messageWidth}: ImageMessageProps) => {
     if (defaultHeight <= 0 || defaultWidth <= 0) {
       Image.getSize(
         message.uri,
-        (width, height) => setSize({height, width}),
-        () => setSize({height: 0, width: 0}),
+        (width, height) => setSize({ height, width }),
+        () => setSize({ height: 0, width: 0 }),
       );
     }
   }, [defaultHeight, defaultWidth, message.uri]);
@@ -61,7 +61,7 @@ export const ImageMessage = ({message, messageWidth}: ImageMessageProps) => {
         accessibilityRole="image"
         testID="message-image"
         resizeMode={isMinimized ? 'cover' : 'contain'}
-        source={{uri: message.uri}}
+        source={{ uri: message.uri }}
         style={
           isMinimized
             ? minimizedImage
@@ -82,7 +82,7 @@ export const ImageMessage = ({message, messageWidth}: ImageMessageProps) => {
       </View>
     </View>
   ) : (
-    <ImageBackground blurRadius={26} source={{uri: message.uri}} style={{}}>
+    <ImageBackground blurRadius={26} source={{ uri: message.uri }} style={{}}>
       {renderImage()}
     </ImageBackground>
   );

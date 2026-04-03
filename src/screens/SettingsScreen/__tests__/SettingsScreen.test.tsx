@@ -1,5 +1,5 @@
 import React from 'react';
-import {Platform, Keyboard} from 'react-native';
+import { Platform, Keyboard } from 'react-native';
 
 import {
   fireEvent,
@@ -8,14 +8,14 @@ import {
   act,
 } from '../../../../jest/test-utils';
 
-import {SettingsScreen} from '../SettingsScreen';
+import { SettingsScreen } from '../SettingsScreen';
 
-import {modelStore, uiStore} from '../../../store';
+import { modelStore, uiStore } from '../../../store';
 
 jest.useFakeTimers();
 
 const render = (ui: React.ReactElement, options: any = {}) =>
-  baseRender(ui, {withBottomSheetProvider: true, ...options});
+  baseRender(ui, { withBottomSheetProvider: true, ...options });
 
 describe('SettingsScreen', () => {
   beforeEach(() => {
@@ -32,7 +32,7 @@ describe('SettingsScreen', () => {
   });
 
   it('renders settings screen correctly', async () => {
-    const {getByText, getByDisplayValue} = render(<SettingsScreen />, {
+    const { getByText, getByDisplayValue } = render(<SettingsScreen />, {
       withSafeArea: true,
       withNavigation: true,
     });
@@ -45,7 +45,7 @@ describe('SettingsScreen', () => {
 
   it('updates context size correctly', async () => {
     jest.useFakeTimers();
-    const {getByDisplayValue} = render(<SettingsScreen />, {
+    const { getByDisplayValue } = render(<SettingsScreen />, {
       withSafeArea: true,
       withNavigation: true,
     });
@@ -69,7 +69,7 @@ describe('SettingsScreen', () => {
   });
 
   it('displays error for invalid context size input', async () => {
-    const {getByDisplayValue, getByText} = render(<SettingsScreen />, {
+    const { getByDisplayValue, getByText } = render(<SettingsScreen />, {
       withSafeArea: true,
       withNavigation: true,
     });
@@ -83,7 +83,7 @@ describe('SettingsScreen', () => {
   });
 
   it('handles outside press correctly and resets input', async () => {
-    const {getByDisplayValue, getByText} = render(<SettingsScreen />, {
+    const { getByDisplayValue, getByText } = render(<SettingsScreen />, {
       withSafeArea: true,
       withNavigation: true,
     });
@@ -99,7 +99,7 @@ describe('SettingsScreen', () => {
   });
 
   it('toggles Auto Offload/Load switch', async () => {
-    const {getByTestId} = render(<SettingsScreen />, {
+    const { getByTestId } = render(<SettingsScreen />, {
       withSafeArea: true,
       withNavigation: true,
     });
@@ -113,7 +113,7 @@ describe('SettingsScreen', () => {
   });
 
   it('toggles Auto-Navigate to Chat switch', async () => {
-    const {getByTestId} = render(<SettingsScreen />, {
+    const { getByTestId } = render(<SettingsScreen />, {
       withSafeArea: true,
       withNavigation: true,
     });
@@ -127,7 +127,7 @@ describe('SettingsScreen', () => {
   });
 
   it('toggles Dark Mode switch', async () => {
-    const {getByTestId} = render(<SettingsScreen />, {
+    const { getByTestId } = render(<SettingsScreen />, {
       withSafeArea: true,
       withNavigation: true,
     });
@@ -144,7 +144,7 @@ describe('SettingsScreen', () => {
     Platform.OS = 'ios';
     jest.useFakeTimers();
 
-    const {getByTestId} = render(<SettingsScreen />, {
+    const { getByTestId } = render(<SettingsScreen />, {
       withSafeArea: true,
       withNavigation: true,
     });
@@ -174,7 +174,7 @@ describe('SettingsScreen', () => {
   });
 
   it('toggles Display Memory Usage switch', async () => {
-    const {getByTestId} = render(<SettingsScreen />, {
+    const { getByTestId } = render(<SettingsScreen />, {
       withSafeArea: true,
       withNavigation: true,
     });
@@ -189,7 +189,7 @@ describe('SettingsScreen', () => {
 
   it('renders image max tokens slider in advanced settings', async () => {
     jest.useFakeTimers();
-    const {getByTestId, getByText} = render(<SettingsScreen />, {
+    const { getByTestId, getByText } = render(<SettingsScreen />, {
       withSafeArea: true,
       withNavigation: true,
     });
@@ -205,7 +205,7 @@ describe('SettingsScreen', () => {
 
   it('updates image max tokens correctly', async () => {
     jest.useFakeTimers();
-    const {getByTestId, getByText} = render(<SettingsScreen />, {
+    const { getByTestId, getByText } = render(<SettingsScreen />, {
       withSafeArea: true,
       withNavigation: true,
     });
@@ -233,7 +233,7 @@ describe('SettingsScreen', () => {
 
   it('shows effective value when image_max_tokens exceeds n_ctx', async () => {
     jest.useFakeTimers();
-    const {getByText, queryByText} = render(<SettingsScreen />, {
+    const { getByText, queryByText } = render(<SettingsScreen />, {
       withSafeArea: true,
       withNavigation: true,
     });

@@ -1,6 +1,6 @@
-import type {Pal} from '../types/pal';
-import type {Model} from './types';
-import {generateFinalSystemPrompt} from './palshub-template-parser';
+import type { Pal } from '../types/pal';
+import type { Model } from './types';
+import { generateFinalSystemPrompt } from './palshub-template-parser';
 
 export interface SystemPromptDependencies {
   pal?: Pal | null;
@@ -16,7 +16,7 @@ export interface SystemPromptDependencies {
 export function resolveSystemPrompt(
   dependencies: SystemPromptDependencies,
 ): string {
-  const {pal, model} = dependencies;
+  const { pal, model } = dependencies;
 
   // Priority 1: Pal's system prompt
   if (pal?.systemPrompt) {
@@ -43,7 +43,7 @@ export function resolveSystemPrompt(
  */
 export function resolveSystemMessages(
   dependencies: SystemPromptDependencies,
-): Array<{role: 'system'; content: string}> {
+): Array<{ role: 'system'; content: string }> {
   const systemPrompt = resolveSystemPrompt(dependencies);
 
   if (!systemPrompt.trim()) {

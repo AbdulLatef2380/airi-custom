@@ -4,8 +4,12 @@ import {
   createNewVideoPal,
   preparePalForEditing,
 } from '../pal-templates';
-import {ASSISTANT_SCHEMA, ROLEPLAY_SCHEMA, VIDEO_SCHEMA} from '../../types/pal';
-import type {Pal} from '../../types/pal';
+import {
+  ASSISTANT_SCHEMA,
+  ROLEPLAY_SCHEMA,
+  VIDEO_SCHEMA,
+} from '../../types/pal';
+import type { Pal } from '../../types/pal';
 
 describe('Pal Templates', () => {
   describe('createNewAssistantPal', () => {
@@ -81,7 +85,7 @@ describe('Pal Templates', () => {
         systemPrompt: 'Test prompt',
         isSystemPromptChanged: false,
         useAIPrompt: false,
-        parameters: {test: 'value'},
+        parameters: { test: 'value' },
         parameterSchema: [],
         source: 'local',
         capabilities: {},

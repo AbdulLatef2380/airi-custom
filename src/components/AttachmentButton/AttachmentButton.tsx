@@ -7,9 +7,9 @@ import {
   TouchableOpacityProps,
 } from 'react-native';
 
-import {useTheme} from '../../hooks';
+import { useTheme } from '../../hooks';
 
-import {L10nContext} from '../../utils';
+import { L10nContext } from '../../utils';
 
 export interface AttachmentButtonAdditionalProps {
   touchableOpacityProps?: TouchableOpacityProps;
@@ -44,7 +44,7 @@ export const AttachmentButton = ({
       {theme.icons?.attachmentButtonIcon?.() ?? (
         <Image
           source={require('../../assets/icon-attachment.png')}
-          style={[styles.image, {tintColor: theme.colors.onSurface}]}
+          style={[styles.image, { tintColor: theme.colors.onSurface }]}
         />
       )}
     </TouchableOpacity>

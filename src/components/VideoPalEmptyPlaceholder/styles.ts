@@ -1,7 +1,7 @@
-import {StyleSheet} from 'react-native';
-import {Theme} from '../../utils/types';
+import { StyleSheet } from 'react-native';
+import { Theme } from '../../utils/types';
 
-export const createStyles = ({theme}: {theme: Theme}) =>
+export const createStyles = ({ theme }: { theme: Theme }) =>
   StyleSheet.create({
     container: {
       // Don't use flex: 1 since we're in a FlatList ListEmptyComponent

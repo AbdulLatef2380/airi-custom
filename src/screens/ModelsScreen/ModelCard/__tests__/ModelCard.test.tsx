@@ -1,7 +1,12 @@
 import React from 'react';
-import {Linking, Alert} from 'react-native';
+import { Linking, Alert } from 'react-native';
 
-import {render, fireEvent, waitFor, act} from '../../../../../jest/test-utils';
+import {
+  render,
+  fireEvent,
+  waitFor,
+  act,
+} from '../../../../../jest/test-utils';
 import {
   basicModel,
   downloadedModel,
@@ -13,14 +18,14 @@ import {
 // Unmock useMemoryCheck for memory warning tests
 jest.unmock('../../../../hooks/useMemoryCheck');
 
-import {ModelCard} from '../ModelCard';
+import { ModelCard } from '../ModelCard';
 
-import {downloadManager} from '../../../../services/downloads';
+import { downloadManager } from '../../../../services/downloads';
 
-import {modelStore, uiStore, serverStore} from '../../../../store';
-import {ModelType} from '../../../../utils/types';
+import { modelStore, uiStore, serverStore } from '../../../../store';
+import { ModelType } from '../../../../utils/types';
 
-import {l10n} from '../../../../locales';
+import { l10n } from '../../../../locales';
 
 jest.useFakeTimers(); // Mock all timers
 
@@ -37,7 +42,11 @@ jest.mock('@react-navigation/native', () => ({
 }));
 
 const customRender = (ui: React.ReactElement, options: any = {}) =>
-  render(ui, {withBottomSheetProvider: true, withNavigation: true, ...options});
+  render(ui, {
+    withBottomSheetProvider: true,
+    withNavigation: true,
+    ...options,
+  });
 
 describe('ModelCard', () => {
   beforeEach(() => {
@@ -45,14 +54,14 @@ describe('ModelCard', () => {
   });
 
   it('renders model details correctly', async () => {
-    const {getByText} = customRender(<ModelCard model={basicModel} />);
+    const { getByText } = customRender(<ModelCard model={basicModel} />);
     await waitFor(() => {
       expect(getByText(basicModel.name)).toBeTruthy();
     });
   });
 
   it('handles memory warning correctly', async () => {
-    const {getByText, getByTestId, queryByText, queryByTestId} = customRender(
+    const { getByText, getByTestId, queryByText, queryByTestId } = customRender(
       <ModelCard model={largeMemoryModel} />,
     );
 
@@ -88,7 +97,7 @@ describe('ModelCard', () => {
       jest.spyOn(modelStore, 'checkSpaceAndDownload');
     }
 
-    const {getByTestId, queryByTestId} = customRender(
+    const { getByTestId, queryByTestId } = customRender(
       <ModelCard model={basicModel} />,
     );
 
@@ -120,7 +129,7 @@ describe('ModelCard', () => {
       },
     );
 
-    const {getByTestId, queryByTestId, rerender} = customRender(
+    const { getByTestId, queryByTestId, rerender } = customRender(
       <ModelCard model={basicModel} />,
     );
 
@@ -137,7 +146,7 @@ describe('ModelCard', () => {
   });
 
   it('opens the HuggingFace URL when the icon button is pressed', async () => {
-    const {getByTestId} = customRender(<ModelCard model={basicModel} />);
+    const { getByTestId } = customRender(<ModelCard model={basicModel} />);
 
     // First expand the details to see the HuggingFace link
     const expandButton = getByTestId('expand-details-button');
@@ -152,7 +161,7 @@ describe('ModelCard', () => {
   });
 
   it('handles model load correctly', async () => {
-    const {getByTestId} = customRender(<ModelCard model={downloadedModel} />);
+    const { getByTestId } = customRender(<ModelCard model={downloadedModel} />);
 
     expect(getByTestId('load-button')).toBeTruthy();
 
@@ -173,7 +182,7 @@ describe('ModelCard', () => {
   });
 
   it('handles model offload', async () => {
-    const {getByTestId} = customRender(
+    const { getByTestId } = customRender(
       <ModelCard model={downloadedModel} activeModelId={downloadedModel.id} />,
     );
 
@@ -194,7 +203,9 @@ describe('ModelCard', () => {
     });
 
     it('shows delete confirmation for regular models', async () => {
-      const {getByTestId} = customRender(<ModelCard model={downloadedModel} />);
+      const { getByTestId } = customRender(
+        <ModelCard model={downloadedModel} />,
+      );
 
       const deleteButton = getByTestId('delete-button');
       fireEvent.press(deleteButton);
@@ -203,8 +214,8 @@ describe('ModelCard', () => {
         expect.stringContaining('Delete'),
         expect.stringContaining('delete'),
         expect.arrayContaining([
-          expect.objectContaining({text: 'Cancel'}),
-          expect.objectContaining({text: 'Delete'}),
+          expect.objectContaining({ text: 'Cancel' }),
+          expect.objectContaining({ text: 'Delete' }),
         ]),
       );
     });
@@ -217,7 +228,9 @@ describe('ModelCard', () => {
         },
       );
 
-      const {getByTestId} = customRender(<ModelCard model={downloadedModel} />);
+      const { getByTestId } = customRender(
+        <ModelCard model={downloadedModel} />,
+      );
 
       const deleteButton = getByTestId('delete-button');
       fireEvent.press(deleteButton);
@@ -231,7 +244,9 @@ describe('ModelCard', () => {
         modelType: ModelType.PROJECTION,
       };
 
-      const {getByTestId} = customRender(<ModelCard model={projectionModel} />);
+      const { getByTestId } = customRender(
+        <ModelCard model={projectionModel} />,
+      );
 
       const deleteButton = getByTestId('delete-button');
       fireEvent.press(deleteButton);
@@ -240,8 +255,8 @@ describe('ModelCard', () => {
         expect.stringContaining('Delete'),
         expect.stringContaining('projection'),
         expect.arrayContaining([
-          expect.objectContaining({text: 'Cancel'}),
-          expect.objectContaining({text: 'Delete'}),
+          expect.objectContaining({ text: 'Cancel' }),
+          expect.objectContaining({ text: 'Delete' }),
         ]),
       );
     });
@@ -256,7 +271,7 @@ describe('ModelCard', () => {
     it('shows cancel button when downloading', async () => {
       (downloadManager.isDownloading as jest.Mock).mockReturnValue(true);
 
-      const {getByTestId} = customRender(
+      const { getByTestId } = customRender(
         <ModelCard model={downloadingModel} />,
       );
 
@@ -268,7 +283,7 @@ describe('ModelCard', () => {
     it('handles download cancellation', async () => {
       (downloadManager.isDownloading as jest.Mock).mockReturnValue(true);
 
-      const {getByTestId} = customRender(
+      const { getByTestId } = customRender(
         <ModelCard model={downloadingModel} />,
       );
 
@@ -297,7 +312,7 @@ describe('ModelCard', () => {
     });
 
     it('calls onOpenSettings when settings button is pressed', async () => {
-      const {getByTestId} = customRender(
+      const { getByTestId } = customRender(
         <ModelCard
           model={downloadedModel}
           onOpenSettings={mockOnOpenSettings}
@@ -333,7 +348,9 @@ describe('ModelCard', () => {
       modelStore.isContextLoading = true;
       modelStore.loadingModel = downloadedModel;
 
-      const {getByTestId} = customRender(<ModelCard model={downloadedModel} />);
+      const { getByTestId } = customRender(
+        <ModelCard model={downloadedModel} />,
+      );
 
       await waitFor(() => {
         expect(getByTestId('loading-indicator')).toBeTruthy();
@@ -346,7 +363,9 @@ describe('ModelCard', () => {
         new Error('Loading failed'),
       );
 
-      const {getByTestId} = customRender(<ModelCard model={downloadedModel} />);
+      const { getByTestId } = customRender(
+        <ModelCard model={downloadedModel} />,
+      );
 
       const loadButton = getByTestId('load-button');
       fireEvent.press(loadButton);
@@ -396,7 +415,7 @@ describe('ModelCard', () => {
     });
 
     it('shows vision controls for vision models', async () => {
-      const {getByTestId, getByText} = customRender(
+      const { getByTestId, getByText } = customRender(
         <ModelCard model={visionModel} />,
       );
 
@@ -414,7 +433,7 @@ describe('ModelCard', () => {
     });
 
     it('shows projection model selector for vision models', async () => {
-      const {getByTestId} = customRender(<ModelCard model={visionModel} />);
+      const { getByTestId } = customRender(<ModelCard model={visionModel} />);
       (modelStore.getCompatibleProjectionModels as jest.Mock) = jest
         .fn()
         .mockReturnValue([projectionModel]);
@@ -454,7 +473,7 @@ describe('ModelCard', () => {
       // Mock vision preference to be enabled (required for warning to show)
       modelStore.getModelVisionPreference = jest.fn().mockReturnValue(true);
 
-      const {getByTestId} = customRender(
+      const { getByTestId } = customRender(
         <ModelCard model={visionModelWithMissingProjection} />,
       );
 
@@ -483,7 +502,7 @@ describe('ModelCard', () => {
       // Mock vision preference to be enabled (required for warning to show)
       modelStore.getModelVisionPreference = jest.fn().mockReturnValue(true);
 
-      const {getByTestId} = customRender(
+      const { getByTestId } = customRender(
         <ModelCard model={visionModelWithMissingProjection} />,
       );
 
@@ -510,7 +529,7 @@ describe('ModelCard', () => {
     });
 
     it('renders server name link for remote models', async () => {
-      const {getByTestId} = customRender(
+      const { getByTestId } = customRender(
         <ModelCard
           model={remoteModel}
           onOpenServerDetails={mockOnOpenServerDetails}
@@ -523,7 +542,7 @@ describe('ModelCard', () => {
     });
 
     it('calls onOpenServerDetails when server link is pressed', async () => {
-      const {getByTestId} = customRender(
+      const { getByTestId } = customRender(
         <ModelCard
           model={remoteModel}
           onOpenServerDetails={mockOnOpenServerDetails}
@@ -541,7 +560,7 @@ describe('ModelCard', () => {
     });
 
     it('shows delete button for remote models', async () => {
-      const {getByTestId} = customRender(
+      const { getByTestId } = customRender(
         <ModelCard
           model={remoteModel}
           onOpenServerDetails={mockOnOpenServerDetails}
@@ -556,7 +575,7 @@ describe('ModelCard', () => {
     it('shows delete confirmation dialog for remote models', async () => {
       jest.spyOn(Alert, 'alert').mockImplementation();
 
-      const {getByTestId} = customRender(
+      const { getByTestId } = customRender(
         <ModelCard
           model={remoteModel}
           onOpenServerDetails={mockOnOpenServerDetails}
@@ -570,8 +589,8 @@ describe('ModelCard', () => {
         expect.any(String),
         expect.stringContaining(remoteModel.name),
         expect.arrayContaining([
-          expect.objectContaining({style: 'cancel'}),
-          expect.objectContaining({style: 'destructive'}),
+          expect.objectContaining({ style: 'cancel' }),
+          expect.objectContaining({ style: 'destructive' }),
         ]),
       );
     });
@@ -587,7 +606,7 @@ describe('ModelCard', () => {
           destructiveButton?.onPress();
         });
 
-      const {getByTestId} = customRender(
+      const { getByTestId } = customRender(
         <ModelCard
           model={remoteModel}
           onOpenServerDetails={mockOnOpenServerDetails}

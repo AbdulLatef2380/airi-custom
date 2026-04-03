@@ -1,4 +1,4 @@
-import React, {memo} from 'react';
+import React, { memo } from 'react';
 import {
   KeyboardAwareScrollView,
   KeyboardAwareScrollViewProps,
@@ -8,7 +8,7 @@ import {
   createBottomSheetScrollableComponent,
   type BottomSheetScrollViewMethods,
 } from '@gorhom/bottom-sheet';
-import type {BottomSheetScrollViewProps} from '@gorhom/bottom-sheet/src/components/bottomSheetScrollable/types';
+import type { BottomSheetScrollViewProps } from '@gorhom/bottom-sheet/src/components/bottomSheetScrollable/types';
 import Reanimated from 'react-native-reanimated';
 
 const AnimatedScrollView =

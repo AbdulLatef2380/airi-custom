@@ -1,1 +1,1 @@
-export {ModelFileCard} from './ModelFileCard';
+export { ModelFileCard } from './ModelFileCard';

@@ -1,15 +1,15 @@
 import React from 'react';
-import {render} from '../../../../jest/test-utils';
-import {ModelSelector} from '../ModelSelector';
-import {modelsList} from '../../../../jest/fixtures/models';
+import { render } from '../../../../jest/test-utils';
+import { ModelSelector } from '../ModelSelector';
+import { modelsList } from '../../../../jest/fixtures/models';
 
 // Mock the modelStore
 jest.mock('../../../store', () => ({
   modelStore: {
     availableModels: [
-      {id: 'model-1', name: 'basic model'},
-      {id: 'model-2', name: 'downloaded model'},
-      {id: 'model-3', name: 'downloading model'},
+      { id: 'model-1', name: 'basic model' },
+      { id: 'model-2', name: 'downloaded model' },
+      { id: 'model-3', name: 'downloading model' },
     ],
   },
 }));
@@ -25,20 +25,20 @@ describe('ModelSelector', () => {
   });
 
   it('renders with required props', () => {
-    const {getByText} = render(<ModelSelector {...defaultProps} />);
+    const { getByText } = render(<ModelSelector {...defaultProps} />);
 
     expect(getByText('Select Model')).toBeDefined();
     expect(getByText('Select model')).toBeDefined(); // This is now the button text, not placeholder
   });
 
   it('shows required asterisk when required prop is true', () => {
-    const {getByText} = render(<ModelSelector {...defaultProps} required />);
+    const { getByText } = render(<ModelSelector {...defaultProps} required />);
 
     expect(getByText('Select Model*')).toBeDefined();
   });
 
   it('displays selected model name when value is provided', () => {
-    const {getByText} = render(
+    const { getByText } = render(
       <ModelSelector {...defaultProps} value={modelsList[0]} />,
     );
 
@@ -47,7 +47,7 @@ describe('ModelSelector', () => {
   });
 
   it('displays helper text when provided', () => {
-    const {getByText} = render(
+    const { getByText } = render(
       <ModelSelector {...defaultProps} helperText="Helper message" />,
     );
 
@@ -55,7 +55,7 @@ describe('ModelSelector', () => {
   });
 
   it('uses custom placeholder when provided', () => {
-    const {getByText} = render(
+    const { getByText } = render(
       <ModelSelector {...defaultProps} placeholder="Custom placeholder" />,
     );
 
@@ -64,7 +64,7 @@ describe('ModelSelector', () => {
 
   it('applies filter when provided', () => {
     const filter = (model: any) => model.name.includes('basic');
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <ModelSelector
         {...defaultProps}
         filter={filter}
@@ -77,7 +77,7 @@ describe('ModelSelector', () => {
   });
 
   it('passes through disabled prop', () => {
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <ModelSelector {...defaultProps} disabled testID="model-selector" />,
     );
 
@@ -85,7 +85,7 @@ describe('ModelSelector', () => {
   });
 
   it('passes through error prop', () => {
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <ModelSelector {...defaultProps} error testID="model-selector" />,
     );
 

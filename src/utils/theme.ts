@@ -4,8 +4,8 @@ import {
   configureFonts,
 } from 'react-native-paper';
 
-import {MD3BaseColors, SemanticColors, Theme} from './types';
-import {withOpacity, stateLayerOpacity} from './colorUtils';
+import { MD3BaseColors, SemanticColors, Theme } from './types';
+import { withOpacity, stateLayerOpacity } from './colorUtils';
 
 // MD3 key colors (seed colors)
 const md3BaseColors: Partial<MD3BaseColors> = {
@@ -249,17 +249,17 @@ const createSemanticColors = (
 });
 
 export const fontStyles = {
-  regular: {fontFamily: 'Inter-Regular'},
-  medium: {fontFamily: 'Inter-Medium'},
-  bold: {fontFamily: 'Inter-Bold'},
-  thin: {fontFamily: 'Inter-Thin'},
-  light: {fontFamily: 'Inter-Light'},
-  semibold: {fontFamily: 'Inter-SemiBold'},
-  extraBold: {fontFamily: 'Inter-ExtraBold'},
+  regular: { fontFamily: 'Inter-Regular' },
+  medium: { fontFamily: 'Inter-Medium' },
+  bold: { fontFamily: 'Inter-Bold' },
+  thin: { fontFamily: 'Inter-Thin' },
+  light: { fontFamily: 'Inter-Light' },
+  semibold: { fontFamily: 'Inter-SemiBold' },
+  extraBold: { fontFamily: 'Inter-ExtraBold' },
 };
 
 const baseFontVariants = configureFonts({
-  config: {...fontStyles.regular},
+  config: { ...fontStyles.regular },
 });
 
 const customVariants = {

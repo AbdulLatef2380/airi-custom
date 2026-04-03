@@ -20,7 +20,7 @@
  *   yarn test:aws --platform ios
  */
 
-import {config} from 'dotenv';
+import { config } from 'dotenv';
 import {
   DeviceFarmClient,
   CreateUploadCommand,
@@ -38,10 +38,10 @@ import {
 import * as fs from 'fs';
 import * as path from 'path';
 import * as https from 'https';
-import {execSync} from 'child_process';
+import { execSync } from 'child_process';
 
 // Load environment variables from .env file
-config({path: path.join(__dirname, '..', '.env')});
+config({ path: path.join(__dirname, '..', '.env') });
 
 // Configuration from environment
 const REGION = process.env.AWS_REGION || 'us-west-2';
@@ -52,17 +52,24 @@ const DEVICE_POOL_ARN_IOS = process.env.AWS_DEVICE_POOL_ARN_IOS;
 // Default app paths
 // Note: iOS requires an IPA built for real devices (not simulator)
 // The simulator .app from yarn ios:build:e2e will NOT work on Device Farm
-const DEFAULT_ANDROID_APP = '../android/app/build/outputs/apk/release/app-release.apk';
+const DEFAULT_ANDROID_APP =
+  '../android/app/build/outputs/apk/release/app-release.apk';
 const DEFAULT_IOS_APP = '../ios/build/PocketPal.ipa';
 
 // Parse command line arguments
-function parseArgs(): {platform: 'ios' | 'android'; appPath: string; allModels: boolean} {
+function parseArgs(): {
+  platform: 'ios' | 'android';
+  appPath: string;
+  allModels: boolean;
+} {
   const args = process.argv.slice(2);
   const platformIndex = args.indexOf('--platform');
   const appIndex = args.indexOf('--app');
   const allModels = args.includes('--all-models');
 
-  const platform = (platformIndex !== -1 ? args[platformIndex + 1] : 'android') as 'ios' | 'android';
+  const platform = (
+    platformIndex !== -1 ? args[platformIndex + 1] : 'android'
+  ) as 'ios' | 'android';
 
   let appPath: string;
   if (appIndex !== -1 && args[appIndex + 1]) {
@@ -77,7 +84,7 @@ function parseArgs(): {platform: 'ios' | 'android'; appPath: string; allModels: 
     appPath = path.resolve(__dirname, '..', appPath);
   }
 
-  return {platform, appPath, allModels};
+  return { platform, appPath, allModels };
 }
 
 // Validate required environment variables
@@ -97,13 +104,15 @@ function validateEnvironment(): void {
   if (missing.length > 0) {
     console.error('Error: Missing required environment variables:');
     missing.forEach(v => console.error(`  - ${v}`));
-    console.error('\nPlease set these in e2e/.env or as environment variables.');
+    console.error(
+      '\nPlease set these in e2e/.env or as environment variables.',
+    );
     console.error('See e2e/.env.example for reference.');
     process.exit(1);
   }
 }
 
-const {platform, appPath, allModels} = parseArgs();
+const { platform, appPath, allModels } = parseArgs();
 
 // Validate environment before proceeding
 validateEnvironment();
@@ -114,11 +123,13 @@ if (!fs.existsSync(appPath)) {
   console.error('\nMake sure to build the app first:');
   console.error('  Android: yarn build:android:release (creates APK)');
   console.error('  iOS:     yarn ios:build:ipa (creates IPA via Fastlane)');
-  console.error('\nOr specify a custom path: yarn test:aws --platform ios --app /path/to/app.ipa');
+  console.error(
+    '\nOr specify a custom path: yarn test:aws --platform ios --app /path/to/app.ipa',
+  );
   process.exit(1);
 }
 
-const client = new DeviceFarmClient({region: REGION});
+const client = new DeviceFarmClient({ region: REGION });
 
 // Helper to upload file content to S3 URL with retry logic
 async function uploadToS3WithRetry(
@@ -156,10 +167,14 @@ async function uploadToS3WithRetry(
     } catch (error) {
       const errorMessage = (error as Error).message;
       if (attempt < maxRetries) {
-        console.log(`  Upload attempt ${attempt} failed: ${errorMessage}. Retrying...`);
+        console.log(
+          `  Upload attempt ${attempt} failed: ${errorMessage}. Retrying...`,
+        );
         await new Promise(resolve => setTimeout(resolve, 2000 * attempt)); // Exponential backoff
       } else {
-        throw new Error(`Upload failed after ${maxRetries} attempts: ${errorMessage}`);
+        throw new Error(
+          `Upload failed after ${maxRetries} attempts: ${errorMessage}`,
+        );
       }
     }
   }
@@ -192,7 +207,7 @@ async function uploadFile(
     await new Promise(resolve => setTimeout(resolve, 5000));
 
     const getUploadResponse = await client.send(
-      new GetUploadCommand({arn: upload.arn}),
+      new GetUploadCommand({ arn: upload.arn }),
     );
     uploadStatus = getUploadResponse.upload?.status || '';
 
@@ -221,7 +236,7 @@ function createTestPackage(): string {
   // Note: scripts/ is included for run-e2e.ts
   execSync(
     `cd "${packageDir}" && zip -r test-package.zip specs pages helpers fixtures scripts wdio.*.conf.ts tsconfig.json package.json yarn.lock`,
-    {stdio: 'inherit'},
+    { stdio: 'inherit' },
   );
 
   return zipPath;
@@ -231,7 +246,10 @@ function createTestPackage(): string {
  * Create a modified testspec with --all-models flag if needed.
  * Returns path to the testspec file to upload.
  */
-function prepareTestSpec(targetPlatform: 'ios' | 'android', useAllModels: boolean): string {
+function prepareTestSpec(
+  targetPlatform: 'ios' | 'android',
+  useAllModels: boolean,
+): string {
   const packageDir = path.join(__dirname, '..');
   const originalPath = path.join(packageDir, `testspec-${targetPlatform}.yml`);
 
@@ -249,7 +267,10 @@ function prepareTestSpec(targetPlatform: 'ios' | 'android', useAllModels: boolea
   );
 
   // Write to temporary file
-  const tempPath = path.join(packageDir, `testspec-${targetPlatform}-allmodels.yml`);
+  const tempPath = path.join(
+    packageDir,
+    `testspec-${targetPlatform}-allmodels.yml`,
+  );
   fs.writeFileSync(tempPath, content);
   console.log(`Created modified testspec with --all-models: ${tempPath}`);
 
@@ -264,9 +285,12 @@ function prepareTestSpec(targetPlatform: 'ios' | 'android', useAllModels: boolea
  * 3. Curated "Top Devices" pool
  * 4. First available pool
  */
-async function getDevicePoolArn(targetPlatform: 'ios' | 'android'): Promise<string> {
+async function getDevicePoolArn(
+  targetPlatform: 'ios' | 'android',
+): Promise<string> {
   // Check for explicit device pool ARN in environment
-  const envPoolArn = targetPlatform === 'ios' ? DEVICE_POOL_ARN_IOS : DEVICE_POOL_ARN_ANDROID;
+  const envPoolArn =
+    targetPlatform === 'ios' ? DEVICE_POOL_ARN_IOS : DEVICE_POOL_ARN_ANDROID;
   if (envPoolArn) {
     console.log(`Using device pool from environment: ${envPoolArn}`);
     return envPoolArn;
@@ -281,7 +305,8 @@ async function getDevicePoolArn(targetPlatform: 'ios' | 'android'): Promise<stri
   );
 
   const privatePools = privateResponse.devicePools || [];
-  const platformPoolName = targetPlatform === 'ios' ? 'iOS-Test-Devices' : 'Android-Test-Devices';
+  const platformPoolName =
+    targetPlatform === 'ios' ? 'iOS-Test-Devices' : 'Android-Test-Devices';
   const matchingPool = privatePools.find(
     pool => pool.name?.toLowerCase() === platformPoolName.toLowerCase(),
   );
@@ -314,7 +339,9 @@ async function getDevicePoolArn(targetPlatform: 'ios' | 'android'): Promise<stri
     return curatedPools[0].arn;
   }
 
-  throw new Error('No device pools available. Please create a device pool in AWS Device Farm console.');
+  throw new Error(
+    'No device pools available. Please create a device pool in AWS Device Farm console.',
+  );
 }
 
 /**
@@ -323,49 +350,56 @@ async function getDevicePoolArn(targetPlatform: 'ios' | 'android'): Promise<stri
 async function downloadFile(url: string, destPath: string): Promise<void> {
   return new Promise((resolve, reject) => {
     const file = fs.createWriteStream(destPath);
-    https.get(url, response => {
-      // Handle redirects
-      if (response.statusCode === 301 || response.statusCode === 302) {
-        const redirectUrl = response.headers.location;
-        if (redirectUrl) {
-          https.get(redirectUrl, redirectResponse => {
-            redirectResponse.pipe(file);
-            file.on('finish', () => {
-              file.close();
-              resolve();
-            });
-          }).on('error', err => {
-            fs.unlink(destPath, () => {});
-            reject(err);
-          });
-          return;
+    https
+      .get(url, response => {
+        // Handle redirects
+        if (response.statusCode === 301 || response.statusCode === 302) {
+          const redirectUrl = response.headers.location;
+          if (redirectUrl) {
+            https
+              .get(redirectUrl, redirectResponse => {
+                redirectResponse.pipe(file);
+                file.on('finish', () => {
+                  file.close();
+                  resolve();
+                });
+              })
+              .on('error', err => {
+                fs.unlink(destPath, () => {});
+                reject(err);
+              });
+            return;
+          }
         }
-      }
-      response.pipe(file);
-      file.on('finish', () => {
-        file.close();
-        resolve();
+        response.pipe(file);
+        file.on('finish', () => {
+          file.close();
+          resolve();
+        });
+      })
+      .on('error', err => {
+        fs.unlink(destPath, () => {});
+        reject(err);
       });
-    }).on('error', err => {
-      fs.unlink(destPath, () => {});
-      reject(err);
-    });
   });
 }
 
 /**
  * Download test artifacts (JUnit XML, screenshots, logs) from Device Farm
  */
-async function downloadArtifacts(runArn: string, outputDir: string): Promise<void> {
+async function downloadArtifacts(
+  runArn: string,
+  outputDir: string,
+): Promise<void> {
   console.log('\nDownloading test artifacts...');
 
   // Ensure output directory exists
   if (!fs.existsSync(outputDir)) {
-    fs.mkdirSync(outputDir, {recursive: true});
+    fs.mkdirSync(outputDir, { recursive: true });
   }
 
   // Get all jobs for this run
-  const jobsResponse = await client.send(new ListJobsCommand({arn: runArn}));
+  const jobsResponse = await client.send(new ListJobsCommand({ arn: runArn }));
   const jobs = jobsResponse.jobs || [];
 
   console.log(`Found ${jobs.length} job(s) in the test run`);
@@ -381,11 +415,15 @@ async function downloadArtifacts(runArn: string, outputDir: string): Promise<voi
     // Create device-specific directory
     const deviceDir = path.join(outputDir, safeDeviceName);
     if (!fs.existsSync(deviceDir)) {
-      fs.mkdirSync(deviceDir, {recursive: true});
+      fs.mkdirSync(deviceDir, { recursive: true });
     }
 
     // Artifact categories we want to download
-    const artifactCategories: ArtifactCategory[] = ['FILE', 'LOG', 'SCREENSHOT'];
+    const artifactCategories: ArtifactCategory[] = [
+      'FILE',
+      'LOG',
+      'SCREENSHOT',
+    ];
 
     for (const artifactCategory of artifactCategories) {
       try {
@@ -404,24 +442,30 @@ async function downloadArtifacts(runArn: string, outputDir: string): Promise<voi
           // Create subdirectory for artifact category within device directory
           const typeDir = path.join(deviceDir, artifactCategory.toLowerCase());
           if (!fs.existsSync(typeDir)) {
-            fs.mkdirSync(typeDir, {recursive: true});
+            fs.mkdirSync(typeDir, { recursive: true });
           }
 
           // Determine file extension from artifact name or type
           const artifactName = artifact.name.replace(/[^a-zA-Z0-9.-]/g, '_');
           const extension = artifact.extension || '';
-          const filename = extension ? `${artifactName}.${extension}` : artifactName;
+          const filename = extension
+            ? `${artifactName}.${extension}`
+            : artifactName;
           const destPath = path.join(typeDir, filename);
 
           try {
             await downloadFile(artifact.url, destPath);
             console.log(`    Downloaded: ${filename}`);
           } catch (downloadErr) {
-            console.log(`    Failed to download ${filename}: ${(downloadErr as Error).message}`);
+            console.log(
+              `    Failed to download ${filename}: ${(downloadErr as Error).message}`,
+            );
           }
         }
       } catch (listErr) {
-        console.log(`    Error listing ${artifactCategory} artifacts: ${(listErr as Error).message}`);
+        console.log(
+          `    Error listing ${artifactCategory} artifacts: ${(listErr as Error).message}`,
+        );
       }
     }
   }
@@ -479,8 +523,12 @@ ${testSuites.join('\n')}
 
     const mergedPath = path.join(outputDir, 'junit-results.xml');
     fs.writeFileSync(mergedPath, mergedXml);
-    console.log(`  Merged ${junitFiles.length} JUnit file(s) into: ${mergedPath}`);
-    console.log(`    Total: ${totalTests} tests, ${totalFailures} failures, ${totalErrors} errors`);
+    console.log(
+      `  Merged ${junitFiles.length} JUnit file(s) into: ${mergedPath}`,
+    );
+    console.log(
+      `    Total: ${totalTests} tests, ${totalFailures} failures, ${totalErrors} errors`,
+    );
   }
 
   console.log(`Artifacts saved to: ${outputDir}`);
@@ -488,18 +536,22 @@ ${testSuites.join('\n')}
 
 async function waitForRunComplete(runArn: string): Promise<Run> {
   console.log('Waiting for test run to complete...');
-  console.log('(This may take several minutes. You can also monitor progress in the AWS Console.)\n');
+  console.log(
+    '(This may take several minutes. You can also monitor progress in the AWS Console.)\n',
+  );
 
   let status = 'PENDING';
   while (!['COMPLETED', 'STOPPING', 'ERRORED'].includes(status)) {
     await new Promise(resolve => setTimeout(resolve, 30000));
 
-    const response = await client.send(new GetRunCommand({arn: runArn}));
+    const response = await client.send(new GetRunCommand({ arn: runArn }));
     status = response.run?.status || '';
     const result = response.run?.result;
 
     const timestamp = new Date().toLocaleTimeString();
-    console.log(`[${timestamp}] Status: ${status}, Result: ${result || 'pending'}`);
+    console.log(
+      `[${timestamp}] Status: ${status}, Result: ${result || 'pending'}`,
+    );
 
     if (status === 'RUNNING') {
       const counters = response.run?.counters;
@@ -511,7 +563,7 @@ async function waitForRunComplete(runArn: string): Promise<Run> {
     }
   }
 
-  const finalResponse = await client.send(new GetRunCommand({arn: runArn}));
+  const finalResponse = await client.send(new GetRunCommand({ arn: runArn }));
   return finalResponse.run as Run;
 }
 
@@ -532,11 +584,7 @@ async function main(): Promise<void> {
     const testSpecType: UploadType = 'APPIUM_NODE_TEST_SPEC';
 
     // Upload app
-    const appArn = await uploadFile(
-      appPath,
-      appType,
-      path.basename(appPath),
-    );
+    const appArn = await uploadFile(appPath, appType, path.basename(appPath));
 
     // Create and upload test package
     const testPackagePath = createTestPackage();
@@ -583,7 +631,9 @@ async function main(): Promise<void> {
     const runArn = scheduleResponse.run?.arn as string;
     console.log(`Test run scheduled: ${runArn}`);
     console.log(`\nView in AWS Console:`);
-    console.log(`https://${REGION}.console.aws.amazon.com/devicefarm/home?region=${REGION}#/mobile/projects/${PROJECT_ARN?.split(':').pop()}/runs/${runArn.split('/').pop()}\n`);
+    console.log(
+      `https://${REGION}.console.aws.amazon.com/devicefarm/home?region=${REGION}#/mobile/projects/${PROJECT_ARN?.split(':').pop()}/runs/${runArn.split('/').pop()}\n`,
+    );
 
     // Wait for completion
     const finalRun = await waitForRunComplete(runArn);

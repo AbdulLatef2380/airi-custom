@@ -1,12 +1,12 @@
 import React from 'react';
-import {Alert} from 'react-native';
+import { Alert } from 'react-native';
 
-import {fireEvent, waitFor} from '@testing-library/react-native';
+import { fireEvent, waitFor } from '@testing-library/react-native';
 
-import {render} from '../../../../jest/test-utils';
-import {createModel} from '../../../../jest/fixtures/models';
+import { render } from '../../../../jest/test-utils';
+import { createModel } from '../../../../jest/fixtures/models';
 
-import {ProjectionModelSelector} from '../ProjectionModelSelector';
+import { ProjectionModelSelector } from '../ProjectionModelSelector';
 
 describe('ProjectionModelSelector', () => {
   const mockModel = createModel({
@@ -41,7 +41,7 @@ describe('ProjectionModelSelector', () => {
         supportsMultimodal: false,
       });
 
-      const {queryByTestId} = render(
+      const { queryByTestId } = render(
         <ProjectionModelSelector model={nonMultimodalModel} />,
       );
 
@@ -49,7 +49,7 @@ describe('ProjectionModelSelector', () => {
     });
 
     it('should display available projection models to the user', () => {
-      const {getByText} = render(
+      const { getByText } = render(
         <ProjectionModelSelector
           model={mockModel}
           context="search"
@@ -66,7 +66,7 @@ describe('ProjectionModelSelector', () => {
     });
 
     it('should show empty state when no compatible models are available', () => {
-      const {getByText} = render(
+      const { getByText } = render(
         <ProjectionModelSelector
           model={mockModel}
           context="search"
@@ -84,7 +84,7 @@ describe('ProjectionModelSelector', () => {
     it('should call onProjectionModelSelect when user selects a model', () => {
       const mockCallback = jest.fn();
 
-      const {getAllByTestId} = render(
+      const { getAllByTestId } = render(
         <ProjectionModelSelector
           model={mockModel}
           context="search"
@@ -104,7 +104,7 @@ describe('ProjectionModelSelector', () => {
 
   describe('Expand/Collapse Behavior', () => {
     it('should toggle expansion when user taps the header', async () => {
-      const {getByTestId, queryAllByTestId} = render(
+      const { getByTestId, queryAllByTestId } = render(
         <ProjectionModelSelector
           model={mockModel}
           context="search"
@@ -130,7 +130,7 @@ describe('ProjectionModelSelector', () => {
     });
 
     it('should start expanded when initialExpanded is true', () => {
-      const {queryByTestId} = render(
+      const { queryByTestId } = render(
         <ProjectionModelSelector
           model={mockModel}
           context="search"
@@ -156,13 +156,13 @@ describe('ProjectionModelSelector', () => {
     });
 
     it('should prevent deletion of active projection model', () => {
-      const {modelStore} = require('../../../store');
+      const { modelStore } = require('../../../store');
       modelStore.activeModelId = 'proj-model-1';
       modelStore.getDownloadedLLMsUsingProjectionModel = jest
         .fn()
         .mockReturnValue([]);
 
-      const {getByTestId} = render(
+      const { getByTestId } = render(
         <ProjectionModelSelector
           model={mockModel}
           context="search"
@@ -180,7 +180,7 @@ describe('ProjectionModelSelector', () => {
       expect(Alert.alert).toHaveBeenCalledWith(
         'Cannot Delete',
         'This projection model is currently active.',
-        [{text: 'OK', style: 'default'}],
+        [{ text: 'OK', style: 'default' }],
       );
 
       // Verify delete was NOT called
@@ -188,7 +188,7 @@ describe('ProjectionModelSelector', () => {
     });
 
     it('should show warning when deleting projection model with dependent models', () => {
-      const {modelStore} = require('../../../store');
+      const { modelStore } = require('../../../store');
       modelStore.activeModelId = null;
 
       // Mock dependent models
@@ -203,7 +203,7 @@ describe('ProjectionModelSelector', () => {
         .mockReturnValue([dependentModel]);
       modelStore.deleteModel = jest.fn().mockResolvedValue(undefined);
 
-      const {getByTestId} = render(
+      const { getByTestId } = render(
         <ProjectionModelSelector
           model={mockModel}
           context="search"
@@ -222,7 +222,7 @@ describe('ProjectionModelSelector', () => {
         'Delete Projection Model',
         expect.stringContaining('Dependent LLM'),
         expect.arrayContaining([
-          {text: 'Cancel', style: 'cancel'},
+          { text: 'Cancel', style: 'cancel' },
           expect.objectContaining({
             text: 'Delete',
             style: 'destructive',
@@ -232,7 +232,7 @@ describe('ProjectionModelSelector', () => {
     });
 
     it('should disable vision on dependent models before deletion', async () => {
-      const {modelStore} = require('../../../store');
+      const { modelStore } = require('../../../store');
       modelStore.activeModelId = null;
 
       const dependentModel1 = createModel({
@@ -269,7 +269,7 @@ describe('ProjectionModelSelector', () => {
         },
       );
 
-      const {getByTestId} = render(
+      const { getByTestId } = render(
         <ProjectionModelSelector
           model={mockModel}
           context="search"
@@ -295,7 +295,7 @@ describe('ProjectionModelSelector', () => {
     });
 
     it('should handle deletion errors gracefully', async () => {
-      const {modelStore} = require('../../../store');
+      const { modelStore } = require('../../../store');
       modelStore.activeModelId = null;
 
       const deletionError = new Error('Failed to delete file');
@@ -308,7 +308,7 @@ describe('ProjectionModelSelector', () => {
       const alertCalls: any[] = [];
       (Alert.alert as jest.Mock).mockImplementation(
         (title: string, message: string, buttons: any[]) => {
-          alertCalls.push({title, message, buttons});
+          alertCalls.push({ title, message, buttons });
           const deleteButton = buttons?.find(
             (b: any) => b.style === 'destructive',
           );
@@ -319,7 +319,7 @@ describe('ProjectionModelSelector', () => {
         },
       );
 
-      const {getByTestId} = render(
+      const { getByTestId } = render(
         <ProjectionModelSelector
           model={mockModel}
           context="search"
@@ -348,7 +348,7 @@ describe('ProjectionModelSelector', () => {
     });
 
     it('should call checkSpaceAndDownload when download button is pressed', () => {
-      const {modelStore} = require('../../../store');
+      const { modelStore } = require('../../../store');
       modelStore.checkSpaceAndDownload = jest.fn();
 
       const notDownloadedModel = createModel({
@@ -358,7 +358,7 @@ describe('ProjectionModelSelector', () => {
         progress: 0,
       });
 
-      const {getByTestId} = render(
+      const { getByTestId } = render(
         <ProjectionModelSelector
           model={mockModel}
           context="search"

@@ -1,14 +1,14 @@
-import {Appearance} from 'react-native';
+import { Appearance } from 'react-native';
 
-import {makePersistable} from 'mobx-persist-store';
-import {makeAutoObservable, runInAction} from 'mobx';
+import { makePersistable } from 'mobx-persist-store';
+import { makeAutoObservable, runInAction } from 'mobx';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   l10n,
   supportedLanguages as localesSupportedLanguages,
   type AvailableLanguage,
 } from '../locales';
-import {ErrorState} from '../utils/errors';
+import { ErrorState } from '../utils/errors';
 
 export class UIStore {
   static readonly GROUP_KEYS = {

@@ -1,15 +1,15 @@
 import React from 'react';
-import {render, fireEvent} from '@testing-library/react-native';
-import {CompletionSettings} from '../CompletionSettings';
-import {mockCompletionParams} from '../../../../jest/fixtures/models';
+import { render, fireEvent } from '@testing-library/react-native';
+import { CompletionSettings } from '../CompletionSettings';
+import { mockCompletionParams } from '../../../../jest/fixtures/models';
 
 jest.useFakeTimers();
 
 describe('CompletionSettings', () => {
   it('renders all settings correctly', async () => {
-    const {getByDisplayValue, getByTestId} = render(
+    const { getByDisplayValue, getByTestId } = render(
       <CompletionSettings
-        settings={{...mockCompletionParams, mirostat: 1}}
+        settings={{ ...mockCompletionParams, mirostat: 1 }}
         onChange={jest.fn()}
       />,
     );
@@ -76,7 +76,7 @@ describe('CompletionSettings', () => {
 
   it('handles slider changes', async () => {
     const mockOnChange = jest.fn();
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <CompletionSettings
         settings={mockCompletionParams}
         onChange={mockOnChange}
@@ -96,7 +96,7 @@ describe('CompletionSettings', () => {
 
   it('handles text input changes', () => {
     const mockOnChange = jest.fn();
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <CompletionSettings
         settings={mockCompletionParams}
         onChange={mockOnChange}
@@ -110,7 +110,7 @@ describe('CompletionSettings', () => {
 
   it('handles chip selection', () => {
     const mockOnChange = jest.fn();
-    const {getByText} = render(
+    const { getByText } = render(
       <CompletionSettings
         settings={mockCompletionParams}
         onChange={mockOnChange}

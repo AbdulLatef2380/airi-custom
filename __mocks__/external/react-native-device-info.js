@@ -1,4 +1,4 @@
-import {deviceInfo} from '../../jest/fixtures/device-info';
+import { deviceInfo } from '../../jest/fixtures/device-info';
 
 export default {
   getUniqueId: jest.fn(() => 'unique-id'),

@@ -3,8 +3,8 @@
  * Provides platform-specific device options and quantization validation
  */
 
-import {Platform} from 'react-native';
-import {getBackendDevicesInfo, NativeBackendDeviceInfo} from 'llama.rn';
+import { Platform } from 'react-native';
+import { getBackendDevicesInfo, NativeBackendDeviceInfo } from 'llama.rn';
 
 /**
  * Device option for UI selection
@@ -197,17 +197,17 @@ export function detectQuantizationType(filename: string): string | null {
 export function validateModelQuantizationForDevice(
   modelFilename: string,
   deviceOption: DeviceOption,
-): {valid: boolean; warning?: string; recommendation?: string} {
+): { valid: boolean; warning?: string; recommendation?: string } {
   const quant = detectQuantizationType(modelFilename);
 
   if (!quant) {
     // Can't detect quantization, assume it's okay
-    return {valid: true};
+    return { valid: true };
   }
 
   // iOS Metal: All quantizations supported
   if (Platform.OS === 'ios' && deviceOption.id !== 'cpu') {
-    return {valid: true};
+    return { valid: true };
   }
 
   // Android: Check OpenCL compatibility
@@ -241,7 +241,7 @@ export function validateModelQuantizationForDevice(
     // CPU: All quantizations supported
   }
 
-  return {valid: true};
+  return { valid: true };
 }
 
 /**

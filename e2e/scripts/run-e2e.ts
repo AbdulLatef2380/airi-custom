@@ -35,8 +35,8 @@
  *   npx ts-node scripts/run-e2e.ts --help
  */
 
-import {config} from 'dotenv';
-import {execSync} from 'child_process';
+import { config } from 'dotenv';
+import { execSync } from 'child_process';
 import * as fs from 'fs';
 import * as path from 'path';
 import {
@@ -124,7 +124,7 @@ const BASE_APPIUM_PORT = 4723;
 const ENV_FILE = path.join(E2E_DIR, '.env');
 
 // Load environment variables from e2e/.env (secrets, server URLs, etc.)
-config({path: ENV_FILE});
+config({ path: ENV_FILE });
 
 // ---------------------------------------------------------------------------
 // CLI Parsing
@@ -294,7 +294,7 @@ function parseArgs(): RunArgs {
 // Git Info
 // ---------------------------------------------------------------------------
 
-function getGitInfo(): {branch: string; commit: string} {
+function getGitInfo(): { branch: string; commit: string } {
   try {
     const branch = execSync('git branch --show-current', {
       cwd: REPO_ROOT,
@@ -304,9 +304,9 @@ function getGitInfo(): {branch: string; commit: string} {
       cwd: REPO_ROOT,
       encoding: 'utf8',
     }).trim();
-    return {branch, commit};
+    return { branch, commit };
   } catch {
-    return {branch: 'unknown', commit: 'unknown'};
+    return { branch: 'unknown', commit: 'unknown' };
   }
 }
 
@@ -336,7 +336,7 @@ function loadDevices(): DeviceConfig[] {
 
 function getConnectedAndroidUdids(): Set<string> {
   try {
-    const output = execSync('adb devices', {encoding: 'utf8', timeout: 5000});
+    const output = execSync('adb devices', { encoding: 'utf8', timeout: 5000 });
     const udids = new Set<string>();
     for (const line of output.split('\n')) {
       const match = line.match(/^(\S+)\s+device$/);
@@ -501,7 +501,7 @@ function buildApps(
       console.log(`[DRY RUN] Would run: ${cmd} (cwd: ${REPO_ROOT})`);
     } else {
       console.log('Building iOS E2E app...');
-      execSync(cmd, {stdio: 'inherit', cwd: REPO_ROOT});
+      execSync(cmd, { stdio: 'inherit', cwd: REPO_ROOT });
     }
   }
   if (platform === 'android' || platform === 'both') {
@@ -510,7 +510,7 @@ function buildApps(
       console.log(`[DRY RUN] Would run: ${cmd} (cwd: ${REPO_ROOT})`);
     } else {
       console.log('Building Android release APK...');
-      execSync(cmd, {stdio: 'inherit', cwd: REPO_ROOT});
+      execSync(cmd, { stdio: 'inherit', cwd: REPO_ROOT });
     }
   }
 }
@@ -593,7 +593,7 @@ function findJunitFiles(dir: string): string[] {
   const results: string[] = [];
 
   try {
-    const entries = fs.readdirSync(dir, {withFileTypes: true});
+    const entries = fs.readdirSync(dir, { withFileTypes: true });
     for (const entry of entries) {
       const fullPath = path.join(dir, entry.name);
       if (entry.isDirectory()) {
@@ -621,7 +621,7 @@ function runSingleTest(opts: {
   appiumPort: number;
   reportDir: string;
 }): TestRunResult {
-  const {spec, platform, mode, model, device, appiumPort, reportDir} = opts;
+  const { spec, platform, mode, model, device, appiumPort, reportDir } = opts;
   const startTime = Date.now();
 
   const configFile = getWdioConfig(platform, mode);
@@ -632,8 +632,8 @@ function runSingleTest(opts: {
   const subdir = getRunSubdir(device, model);
   const runReportDir =
     subdir === '.' ? reportDir : path.join(reportDir, subdir);
-  fs.mkdirSync(runReportDir, {recursive: true});
-  fs.mkdirSync(path.join(runReportDir, 'screenshots'), {recursive: true});
+  fs.mkdirSync(runReportDir, { recursive: true });
+  fs.mkdirSync(path.join(runReportDir, 'screenshots'), { recursive: true });
 
   console.log(`\n${'='.repeat(60)}`);
   console.log(`Run: ${label}`);
@@ -873,7 +873,7 @@ function writeSummary(
   reportDir: string,
   args: RunArgs,
   results: TestRunResult[],
-  gitInfo: {branch: string; commit: string},
+  gitInfo: { branch: string; commit: string },
   timestamp: string,
 ): void {
   const passed = results.filter(r => r.success).length;
@@ -909,7 +909,7 @@ function printDryRun(
   devices: Array<DeviceConfig | null>,
   models: Array<ModelTestConfig | null>,
   reportDir: string,
-  gitInfo: {branch: string; commit: string},
+  gitInfo: { branch: string; commit: string },
 ): void {
   console.log(`\n${'='.repeat(60)}`);
   console.log('DRY RUN - No tests will be executed');
@@ -1052,7 +1052,7 @@ async function main(): Promise<void> {
   }
 
   // Create report directory
-  fs.mkdirSync(reportDir, {recursive: true});
+  fs.mkdirSync(reportDir, { recursive: true });
 
   // Build step
   if (!args.skipBuild && args.mode === 'local') {
@@ -1070,9 +1070,7 @@ async function main(): Promise<void> {
   console.log(
     `Platform: ${args.platform} | Spec: ${args.spec} | Mode: ${args.mode}`,
   );
-  console.log(
-    `Devices: ${devices[0] === null ? 'default' : devices.length}`,
-  );
+  console.log(`Devices: ${devices[0] === null ? 'default' : devices.length}`);
   console.log(
     `Models: ${models[0] === null ? 'default' : (models as ModelTestConfig[]).map(m => m.id).join(', ')}`,
   );

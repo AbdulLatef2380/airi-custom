@@ -1,7 +1,7 @@
-import {applyTemplate, Templates} from 'chat-formatter';
-import {JinjaFormattedChatResult, LlamaContext} from 'llama.rn';
-import {CompletionParams} from './completionTypes';
-import {defaultCompletionParams} from './completionSettingsVersions';
+import { applyTemplate, Templates } from 'chat-formatter';
+import { JinjaFormattedChatResult, LlamaContext } from 'llama.rn';
+import { CompletionParams } from './completionTypes';
+import { defaultCompletionParams } from './completionSettingsVersions';
 
 import {
   ChatMessage,
@@ -13,8 +13,8 @@ import {
 
 export const userId = 'y9d7f8pgn';
 export const assistantId = 'h3o3lc5xj';
-export const user = {id: userId};
-export const assistant = {id: assistantId};
+export const user = { id: userId };
+export const assistant = { id: assistantId };
 
 export function convertToChatMessages(
   messages: MessageType.Any[],
@@ -55,7 +55,7 @@ export function convertToChatMessages(
         const contentArray: Array<{
           type: 'text' | 'image_url';
           text?: string;
-          image_url?: {url: string};
+          image_url?: { url: string };
         }> = [
           {
             type: 'text',
@@ -67,7 +67,7 @@ export function convertToChatMessages(
         contentArray.push(
           ...textMessage.imageUris.map(path => ({
             type: 'image_url' as const,
-            image_url: {url: path},
+            image_url: { url: path },
           })),
         );
 

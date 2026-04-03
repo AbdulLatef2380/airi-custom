@@ -1,11 +1,11 @@
 import React from 'react';
-import {View, TouchableOpacity} from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 
-import {Icon} from 'react-native-paper';
+import { Icon } from 'react-native-paper';
 
-import {useTheme} from '../../hooks';
+import { useTheme } from '../../hooks';
 
-import {createStyles} from './styles';
+import { createStyles } from './styles';
 
 type Props = {
   testID?: string;
@@ -36,7 +36,7 @@ export const Checkbox: React.FC<Props> = ({
       <View
         style={[
           styles.checkbox,
-          {width: size, height: size},
+          { width: size, height: size },
           checked ? styles.checkedBox : styles.uncheckedBox,
         ]}>
         {checked && (

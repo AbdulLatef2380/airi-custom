@@ -1,1 +1,1 @@
-export {VideoPalEmptyPlaceholder} from './VideoPalEmptyPlaceholder';
+export { VideoPalEmptyPlaceholder } from './VideoPalEmptyPlaceholder';

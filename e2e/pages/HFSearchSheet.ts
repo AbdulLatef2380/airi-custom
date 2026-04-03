@@ -10,8 +10,8 @@
 // WebdriverIO globals - available during test execution
 declare const driver: WebdriverIO.Browser;
 
-import {BasePage, ChainableElement} from './BasePage';
-import {Selectors} from '../helpers/selectors';
+import { BasePage, ChainableElement } from './BasePage';
+import { Selectors } from '../helpers/selectors';
 
 export class HFSearchSheet extends BasePage {
   /**

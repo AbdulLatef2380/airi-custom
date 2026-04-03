@@ -1,8 +1,8 @@
 import * as React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
 
-import {MessageType, Theme} from '../../utils/types';
-import {getUserAvatarNameColor, getUserInitials} from '../../utils';
+import { MessageType, Theme } from '../../utils/types';
+import { getUserAvatarNameColor, getUserInitials } from '../../utils';
 
 // TDOD: Add model name and the user's name?
 export const Avatar = React.memo(
@@ -32,14 +32,14 @@ export const Avatar = React.memo(
             accessibilityRole="image"
             testID="avatar-image"
             resizeMode="cover"
-            source={{uri: author.imageUrl}}
+            source={{ uri: author.imageUrl }}
             style={[styles.image]}
           />
         );
       }
 
       return (
-        <View style={[styles.avatarBackground, {backgroundColor: color}]}>
+        <View style={[styles.avatarBackground, { backgroundColor: color }]}>
           <Text>{initials}</Text>
         </View>
       );

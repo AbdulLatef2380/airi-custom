@@ -52,7 +52,7 @@ class MockCollection {
       observe: () => ({
         subscribe: callback => {
           callback(this._records);
-          return {unsubscribe: () => {}};
+          return { unsubscribe: () => {} };
         },
       }),
       where: () => this.query(),
@@ -149,8 +149,12 @@ const tableSchema = schema => schema;
 
 // Mock migrations
 const schemaMigrations = migrations => migrations;
-const createTable = table => ({type: 'create_table', table});
-const addColumns = (table, columns) => ({type: 'add_columns', table, columns});
+const createTable = table => ({ type: 'create_table', table });
+const addColumns = (table, columns) => ({
+  type: 'add_columns',
+  table,
+  columns,
+});
 const createIndex = (table, columns) => ({
   type: 'create_index',
   table,

@@ -1,13 +1,13 @@
 jest.unmock('../../store');
-import {runInAction} from 'mobx';
-import {LlamaContext} from 'llama.rn';
-import {Alert} from 'react-native';
+import { runInAction } from 'mobx';
+import { LlamaContext } from 'llama.rn';
+import { Alert } from 'react-native';
 
-import {defaultModels} from '../defaultModels';
+import { defaultModels } from '../defaultModels';
 
-import {downloadManager} from '../../services/downloads';
+import { downloadManager } from '../../services/downloads';
 
-import {ModelOrigin, ModelType} from '../../utils/types';
+import { ModelOrigin, ModelType } from '../../utils/types';
 import {
   basicModel,
   mockLlamaContextParams,
@@ -15,8 +15,8 @@ import {
 } from '../../../jest/fixtures/models';
 import * as RNFS from '@dr.pogodin/react-native-fs';
 
-import {modelStore, uiStore, serverStore} from '..';
-import {t} from '../../locales';
+import { modelStore, uiStore, serverStore } from '..';
+import { t } from '../../locales';
 import {
   getCpuCoreCount,
   getRecommendedThreadCount,
@@ -27,7 +27,7 @@ jest.mock('../../utils/deviceCapabilities', () => ({
   ...jest.requireActual('../../utils/deviceCapabilities'),
   getCpuCoreCount: jest.fn().mockResolvedValue(8),
   getRecommendedThreadCount: jest.fn().mockResolvedValue(6),
-  checkGpuSupport: jest.fn().mockResolvedValue({isSupported: false}),
+  checkGpuSupport: jest.fn().mockResolvedValue({ isSupported: false }),
   isHighEndDevice: jest.fn().mockResolvedValue(false),
 }));
 
@@ -697,7 +697,7 @@ describe('ModelStore', () => {
     it('should reinitialize context when coming back to foreground', async () => {
       // Setup
       modelStore.useAutoRelease = true;
-      const model = {...defaultModels[0], isDownloaded: true}; // Ensure model is downloaded
+      const model = { ...defaultModels[0], isDownloaded: true }; // Ensure model is downloaded
       modelStore.models = [model];
       modelStore.activeModelId = model.id;
 
@@ -720,7 +720,7 @@ describe('ModelStore', () => {
 
   describe('settings management', () => {
     it('should update stop words', () => {
-      const model = {...defaultModels[0]};
+      const model = { ...defaultModels[0] };
       modelStore.models = [model];
 
       const newStopWords = ['stop1', 'stop2'];
@@ -731,7 +731,7 @@ describe('ModelStore', () => {
     });
 
     it('should reset model stop words to defaults', () => {
-      const model = {...defaultModels[0]};
+      const model = { ...defaultModels[0] };
       const originalStopWords = [...(model.defaultStopWords || [])];
       model.stopWords = ['custom1', 'custom2'];
       modelStore.models = [model];
@@ -814,7 +814,7 @@ describe('ModelStore', () => {
     });
 
     it('should return correct last used model', () => {
-      const model = {...defaultModels[0], isDownloaded: true};
+      const model = { ...defaultModels[0], isDownloaded: true };
       modelStore.models = [model];
       modelStore.lastUsedModelId = model.id;
 
@@ -903,7 +903,7 @@ describe('ModelStore', () => {
     it('should handle errors when downloading HF model fails', async () => {
       const hfModel = {
         id: 'test/hf-model',
-        siblings: [{rfilename: 'model.gguf'}],
+        siblings: [{ rfilename: 'model.gguf' }],
       };
 
       const modelFile = hfModel.siblings[0];
@@ -957,7 +957,7 @@ describe('ModelStore', () => {
 
       modelStore.models = [model];
 
-      const newConfig = {chatTemplate: 'updated'};
+      const newConfig = { chatTemplate: 'updated' };
       modelStore.updateModelChatTemplate(model.id, newConfig as any);
 
       expect(modelStore.models[0].chatTemplate).toEqual(newConfig);
@@ -999,7 +999,7 @@ describe('ModelStore', () => {
       const hfModel = {
         id: 'hf-model',
         origin: ModelOrigin.HF,
-        hfModel: {id: 'test/hf-model'},
+        hfModel: { id: 'test/hf-model' },
       };
 
       modelStore.models = [localModel, hfModel] as any;
@@ -1061,8 +1061,8 @@ describe('ModelStore', () => {
     beforeEach(() => {
       // Set up some available models
       modelStore.models = [
-        {id: 'model1', isDownloaded: true},
-        {id: 'model2', isDownloaded: true},
+        { id: 'model1', isDownloaded: true },
+        { id: 'model2', isDownloaded: true },
       ] as any;
     });
 
@@ -1814,7 +1814,7 @@ describe('ModelStore', () => {
           filename: 'model.gguf',
           // repo field missing (simulates existing model before update)
           isDownloaded: true,
-          hfModel: {id: 'test-author/test-repo'} as any,
+          hfModel: { id: 'test-author/test-repo' } as any,
           chatTemplate: {},
           stopWords: [],
           defaultChatTemplate: {},
@@ -1849,7 +1849,7 @@ describe('ModelStore', () => {
           filename: 'model.gguf',
           repo: 'existing-repo', // Already has repo field
           isDownloaded: true,
-          hfModel: {id: 'test-author/inferred-repo'} as any,
+          hfModel: { id: 'test-author/inferred-repo' } as any,
           chatTemplate: {},
           stopWords: [],
           defaultChatTemplate: {},
@@ -1875,7 +1875,7 @@ describe('ModelStore', () => {
           filename: 'model.gguf',
           // repo field missing, ID is malformed
           isDownloaded: true,
-          hfModel: {id: 'malformed'} as any,
+          hfModel: { id: 'malformed' } as any,
           chatTemplate: {},
           stopWords: [],
           defaultChatTemplate: {},
@@ -1931,7 +1931,7 @@ describe('ModelStore', () => {
         message: 'Test error',
         type: 'download',
         source: 'huggingface',
-        metadata: {modelId: 'test-model'},
+        metadata: { modelId: 'test-model' },
       } as any;
 
       modelStore.clearDownloadError();
@@ -1949,7 +1949,7 @@ describe('ModelStore', () => {
         message: 'Test error',
         type: 'download',
         source: 'huggingface',
-        metadata: {modelId: 'test-model-0-1-0'},
+        metadata: { modelId: 'test-model-0-1-0' },
       } as any;
 
       (RNFS.exists as jest.Mock).mockResolvedValue(false);
@@ -1991,7 +1991,7 @@ describe('ModelStore', () => {
         message: 'Test error',
         type: 'download',
         source: 'huggingface',
-        metadata: {modelId: 'non-existent-model'},
+        metadata: { modelId: 'non-existent-model' },
       } as any;
 
       const mockCheckSpaceAndDownload = jest.fn();
@@ -2071,7 +2071,7 @@ describe('ModelStore', () => {
     it('should handle single image completion successfully', async () => {
       const mockContext = {
         isMultimodalEnabled: jest.fn().mockResolvedValue(true),
-        completion: jest.fn().mockResolvedValue({text: 'Response text'}),
+        completion: jest.fn().mockResolvedValue({ text: 'Response text' }),
       };
       modelStore.context = mockContext as any;
 
@@ -2094,7 +2094,7 @@ describe('ModelStore', () => {
     it('should handle multiple images completion successfully', async () => {
       const mockContext = {
         isMultimodalEnabled: jest.fn().mockResolvedValue(true),
-        completion: jest.fn().mockResolvedValue({text: 'Response text'}),
+        completion: jest.fn().mockResolvedValue({ text: 'Response text' }),
       };
       modelStore.context = mockContext as any;
 
@@ -2146,7 +2146,7 @@ describe('ModelStore', () => {
 
       const mockContext = {
         isMultimodalEnabled: jest.fn().mockResolvedValue(true),
-        completion: jest.fn().mockResolvedValue({text: 'Response text'}),
+        completion: jest.fn().mockResolvedValue({ text: 'Response text' }),
       };
       modelStore.context = mockContext as any;
 
@@ -2169,7 +2169,7 @@ describe('ModelStore', () => {
     it('should include system message when provided', async () => {
       const mockContext = {
         isMultimodalEnabled: jest.fn().mockResolvedValue(true),
-        completion: jest.fn().mockResolvedValue({text: 'Response text'}),
+        completion: jest.fn().mockResolvedValue({ text: 'Response text' }),
       };
       modelStore.context = mockContext as any;
 
@@ -2271,7 +2271,7 @@ describe('ModelStore', () => {
 
   // Add tests for fetchAndUpdateModelFileDetails
   describe('fetchAndUpdateModelFileDetails', () => {
-    const {fetchModelFilesDetails} = require('../../api/hf');
+    const { fetchModelFilesDetails } = require('../../api/hf');
 
     beforeEach(() => {
       jest.clearAllMocks();
@@ -2292,18 +2292,18 @@ describe('ModelStore', () => {
     it('should update model file details when matching file found', async () => {
       const model = {
         id: 'test-model',
-        hfModel: {id: 'test/model'},
-        hfModelFile: {rfilename: 'model.gguf', lfs: undefined},
+        hfModel: { id: 'test/model' },
+        hfModelFile: { rfilename: 'model.gguf', lfs: undefined },
       };
 
       const mockFileDetails = [
         {
           path: 'model.gguf',
-          lfs: {oid: 'test-oid', size: 1000},
+          lfs: { oid: 'test-oid', size: 1000 },
         },
         {
           path: 'other-file.txt',
-          lfs: {oid: 'other-oid', size: 500},
+          lfs: { oid: 'other-oid', size: 500 },
         },
       ];
 
@@ -2312,14 +2312,14 @@ describe('ModelStore', () => {
       await modelStore.fetchAndUpdateModelFileDetails(model as any);
 
       expect(fetchModelFilesDetails).toHaveBeenCalledWith('test/model');
-      expect(model.hfModelFile.lfs).toEqual({oid: 'test-oid', size: 1000});
+      expect(model.hfModelFile.lfs).toEqual({ oid: 'test-oid', size: 1000 });
     });
 
     it('should handle error when fetching file details', async () => {
       const model = {
         id: 'test-model',
-        hfModel: {id: 'test/model'},
-        hfModelFile: {rfilename: 'model.gguf', lfs: undefined},
+        hfModel: { id: 'test/model' },
+        hfModelFile: { rfilename: 'model.gguf', lfs: undefined },
       };
 
       fetchModelFilesDetails.mockRejectedValue(new Error('API error'));
@@ -2339,14 +2339,14 @@ describe('ModelStore', () => {
     it('should not update if no matching file found', async () => {
       const model = {
         id: 'test-model',
-        hfModel: {id: 'test/model'},
-        hfModelFile: {rfilename: 'model.gguf', lfs: undefined},
+        hfModel: { id: 'test/model' },
+        hfModelFile: { rfilename: 'model.gguf', lfs: undefined },
       };
 
       const mockFileDetails = [
         {
           path: 'other-file.txt',
-          lfs: {oid: 'other-oid', size: 500},
+          lfs: { oid: 'other-oid', size: 500 },
         },
       ];
 
@@ -2361,8 +2361,8 @@ describe('ModelStore', () => {
     it('should not update if matching file has no lfs data', async () => {
       const model = {
         id: 'test-model',
-        hfModel: {id: 'test/model'},
-        hfModelFile: {rfilename: 'model.gguf', lfs: undefined},
+        hfModel: { id: 'test/model' },
+        hfModelFile: { rfilename: 'model.gguf', lfs: undefined },
       };
 
       const mockFileDetails = [
@@ -2401,7 +2401,7 @@ describe('ModelStore', () => {
       });
 
       // Get the mock function - use named export
-      const {initLlama} = require('llama.rn');
+      const { initLlama } = require('llama.rn');
       initLlamaMock = initLlama;
     });
 
@@ -2416,7 +2416,7 @@ describe('ModelStore', () => {
       const model = basicModel;
 
       // Mock initLlama with a long delay to ensure overlap
-      const mockContext = {release: jest.fn()} as unknown as LlamaContext;
+      const mockContext = { release: jest.fn() } as unknown as LlamaContext;
       initLlamaMock.mockReset(); // Ensure clean slate
       initLlamaMock.mockImplementation(
         () =>
@@ -2443,7 +2443,7 @@ describe('ModelStore', () => {
 
     it('should clear isContextLoading after successful init', async () => {
       const model = basicModel;
-      const mockContext = {release: jest.fn()} as unknown as LlamaContext;
+      const mockContext = { release: jest.fn() } as unknown as LlamaContext;
       initLlamaMock.mockReset();
       initLlamaMock.mockResolvedValue(mockContext);
 
@@ -2490,9 +2490,9 @@ describe('ModelStore', () => {
     });
 
     it('should skip outdated load requests during rapid switching', async () => {
-      const modelA = {...basicModel, id: 'model-a', name: 'Model A'};
-      const modelB = {...basicModel, id: 'model-b', name: 'Model B'};
-      const mockContextB = {release: jest.fn()} as unknown as LlamaContext;
+      const modelA = { ...basicModel, id: 'model-a', name: 'Model A' };
+      const modelB = { ...basicModel, id: 'model-b', name: 'Model B' };
+      const mockContextB = { release: jest.fn() } as unknown as LlamaContext;
 
       runInAction(() => {
         modelStore.models = [modelA, modelB];
@@ -3012,14 +3012,14 @@ describe('ModelStore', () => {
     it('returns only user-selected models', () => {
       runInAction(() => {
         serverStore.servers = [
-          {id: 'srv-1', name: 'LM Studio', url: 'http://localhost:1234'},
+          { id: 'srv-1', name: 'LM Studio', url: 'http://localhost:1234' },
         ];
         serverStore.serverModels.set('srv-1', [
-          {id: 'llama-7b', object: 'model', owned_by: 'system'},
-          {id: 'codellama', object: 'model', owned_by: 'system'},
+          { id: 'llama-7b', object: 'model', owned_by: 'system' },
+          { id: 'codellama', object: 'model', owned_by: 'system' },
         ]);
         serverStore.userSelectedModels = [
-          {serverId: 'srv-1', remoteModelId: 'llama-7b'},
+          { serverId: 'srv-1', remoteModelId: 'llama-7b' },
         ];
       });
 
@@ -3035,10 +3035,10 @@ describe('ModelStore', () => {
     it('returns empty array when no models are user-selected', () => {
       runInAction(() => {
         serverStore.servers = [
-          {id: 'srv-1', name: 'LM Studio', url: 'http://localhost:1234'},
+          { id: 'srv-1', name: 'LM Studio', url: 'http://localhost:1234' },
         ];
         serverStore.serverModels.set('srv-1', [
-          {id: 'llama-7b', object: 'model', owned_by: 'system'},
+          { id: 'llama-7b', object: 'model', owned_by: 'system' },
         ]);
         // No userSelectedModels
       });
@@ -3050,7 +3050,7 @@ describe('ModelStore', () => {
       runInAction(() => {
         // Server does not exist in servers array
         serverStore.userSelectedModels = [
-          {serverId: 'non-existent', remoteModelId: 'model-a'},
+          { serverId: 'non-existent', remoteModelId: 'model-a' },
         ];
       });
 
@@ -3060,12 +3060,12 @@ describe('ModelStore', () => {
     it('returns models from multiple servers', () => {
       runInAction(() => {
         serverStore.servers = [
-          {id: 'srv-1', name: 'LM Studio', url: 'http://localhost:1234'},
-          {id: 'srv-2', name: 'Ollama', url: 'http://localhost:11434'},
+          { id: 'srv-1', name: 'LM Studio', url: 'http://localhost:1234' },
+          { id: 'srv-2', name: 'Ollama', url: 'http://localhost:11434' },
         ];
         serverStore.userSelectedModels = [
-          {serverId: 'srv-1', remoteModelId: 'llama-7b'},
-          {serverId: 'srv-2', remoteModelId: 'mistral'},
+          { serverId: 'srv-1', remoteModelId: 'llama-7b' },
+          { serverId: 'srv-2', remoteModelId: 'mistral' },
         ];
       });
 
@@ -3079,10 +3079,10 @@ describe('ModelStore', () => {
     it('generates correct model id from serverId and remoteModelId', () => {
       runInAction(() => {
         serverStore.servers = [
-          {id: 'srv-1', name: 'LM Studio', url: 'http://localhost:1234'},
+          { id: 'srv-1', name: 'LM Studio', url: 'http://localhost:1234' },
         ];
         serverStore.userSelectedModels = [
-          {serverId: 'srv-1', remoteModelId: 'llama-7b'},
+          { serverId: 'srv-1', remoteModelId: 'llama-7b' },
         ];
       });
 

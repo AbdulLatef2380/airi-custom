@@ -14,16 +14,20 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
-import {expect} from '@wdio/globals';
-import {ChatPage} from '../../pages/ChatPage';
-import {DrawerPage} from '../../pages/DrawerPage';
-import {Selectors} from '../../helpers/selectors';
+import { expect } from '@wdio/globals';
+import { ChatPage } from '../../pages/ChatPage';
+import { DrawerPage } from '../../pages/DrawerPage';
+import { Selectors } from '../../helpers/selectors';
 import {
   downloadAndLoadModel,
   waitForInferenceComplete,
 } from '../../helpers/model-actions';
-import {QUICK_TEST_MODEL, TIMEOUTS, getModelsToTest} from '../../fixtures/models';
-import {SCREENSHOT_DIR} from '../../wdio.shared.conf';
+import {
+  QUICK_TEST_MODEL,
+  TIMEOUTS,
+  getModelsToTest,
+} from '../../fixtures/models';
+import { SCREENSHOT_DIR } from '../../wdio.shared.conf';
 
 declare const driver: WebdriverIO.Browser;
 declare const browser: WebdriverIO.Browser;
@@ -61,7 +65,7 @@ describe('Draft Autosave', () => {
       const testName = this.currentTest.title.replace(/\s+/g, '-');
       try {
         if (!fs.existsSync(SCREENSHOT_DIR)) {
-          fs.mkdirSync(SCREENSHOT_DIR, {recursive: true});
+          fs.mkdirSync(SCREENSHOT_DIR, { recursive: true });
         }
         await driver.saveScreenshot(
           path.join(SCREENSHOT_DIR, `failure-${testName}-${timestamp}.png`),
@@ -77,7 +81,7 @@ describe('Draft Autosave', () => {
     await chatPage.resetChat();
     await chatPage.sendMessage(SESSION_A_MSG);
     const aiMessage = browser.$(Selectors.chat.aiMessage);
-    await aiMessage.waitForExist({timeout: TIMEOUTS.inference});
+    await aiMessage.waitForExist({ timeout: TIMEOUTS.inference });
     await waitForInferenceComplete();
     console.log('Session A created');
 
@@ -85,7 +89,7 @@ describe('Draft Autosave', () => {
     await chatPage.resetChat();
     await chatPage.sendMessage(SESSION_B_MSG);
     const aiMessage2 = browser.$(Selectors.chat.aiMessage);
-    await aiMessage2.waitForExist({timeout: TIMEOUTS.inference});
+    await aiMessage2.waitForExist({ timeout: TIMEOUTS.inference });
     await waitForInferenceComplete();
     console.log('Session B created');
   });
@@ -124,7 +128,7 @@ describe('Draft Autosave', () => {
 
     // Wait for inference to start
     const aiMessage = browser.$(Selectors.chat.aiMessage);
-    await aiMessage.waitForExist({timeout: TIMEOUTS.inference});
+    await aiMessage.waitForExist({ timeout: TIMEOUTS.inference });
     await waitForInferenceComplete();
 
     // Switch away and back — draft should be gone (cleared on send)

@@ -1,1 +1,1 @@
-export {LoadingBubble} from './LoadingBubble';
+export { LoadingBubble } from './LoadingBubble';

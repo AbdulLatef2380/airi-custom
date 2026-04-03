@@ -1,6 +1,6 @@
-import {NativeLlamaContext} from 'llama.rn';
+import { NativeLlamaContext } from 'llama.rn';
 
-import {deviceInfo} from './device-info';
+import { deviceInfo } from './device-info';
 
 import {
   GGUFSpecs,
@@ -10,7 +10,7 @@ import {
   ModelOrigin,
   ServerConfig,
 } from '../../src/utils/types';
-import {CompletionParams} from '../../src/utils/completionTypes';
+import { CompletionParams } from '../../src/utils/completionTypes';
 
 export const mockContextModel: NativeLlamaContext['model'] = {
   desc: '',

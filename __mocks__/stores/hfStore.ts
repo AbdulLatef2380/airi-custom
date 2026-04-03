@@ -1,4 +1,4 @@
-import {mockHFModel1, mockHFModel2} from '../../jest/fixtures/models';
+import { mockHFModel1, mockHFModel2 } from '../../jest/fixtures/models';
 
 export const mockHFStore = {
   models: [mockHFModel1, mockHFModel2],

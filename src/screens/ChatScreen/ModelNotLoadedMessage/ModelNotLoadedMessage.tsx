@@ -1,18 +1,18 @@
-import React, {useState, useEffect} from 'react';
-import {View} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View } from 'react-native';
 
-import {Snackbar} from 'react-native-paper';
-import {useNavigation} from '@react-navigation/native';
-import {DrawerNavigationProp} from '@react-navigation/drawer';
+import { Snackbar } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
+import { DrawerNavigationProp } from '@react-navigation/drawer';
 
-import {useTheme} from '../../../hooks';
+import { useTheme } from '../../../hooks';
 
-import {styles} from './styles';
+import { styles } from './styles';
 
-import {modelStore} from '../../../store';
+import { modelStore } from '../../../store';
 
-import {L10nContext} from '../../../utils';
-import {Model, RootDrawerParamList} from '../../../utils/types';
+import { L10nContext } from '../../../utils';
+import { Model, RootDrawerParamList } from '../../../utils/types';
 
 type ModelNotLoadedScreenNavigationProp =
   DrawerNavigationProp<RootDrawerParamList>;
@@ -60,7 +60,7 @@ export const ModelNotLoadedMessage: React.FC = () => {
         action={{
           label: lastUsedModel ? l10n.chat.load : l10n.chat.goToModels,
           onPress: lastUsedModel ? loadModelDirectly : navigateToModelsPage,
-          labelStyle: {color: theme.colors.inverseSecondary},
+          labelStyle: { color: theme.colors.inverseSecondary },
         }}>
         {lastUsedModel ? l10n.chat.readyToChat : l10n.chat.pleaseLoadModel}
       </Snackbar>

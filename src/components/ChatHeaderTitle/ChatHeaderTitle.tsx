@@ -1,11 +1,11 @@
-import React, {useContext} from 'react';
-import {View} from 'react-native';
-import {observer} from 'mobx-react';
-import {Text} from 'react-native-paper';
+import React, { useContext } from 'react';
+import { View } from 'react-native';
+import { observer } from 'mobx-react';
+import { Text } from 'react-native-paper';
 
-import {styles} from './styles';
-import {chatSessionStore, modelStore} from '../../store';
-import {L10nContext} from '../../utils';
+import { styles } from './styles';
+import { chatSessionStore, modelStore } from '../../store';
+import { L10nContext } from '../../utils';
 
 export const ChatHeaderTitle: React.FC = observer(() => {
   const l10n = useContext(L10nContext);

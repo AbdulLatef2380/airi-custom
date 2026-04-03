@@ -1,1 +1,1 @@
-export {default as EmbeddedVideoView} from './EmbeddedVideoView';
+export { default as EmbeddedVideoView } from './EmbeddedVideoView';

@@ -1,22 +1,22 @@
-import React, {useRef, useContext, useEffect} from 'react';
-import {Alert, Dimensions, View, Pressable, Keyboard} from 'react-native';
-import {observer} from 'mobx-react';
-import {Text} from 'react-native-paper';
+import React, { useRef, useContext, useEffect } from 'react';
+import { Alert, Dimensions, View, Pressable, Keyboard } from 'react-native';
+import { observer } from 'mobx-react';
+import { Text } from 'react-native-paper';
 import BottomSheet, {
   BottomSheetFlatList,
   BottomSheetFlatListMethods,
   BottomSheetScrollView,
 } from '@gorhom/bottom-sheet';
 
-import {useTheme} from '../../hooks';
-import {createStyles} from './styles';
-import {modelStore, palStore, chatSessionStore} from '../../store';
-import {CustomBackdrop} from '../Sheet/CustomBackdrop';
-import {getModelSkills, L10nContext, Model} from '../../utils';
-import {t} from '../../locales';
-import type {Pal} from '../../types/pal';
-import {CloseIcon, SettingsIcon} from '../../assets/icons';
-import {SkillsDisplay} from '../SkillsDisplay';
+import { useTheme } from '../../hooks';
+import { createStyles } from './styles';
+import { modelStore, palStore, chatSessionStore } from '../../store';
+import { CustomBackdrop } from '../Sheet/CustomBackdrop';
+import { getModelSkills, L10nContext, Model } from '../../utils';
+import { t } from '../../locales';
+import type { Pal } from '../../types/pal';
+import { CloseIcon, SettingsIcon } from '../../assets/icons';
+import { SkillsDisplay } from '../SkillsDisplay';
 
 type Tab = 'models' | 'pals';
 
@@ -29,7 +29,7 @@ interface ChatPalModelPickerSheetProps {
   onPalSettingsSelect?: (pal: Pal) => void;
 }
 
-const ObservedSkillsDisplay = observer(({model}) => {
+const ObservedSkillsDisplay = observer(({ model }) => {
   const hasProjectionModelWarning =
     model.supportsMultimodal &&
     model.visionEnabled &&
@@ -78,7 +78,7 @@ export const ChatPalModelPickerSheet = observer(
     const [activeTab, setActiveTab] = React.useState<Tab>('models');
     const theme = useTheme();
     const l10n = useContext(L10nContext);
-    const styles = createStyles({theme});
+    const styles = createStyles({ theme });
     const bottomSheetRef = useRef<BottomSheet>(null);
     const flatListRef = useRef<BottomSheetFlatListMethods>(null);
 
@@ -326,10 +326,10 @@ export const ChatPalModelPickerSheet = observer(
     );
 
     const renderContent = React.useCallback(
-      ({item}: {item: (typeof TABS)[0]}) => (
-        <View style={{width: Dimensions.get('window').width}}>
+      ({ item }: { item: (typeof TABS)[0] }) => (
+        <View style={{ width: Dimensions.get('window').width }}>
           <BottomSheetScrollView
-            contentContainerStyle={{paddingBottom: chatInputHeight + 66}}>
+            contentContainerStyle={{ paddingBottom: chatInputHeight + 66 }}>
             {item.id === 'models'
               ? modelStore.availableModels.map(renderModelItem)
               : [renderDisablePalItem(), ...palStore.pals.map(renderPalItem)]}
@@ -340,7 +340,7 @@ export const ChatPalModelPickerSheet = observer(
     );
 
     const onViewableItemsChanged = React.useCallback(
-      ({viewableItems}: {viewableItems: any[]}) => {
+      ({ viewableItems }: { viewableItems: any[] }) => {
         if (viewableItems[0]) {
           setActiveTab(viewableItems[0].item.id);
         }

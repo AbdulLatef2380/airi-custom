@@ -1,5 +1,5 @@
 import React from 'react';
-import {Alert} from 'react-native';
+import { Alert } from 'react-native';
 
 import {
   render as baseRender,
@@ -13,14 +13,14 @@ import {
   modelsList,
 } from '../../../../../../../jest/fixtures/models';
 
-import {ModelFileCard} from '../ModelFileCard';
+import { ModelFileCard } from '../ModelFileCard';
 
-import {downloadManager} from '../../../../../../services/downloads';
+import { downloadManager } from '../../../../../../services/downloads';
 
-import {modelStore} from '../../../../../../store';
+import { modelStore } from '../../../../../../store';
 
 const render = (ui: React.ReactElement, options: any = {}) =>
-  baseRender(ui, {withBottomSheetProvider: true, ...options});
+  baseRender(ui, { withBottomSheetProvider: true, ...options });
 
 describe('ModelFileCard', () => {
   const mockModelFile = {
@@ -44,7 +44,7 @@ describe('ModelFileCard', () => {
   });
 
   it('renders correctly with initial props', () => {
-    const {getByTestId, getByText} = render(
+    const { getByTestId, getByText } = render(
       <ModelFileCard modelFile={mockModelFile} hfModel={mockHFModel1} />,
     );
 
@@ -55,7 +55,7 @@ describe('ModelFileCard', () => {
   });
 
   it('handles bookmark toggle when not bookmarked', async () => {
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <ModelFileCard modelFile={mockModelFile} hfModel={mockHFModel1} />,
     );
 
@@ -72,7 +72,7 @@ describe('ModelFileCard', () => {
   it('shows alert when trying to remove downloaded model', async () => {
     modelStore.models = [downloadedHFModel];
 
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <ModelFileCard
         modelFile={downloadedHFModel.hfModelFile!}
         hfModel={downloadedHFModel.hfModel!}
@@ -90,7 +90,7 @@ describe('ModelFileCard', () => {
   });
 
   it('handles download initiation', async () => {
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <ModelFileCard
         modelFile={mockHFModel1.siblings[0]}
         hfModel={mockHFModel1}
@@ -104,7 +104,7 @@ describe('ModelFileCard', () => {
     expect(modelStore.downloadHFModel).toHaveBeenCalledWith(
       mockHFModel1,
       mockHFModel1.siblings[0],
-      {enableVision: true},
+      { enableVision: true },
     );
   });
 
@@ -114,7 +114,7 @@ describe('ModelFileCard', () => {
     (downloadManager.isDownloading as jest.Mock).mockImplementation(modelId => {
       return modelId === hfModel1.id;
     });
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <ModelFileCard
         modelFile={hfModel1.hfModelFile!}
         hfModel={hfModel1.hfModel!}
@@ -134,7 +134,7 @@ describe('ModelFileCard', () => {
       canFitInStorage: false,
     };
 
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <ModelFileCard
         modelFile={insufficientStorageFile}
         hfModel={mockHFModel1}
@@ -149,7 +149,7 @@ describe('ModelFileCard', () => {
   it('shows delete confirmation for downloaded model', async () => {
     modelStore.models = [downloadedHFModel];
 
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <ModelFileCard
         modelFile={downloadedHFModel.hfModelFile!}
         hfModel={downloadedHFModel.hfModel!}

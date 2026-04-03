@@ -1,12 +1,12 @@
 import React from 'react';
-import {Alert, Keyboard} from 'react-native';
-import {render, fireEvent, waitFor} from '@testing-library/react-native';
+import { Alert, Keyboard } from 'react-native';
+import { render, fireEvent, waitFor } from '@testing-library/react-native';
 
-import {PalHeaderRight} from '../PalHeaderRight';
-import {exportAllPals} from '../../../utils/exportUtils';
-import {importPals} from '../../../utils/importUtils';
-import {L10nContext} from '../../../utils';
-import {l10n} from '../../../locales';
+import { PalHeaderRight } from '../PalHeaderRight';
+import { exportAllPals } from '../../../utils/exportUtils';
+import { importPals } from '../../../utils/importUtils';
+import { L10nContext } from '../../../utils';
+import { l10n } from '../../../locales';
 
 // Mock utilities
 jest.mock('../../../utils/exportUtils', () => ({
@@ -19,9 +19,9 @@ jest.mock('../../../utils/importUtils', () => ({
 
 // Mock Menu component
 jest.mock('../../Menu', () => {
-  const {View, Button} = require('react-native');
+  const { View, Button } = require('react-native');
 
-  const MockMenuItem = ({onPress, label, submenu}: any) => {
+  const MockMenuItem = ({ onPress, label, submenu }: any) => {
     if (submenu) {
       return (
         <View testID={`menu-item-${label}`}>
@@ -37,7 +37,7 @@ jest.mock('../../Menu', () => {
     );
   };
 
-  const Menu = ({children, visible, anchor}: any) => (
+  const Menu = ({ children, visible, anchor }: any) => (
     <View testID="menu">
       {anchor}
       {visible && <View testID="menu-content">{children}</View>}
@@ -46,7 +46,7 @@ jest.mock('../../Menu', () => {
 
   Menu.Item = MockMenuItem;
 
-  return {Menu};
+  return { Menu };
 });
 
 // Mock Keyboard
@@ -63,7 +63,7 @@ describe('PalHeaderRight', () => {
 
   describe('Rendering', () => {
     it('renders correctly', () => {
-      const {getByTestId} = render(
+      const { getByTestId } = render(
         <L10nContext.Provider value={l10n.en}>
           <PalHeaderRight />
         </L10nContext.Provider>,
@@ -74,7 +74,7 @@ describe('PalHeaderRight', () => {
     });
 
     it('menu is initially closed', () => {
-      const {queryByTestId} = render(
+      const { queryByTestId } = render(
         <L10nContext.Provider value={l10n.en}>
           <PalHeaderRight />
         </L10nContext.Provider>,
@@ -86,7 +86,7 @@ describe('PalHeaderRight', () => {
 
   describe('Menu Interaction', () => {
     it('opens menu when menu button is pressed', () => {
-      const {getByTestId} = render(
+      const { getByTestId } = render(
         <L10nContext.Provider value={l10n.en}>
           <PalHeaderRight />
         </L10nContext.Provider>,
@@ -101,7 +101,7 @@ describe('PalHeaderRight', () => {
     it('dismisses keyboard before opening menu if keyboard is visible', () => {
       (Keyboard.isVisible as jest.Mock).mockReturnValue(true);
 
-      const {getByTestId} = render(
+      const { getByTestId } = render(
         <L10nContext.Provider value={l10n.en}>
           <PalHeaderRight />
         </L10nContext.Provider>,
@@ -116,7 +116,7 @@ describe('PalHeaderRight', () => {
     it('does not dismiss keyboard if keyboard is not visible', () => {
       (Keyboard.isVisible as jest.Mock).mockReturnValue(false);
 
-      const {getByTestId} = render(
+      const { getByTestId } = render(
         <L10nContext.Provider value={l10n.en}>
           <PalHeaderRight />
         </L10nContext.Provider>,
@@ -131,7 +131,7 @@ describe('PalHeaderRight', () => {
 
   describe('Export Functionality', () => {
     it('exports all pals when export option is selected', async () => {
-      const {getByTestId} = render(
+      const { getByTestId } = render(
         <L10nContext.Provider value={l10n.en}>
           <PalHeaderRight />
         </L10nContext.Provider>,
@@ -158,7 +158,7 @@ describe('PalHeaderRight', () => {
         new Error('Export failed'),
       );
 
-      const {getByTestId} = render(
+      const { getByTestId } = render(
         <L10nContext.Provider value={l10n.en}>
           <PalHeaderRight />
         </L10nContext.Provider>,
@@ -187,7 +187,7 @@ describe('PalHeaderRight', () => {
     });
 
     it('closes menu after successful export', async () => {
-      const {getByTestId, queryByTestId} = render(
+      const { getByTestId, queryByTestId } = render(
         <L10nContext.Provider value={l10n.en}>
           <PalHeaderRight />
         </L10nContext.Provider>,
@@ -210,14 +210,14 @@ describe('PalHeaderRight', () => {
           // Menu should be closed
           expect(queryByTestId('menu-content')).toBeNull();
         },
-        {timeout: 4000},
+        { timeout: 4000 },
       );
     });
   });
 
   describe('Import Functionality', () => {
     it('imports pals when import option is selected', async () => {
-      const {getByTestId} = render(
+      const { getByTestId } = render(
         <L10nContext.Provider value={l10n.en}>
           <PalHeaderRight />
         </L10nContext.Provider>,
@@ -239,7 +239,7 @@ describe('PalHeaderRight', () => {
     it('shows success alert when pals are imported', async () => {
       (importPals as jest.Mock).mockResolvedValueOnce(5);
 
-      const {getByTestId} = render(
+      const { getByTestId } = render(
         <L10nContext.Provider value={l10n.en}>
           <PalHeaderRight />
         </L10nContext.Provider>,
@@ -264,7 +264,7 @@ describe('PalHeaderRight', () => {
     it('does not show success alert when no pals are imported', async () => {
       (importPals as jest.Mock).mockResolvedValueOnce(0);
 
-      const {getByTestId} = render(
+      const { getByTestId } = render(
         <L10nContext.Provider value={l10n.en}>
           <PalHeaderRight />
         </L10nContext.Provider>,
@@ -290,7 +290,7 @@ describe('PalHeaderRight', () => {
         new Error('Import failed'),
       );
 
-      const {getByTestId} = render(
+      const { getByTestId } = render(
         <L10nContext.Provider value={l10n.en}>
           <PalHeaderRight />
         </L10nContext.Provider>,
@@ -319,7 +319,7 @@ describe('PalHeaderRight', () => {
     });
 
     it('closes menu after import attempt', async () => {
-      const {getByTestId, queryByTestId} = render(
+      const { getByTestId, queryByTestId } = render(
         <L10nContext.Provider value={l10n.en}>
           <PalHeaderRight />
         </L10nContext.Provider>,
@@ -340,7 +340,7 @@ describe('PalHeaderRight', () => {
         () => {
           expect(queryByTestId('menu-content')).toBeNull();
         },
-        {timeout: 5000},
+        { timeout: 5000 },
       );
     });
   });

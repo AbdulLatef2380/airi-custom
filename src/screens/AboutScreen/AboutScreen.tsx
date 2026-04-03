@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, { useState, useContext } from 'react';
 import {
   View,
   ScrollView,
@@ -10,11 +10,14 @@ import {
 
 import DeviceInfo from 'react-native-device-info';
 import Clipboard from '@react-native-clipboard/clipboard';
-import {Text, Button, SegmentedButtons} from 'react-native-paper';
-import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
-import {BuildInfo} from 'llama.rn';
+import { Text, Button, SegmentedButtons } from 'react-native-paper';
+import {
+  SafeAreaView,
+  useSafeAreaInsets,
+} from 'react-native-safe-area-context';
+import { BuildInfo } from 'llama.rn';
 
-import {submitFeedback} from '../../api/feedback';
+import { submitFeedback } from '../../api/feedback';
 
 import {
   CopyIcon,
@@ -23,16 +26,16 @@ import {
   HeartIcon,
 } from '../../assets/icons';
 
-import {Sheet, TextInput} from '../../components';
-import {useTheme} from '../../hooks';
-import {createStyles} from './styles';
-import {L10nContext} from '../../utils';
+import { Sheet, TextInput } from '../../components';
+import { useTheme } from '../../hooks';
+import { createStyles } from './styles';
+import { L10nContext } from '../../utils';
 
-const GithubButtonIcon = ({color}: {color: string}) => (
+const GithubButtonIcon = ({ color }: { color: string }) => (
   <GithubIcon stroke={color} />
 );
 
-const ChevronRightButtonIcon = ({color}: {color: string}) => (
+const ChevronRightButtonIcon = ({ color }: { color: string }) => (
   <ChevronRightIcon stroke={color} />
 );
 

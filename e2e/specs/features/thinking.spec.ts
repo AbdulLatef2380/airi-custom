@@ -15,15 +15,15 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
-import {expect} from '@wdio/globals';
-import {ChatPage} from '../../pages/ChatPage';
-import {Selectors, nativeTextElement} from '../../helpers/selectors';
+import { expect } from '@wdio/globals';
+import { ChatPage } from '../../pages/ChatPage';
+import { Selectors, nativeTextElement } from '../../helpers/selectors';
 import {
   downloadAndLoadModel,
   waitForInferenceComplete,
 } from '../../helpers/model-actions';
-import {TIMEOUTS} from '../../fixtures/models';
-import {SCREENSHOT_DIR} from '../../wdio.shared.conf';
+import { TIMEOUTS } from '../../fixtures/models';
+import { SCREENSHOT_DIR } from '../../wdio.shared.conf';
 
 declare const driver: WebdriverIO.Browser;
 declare const browser: WebdriverIO.Browser;
@@ -34,7 +34,7 @@ const THINKING_MODEL = {
   searchQuery: 'bartowski Qwen_Qwen3-0.6B',
   selectorText: 'Qwen_Qwen3-0.6B',
   downloadFile: 'Qwen_Qwen3-0.6B-Q4_0.gguf',
-  prompts: [{input: "What's up?", description: 'Casual greeting'}],
+  prompts: [{ input: "What's up?", description: 'Casual greeting' }],
 };
 
 describe('Thinking Model Features', () => {
@@ -64,7 +64,7 @@ describe('Thinking Model Features', () => {
       const testName = this.currentTest.title.replace(/\s+/g, '-');
       try {
         if (!fs.existsSync(SCREENSHOT_DIR)) {
-          fs.mkdirSync(SCREENSHOT_DIR, {recursive: true});
+          fs.mkdirSync(SCREENSHOT_DIR, { recursive: true });
         }
         await driver.saveScreenshot(
           path.join(SCREENSHOT_DIR, `failure-${testName}-${timestamp}.png`),
@@ -89,7 +89,7 @@ describe('Thinking Model Features', () => {
 
     // Wait for the AI message to appear
     const aiMessageEl = browser.$(Selectors.chat.aiMessage);
-    await aiMessageEl.waitForExist({timeout: TIMEOUTS.inference});
+    await aiMessageEl.waitForExist({ timeout: TIMEOUTS.inference });
 
     // The thinking bubble ("Reasoning") should appear during or after inference
     const thinkingVisible = await chatPage.isThinkingBubbleVisible(
@@ -126,7 +126,7 @@ describe('Thinking Model Features', () => {
 
     // Wait for AI message to appear
     const aiMessageEl = browser.$(Selectors.chat.aiMessage);
-    await aiMessageEl.waitForExist({timeout: TIMEOUTS.inference});
+    await aiMessageEl.waitForExist({ timeout: TIMEOUTS.inference });
 
     // Wait for inference to complete
     await waitForInferenceComplete();

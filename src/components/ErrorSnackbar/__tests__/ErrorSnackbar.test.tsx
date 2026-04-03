@@ -1,10 +1,10 @@
 import React from 'react';
-import {render as renderNative} from '@testing-library/react-native';
-import {render, fireEvent} from '../../../../jest/test-utils';
-import {ErrorSnackbar} from '../ErrorSnackbar';
-import {ErrorState, NetworkError, ServerError} from '../../../utils/errors';
-import {createErrorState} from '../../../utils/errors';
-import {l10n} from '../../../locales';
+import { render as renderNative } from '@testing-library/react-native';
+import { render, fireEvent } from '../../../../jest/test-utils';
+import { ErrorSnackbar } from '../ErrorSnackbar';
+import { ErrorState, NetworkError, ServerError } from '../../../utils/errors';
+import { createErrorState } from '../../../utils/errors';
+import { l10n } from '../../../locales';
 
 describe('ErrorSnackbar', () => {
   const mockDismiss = jest.fn();
@@ -16,7 +16,7 @@ describe('ErrorSnackbar', () => {
   });
 
   it('renders null when there is no error', () => {
-    const {toJSON} = renderNative(
+    const { toJSON } = renderNative(
       <ErrorSnackbar
         error={null}
         onDismiss={mockDismiss}
@@ -37,7 +37,7 @@ describe('ErrorSnackbar', () => {
       },
     );
 
-    const {getByText, getByTestId} = render(
+    const { getByText, getByTestId } = render(
       <ErrorSnackbar
         error={error}
         onDismiss={mockDismiss}
@@ -67,7 +67,7 @@ describe('ErrorSnackbar', () => {
         context: 'download',
       },
     );
-    const {getByText, getByTestId} = render(
+    const { getByText, getByTestId } = render(
       <ErrorSnackbar
         error={error}
         onDismiss={mockDismiss}
@@ -96,7 +96,7 @@ describe('ErrorSnackbar', () => {
         context: 'search',
       },
     );
-    const {getByText, getByTestId} = render(
+    const { getByText, getByTestId } = render(
       <ErrorSnackbar error={error} onDismiss={mockDismiss} />,
     );
 
@@ -122,7 +122,7 @@ describe('ErrorSnackbar', () => {
       },
     );
 
-    const {getByText, getByTestId} = render(
+    const { getByText, getByTestId } = render(
       <ErrorSnackbar error={error} onDismiss={mockDismiss} />,
     );
 
@@ -142,7 +142,7 @@ describe('ErrorSnackbar', () => {
         context: 'search',
       },
     );
-    const {getByText, getByTestId} = render(
+    const { getByText, getByTestId } = render(
       <ErrorSnackbar
         error={error}
         onDismiss={mockDismiss}

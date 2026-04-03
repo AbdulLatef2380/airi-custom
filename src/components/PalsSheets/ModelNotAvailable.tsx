@@ -1,13 +1,13 @@
-import React, {useContext} from 'react';
-import {Button, Paragraph, ProgressBar, Text} from 'react-native-paper';
-import {modelStore} from '../../store';
-import {Model} from '../../utils/types';
-import {useTheme} from '../../hooks';
-import {View} from 'react-native';
-import {createStyles} from './styles';
-import {useNavigation} from '@react-navigation/native';
-import {observer} from 'mobx-react';
-import {formatBytes, L10nContext} from '../../utils';
+import React, { useContext } from 'react';
+import { Button, Paragraph, ProgressBar, Text } from 'react-native-paper';
+import { modelStore } from '../../store';
+import { Model } from '../../utils/types';
+import { useTheme } from '../../hooks';
+import { View } from 'react-native';
+import { createStyles } from './styles';
+import { useNavigation } from '@react-navigation/native';
+import { observer } from 'mobx-react';
+import { formatBytes, L10nContext } from '../../utils';
 
 export const ModelNotAvailable = observer(
   ({
@@ -46,7 +46,7 @@ export const ModelNotAvailable = observer(
         await modelStore.downloadHFModel(
           modelToDownload.hfModel!,
           modelToDownload.hfModelFile!,
-          {enableVision: true},
+          { enableVision: true },
         );
       } else {
         await modelStore.checkSpaceAndDownload(modelToDownload.id);

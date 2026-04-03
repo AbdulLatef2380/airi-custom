@@ -1,8 +1,8 @@
 import React from 'react';
-import {observer} from 'mobx-react-lite';
-import {Selector, SelectorOption} from '../Selector';
-import {modelStore} from '../../store';
-import {Model} from '../../utils/types';
+import { observer } from 'mobx-react-lite';
+import { Selector, SelectorOption } from '../Selector';
+import { modelStore } from '../../store';
+import { Model } from '../../utils/types';
 
 interface ModelSelectorProps {
   value?: Model;

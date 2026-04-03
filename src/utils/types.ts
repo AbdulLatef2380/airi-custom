@@ -1,13 +1,16 @@
 import * as React from 'react';
-import {ImageURISource, TextStyle} from 'react-native';
+import { ImageURISource, TextStyle } from 'react-native';
 
-import {MD3Theme} from 'react-native-paper';
-import {TemplateConfig} from 'chat-formatter';
-import {ContextParams, TokenData} from 'llama.rn';
-import {CompletionParams} from './completionTypes';
-import {PreviewData} from '@flyerhq/react-native-link-preview';
-import {MD3Colors, MD3Typescale} from 'react-native-paper/lib/typescript/types';
-import {SkillKey} from '.';
+import { MD3Theme } from 'react-native-paper';
+import { TemplateConfig } from 'chat-formatter';
+import { ContextParams, TokenData } from 'llama.rn';
+import { CompletionParams } from './completionTypes';
+import { PreviewData } from '@flyerhq/react-native-link-preview';
+import {
+  MD3Colors,
+  MD3Typescale,
+} from 'react-native-paper/lib/typescript/types';
+import { SkillKey } from '.';
 
 export namespace MessageType {
   export type Any = Custom | File | Image | Text | Unsupported;
@@ -320,7 +323,7 @@ export type ChatMessage = {
     | Array<{
         type: 'text' | 'image_url';
         text?: string;
-        image_url?: {url: string};
+        image_url?: { url: string };
       }>;
 };
 
@@ -512,7 +515,8 @@ type RequiredContextFields =
  * This ensures type safety and eliminates the need for fallback values in UI components
  */
 export interface ContextInitParams
-  extends Omit<
+  extends
+    Omit<
       ContextParams,
       'model' | 'use_mmap' | 'flash_attn' | RequiredContextFields
     >,

@@ -1,16 +1,16 @@
-import React, {useMemo, useContext} from 'react';
-import {StyleSheet, View} from 'react-native';
+import React, { useMemo, useContext } from 'react';
+import { StyleSheet, View } from 'react-native';
 
-import {Text} from 'react-native-paper';
+import { Text } from 'react-native-paper';
 import RNPickerSelect from 'react-native-picker-select';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import {useTheme} from '../../../hooks';
-import {L10nContext} from '../../../utils';
+import { useTheme } from '../../../hooks';
+import { L10nContext } from '../../../utils';
 
-import {styles} from './styles';
+import { styles } from './styles';
 
-import {chatTemplates} from '../../../utils/chat';
+import { chatTemplates } from '../../../utils/chat';
 
 const pickerHeight = 30;
 

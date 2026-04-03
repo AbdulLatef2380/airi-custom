@@ -1,21 +1,21 @@
-import {View} from 'react-native';
+import { View } from 'react-native';
 import React from 'react';
 
-import {InputSlider} from '../InputSlider';
-import {Text, Switch, SegmentedButtons} from 'react-native-paper';
+import { InputSlider } from '../InputSlider';
+import { Text, Switch, SegmentedButtons } from 'react-native-paper';
 
-import {TextInput} from '..';
+import { TextInput } from '..';
 
-import {useTheme} from '../../hooks';
+import { useTheme } from '../../hooks';
 
-import {createStyles} from './styles';
+import { createStyles } from './styles';
 
-import {L10nContext} from '../../utils';
+import { L10nContext } from '../../utils';
 import {
   COMPLETION_PARAMS_METADATA,
   validateNumericField,
 } from '../../utils/modelSettings';
-import {CompletionParams} from '../../utils/completionTypes';
+import { CompletionParams } from '../../utils/completionTypes';
 
 interface Props {
   settings: CompletionParams;
@@ -32,7 +32,13 @@ export const CompletionSettings: React.FC<Props> = ({
   const styles = createStyles(theme);
   const l10n = React.useContext(L10nContext);
 
-  const renderSlider = ({name, step = 0.01}: {name: string; step?: number}) => (
+  const renderSlider = ({
+    name,
+    step = 0.01,
+  }: {
+    name: string;
+    step?: number;
+  }) => (
     <View style={styles.settingItem}>
       <InputSlider
         testID={`${name}-slider`}
@@ -51,7 +57,7 @@ export const CompletionSettings: React.FC<Props> = ({
     </View>
   );
 
-  const renderIntegerInput = ({name}: {name: keyof CompletionParams}) => {
+  const renderIntegerInput = ({ name }: { name: keyof CompletionParams }) => {
     const metadata = COMPLETION_PARAMS_METADATA[name];
     if (!metadata) {
       return null;
@@ -142,27 +148,27 @@ export const CompletionSettings: React.FC<Props> = ({
 
   return (
     <View style={styles.container} testID="completion-settings">
-      {renderIntegerInput({name: 'n_predict'})}
+      {renderIntegerInput({ name: 'n_predict' })}
       {renderSwitch('include_thinking_in_context')}
-      {renderSlider({name: 'temperature'})}
-      {renderSlider({name: 'top_k', step: 1})}
-      {renderSlider({name: 'top_p'})}
-      {renderSlider({name: 'min_p'})}
-      {renderSlider({name: 'xtc_threshold'})}
-      {renderSlider({name: 'xtc_probability'})}
-      {renderSlider({name: 'typical_p'})}
-      {renderSlider({name: 'penalty_last_n', step: 1})}
-      {renderSlider({name: 'penalty_repeat'})}
-      {renderSlider({name: 'penalty_freq'})}
-      {renderSlider({name: 'penalty_present'})}
+      {renderSlider({ name: 'temperature' })}
+      {renderSlider({ name: 'top_k', step: 1 })}
+      {renderSlider({ name: 'top_p' })}
+      {renderSlider({ name: 'min_p' })}
+      {renderSlider({ name: 'xtc_threshold' })}
+      {renderSlider({ name: 'xtc_probability' })}
+      {renderSlider({ name: 'typical_p' })}
+      {renderSlider({ name: 'penalty_last_n', step: 1 })}
+      {renderSlider({ name: 'penalty_repeat' })}
+      {renderSlider({ name: 'penalty_freq' })}
+      {renderSlider({ name: 'penalty_present' })}
       {renderMirostatSelector()}
       {(settings.mirostat ?? 0) > 0 && (
         <>
-          {renderSlider({name: 'mirostat_tau', step: 1})}
-          {renderSlider({name: 'mirostat_eta'})}
+          {renderSlider({ name: 'mirostat_tau', step: 1 })}
+          {renderSlider({ name: 'mirostat_eta' })}
         </>
       )}
-      {renderIntegerInput({name: 'seed'})}
+      {renderIntegerInput({ name: 'seed' })}
       {renderSwitch('jinja')}
     </View>
   );

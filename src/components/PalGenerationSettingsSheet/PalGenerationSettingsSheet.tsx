@@ -1,21 +1,21 @@
-import React, {useContext, useEffect, useState} from 'react';
-import {Sheet} from '../Sheet/Sheet';
-import {CompletionSettings} from '../CompletionSettings';
-import {CompletionParams} from '../../utils/completionTypes';
-import {chatSessionStore, defaultCompletionSettings} from '../../store';
+import React, { useContext, useEffect, useState } from 'react';
+import { Sheet } from '../Sheet/Sheet';
+import { CompletionSettings } from '../CompletionSettings';
+import { CompletionParams } from '../../utils/completionTypes';
+import { chatSessionStore, defaultCompletionSettings } from '../../store';
 import {
   COMPLETION_PARAMS_METADATA,
   validateCompletionSettings,
 } from '../../utils/modelSettings';
-import {Alert, View} from 'react-native';
-import {Button, Text, Icon} from 'react-native-paper';
-import {L10nContext} from '../../utils';
-import {t} from '../../locales';
-import {ChevronDownIcon} from '../../assets/icons';
-import {Menu} from '../Menu';
+import { Alert, View } from 'react-native';
+import { Button, Text, Icon } from 'react-native-paper';
+import { L10nContext } from '../../utils';
+import { t } from '../../locales';
+import { ChevronDownIcon } from '../../assets/icons';
+import { Menu } from '../Menu';
 
-import {useTheme} from '../../hooks';
-import {createStyles} from './styles';
+import { useTheme } from '../../hooks';
+import { createStyles } from './styles';
 
 interface ResetButtonProps {
   resetMenuVisible: boolean;
@@ -26,7 +26,7 @@ interface ResetButtonProps {
   styles: ReturnType<typeof createStyles>;
 }
 
-const ChevronDownButtonIcon = ({color}: {color: string}) => (
+const ChevronDownButtonIcon = ({ color }: { color: string }) => (
   <ChevronDownIcon width={16} height={16} stroke={color} />
 );
 
@@ -136,7 +136,7 @@ export const PalGenerationSettingsSheet = ({
   }, [completionSettings]);
 
   const updateSettings = (name: string, value: any) => {
-    setSettings(prev => ({...prev, [name]: value}));
+    setSettings(prev => ({ ...prev, [name]: value }));
   };
 
   const onCloseSheet = () => {
@@ -175,7 +175,7 @@ export const PalGenerationSettingsSheet = ({
         }
         return acc;
       },
-      {settings: {}, errors: {}} as {
+      { settings: {}, errors: {} } as {
         settings: typeof settings;
         errors: Record<string, string>;
       },
@@ -198,7 +198,7 @@ export const PalGenerationSettingsSheet = ({
           Object.entries(allErrors)
             .map(([key, msg]) => `• ${key}: ${msg}`)
             .join('\n'),
-        [{text: l10n.components.palGenerationSettingsSheet.ok}],
+        [{ text: l10n.components.palGenerationSettingsSheet.ok }],
       );
       return;
     }
@@ -215,7 +215,7 @@ export const PalGenerationSettingsSheet = ({
   };
 
   const handleResetToSystem = () => {
-    setSettings({...defaultCompletionSettings});
+    setSettings({ ...defaultCompletionSettings });
     setResetMenuVisible(false);
   };
 
@@ -230,7 +230,7 @@ export const PalGenerationSettingsSheet = ({
 
   return (
     <Sheet
-      title={t(l10n.components.palGenerationSettingsSheet.title, {palName})}
+      title={t(l10n.components.palGenerationSettingsSheet.title, { palName })}
       isVisible={isVisible}
       onClose={onCloseSheet}>
       <Sheet.ScrollView

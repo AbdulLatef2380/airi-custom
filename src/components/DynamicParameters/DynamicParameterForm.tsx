@@ -1,13 +1,13 @@
 import React from 'react';
-import {View} from 'react-native';
-import {useFormContext} from 'react-hook-form';
+import { View } from 'react-native';
+import { useFormContext } from 'react-hook-form';
 
-import type {ParameterDefinition} from '../../types/pal';
-import {useTheme} from '../../hooks';
-import {createStyles} from './styles';
-import {DynamicTextField} from './DynamicTextField';
-import {DynamicOptionField} from './DynamicOptionField';
-import {DynamicDateTimeTagField} from './DynamicDateTimeTagField';
+import type { ParameterDefinition } from '../../types/pal';
+import { useTheme } from '../../hooks';
+import { createStyles } from './styles';
+import { DynamicTextField } from './DynamicTextField';
+import { DynamicOptionField } from './DynamicOptionField';
+import { DynamicDateTimeTagField } from './DynamicDateTimeTagField';
 
 interface DynamicParameterFormProps {
   schema: ParameterDefinition[];
@@ -21,7 +21,7 @@ export const DynamicParameterForm: React.FC<DynamicParameterFormProps> = ({
   const theme = useTheme();
   const styles = createStyles(theme);
   const {
-    formState: {errors},
+    formState: { errors },
   } = useFormContext();
 
   const renderParameter = (parameter: ParameterDefinition) => {

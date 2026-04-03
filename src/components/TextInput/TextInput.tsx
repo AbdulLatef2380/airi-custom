@@ -1,5 +1,5 @@
-import React, {forwardRef} from 'react';
-import {View, TextInput as RNTextInput} from 'react-native';
+import React, { forwardRef } from 'react';
+import { View, TextInput as RNTextInput } from 'react-native';
 
 import {
   HelperText,
@@ -7,9 +7,9 @@ import {
   TextInputProps as PaperTextInputProps,
 } from 'react-native-paper';
 
-import {useTheme} from '../../hooks';
+import { useTheme } from '../../hooks';
 
-import {createStyles} from './styles';
+import { createStyles } from './styles';
 
 export type TextInputProps = PaperTextInputProps & {
   error?: boolean;
@@ -18,7 +18,7 @@ export type TextInputProps = PaperTextInputProps & {
 };
 
 export const TextInput = forwardRef<RNTextInput, TextInputProps>(
-  ({style, showDivider = false, error, helperText, ...rest}, ref) => {
+  ({ style, showDivider = false, error, helperText, ...rest }, ref) => {
     const theme = useTheme();
     const styles = createStyles(theme);
     const multilineStyle =

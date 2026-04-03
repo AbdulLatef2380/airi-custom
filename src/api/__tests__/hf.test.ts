@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {fetchGGUFSpecs, fetchModelFilesDetails, fetchModels} from '../hf';
+import { fetchGGUFSpecs, fetchModelFilesDetails, fetchModels } from '../hf';
 
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
@@ -7,28 +7,28 @@ const mockedAxios = axios as jest.Mocked<typeof axios>;
 describe('fetchModels', () => {
   it('should fetch models with basic parameters', async () => {
     const mockResponse = {
-      data: [{id: 'model1'}],
-      headers: {link: '<next-page-link>'},
+      data: [{ id: 'model1' }],
+      headers: { link: '<next-page-link>' },
     };
     mockedAxios.get.mockResolvedValueOnce(mockResponse);
 
-    const result = await fetchModels({search: 'test'});
+    const result = await fetchModels({ search: 'test' });
 
     expect(mockedAxios.get).toHaveBeenCalledWith(
       expect.any(String),
       expect.objectContaining({
-        params: expect.objectContaining({search: 'test'}),
+        params: expect.objectContaining({ search: 'test' }),
       }),
     );
     expect(result).toEqual({
-      models: [{id: 'model1'}],
+      models: [{ id: 'model1' }],
       nextLink: 'next-page-link',
     });
   });
 
   it('should handle missing pagination link', async () => {
     const mockResponse = {
-      data: [{id: 'model1'}],
+      data: [{ id: 'model1' }],
       headers: {},
     };
     mockedAxios.get.mockResolvedValueOnce(mockResponse);

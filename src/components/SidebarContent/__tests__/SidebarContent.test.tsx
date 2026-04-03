@@ -1,17 +1,17 @@
 import React from 'react';
-import {Text} from 'react-native';
-import {runInAction} from 'mobx';
+import { Text } from 'react-native';
+import { runInAction } from 'mobx';
 
-import {NavigationContainer} from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import {
   createDrawerNavigator,
   DrawerContentComponentProps,
 } from '@react-navigation/drawer';
-import {render, fireEvent, waitFor} from '@testing-library/react-native';
+import { render, fireEvent, waitFor } from '@testing-library/react-native';
 
-import {SidebarContent} from '../SidebarContent';
+import { SidebarContent } from '../SidebarContent';
 
-import {chatSessionStore} from '../../../store';
+import { chatSessionStore } from '../../../store';
 
 const ChatScreen = () => <Text>Chat Screen</Text>;
 const ModelsScreen = () => <Text>Models Screen</Text>;
@@ -42,7 +42,7 @@ describe('SidebarContent Component', () => {
   });
 
   it('renders session groups and items correctly', () => {
-    const {getByText} = render(<TestNavigator />);
+    const { getByText } = render(<TestNavigator />);
 
     expect(getByText('Today')).toBeTruthy();
     expect(getByText('Yesterday')).toBeTruthy();
@@ -52,7 +52,7 @@ describe('SidebarContent Component', () => {
   });
 
   it('navigates to Chat screen when a session is pressed', async () => {
-    const {getByText, queryByText} = render(<TestNavigator />);
+    const { getByText, queryByText } = render(<TestNavigator />);
 
     // Navigate to a differnet page (as the default is chat screen)
     fireEvent.press(getByText('Models'));
@@ -67,7 +67,7 @@ describe('SidebarContent Component', () => {
   });
 
   it('navigates to correct screen from drawer items', () => {
-    const {getByText, queryByText} = render(<TestNavigator />);
+    const { getByText, queryByText } = render(<TestNavigator />);
 
     // Ensure the Models screen is rendered by pressing the 'Models' drawer item
     fireEvent.press(getByText('Models'));
@@ -96,7 +96,7 @@ describe('SidebarContent Component', () => {
         chatSessionStore.selectedSessionIds.add('session-1');
       });
 
-      const {getByTestId, getByText} = render(<TestNavigator />);
+      const { getByTestId, getByText } = render(<TestNavigator />);
 
       // Check for Cancel button
       expect(getByTestId('cancel-selection-button')).toBeTruthy();
@@ -117,7 +117,7 @@ describe('SidebarContent Component', () => {
         chatSessionStore.isSelectionMode = true;
       });
 
-      const {getByTestId} = render(<TestNavigator />);
+      const { getByTestId } = render(<TestNavigator />);
 
       // Checkboxes should be present for each session
       expect(getByTestId('checkbox-session-1')).toBeTruthy();
@@ -129,7 +129,7 @@ describe('SidebarContent Component', () => {
         chatSessionStore.isSelectionMode = true;
       });
 
-      const {getByText} = render(<TestNavigator />);
+      const { getByText } = render(<TestNavigator />);
 
       // Tap a session
       const session1 = getByText('Session 1');
@@ -146,7 +146,7 @@ describe('SidebarContent Component', () => {
         chatSessionStore.isSelectionMode = true;
       });
 
-      const {getByTestId} = render(<TestNavigator />);
+      const { getByTestId } = render(<TestNavigator />);
 
       // Tap checkbox
       const checkbox = getByTestId('checkbox-session-1');
@@ -165,7 +165,7 @@ describe('SidebarContent Component', () => {
         chatSessionStore.selectedSessionIds.add('session-2');
       });
 
-      const {getByText} = render(<TestNavigator />);
+      const { getByText } = render(<TestNavigator />);
 
       expect(getByText('2 selected')).toBeTruthy();
     });
@@ -176,7 +176,7 @@ describe('SidebarContent Component', () => {
         chatSessionStore.selectedSessionIds.add('session-1');
       });
 
-      const {getByTestId} = render(<TestNavigator />);
+      const { getByTestId } = render(<TestNavigator />);
 
       // Click Cancel button
       const cancelButton = getByTestId('cancel-selection-button');
@@ -191,12 +191,12 @@ describe('SidebarContent Component', () => {
         chatSessionStore.isSelectionMode = true;
       });
 
-      const {getByText} = render(<TestNavigator />);
+      const { getByText } = render(<TestNavigator />);
 
       // Try to long-press on a session with proper event object
       const session1 = getByText('Session 1');
       fireEvent(session1, 'longPress', {
-        nativeEvent: {pageX: 0, pageY: 0},
+        nativeEvent: { pageX: 0, pageY: 0 },
       });
 
       // Menu should not appear - no new menu items should be rendered
@@ -210,7 +210,7 @@ describe('SidebarContent Component', () => {
         chatSessionStore.isSelectionMode = false;
       });
 
-      const {queryByTestId} = render(<TestNavigator />);
+      const { queryByTestId } = render(<TestNavigator />);
 
       // Checkboxes should not be present
       expect(queryByTestId('checkbox-session-1')).toBeNull();
@@ -222,7 +222,7 @@ describe('SidebarContent Component', () => {
         chatSessionStore.isSelectionMode = false;
       });
 
-      const {getByText} = render(<TestNavigator />);
+      const { getByText } = render(<TestNavigator />);
 
       // Tap session
       const session1 = getByText('Session 1');

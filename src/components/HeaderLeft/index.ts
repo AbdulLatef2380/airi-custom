@@ -1,1 +1,1 @@
-export {HeaderLeft} from './HeaderLeft';
+export { HeaderLeft } from './HeaderLeft';

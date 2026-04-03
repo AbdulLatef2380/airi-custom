@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef, useContext} from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import {
   View,
   Platform,
@@ -11,10 +11,10 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-import {debounce} from 'lodash';
-import {observer} from 'mobx-react-lite';
-import {toJS} from 'mobx';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import { debounce } from 'lodash';
+import { observer } from 'mobx-react-lite';
+import { toJS } from 'mobx';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import {
   Switch,
   Text,
@@ -41,24 +41,24 @@ import {
   InputSlider,
 } from '../../components';
 
-import {useTheme} from '../../hooks';
+import { useTheme } from '../../hooks';
 
-import {createStyles} from './styles';
+import { createStyles } from './styles';
 
-import {modelStore, uiStore, hfStore} from '../../store';
-import {languageDisplayNames} from '../../locales';
+import { modelStore, uiStore, hfStore } from '../../store';
+import { languageDisplayNames } from '../../locales';
 
-import {CacheType} from '../../utils/types';
+import { CacheType } from '../../utils/types';
 import {
   L10nContext,
   formatBytes,
   clearAllSessionCaches,
   getSessionCacheInfo,
 } from '../../utils';
-import {t} from '../../locales';
-import {checkGpuSupport} from '../../utils/deviceCapabilities';
-import {exportLegacyChatSessions} from '../../utils/exportUtils';
-import {getDeviceOptions, DeviceOption} from '../../utils/deviceSelection';
+import { t } from '../../locales';
+import { checkGpuSupport } from '../../utils/deviceCapabilities';
+import { exportLegacyChatSessions } from '../../utils/exportUtils';
+import { getDeviceOptions, DeviceOption } from '../../utils/deviceSelection';
 import {
   inferBackendType,
   getAllowedCacheTypeKOptions,
@@ -84,15 +84,21 @@ export const SettingsScreen: React.FC = observer(() => {
   const [showLanguageMenu, setShowLanguageMenu] = useState(false);
   const [showHfTokenDialog, setShowHfTokenDialog] = useState(false);
   const [gpuSupported, setGpuSupported] = useState(false);
-  const [keyCacheAnchor, setKeyCacheAnchor] = useState<{x: number; y: number}>({
+  const [keyCacheAnchor, setKeyCacheAnchor] = useState<{
+    x: number;
+    y: number;
+  }>({
     x: 0,
     y: 0,
   });
   const [valueCacheAnchor, setValueCacheAnchor] = useState<{
     x: number;
     y: number;
-  }>({x: 0, y: 0});
-  const [languageAnchor, setLanguageAnchor] = useState<{x: number; y: number}>({
+  }>({ x: 0, y: 0 });
+  const [languageAnchor, setLanguageAnchor] = useState<{
+    x: number;
+    y: number;
+  }>({
     x: 0.0,
     y: 0.0,
   });
@@ -250,7 +256,7 @@ export const SettingsScreen: React.FC = observer(() => {
 
   const handleKeyCachePress = () => {
     keyCacheButtonRef.current?.measure((x, y, width, height, pageX, pageY) => {
-      setKeyCacheAnchor({x: pageX, y: pageY + height});
+      setKeyCacheAnchor({ x: pageX, y: pageY + height });
       setShowKeyCacheMenu(true);
     });
   };
@@ -258,7 +264,7 @@ export const SettingsScreen: React.FC = observer(() => {
   const handleValueCachePress = () => {
     valueCacheButtonRef.current?.measure(
       (x, y, width, height, pageX, pageY) => {
-        setValueCacheAnchor({x: pageX, y: pageY + height});
+        setValueCacheAnchor({ x: pageX, y: pageY + height });
         setShowValueCacheMenu(true);
       },
     );
@@ -266,7 +272,7 @@ export const SettingsScreen: React.FC = observer(() => {
 
   const handleLanguagePress = () => {
     languageButtonRef.current?.measure((x, y, width, height, pageX, pageY) => {
-      setLanguageAnchor({x: pageX, y: pageY + height});
+      setLanguageAnchor({ x: pageX, y: pageY + height });
       setShowLanguageMenu(true);
     });
   };
@@ -364,7 +370,7 @@ export const SettingsScreen: React.FC = observer(() => {
                           variant="labelSmall"
                           style={[
                             styles.textDescription,
-                            {color: theme.colors.primary},
+                            { color: theme.colors.primary },
                           ]}>
                           {l10n.settings.openCLDocsLink}
                         </Text>
@@ -616,7 +622,7 @@ export const SettingsScreen: React.FC = observer(() => {
                             modelStore.contextInitParams.flash_attn_type ===
                               'off'
                           }
-                          icon={({size, color}) => (
+                          icon={({ size, color }) => (
                             <Icon
                               source="chevron-down"
                               size={size}
@@ -685,7 +691,7 @@ export const SettingsScreen: React.FC = observer(() => {
                             modelStore.contextInitParams.flash_attn_type ===
                               'off'
                           }
-                          icon={({size, color}) => (
+                          icon={({ size, color }) => (
                             <Icon
                               source="chevron-down"
                               size={size}
@@ -885,7 +891,7 @@ export const SettingsScreen: React.FC = observer(() => {
                       onPress={handleLanguagePress}
                       style={styles.menuButton}
                       contentStyle={styles.buttonContent}
-                      icon={({size, color}) => (
+                      icon={({ size, color }) => (
                         <Icon source="chevron-down" size={size} color={color} />
                       )}>
                       {languageDisplayNames[uiStore.language]}
@@ -1083,7 +1089,7 @@ export const SettingsScreen: React.FC = observer(() => {
                                       await clearAllSessionCaches();
                                     const successMessage = t(
                                       l10n.settings.clearCachesSuccess,
-                                      {count: deletedCount.toString()},
+                                      { count: deletedCount.toString() },
                                     );
                                     Alert.alert(
                                       l10n.settings.clearPalCaches,

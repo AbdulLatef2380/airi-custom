@@ -1,18 +1,18 @@
-import React, {useState, useEffect} from 'react';
-import {View, Alert} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Alert } from 'react-native';
 
-import {observer} from 'mobx-react-lite';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {Text, Button, TextInput, ActivityIndicator} from 'react-native-paper';
+import { observer } from 'mobx-react-lite';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Text, Button, TextInput, ActivityIndicator } from 'react-native-paper';
 
-import {GoogleIcon} from '../../../assets/icons';
+import { GoogleIcon } from '../../../assets/icons';
 
-import {useTheme} from '../../../hooks';
+import { useTheme } from '../../../hooks';
 
-import {Sheet} from '../../Sheet';
-import {createStyles} from './styles';
+import { Sheet } from '../../Sheet';
+import { createStyles } from './styles';
 
-import {authService, PalsHubErrorHandler} from '../../../services';
+import { authService, PalsHubErrorHandler } from '../../../services';
 
 interface AuthSheetProps {
   isVisible: boolean;
@@ -22,7 +22,7 @@ interface AuthSheetProps {
 const GoogleButtonIcon = () => <GoogleIcon width={20} height={20} />;
 
 export const AuthSheet: React.FC<AuthSheetProps> = observer(
-  ({isVisible, onClose}) => {
+  ({ isVisible, onClose }) => {
     const theme = useTheme();
     const insets = useSafeAreaInsets();
     const styles = createStyles(theme);
@@ -66,12 +66,12 @@ export const AuthSheet: React.FC<AuthSheetProps> = observer(
           Alert.alert(
             'Account Created',
             'Please check your email to verify your account.',
-            [{text: 'OK', onPress: onClose}],
+            [{ text: 'OK', onPress: onClose }],
           );
         } else {
           await authService.signInWithEmail(email.trim(), password);
           Alert.alert('Welcome Back!', 'You have successfully signed in.', [
-            {text: 'OK', onPress: onClose},
+            { text: 'OK', onPress: onClose },
           ]);
         }
       } catch (error) {
@@ -109,7 +109,7 @@ export const AuthSheet: React.FC<AuthSheetProps> = observer(
         Alert.alert(
           'Password Reset',
           'Check your email for password reset instructions.',
-          [{text: 'OK'}],
+          [{ text: 'OK' }],
         );
       } catch (error) {
         const errorInfo = PalsHubErrorHandler.handle(error);
@@ -141,7 +141,7 @@ export const AuthSheet: React.FC<AuthSheetProps> = observer(
         <Sheet.ScrollView
           contentContainerStyle={[
             styles.authSheet,
-            {paddingBottom: insets.bottom + 16},
+            { paddingBottom: insets.bottom + 16 },
           ]}>
           {/* Loading Indicator */}
           {authState.isLoading && (

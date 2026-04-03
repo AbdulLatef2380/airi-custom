@@ -1,9 +1,9 @@
 import axios from 'axios';
-import {Platform} from 'react-native';
+import { Platform } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
-import {submitFeedback, submitContentReport} from '../feedback';
+import { submitFeedback, submitContentReport } from '../feedback';
 import * as utils from '../../utils';
-import {urls} from '../../config';
+import { urls } from '../../config';
 
 // Mock dependencies
 jest.mock('axios');

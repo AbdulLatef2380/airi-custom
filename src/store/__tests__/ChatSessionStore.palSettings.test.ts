@@ -1,8 +1,8 @@
-import {chatSessionStore} from '../ChatSessionStore';
-import {palStore} from '../PalStore';
-import {defaultCompletionSettings} from '../ChatSessionStore';
-import {CompletionParams} from '../../utils/completionTypes';
-import type {Pal} from '../PalStore';
+import { chatSessionStore } from '../ChatSessionStore';
+import { palStore } from '../PalStore';
+import { defaultCompletionSettings } from '../ChatSessionStore';
+import { CompletionParams } from '../../utils/completionTypes';
+import type { Pal } from '../PalStore';
 
 describe('ChatSessionStore - Pal Settings', () => {
   beforeEach(() => {
@@ -11,7 +11,9 @@ describe('ChatSessionStore - Pal Settings', () => {
     chatSessionStore.sessions = [];
     chatSessionStore.activeSessionId = null;
     chatSessionStore.newChatPalId = undefined;
-    chatSessionStore.newChatCompletionSettings = {...defaultCompletionSettings};
+    chatSessionStore.newChatCompletionSettings = {
+      ...defaultCompletionSettings,
+    };
     // Reset palStore
     palStore.pals = [];
   });

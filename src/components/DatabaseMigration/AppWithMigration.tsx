@@ -1,12 +1,12 @@
-import React, {useEffect} from 'react';
-import {View, StyleSheet} from 'react-native';
-import {DatabaseMigration} from './DatabaseMigration';
-import {chatSessionRepository} from '../../repositories/ChatSessionRepository';
+import React, { useEffect } from 'react';
+import { View, StyleSheet } from 'react-native';
+import { DatabaseMigration } from './DatabaseMigration';
+import { chatSessionRepository } from '../../repositories/ChatSessionRepository';
 
 /**
  * Wraps the main app component and displays the migration UI when needed.
  */
-export const AppWithMigration: React.FC<{children: React.ReactNode}> = ({
+export const AppWithMigration: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   useEffect(() => {

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -8,11 +8,11 @@ import {
   SafeAreaView,
   Alert,
 } from 'react-native';
-import {Card, Button} from 'react-native-paper';
-import {database} from '../../../../database';
-import {chatSessionRepository} from '../../../../repositories/ChatSessionRepository';
-import {palRepository} from '../../../../repositories/PalRepository';
-import {useNavigation} from '@react-navigation/native';
+import { Card, Button } from 'react-native-paper';
+import { database } from '../../../../database';
+import { chatSessionRepository } from '../../../../repositories/ChatSessionRepository';
+import { palRepository } from '../../../../repositories/PalRepository';
+import { useNavigation } from '@react-navigation/native';
 
 // Define the collections we want to inspect
 const COLLECTIONS = [
@@ -38,7 +38,7 @@ const DatabaseInspectorScreen = () => {
 
   // Load data for all collections
   const loadAllCollections = async () => {
-    const data: {[key: string]: Array<any>} = {};
+    const data: { [key: string]: Array<any> } = {};
 
     for (const collectionName of COLLECTIONS) {
       try {
@@ -190,7 +190,7 @@ const DatabaseInspectorScreen = () => {
 
   // Find related records for a given record
   const findRelatedRecords = (record: any, collection: string) => {
-    const relatedRecords: {[key: string]: any[]} = {};
+    const relatedRecords: { [key: string]: any[] } = {};
 
     // If this is a chat_session, find related messages and completion_settings
     if (collection === 'chat_sessions') {

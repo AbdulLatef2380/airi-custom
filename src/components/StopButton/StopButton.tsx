@@ -6,8 +6,8 @@ import {
   TouchableOpacityProps,
 } from 'react-native';
 
-import {useTheme} from '../../hooks';
-import {StopIcon} from '../../assets/icons';
+import { useTheme } from '../../hooks';
+import { StopIcon } from '../../assets/icons';
 
 // import {L10nContext} from '../../utils';
 

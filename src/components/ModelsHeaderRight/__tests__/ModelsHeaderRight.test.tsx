@@ -1,12 +1,12 @@
 import React from 'react';
 
-import {fireEvent, render, waitFor} from '../../../../jest/test-utils';
+import { fireEvent, render, waitFor } from '../../../../jest/test-utils';
 
-import {ModelsHeaderRight} from '../ModelsHeaderRight';
+import { ModelsHeaderRight } from '../ModelsHeaderRight';
 
-import {uiStore} from '../../../store';
+import { uiStore } from '../../../store';
 
-import {l10n} from '../../../locales';
+import { l10n } from '../../../locales';
 
 describe('ModelsHeaderRight', () => {
   beforeEach(() => {
@@ -14,12 +14,12 @@ describe('ModelsHeaderRight', () => {
   });
 
   it('renders correctly', () => {
-    const {getByTestId} = render(<ModelsHeaderRight />);
+    const { getByTestId } = render(<ModelsHeaderRight />);
     expect(getByTestId('models-menu-button')).toBeTruthy();
   });
 
   it('toggles HF filter when pressed', async () => {
-    const {getByTestId, getByText} = render(<ModelsHeaderRight />);
+    const { getByTestId, getByText } = render(<ModelsHeaderRight />);
 
     // Open menu
     fireEvent.press(getByTestId('models-menu-button'));
@@ -38,7 +38,7 @@ describe('ModelsHeaderRight', () => {
   });
 
   it('toggles downloaded filter when pressed', async () => {
-    const {getByTestId, getByText} = render(<ModelsHeaderRight />);
+    const { getByTestId, getByText } = render(<ModelsHeaderRight />);
 
     // Open menu
     fireEvent.press(getByTestId('models-menu-button'));
@@ -57,7 +57,7 @@ describe('ModelsHeaderRight', () => {
   });
 
   it('toggles grouped view when pressed', async () => {
-    const {getByTestId, getByText} = render(<ModelsHeaderRight />);
+    const { getByTestId, getByText } = render(<ModelsHeaderRight />);
 
     // Open menu
     fireEvent.press(getByTestId('models-menu-button'));
@@ -76,7 +76,7 @@ describe('ModelsHeaderRight', () => {
   });
 
   it('shows reset dialog when reset option is pressed', async () => {
-    const {getByTestId, getByText, queryByTestId} = render(
+    const { getByTestId, getByText, queryByTestId } = render(
       <ModelsHeaderRight />,
     );
 

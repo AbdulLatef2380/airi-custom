@@ -1,7 +1,7 @@
 import React from 'react';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {render} from '../../../../jest/test-utils';
-import {Menu} from '../Menu';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { render } from '../../../../jest/test-utils';
+import { Menu } from '../Menu';
 
 describe('Menu', () => {
   beforeEach(() => {
@@ -9,7 +9,7 @@ describe('Menu', () => {
   });
 
   it('renders menu items correctly', () => {
-    const {getByText} = render(
+    const { getByText } = render(
       <Menu visible={true} onDismiss={() => {}} anchor={undefined}>
         <Menu.Item label="Item 1" onPress={() => {}} />
         <Menu.Item label="Item 2" onPress={() => {}} />
@@ -21,7 +21,7 @@ describe('Menu', () => {
   });
 
   it('renders separators correctly', () => {
-    const {UNSAFE_getAllByType} = render(
+    const { UNSAFE_getAllByType } = render(
       <Menu visible={true} onDismiss={() => {}} anchor={undefined}>
         <Menu.Item label="Item 1" onPress={() => {}} />
         <Menu.Separator />
@@ -47,7 +47,7 @@ describe('Menu', () => {
     });
 
     const PaperMenu = require('react-native-paper').Menu;
-    const {UNSAFE_getByType} = render(
+    const { UNSAFE_getByType } = render(
       <Menu visible={true} onDismiss={() => {}} anchor={undefined}>
         <Menu.Item label="Item 1" onPress={() => {}} />
       </Menu>,
@@ -59,7 +59,7 @@ describe('Menu', () => {
 
   it('does not render when visible is true but has no children', () => {
     const PaperMenu = require('react-native-paper').Menu;
-    const {UNSAFE_getByType} = render(
+    const { UNSAFE_getByType } = render(
       <Menu visible={true} onDismiss={() => {}} anchor={undefined} />,
     );
 

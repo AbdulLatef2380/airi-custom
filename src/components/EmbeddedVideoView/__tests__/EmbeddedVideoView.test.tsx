@@ -1,23 +1,23 @@
 import React from 'react';
-import {render, fireEvent, waitFor} from '@testing-library/react-native';
-import {Alert, Platform} from 'react-native';
+import { render, fireEvent, waitFor } from '@testing-library/react-native';
+import { Alert, Platform } from 'react-native';
 
-import {EmbeddedVideoView} from '../EmbeddedVideoView';
-import {L10nContext} from '../../../utils';
-import {l10n} from '../../../locales';
+import { EmbeddedVideoView } from '../EmbeddedVideoView';
+import { L10nContext } from '../../../utils';
+import { l10n } from '../../../locales';
 
 // Mock react-native-vision-camera
 jest.mock('react-native-vision-camera', () => {
   const mockReact = require('react');
   return {
-    Camera: mockReact.forwardRef(({children, ...props}: any, ref: any) =>
+    Camera: mockReact.forwardRef(({ children, ...props }: any, ref: any) =>
       mockReact.createElement(
         'View',
-        {ref, testID: 'camera', ...props},
+        { ref, testID: 'camera', ...props },
         children,
       ),
     ),
-    useCameraDevice: jest.fn(() => ({id: 'mock-device'})),
+    useCameraDevice: jest.fn(() => ({ id: 'mock-device' })),
     useCameraPermission: jest.fn(() => ({
       hasPermission: true,
       requestPermission: jest.fn(() => Promise.resolve(true)),
@@ -66,7 +66,7 @@ describe('EmbeddedVideoView', () => {
   });
 
   it('renders correctly with camera permission', () => {
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <L10nContext.Provider value={l10n.en}>
         <EmbeddedVideoView {...defaultProps} />
       </L10nContext.Provider>,
@@ -76,7 +76,7 @@ describe('EmbeddedVideoView', () => {
   });
 
   it('renders response text when provided', () => {
-    const {getByText} = render(
+    const { getByText } = render(
       <L10nContext.Provider value={l10n.en}>
         <EmbeddedVideoView {...defaultProps} responseText="Test response" />
       </L10nContext.Provider>,
@@ -86,7 +86,7 @@ describe('EmbeddedVideoView', () => {
   });
 
   it('does not render response overlay when no response text', () => {
-    const {queryByText} = render(
+    const { queryByText } = render(
       <L10nContext.Provider value={l10n.en}>
         <EmbeddedVideoView {...defaultProps} />
       </L10nContext.Provider>,
@@ -98,7 +98,7 @@ describe('EmbeddedVideoView', () => {
 
   it('handles camera permission request', async () => {
     const mockRequestPermission = jest.fn(() => Promise.resolve(true));
-    const {useCameraPermission} = require('react-native-vision-camera');
+    const { useCameraPermission } = require('react-native-vision-camera');
     useCameraPermission.mockReturnValue({
       hasPermission: false,
       requestPermission: mockRequestPermission,
@@ -115,13 +115,13 @@ describe('EmbeddedVideoView', () => {
       () => {
         expect(mockRequestPermission).toHaveBeenCalled();
       },
-      {timeout: 3000},
+      { timeout: 3000 },
     );
   });
 
   it('shows permission alert when permission denied', async () => {
     const mockRequestPermission = jest.fn(() => Promise.resolve(false));
-    const {useCameraPermission} = require('react-native-vision-camera');
+    const { useCameraPermission } = require('react-native-vision-camera');
     useCameraPermission.mockReturnValue({
       hasPermission: false,
       requestPermission: mockRequestPermission,
@@ -151,7 +151,7 @@ describe('EmbeddedVideoView', () => {
     const mockRequestPermission = jest.fn(() =>
       Promise.reject(new Error('Permission error')),
     );
-    const {useCameraPermission} = require('react-native-vision-camera');
+    const { useCameraPermission } = require('react-native-vision-camera');
     useCameraPermission.mockReturnValue({
       hasPermission: false,
       requestPermission: mockRequestPermission,
@@ -176,19 +176,19 @@ describe('EmbeddedVideoView', () => {
           ]),
         );
       },
-      {timeout: 3000},
+      { timeout: 3000 },
     );
   });
 
   it('toggles camera position when flip button is pressed', () => {
     // Mock camera permission as granted
-    const {useCameraPermission} = require('react-native-vision-camera');
+    const { useCameraPermission } = require('react-native-vision-camera');
     useCameraPermission.mockReturnValue({
       hasPermission: true,
       requestPermission: jest.fn(),
     });
 
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <L10nContext.Provider value={l10n.en}>
         <EmbeddedVideoView {...defaultProps} />
       </L10nContext.Provider>,
@@ -206,13 +206,13 @@ describe('EmbeddedVideoView', () => {
 
   it('increases capture interval when increase button is pressed', () => {
     // Mock camera permission as granted
-    const {useCameraPermission} = require('react-native-vision-camera');
+    const { useCameraPermission } = require('react-native-vision-camera');
     useCameraPermission.mockReturnValue({
       hasPermission: true,
       requestPermission: jest.fn(),
     });
 
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <L10nContext.Provider value={l10n.en}>
         <EmbeddedVideoView {...defaultProps} captureInterval={2000} />
       </L10nContext.Provider>,
@@ -226,13 +226,13 @@ describe('EmbeddedVideoView', () => {
 
   it('decreases capture interval when decrease button is pressed', () => {
     // Mock camera permission as granted
-    const {useCameraPermission} = require('react-native-vision-camera');
+    const { useCameraPermission } = require('react-native-vision-camera');
     useCameraPermission.mockReturnValue({
       hasPermission: true,
       requestPermission: jest.fn(),
     });
 
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <L10nContext.Provider value={l10n.en}>
         <EmbeddedVideoView {...defaultProps} captureInterval={2000} />
       </L10nContext.Provider>,
@@ -246,13 +246,13 @@ describe('EmbeddedVideoView', () => {
 
   it('does not decrease interval below minimum', () => {
     // Mock camera permission as granted
-    const {useCameraPermission} = require('react-native-vision-camera');
+    const { useCameraPermission } = require('react-native-vision-camera');
     useCameraPermission.mockReturnValue({
       hasPermission: true,
       requestPermission: jest.fn(),
     });
 
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <L10nContext.Provider value={l10n.en}>
         <EmbeddedVideoView {...defaultProps} captureInterval={500} />
       </L10nContext.Provider>,
@@ -266,13 +266,13 @@ describe('EmbeddedVideoView', () => {
 
   it('does not increase interval above maximum', () => {
     // Mock camera permission as granted
-    const {useCameraPermission} = require('react-native-vision-camera');
+    const { useCameraPermission } = require('react-native-vision-camera');
     useCameraPermission.mockReturnValue({
       hasPermission: true,
       requestPermission: jest.fn(),
     });
 
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <L10nContext.Provider value={l10n.en}>
         <EmbeddedVideoView {...defaultProps} captureInterval={5000} />
       </L10nContext.Provider>,
@@ -286,13 +286,13 @@ describe('EmbeddedVideoView', () => {
 
   it('calls onClose when close button is pressed', () => {
     // Mock camera permission as granted
-    const {useCameraPermission} = require('react-native-vision-camera');
+    const { useCameraPermission } = require('react-native-vision-camera');
     useCameraPermission.mockReturnValue({
       hasPermission: true,
       requestPermission: jest.fn(),
     });
 
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <L10nContext.Provider value={l10n.en}>
         <EmbeddedVideoView {...defaultProps} />
       </L10nContext.Provider>,
@@ -316,7 +316,7 @@ describe('EmbeddedVideoView', () => {
     });
     useCameraDevice.mockReturnValue(null); // Simulate no device (simulator)
 
-    const {getByText} = render(
+    const { getByText } = render(
       <L10nContext.Provider value={l10n.en}>
         <EmbeddedVideoView {...defaultProps} />
       </L10nContext.Provider>,

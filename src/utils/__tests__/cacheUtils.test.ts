@@ -74,10 +74,10 @@ describe('cacheUtils', () => {
     it('should calculate file count and total size correctly', async () => {
       mockRNFS.exists.mockResolvedValue(true);
       mockRNFS.readDir.mockResolvedValue([
-        {name: 'pal1.session', isFile: () => true, size: 1024},
-        {name: 'pal1_metadata.json', isFile: () => true, size: 256},
-        {name: 'pal2.session', isFile: () => true, size: 2048},
-        {name: 'pal2_metadata.json', isFile: () => true, size: 512},
+        { name: 'pal1.session', isFile: () => true, size: 1024 },
+        { name: 'pal1_metadata.json', isFile: () => true, size: 256 },
+        { name: 'pal2.session', isFile: () => true, size: 2048 },
+        { name: 'pal2_metadata.json', isFile: () => true, size: 512 },
       ] as any);
 
       const result = await getSessionCacheInfo();

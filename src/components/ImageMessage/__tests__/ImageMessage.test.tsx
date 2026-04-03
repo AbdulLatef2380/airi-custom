@@ -1,9 +1,9 @@
-import {act, render} from '@testing-library/react-native';
+import { act, render } from '@testing-library/react-native';
 import * as React from 'react';
-import {Image} from 'react-native';
+import { Image } from 'react-native';
 
-import {derivedImageMessage, size} from '../../../../jest/fixtures';
-import {ImageMessage} from '../ImageMessage';
+import { derivedImageMessage, size } from '../../../../jest/fixtures';
+import { ImageMessage } from '../ImageMessage';
 
 describe('image message', () => {
   it('gets image size and renders', () => {
@@ -15,7 +15,7 @@ describe('image message', () => {
       height: undefined,
       width: undefined,
     };
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <ImageMessage message={message} messageWidth={440} />,
     );
     expect(getSizeMock).toHaveBeenCalledTimes(1);

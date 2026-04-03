@@ -6,10 +6,10 @@ import {
   TouchableOpacityProps,
 } from 'react-native';
 
-import {useTheme} from '../../hooks';
+import { useTheme } from '../../hooks';
 
-import {L10nContext} from '../../utils';
-import {SendIcon} from '../../assets/icons';
+import { L10nContext } from '../../utils';
+import { SendIcon } from '../../assets/icons';
 
 export interface SendButtonPropsAdditionalProps {
   touchableOpacityProps?: TouchableOpacityProps;

@@ -1,29 +1,29 @@
-import {AppState, AppStateStatus, Platform, Alert} from 'react-native';
+import { AppState, AppStateStatus, Platform, Alert } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 
-import {v4 as uuidv4} from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 import 'react-native-get-random-values';
-import {makePersistable} from 'mobx-persist-store';
+import { makePersistable } from 'mobx-persist-store';
 import * as RNFS from '@dr.pogodin/react-native-fs';
-import {computed, makeAutoObservable, runInAction, toJS} from 'mobx';
+import { computed, makeAutoObservable, runInAction, toJS } from 'mobx';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {ContextParams, LlamaContext, initLlama} from 'llama.rn';
+import { ContextParams, LlamaContext, initLlama } from 'llama.rn';
 import {
   CompletionParams,
   CompletionEngine,
   toApiCompletionParams,
 } from '../utils/completionTypes';
 
-import {fetchModelFilesDetails} from '../api/hf';
+import { fetchModelFilesDetails } from '../api/hf';
 import {
   LocalCompletionEngine,
   OpenAICompletionEngine,
 } from '../api/completionEngines';
 
-import {uiStore, hfStore} from '.';
-import {serverStore} from './ServerStore';
-import {chatSessionStore} from './ChatSessionStore';
-import {checkGpuSupport} from '../utils/deviceCapabilities';
+import { uiStore, hfStore } from '.';
+import { serverStore } from './ServerStore';
+import { chatSessionStore } from './ChatSessionStore';
+import { checkGpuSupport } from '../utils/deviceCapabilities';
 import {
   deepMerge,
   getSHA256Hash,
@@ -32,11 +32,11 @@ import {
   filterProjectionModels,
   inferRepoFromModelId,
 } from '../utils';
-import {getRecommendedProjectionModel} from '../utils/multimodalHelpers';
-import {getOriginalModelName} from '../utils/formatters';
-import {defaultModels, MODEL_LIST_VERSION} from './defaultModels';
+import { getRecommendedProjectionModel } from '../utils/multimodalHelpers';
+import { getOriginalModelName } from '../utils/formatters';
+import { defaultModels, MODEL_LIST_VERSION } from './defaultModels';
 
-import {downloadManager} from '../services/downloads';
+import { downloadManager } from '../services/downloads';
 
 import {
   getHFDefaultSettings,
@@ -54,24 +54,24 @@ import {
   ModelType,
 } from '../utils/types';
 
-import {ErrorState, createErrorState} from '../utils/errors';
-import {chatSessionRepository} from '../repositories/ChatSessionRepository';
-import {hasEnoughMemory} from '../hooks/useMemoryCheck';
+import { ErrorState, createErrorState } from '../utils/errors';
+import { chatSessionRepository } from '../repositories/ChatSessionRepository';
+import { hasEnoughMemory } from '../hooks/useMemoryCheck';
 import {
   isHighEndDevice,
   getRecommendedThreadCount,
   getCpuCoreCount,
 } from '../utils/deviceCapabilities';
-import {supportsThinking} from '../utils/thinkingCapabilityDetection';
-import {t} from '../locales';
-import {resolveUseMmap} from '../utils/memorySettings';
+import { supportsThinking } from '../utils/thinkingCapabilityDetection';
+import { t } from '../locales';
+import { resolveUseMmap } from '../utils/memorySettings';
 import {
   createContextInitParams,
   createDefaultContextInitParams,
 } from '../utils/contextInitParamsVersions';
 import NativeHardwareInfo from '../specs/NativeHardwareInfo';
-import {getModelMemoryRequirement} from '../utils/memoryEstimator';
-import {loadLlamaModelInfo} from 'llama.rn';
+import { getModelMemoryRequirement } from '../utils/memoryEstimator';
+import { loadLlamaModelInfo } from 'llama.rn';
 
 /**
  * Factory function to create a Model object for a remote model from an OpenAI-compatible server.
@@ -620,13 +620,13 @@ class ModelStore {
         // Reset default settings
         if (model.origin === ModelOrigin.LOCAL || model.isLocal) {
           const defaultSettings = getLocalModelDefaultSettings();
-          model.defaultChatTemplate = {...defaultSettings.chatTemplate};
+          model.defaultChatTemplate = { ...defaultSettings.chatTemplate };
           model.defaultStopWords = defaultSettings.completionParams.stop;
         } else if (model.origin === ModelOrigin.HF) {
           const defaultSettings = getHFDefaultSettings(
             model.hfModel as HuggingFaceModel,
           );
-          model.defaultChatTemplate = {...defaultSettings.chatTemplate};
+          model.defaultChatTemplate = { ...defaultSettings.chatTemplate };
           model.defaultStopWords = defaultSettings.completionParams.stop;
         }
 
@@ -1334,7 +1334,7 @@ class ModelStore {
 
     // Priority 1: Explicit path provided by caller
     if (mmProjPath && visionEnabled) {
-      return {isMultimodalInit: true, resolvedMmProjPath: mmProjPath};
+      return { isMultimodalInit: true, resolvedMmProjPath: mmProjPath };
     }
 
     // Priority 2: Auto-resolve from model's default projection model
@@ -1357,7 +1357,7 @@ class ModelStore {
     }
 
     // Default: No multimodal support
-    return {isMultimodalInit: false};
+    return { isMultimodalInit: false };
   };
 
   /**
@@ -1451,7 +1451,7 @@ class ModelStore {
 
     try {
       // Resolve multimodal configuration
-      const {isMultimodalInit, resolvedMmProjPath, projectionModel} =
+      const { isMultimodalInit, resolvedMmProjPath, projectionModel } =
         await this.resolveMultimodalConfig(model, mmProjPath);
 
       // Check memory and get user confirmation if needed (no mutex - UI interaction)
@@ -2113,12 +2113,12 @@ class ModelStore {
       fullPath: localFilePath,
       isLocal: true, // Kept for backward compatibility
       origin: ModelOrigin.LOCAL,
-      defaultChatTemplate: {...defaultSettings.chatTemplate},
-      chatTemplate: {...defaultSettings.chatTemplate},
+      defaultChatTemplate: { ...defaultSettings.chatTemplate },
+      chatTemplate: { ...defaultSettings.chatTemplate },
       defaultStopWords: [...(defaultSettings?.completionParams?.stop || [])],
       stopWords: [...(defaultSettings?.completionParams?.stop || [])],
       defaultCompletionSettings: defaultSettings.completionParams,
-      completionSettings: {...defaultSettings.completionParams},
+      completionSettings: { ...defaultSettings.completionParams },
     };
 
     runInAction(() => {
@@ -2167,11 +2167,11 @@ class ModelStore {
     localModels.forEach(model => {
       const defaultSettings = getLocalModelDefaultSettings();
       // We change the default settings as well, in case the app introduces new settings.
-      model.defaultChatTemplate = {...defaultSettings.chatTemplate};
+      model.defaultChatTemplate = { ...defaultSettings.chatTemplate };
       model.defaultStopWords = [
         ...(defaultSettings?.completionParams?.stop || []),
       ];
-      model.chatTemplate = {...defaultSettings.chatTemplate};
+      model.chatTemplate = { ...defaultSettings.chatTemplate };
       model.stopWords = [...(defaultSettings?.completionParams?.stop || [])];
 
       // Clear GGUF metadata to force re-fetch with correct number types
@@ -2186,11 +2186,11 @@ class ModelStore {
         model.hfModel as HuggingFaceModel,
       );
       // We change the default settings as well, in case the app introduces new settings.
-      model.defaultChatTemplate = {...defaultSettings.chatTemplate};
+      model.defaultChatTemplate = { ...defaultSettings.chatTemplate };
       model.defaultStopWords = [
         ...(defaultSettings?.completionParams?.stop || []),
       ];
-      model.chatTemplate = {...defaultSettings.chatTemplate};
+      model.chatTemplate = { ...defaultSettings.chatTemplate };
       model.stopWords = [...(defaultSettings?.completionParams?.stop || [])];
 
       // Clear GGUF metadata to force re-fetch with correct number types
@@ -2213,7 +2213,7 @@ class ModelStore {
     const model = this.models.find(m => m.id === modelId);
     if (model) {
       runInAction(() => {
-        model.chatTemplate = {...model.defaultChatTemplate};
+        model.chatTemplate = { ...model.defaultChatTemplate };
       });
     }
   };
@@ -2653,7 +2653,7 @@ class ModelStore {
    */
   canDeleteProjectionModel = (
     projectionModelId: string,
-  ): {canDelete: boolean; reason?: string; dependentModels?: Model[]} => {
+  ): { canDelete: boolean; reason?: string; dependentModels?: Model[] } => {
     const projectionModel = this.models.find(m => m.id === projectionModelId);
 
     if (
@@ -2702,7 +2702,7 @@ class ModelStore {
       };
     }
 
-    return {canDelete: true, dependentModels};
+    return { canDelete: true, dependentModels };
   };
 
   /**
@@ -2902,7 +2902,7 @@ class ModelStore {
           // Add all images to the content array
           ...processedImagePaths.map(path => ({
             type: 'image_url',
-            image_url: {url: path},
+            image_url: { url: path },
           })),
         ],
       };

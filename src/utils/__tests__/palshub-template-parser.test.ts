@@ -340,12 +340,12 @@ You have skills: {{skills}}.
     });
 
     it('should handle empty template', () => {
-      const result = generateFinalSystemPrompt('', {name: 'Test'});
+      const result = generateFinalSystemPrompt('', { name: 'Test' });
       expect(result).toBe('');
     });
 
     it('should handle invalid template input', () => {
-      const result = generateFinalSystemPrompt(null as any, {name: 'Test'});
+      const result = generateFinalSystemPrompt(null as any, { name: 'Test' });
       expect(result).toBe('');
     });
   });

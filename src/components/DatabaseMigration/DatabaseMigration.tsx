@@ -1,8 +1,8 @@
 import React from 'react';
-import {View, ActivityIndicator, Text, StyleSheet} from 'react-native';
-import {observer} from 'mobx-react-lite';
-import {chatSessionStore} from '../../store/ChatSessionStore';
-import {useTheme} from '../../hooks';
+import { View, ActivityIndicator, Text, StyleSheet } from 'react-native';
+import { observer } from 'mobx-react-lite';
+import { chatSessionStore } from '../../store/ChatSessionStore';
+import { useTheme } from '../../hooks';
 
 export const DatabaseMigration = observer(() => {
   const theme = useTheme();
@@ -13,12 +13,12 @@ export const DatabaseMigration = observer(() => {
 
   return (
     <View
-      style={[styles.container, {backgroundColor: theme.colors.background}]}>
+      style={[styles.container, { backgroundColor: theme.colors.background }]}>
       <ActivityIndicator size="large" color={theme.colors.primary} />
-      <Text style={[styles.text, {color: theme.colors.text}]}>
+      <Text style={[styles.text, { color: theme.colors.text }]}>
         Upgrading database...
       </Text>
-      <Text style={[styles.subText, {color: theme.colors.textSecondary}]}>
+      <Text style={[styles.subText, { color: theme.colors.textSecondary }]}>
         Please don't close the app. This may take a moment.
       </Text>
     </View>

@@ -1,6 +1,6 @@
-import {isLocalPal, isPalsHubPal, handlePalByType} from '../pal-type-guards';
-import type {Pal} from '../../types/pal';
-import type {PalsHubPal} from '../../types/palshub';
+import { isLocalPal, isPalsHubPal, handlePalByType } from '../pal-type-guards';
+import type { Pal } from '../../types/pal';
+import type { PalsHubPal } from '../../types/palshub';
 
 describe('pal-type-guards', () => {
   const mockLocalPal: Pal = {
@@ -92,7 +92,7 @@ describe('pal-type-guards', () => {
       };
 
       // Create a pal with invalid type
-      const invalidPal = {...mockLocalPal, type: 'invalid'} as any;
+      const invalidPal = { ...mockLocalPal, type: 'invalid' } as any;
 
       handlePalByType(invalidPal, handlers);
 

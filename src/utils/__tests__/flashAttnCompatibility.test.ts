@@ -3,7 +3,7 @@
  * Based on FLASH_ATTN_TEST_MATRIX.md
  */
 
-import {Platform} from 'react-native';
+import { Platform } from 'react-native';
 import {
   inferBackendType,
   isCacheTypeVSafe,
@@ -13,7 +13,7 @@ import {
   BackendType,
   FlashAttnType,
 } from '../flashAttnCompatibility';
-import {CacheType} from '../types';
+import { CacheType } from '../types';
 
 describe('flashAttnCompatibility', () => {
   describe('inferBackendType', () => {
@@ -90,17 +90,17 @@ describe('flashAttnCompatibility', () => {
         flashAttn: FlashAttnType;
         backend: BackendType;
       }> = [
-        {cacheType: CacheType.F16, flashAttn: 'auto', backend: 'metal'},
-        {cacheType: CacheType.F16, flashAttn: 'on', backend: 'metal'},
-        {cacheType: CacheType.F16, flashAttn: 'off', backend: 'metal'},
-        {cacheType: CacheType.F32, flashAttn: 'auto', backend: 'opencl'},
-        {cacheType: CacheType.F32, flashAttn: 'on', backend: 'cpu'},
-        {cacheType: CacheType.F32, flashAttn: 'off', backend: 'hexagon'},
-        {cacheType: 'f16', flashAttn: 'auto', backend: 'blas'},
-        {cacheType: 'f32', flashAttn: 'off', backend: 'metal'},
+        { cacheType: CacheType.F16, flashAttn: 'auto', backend: 'metal' },
+        { cacheType: CacheType.F16, flashAttn: 'on', backend: 'metal' },
+        { cacheType: CacheType.F16, flashAttn: 'off', backend: 'metal' },
+        { cacheType: CacheType.F32, flashAttn: 'auto', backend: 'opencl' },
+        { cacheType: CacheType.F32, flashAttn: 'on', backend: 'cpu' },
+        { cacheType: CacheType.F32, flashAttn: 'off', backend: 'hexagon' },
+        { cacheType: 'f16', flashAttn: 'auto', backend: 'blas' },
+        { cacheType: 'f32', flashAttn: 'off', backend: 'metal' },
       ];
 
-      testCases.forEach(({cacheType, flashAttn, backend}) => {
+      testCases.forEach(({ cacheType, flashAttn, backend }) => {
         it(`should be safe for ${cacheType} with flash_attn=${flashAttn} on ${backend}`, () => {
           const result = isCacheTypeVSafe(cacheType, flashAttn, backend);
           expect(result.safe).toBe(true);
@@ -113,14 +113,14 @@ describe('flashAttnCompatibility', () => {
         cacheType: CacheType;
         backend: BackendType;
       }> = [
-        {cacheType: CacheType.Q8_0, backend: 'metal'},
-        {cacheType: CacheType.Q4_0, backend: 'opencl'},
-        {cacheType: CacheType.Q5_0, backend: 'cpu'},
-        {cacheType: CacheType.Q5_1, backend: 'hexagon'},
-        {cacheType: CacheType.IQ4_NL, backend: 'blas'},
+        { cacheType: CacheType.Q8_0, backend: 'metal' },
+        { cacheType: CacheType.Q4_0, backend: 'opencl' },
+        { cacheType: CacheType.Q5_0, backend: 'cpu' },
+        { cacheType: CacheType.Q5_1, backend: 'hexagon' },
+        { cacheType: CacheType.IQ4_NL, backend: 'blas' },
       ];
 
-      testCases.forEach(({cacheType, backend}) => {
+      testCases.forEach(({ cacheType, backend }) => {
         it(`should be unsafe for ${cacheType} with flash_attn=off on ${backend}`, () => {
           const result = isCacheTypeVSafe(cacheType, 'off', backend);
           expect(result.safe).toBe(false);
@@ -372,7 +372,7 @@ describe('flashAttnCompatibility', () => {
         },
       ];
 
-      testConfigs.forEach(({name, flashAttn, cacheK, cacheV}) => {
+      testConfigs.forEach(({ name, flashAttn, cacheK, cacheV }) => {
         it(`should validate ${name} configuration as safe`, () => {
           const kResult = isCacheTypeKSafe(cacheK, flashAttn, 'metal');
           const vResult = isCacheTypeVSafe(cacheV, flashAttn, 'metal');
@@ -450,7 +450,7 @@ describe('flashAttnCompatibility', () => {
         },
       ];
 
-      testConfigs.forEach(({name, flashAttn, cacheK, cacheV}) => {
+      testConfigs.forEach(({ name, flashAttn, cacheK, cacheV }) => {
         it(`should validate ${name} configuration as safe`, () => {
           const kResult = isCacheTypeKSafe(cacheK, flashAttn, 'cpu');
           const vResult = isCacheTypeVSafe(cacheV, flashAttn, 'cpu');

@@ -6,7 +6,7 @@ import React, {
   useMemo,
   useRef,
 } from 'react';
-import {View, Alert} from 'react-native';
+import { View, Alert } from 'react-native';
 import {
   Text,
   Button,
@@ -14,18 +14,18 @@ import {
   ActivityIndicator,
   Icon,
 } from 'react-native-paper';
-import {observer} from 'mobx-react';
+import { observer } from 'mobx-react';
 import debounce from 'lodash/debounce';
 
-import {Sheet, TextInput} from '..';
-import {useTheme} from '../../hooks';
-import {serverStore} from '../../store';
-import {L10nContext} from '../../utils';
-import {testConnection} from '../../api/openai';
-import {t} from '../../locales';
+import { Sheet, TextInput } from '..';
+import { useTheme } from '../../hooks';
+import { serverStore } from '../../store';
+import { L10nContext } from '../../utils';
+import { testConnection } from '../../api/openai';
+import { t } from '../../locales';
 
-import {createStyles} from './styles';
-import {EyeIcon, EyeOffIcon} from '../../assets/icons';
+import { createStyles } from './styles';
+import { EyeIcon, EyeOffIcon } from '../../assets/icons';
 
 interface ServerDetailsSheetProps {
   isVisible: boolean;
@@ -34,7 +34,7 @@ interface ServerDetailsSheetProps {
 }
 
 export const ServerDetailsSheet: React.FC<ServerDetailsSheetProps> = observer(
-  ({isVisible, onDismiss, serverId}) => {
+  ({ isVisible, onDismiss, serverId }) => {
     const theme = useTheme();
     const l10n = useContext(L10nContext);
     const styles = createStyles(theme);
@@ -98,9 +98,9 @@ export const ServerDetailsSheet: React.FC<ServerDetailsSheetProps> = observer(
       try {
         const key = apiKeyRef.current.trim() || undefined;
         const result = await testConnection(trimmedUrl, key);
-        setProbeResult({ok: result.ok, error: result.error});
+        setProbeResult({ ok: result.ok, error: result.error });
       } catch (error: any) {
-        setProbeResult({ok: false, error: error.message});
+        setProbeResult({ ok: false, error: error.message });
       } finally {
         setIsProbing(false);
       }
@@ -160,7 +160,7 @@ export const ServerDetailsSheet: React.FC<ServerDetailsSheetProps> = observer(
             count: String(modelCount),
           }),
           [
-            {text: l10n.common.cancel, style: 'cancel'},
+            { text: l10n.common.cancel, style: 'cancel' },
             {
               text: l10n.common.delete,
               style: 'destructive',
@@ -208,7 +208,7 @@ export const ServerDetailsSheet: React.FC<ServerDetailsSheetProps> = observer(
               <Text
                 style={[
                   styles.probeStatusText,
-                  {color: theme.colors.onSurfaceVariant},
+                  { color: theme.colors.onSurfaceVariant },
                 ]}>
                 {l10n.settings.connecting}
               </Text>
@@ -260,7 +260,7 @@ export const ServerDetailsSheet: React.FC<ServerDetailsSheetProps> = observer(
               right={
                 <PaperTextInput.Icon
                   testID="server-details-apikey-toggle"
-                  icon={({color}) =>
+                  icon={({ color }) =>
                     secureTextEntry ? (
                       <EyeIcon width={24} height={24} stroke={color} />
                     ) : (

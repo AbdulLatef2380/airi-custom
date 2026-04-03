@@ -1,13 +1,13 @@
-import {Model} from '@nozbe/watermelondb';
-import {field, text} from '@nozbe/watermelondb/decorators';
-import {CompletionParams} from '../../utils/completionTypes';
-import {migrateCompletionSettings} from '../../utils/completionSettingsVersions';
+import { Model } from '@nozbe/watermelondb';
+import { field, text } from '@nozbe/watermelondb/decorators';
+import { CompletionParams } from '../../utils/completionTypes';
+import { migrateCompletionSettings } from '../../utils/completionSettingsVersions';
 
 export default class CompletionSetting extends Model {
   static table = 'completion_settings';
 
   static associations = {
-    chat_sessions: {type: 'belongs_to' as const, key: 'session_id'},
+    chat_sessions: { type: 'belongs_to' as const, key: 'session_id' },
   };
 
   @text('session_id') sessionId!: string;

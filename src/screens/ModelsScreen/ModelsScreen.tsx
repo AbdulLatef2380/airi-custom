@@ -1,21 +1,21 @@
-import React, {useState, useContext, useEffect} from 'react';
-import {FlatList, RefreshControl, Platform, Alert, View} from 'react-native';
+import React, { useState, useContext, useEffect } from 'react';
+import { FlatList, RefreshControl, Platform, Alert, View } from 'react-native';
 
-import {reaction, computed} from 'mobx';
-import {v4 as uuidv4} from 'uuid';
+import { reaction, computed } from 'mobx';
+import { v4 as uuidv4 } from 'uuid';
 import 'react-native-get-random-values';
-import {observer} from 'mobx-react-lite';
+import { observer } from 'mobx-react-lite';
 import * as RNFS from '@dr.pogodin/react-native-fs';
-import {pick, types} from '@react-native-documents/picker';
-import {Portal} from 'react-native-paper';
+import { pick, types } from '@react-native-documents/picker';
+import { Portal } from 'react-native-paper';
 
-import {useTheme} from '../../hooks';
+import { useTheme } from '../../hooks';
 
-import {FABGroup} from './FABGroup';
-import {ModelCard} from './ModelCard';
-import {createStyles} from './styles';
-import {HFModelSearch} from './HFModelSearch';
-import {ModelAccordion} from './ModelAccordion';
+import { FABGroup } from './FABGroup';
+import { ModelCard } from './ModelCard';
+import { createStyles } from './styles';
+import { HFModelSearch } from './HFModelSearch';
+import { ModelAccordion } from './ModelAccordion';
 import {
   DownloadErrorDialog,
   ErrorSnackbar,
@@ -25,11 +25,17 @@ import {
   ServerDetailsSheet,
 } from '../../components';
 
-import {uiStore, modelStore, hfStore, UIStore, serverStore} from '../../store';
+import {
+  uiStore,
+  modelStore,
+  hfStore,
+  UIStore,
+  serverStore,
+} from '../../store';
 
-import {L10nContext} from '../../utils';
-import {Model, ModelOrigin} from '../../utils/types';
-import {ErrorState} from '../../utils/errors';
+import { L10nContext } from '../../utils';
+import { Model, ModelOrigin } from '../../utils/types';
+import { ErrorState } from '../../utils/errors';
 
 export const ModelsScreen: React.FC = observer(() => {
   const l10n = useContext(L10nContext);
@@ -134,7 +140,7 @@ export const ModelsScreen: React.FC = observer(() => {
           text: server.name,
           onPress: () => handleOpenServerDetails(server.id),
         })),
-        {text: l10n.common.cancel, style: 'cancel' as const},
+        { text: l10n.common.cancel, style: 'cancel' as const },
       ]);
     }
   };
@@ -330,7 +336,7 @@ export const ModelsScreen: React.FC = observer(() => {
     uiStore.setValue('modelsScreen', 'expandedGroups', updatedExpandedGroups);
   };
 
-  const renderGroupHeader = ({item: group}) => {
+  const renderGroupHeader = ({ item: group }) => {
     const isExpanded = expandedGroups[group.type];
     const displayName = filters.includes('grouped')
       ? group.type
@@ -342,14 +348,14 @@ export const ModelsScreen: React.FC = observer(() => {
         : undefined;
     return (
       <ModelAccordion
-        group={{...group, type: displayName}}
+        group={{ ...group, type: displayName }}
         expanded={isExpanded}
         description={description}
         onPress={() => toggleGroup(group.type)}>
         <FlatList
           data={group.items}
           keyExtractor={subItem => subItem.id}
-          renderItem={({item: subItem}) => (
+          renderItem={({ item: subItem }) => (
             <ModelCard
               model={subItem}
               activeModelId={activeModelId}

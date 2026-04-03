@@ -1,20 +1,20 @@
 import React from 'react';
-import {Alert} from 'react-native';
-import {render, fireEvent, waitFor, act} from '../../../../jest/test-utils';
+import { Alert } from 'react-native';
+import { render, fireEvent, waitFor, act } from '../../../../jest/test-utils';
 
-import {PalGenerationSettingsSheet} from '../PalGenerationSettingsSheet';
-import {chatSessionStore, defaultCompletionSettings} from '../../../store';
-import {L10nContext} from '../../../utils';
-import {l10n, t} from '../../../locales';
-import {validateCompletionSettings} from '../../../utils/modelSettings';
-import {mockCompletionParams} from '../../../../jest/fixtures/models';
+import { PalGenerationSettingsSheet } from '../PalGenerationSettingsSheet';
+import { chatSessionStore, defaultCompletionSettings } from '../../../store';
+import { L10nContext } from '../../../utils';
+import { l10n, t } from '../../../locales';
+import { validateCompletionSettings } from '../../../utils/modelSettings';
+import { mockCompletionParams } from '../../../../jest/fixtures/models';
 
 jest.useFakeTimers();
 
 // Mock Sheet component
 jest.mock('../../Sheet/Sheet', () => {
-  const {View, Button} = require('react-native');
-  const MockSheet = ({children, isVisible, onClose, title}: any) => {
+  const { View, Button } = require('react-native');
+  const MockSheet = ({ children, isVisible, onClose, title }: any) => {
     if (!isVisible) {
       return null;
     }
@@ -26,22 +26,22 @@ jest.mock('../../Sheet/Sheet', () => {
       </View>
     );
   };
-  MockSheet.ScrollView = ({children}: any) => (
+  MockSheet.ScrollView = ({ children }: any) => (
     <View testID="sheet-scroll-view">{children}</View>
   );
-  MockSheet.Actions = ({children}: any) => (
+  MockSheet.Actions = ({ children }: any) => (
     <View testID="sheet-actions">{children}</View>
   );
-  return {Sheet: MockSheet};
+  return { Sheet: MockSheet };
 });
 
 // Mock validation
 jest.mock('../../../utils/modelSettings', () => ({
-  validateCompletionSettings: jest.fn().mockReturnValue({errors: {}}),
+  validateCompletionSettings: jest.fn().mockReturnValue({ errors: {} }),
   COMPLETION_PARAMS_METADATA: {
-    temperature: {validation: {type: 'numeric'}},
-    top_p: {validation: {type: 'numeric'}},
-    max_tokens: {validation: {type: 'numeric'}},
+    temperature: { validation: { type: 'numeric' } },
+    top_p: { validation: { type: 'numeric' } },
+    max_tokens: { validation: { type: 'numeric' } },
   },
 }));
 
@@ -58,12 +58,12 @@ describe('PalGenerationSettingsSheet', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    (validateCompletionSettings as jest.Mock).mockReturnValue({errors: {}});
+    (validateCompletionSettings as jest.Mock).mockReturnValue({ errors: {} });
   });
 
   describe('Rendering', () => {
     it('renders correctly when visible', () => {
-      const {getByTestId} = render(
+      const { getByTestId } = render(
         <L10nContext.Provider value={l10n.en}>
           <PalGenerationSettingsSheet {...defaultProps} />
         </L10nContext.Provider>,
@@ -74,7 +74,7 @@ describe('PalGenerationSettingsSheet', () => {
     });
 
     it('does not render when not visible', () => {
-      const {queryByTestId} = render(
+      const { queryByTestId } = render(
         <L10nContext.Provider value={l10n.en}>
           <PalGenerationSettingsSheet {...defaultProps} isVisible={false} />
         </L10nContext.Provider>,
@@ -84,7 +84,7 @@ describe('PalGenerationSettingsSheet', () => {
     });
 
     it('displays correct title with pal name', () => {
-      const {getByTestId} = render(
+      const { getByTestId } = render(
         <L10nContext.Provider value={l10n.en}>
           <PalGenerationSettingsSheet {...defaultProps} />
         </L10nContext.Provider>,
@@ -95,7 +95,7 @@ describe('PalGenerationSettingsSheet', () => {
     });
 
     it('shows inherited settings indicator when no custom settings', () => {
-      const {getByText} = render(
+      const { getByText } = render(
         <L10nContext.Provider value={l10n.en}>
           <PalGenerationSettingsSheet {...defaultProps} />
         </L10nContext.Provider>,
@@ -105,14 +105,14 @@ describe('PalGenerationSettingsSheet', () => {
         getByText(
           t(
             l10n.en.components.palGenerationSettingsSheet.inheritedSettingsFor,
-            {palName: 'Test Pal'},
+            { palName: 'Test Pal' },
           ),
         ),
       ).toBeTruthy();
     });
 
     it('shows custom settings indicator when custom settings exist', () => {
-      const {getByText} = render(
+      const { getByText } = render(
         <L10nContext.Provider value={l10n.en}>
           <PalGenerationSettingsSheet
             {...defaultProps}
@@ -133,7 +133,7 @@ describe('PalGenerationSettingsSheet', () => {
 
   describe('Settings Modification', () => {
     it('allows changing settings via slider', () => {
-      const {getByTestId} = render(
+      const { getByTestId } = render(
         <L10nContext.Provider value={l10n.en}>
           <PalGenerationSettingsSheet {...defaultProps} />
         </L10nContext.Provider>,
@@ -157,7 +157,7 @@ describe('PalGenerationSettingsSheet', () => {
     });
 
     it('initializes with provided completion settings', () => {
-      const {getByTestId} = render(
+      const { getByTestId } = render(
         <L10nContext.Provider value={l10n.en}>
           <PalGenerationSettingsSheet
             {...defaultProps}
@@ -173,7 +173,7 @@ describe('PalGenerationSettingsSheet', () => {
     });
 
     it('initializes with default settings when no custom settings provided', () => {
-      const {getByTestId} = render(
+      const { getByTestId } = render(
         <L10nContext.Provider value={l10n.en}>
           <PalGenerationSettingsSheet {...defaultProps} />
         </L10nContext.Provider>,
@@ -188,7 +188,7 @@ describe('PalGenerationSettingsSheet', () => {
 
   describe('Save Functionality', () => {
     it('saves settings when save button is pressed', async () => {
-      const {getByText, getByTestId} = render(
+      const { getByText, getByTestId } = render(
         <L10nContext.Provider value={l10n.en}>
           <PalGenerationSettingsSheet {...defaultProps} />
         </L10nContext.Provider>,
@@ -220,7 +220,7 @@ describe('PalGenerationSettingsSheet', () => {
     });
 
     it('validates settings before saving', async () => {
-      const {getByText} = render(
+      const { getByText } = render(
         <L10nContext.Provider value={l10n.en}>
           <PalGenerationSettingsSheet {...defaultProps} />
         </L10nContext.Provider>,
@@ -236,10 +236,10 @@ describe('PalGenerationSettingsSheet', () => {
 
     it('shows alert when validation fails', async () => {
       (validateCompletionSettings as jest.Mock).mockReturnValue({
-        errors: {temperature: 'Invalid temperature'},
+        errors: { temperature: 'Invalid temperature' },
       });
 
-      const {getByText} = render(
+      const { getByText } = render(
         <L10nContext.Provider value={l10n.en}>
           <PalGenerationSettingsSheet {...defaultProps} />
         </L10nContext.Provider>,
@@ -262,7 +262,7 @@ describe('PalGenerationSettingsSheet', () => {
 
   describe('Reset Functionality', () => {
     it('resets to global settings when reset to global is selected', async () => {
-      const {getByText} = render(
+      const { getByText } = render(
         <L10nContext.Provider value={l10n.en}>
           <PalGenerationSettingsSheet
             {...defaultProps}
@@ -285,7 +285,7 @@ describe('PalGenerationSettingsSheet', () => {
     });
 
     it('resets to system defaults when reset to system is selected', () => {
-      const {getByText, getByTestId} = render(
+      const { getByText, getByTestId } = render(
         <L10nContext.Provider value={l10n.en}>
           <PalGenerationSettingsSheet
             {...defaultProps}
@@ -309,7 +309,7 @@ describe('PalGenerationSettingsSheet', () => {
     });
 
     it('clears pal-specific settings when reset to default is selected', () => {
-      const {getByText} = render(
+      const { getByText } = render(
         <L10nContext.Provider value={l10n.en}>
           <PalGenerationSettingsSheet
             {...defaultProps}
@@ -332,7 +332,7 @@ describe('PalGenerationSettingsSheet', () => {
 
   describe('Close Behavior', () => {
     it('resets to original settings when closed without saving', () => {
-      const {getByTestId} = render(
+      const { getByTestId } = render(
         <L10nContext.Provider value={l10n.en}>
           <PalGenerationSettingsSheet
             {...defaultProps}
@@ -365,7 +365,7 @@ describe('PalGenerationSettingsSheet', () => {
     });
 
     it('calls onClose when sheet is closed', () => {
-      const {getByTestId} = render(
+      const { getByTestId } = render(
         <L10nContext.Provider value={l10n.en}>
           <PalGenerationSettingsSheet {...defaultProps} />
         </L10nContext.Provider>,
@@ -380,10 +380,10 @@ describe('PalGenerationSettingsSheet', () => {
 
   describe('Settings Update on Props Change', () => {
     it('updates settings when completionSettings prop changes', () => {
-      const customSettings1 = {...mockCompletionParams, temperature: 0.7};
-      const customSettings2 = {...mockCompletionParams, temperature: 0.9};
+      const customSettings1 = { ...mockCompletionParams, temperature: 0.7 };
+      const customSettings2 = { ...mockCompletionParams, temperature: 0.9 };
 
-      const {rerender, getByTestId} = render(
+      const { rerender, getByTestId } = render(
         <L10nContext.Provider value={l10n.en}>
           <PalGenerationSettingsSheet
             {...defaultProps}

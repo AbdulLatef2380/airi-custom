@@ -1,5 +1,5 @@
-import React, {useMemo} from 'react';
-import {View, Text as RNText} from 'react-native';
+import React, { useMemo } from 'react';
+import { View, Text as RNText } from 'react-native';
 import {
   HTMLElementModel,
   HTMLContentModel,
@@ -12,11 +12,11 @@ import type {
   CustomTagRendererRecord,
   HTMLElementModelRecord,
 } from 'react-native-render-html';
-import type {Element} from '@native-html/transient-render-engine';
+import type { Element } from '@native-html/transient-render-engine';
 
-import {useTheme} from '../../hooks';
-import {createTableStyles} from './tableStyles';
-import {ScrollView} from 'react-native-gesture-handler';
+import { useTheme } from '../../hooks';
+import { createTableStyles } from './tableStyles';
+import { ScrollView } from 'react-native-gesture-handler';
 
 // Element models: Tell react-native-render-html to treat table tags as renderable
 // block elements instead of silently dropping them (default "tabular" = content model "none").
@@ -63,23 +63,25 @@ function getDomChildrenByTag(
 }
 
 /** Collect all <tr> elements from a table DOM node, organized by section. */
-function getTableRows(tableDOM: Element): {row: Element; isHeader: boolean}[] {
-  const rows: {row: Element; isHeader: boolean}[] = [];
+function getTableRows(
+  tableDOM: Element,
+): { row: Element; isHeader: boolean }[] {
+  const rows: { row: Element; isHeader: boolean }[] = [];
   for (const child of tableDOM.children) {
     if (!isDomElement(child)) {
       continue;
     }
     if (child.tagName === 'thead') {
       for (const tr of getDomChildrenByTag(child, 'tr')) {
-        rows.push({row: tr, isHeader: true});
+        rows.push({ row: tr, isHeader: true });
       }
     } else if (child.tagName === 'tbody') {
       for (const tr of getDomChildrenByTag(child, 'tr')) {
-        rows.push({row: tr, isHeader: false});
+        rows.push({ row: tr, isHeader: false });
       }
     } else if (child.tagName === 'tr') {
       // Fallback: <tr> directly under <table> (no thead/tbody)
-      rows.push({row: child, isHeader: false});
+      rows.push({ row: child, isHeader: false });
     }
   }
   return rows;
@@ -115,7 +117,7 @@ function findTNodeForDomElement(
 
 // ---- Table renderer ----
 
-const TableRenderer: CustomBlockRenderer = ({tnode}) => {
+const TableRenderer: CustomBlockRenderer = ({ tnode }) => {
   const theme = useTheme();
   const styles = useMemo(() => createTableStyles(theme), [theme]);
 
@@ -130,7 +132,7 @@ const TableRenderer: CustomBlockRenderer = ({tnode}) => {
     <View style={styles.tableOuter}>
       <ScrollView horizontal nestedScrollEnabled>
         <View style={styles.tableInner}>
-          {rows.map(({row, isHeader}, rowIndex) => {
+          {rows.map(({ row, isHeader }, rowIndex) => {
             const cells = getDomChildrenByTag(row, 'td', 'th');
             return (
               <View

@@ -3,22 +3,22 @@ import dayjs from 'dayjs';
 
 import enData from './en.json';
 
-import type {Translations} from './types';
+import type { Translations } from './types';
 
 // ─── Language Registry (single source of truth) ──────────────────────
 // To add a language: 1) add entry here, 2) place JSON in src/locales/,
 // 3) add case to requireLanguageData(), 4) add getter to l10n object.
 const languageRegistry = {
-  en: {displayName: 'English (EN)'},
-  ar: {displayName: 'العربية (AR)'},
-  fa: {displayName: 'فارسی (FA)'},
-  he: {displayName: 'עברית (HE)'},
-  id: {displayName: 'Indonesia (ID)'},
-  ja: {displayName: '日本語 (JA)'},
-  ko: {displayName: '한국어 (KO)'},
-  ms: {displayName: 'Melayu (MS)'},
-  ru: {displayName: 'Русский (RU)'},
-  zh: {displayName: '中文 (ZH)'},
+  en: { displayName: 'English (EN)' },
+  ar: { displayName: 'العربية (AR)' },
+  fa: { displayName: 'فارسی (FA)' },
+  he: { displayName: 'עברית (HE)' },
+  id: { displayName: 'Indonesia (ID)' },
+  ja: { displayName: '日本語 (JA)' },
+  ko: { displayName: '한국어 (KO)' },
+  ms: { displayName: 'Melayu (MS)' },
+  ru: { displayName: 'Русский (RU)' },
+  zh: { displayName: '中文 (ZH)' },
 } as const;
 
 export type AvailableLanguage = keyof typeof languageRegistry;

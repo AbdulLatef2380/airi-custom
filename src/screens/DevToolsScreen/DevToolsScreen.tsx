@@ -1,15 +1,15 @@
 import React from 'react';
-import {View, ScrollView, Alert} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {Card, Text, Button, IconButton} from 'react-native-paper';
-import {createStackNavigator} from '@react-navigation/stack';
-import {useNavigation, ParamListBase} from '@react-navigation/native';
-import {DrawerNavigationProp} from '@react-navigation/drawer';
+import { View, ScrollView, Alert } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { Card, Text, Button, IconButton } from 'react-native-paper';
+import { createStackNavigator } from '@react-navigation/stack';
+import { useNavigation, ParamListBase } from '@react-navigation/native';
+import { DrawerNavigationProp } from '@react-navigation/drawer';
 
-import {useTheme} from '../../hooks';
-import {createStyles} from './styles';
-import {chatSessionRepository} from '../../repositories/ChatSessionRepository';
-import {TestCompletionScreen, DatabaseInspectorScreen} from './screens';
+import { useTheme } from '../../hooks';
+import { createStyles } from './styles';
+import { chatSessionRepository } from '../../repositories/ChatSessionRepository';
+import { TestCompletionScreen, DatabaseInspectorScreen } from './screens';
 
 // Define the stack navigator param list
 type DevToolsStackParamList = {

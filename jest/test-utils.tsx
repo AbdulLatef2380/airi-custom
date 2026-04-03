@@ -1,19 +1,19 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
-import {PaperProvider} from 'react-native-paper';
-import {render} from '@testing-library/react-native';
-import {NavigationContainer} from '@react-navigation/native';
-import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import { PaperProvider } from 'react-native-paper';
+import { render } from '@testing-library/react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
-import {themeFixtures} from './fixtures/theme';
+import { themeFixtures } from './fixtures/theme';
 
-import {user as userFixture} from './fixtures';
+import { user as userFixture } from './fixtures';
 
-import {UserContext} from '../src/utils';
-import type {Theme} from '../src/utils/types';
+import { UserContext } from '../src/utils';
+import type { Theme } from '../src/utils/types';
 
 export type CustomRenderOptions = {
   theme?: Theme;
@@ -34,7 +34,7 @@ const customRender = (
     ...renderOptions
   }: CustomRenderOptions = {},
 ) => {
-  const Wrapper = ({children}: {children: React.ReactNode}) => {
+  const Wrapper = ({ children }: { children: React.ReactNode }) => {
     const withBottomSheetProviderWrapper = withBottomSheetProvider ? (
       <BottomSheetModalProvider>{children}</BottomSheetModalProvider>
     ) : (
@@ -56,8 +56,8 @@ const customRender = (
     const withSafeAreaWrapper = withSafeArea ? (
       <SafeAreaProvider
         initialMetrics={{
-          frame: {x: 0, y: 0, width: 0, height: 0},
-          insets: {top: 0, right: 0, bottom: 0, left: 0},
+          frame: { x: 0, y: 0, width: 0, height: 0 },
+          insets: { top: 0, right: 0, bottom: 0, left: 0 },
         }}>
         {withPaperProvider}
       </SafeAreaProvider>
@@ -74,7 +74,7 @@ const customRender = (
     );
   };
 
-  return render(ui, {wrapper: Wrapper, ...renderOptions});
+  return render(ui, { wrapper: Wrapper, ...renderOptions });
 };
 
 const styles = StyleSheet.create({
@@ -85,4 +85,4 @@ const styles = StyleSheet.create({
 
 // Re-export everything
 export * from '@testing-library/react-native';
-export {customRender as render};
+export { customRender as render };

@@ -1,10 +1,10 @@
-import {getApp} from '@react-native-firebase/app';
+import { getApp } from '@react-native-firebase/app';
 import {
   ReactNativeFirebaseAppCheckProvider,
   initializeAppCheck as fbInitializeAppCheck,
 } from '@react-native-firebase/app-check';
 
-import {APPCHECK_DEBUG_TOKEN_ANDROID, APPCHECK_DEBUG_TOKEN_IOS} from '@env';
+import { APPCHECK_DEBUG_TOKEN_ANDROID, APPCHECK_DEBUG_TOKEN_IOS } from '@env';
 
 // Track initialization status
 let isAppCheckInitialized = false;
@@ -61,7 +61,7 @@ export const initializeAppCheck = async () => {
 // Get a fresh App Check token
 export const getAppCheckToken = async () => {
   try {
-    const {token} = await appCheckInstance.getToken();
+    const { token } = await appCheckInstance.getToken();
     return token;
   } catch (error) {
     console.error('Failed to get App Check token:', error);

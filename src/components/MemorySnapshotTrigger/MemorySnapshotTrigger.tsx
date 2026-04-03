@@ -1,5 +1,5 @@
-import React, {useCallback, useState} from 'react';
-import {View, TextInput, Text, StyleSheet} from 'react-native';
+import React, { useCallback, useState } from 'react';
+import { View, TextInput, Text, StyleSheet } from 'react-native';
 
 import {
   takeMemorySnapshot,

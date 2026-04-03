@@ -1,17 +1,17 @@
-import React, {useContext} from 'react';
-import {View} from 'react-native';
+import React, { useContext } from 'react';
+import { View } from 'react-native';
 
-import {Text, Chip, Tooltip} from 'react-native-paper';
-import {BottomSheetFlatList} from '@gorhom/bottom-sheet';
+import { Text, Chip, Tooltip } from 'react-native-paper';
+import { BottomSheetFlatList } from '@gorhom/bottom-sheet';
 
-import {ModelTypeTag, Sheet} from '../../../../components';
+import { ModelTypeTag, Sheet } from '../../../../components';
 
-import {useTheme} from '../../../../hooks';
+import { useTheme } from '../../../../hooks';
 
-import {createStyles} from './styles';
-import {ModelFileCard} from './ModelFileCard';
+import { createStyles } from './styles';
+import { ModelFileCard } from './ModelFileCard';
 
-import {HuggingFaceModel, ModelFile} from '../../../../utils/types';
+import { HuggingFaceModel, ModelFile } from '../../../../utils/types';
 import {
   extractHFModelTitle,
   formatNumber,
@@ -25,7 +25,7 @@ interface DetailsViewProps {
   hfModel: HuggingFaceModel;
 }
 
-export const DetailsView = ({hfModel}: DetailsViewProps) => {
+export const DetailsView = ({ hfModel }: DetailsViewProps) => {
   const theme = useTheme();
   const styles = createStyles(theme);
   const l10n = useContext(L10nContext);
@@ -36,7 +36,7 @@ export const DetailsView = ({hfModel}: DetailsViewProps) => {
   // Get LLM files (non-mmproj files) - projection models are hidden from UI
   const llmFiles = getLLMFiles(hfModel.siblings || []);
 
-  const renderItem = ({item}: {item: ModelFile}) => (
+  const renderItem = ({ item }: { item: ModelFile }) => (
     <ModelFileCard key={item.rfilename} modelFile={item} hfModel={hfModel} />
   );
 

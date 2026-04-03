@@ -1,9 +1,9 @@
 import React from 'react';
 
-import {cloneDeep} from 'lodash';
-import {LlamaContext} from 'llama.rn';
+import { cloneDeep } from 'lodash';
+import { LlamaContext } from 'llama.rn';
 
-import {submitBenchmark} from '../../../api/benchmark';
+import { submitBenchmark } from '../../../api/benchmark';
 
 import {
   act,
@@ -17,10 +17,10 @@ import {
   mockSubmittedResult,
 } from '../../../../jest/fixtures/benchmark';
 
-import {BenchmarkScreen} from '../BenchmarkScreen';
+import { BenchmarkScreen } from '../BenchmarkScreen';
 
-import {benchmarkStore, modelStore, uiStore} from '../../../store';
-import {mockLlamaContextParams} from '../../../../jest/fixtures/models';
+import { benchmarkStore, modelStore, uiStore } from '../../../store';
+import { mockLlamaContextParams } from '../../../../jest/fixtures/models';
 
 jest.mock('../../../api/benchmark', () => ({
   submitBenchmark: jest.fn().mockResolvedValue(undefined),
@@ -52,7 +52,7 @@ describe('BenchmarkScreen', () => {
       modelStore.isContextLoading = true;
       modelStore.loadingModel = modelStore.models[0];
 
-      const {getByTestId} = render(<BenchmarkScreen />);
+      const { getByTestId } = render(<BenchmarkScreen />);
 
       // Verify loading indicator is shown
       expect(getByTestId('loading-indicator-model-init')).toBeDefined();
@@ -66,7 +66,7 @@ describe('BenchmarkScreen', () => {
       modelStore.isContextLoading = true;
       modelStore.loadingModel = modelStore.models[0];
 
-      const {getByTestId, queryByTestId} = render(<BenchmarkScreen />);
+      const { getByTestId, queryByTestId } = render(<BenchmarkScreen />);
       expect(getByTestId('loading-indicator-model-init')).toBeDefined();
 
       // Complete loading
@@ -80,12 +80,12 @@ describe('BenchmarkScreen', () => {
         () => {
           expect(queryByTestId('loading-indicator-model-init')).toBeNull();
         },
-        {timeout: 5000},
+        { timeout: 5000 },
       );
     });
 
     it('should show model selector with available models', () => {
-      const {getByText} = render(<BenchmarkScreen />);
+      const { getByText } = render(<BenchmarkScreen />);
 
       // Open model selector
       fireEvent.press(getByText('Select Model'));
@@ -100,7 +100,7 @@ describe('BenchmarkScreen', () => {
       const originalModels = modelStore.models;
       modelStore.models = [];
 
-      const {getByText} = render(<BenchmarkScreen />);
+      const { getByText } = render(<BenchmarkScreen />);
 
       // Open model selector
       fireEvent.press(getByText('Select Model'));
@@ -113,7 +113,7 @@ describe('BenchmarkScreen', () => {
     });
 
     it('should initialize model when selected', async () => {
-      const {getByText} = render(<BenchmarkScreen />);
+      const { getByText } = render(<BenchmarkScreen />);
       const modelToSelect = modelStore.availableModels[0];
 
       // Open model selector and select a model
@@ -127,7 +127,7 @@ describe('BenchmarkScreen', () => {
 
   describe('Benchmark Execution', () => {
     it('handles submission of benchmark results', async () => {
-      const {getByTestId} = render(<BenchmarkScreen />);
+      const { getByTestId } = render(<BenchmarkScreen />);
 
       const submitButton = getByTestId('submit-benchmark-button');
       fireEvent.press(submitButton);
@@ -150,7 +150,7 @@ describe('BenchmarkScreen', () => {
       modelStore.activeModelId = modelStore.models[0].id;
       modelStore.context = new LlamaContext(mockLlamaContextParams);
 
-      const {getByText, getByTestId} = render(<BenchmarkScreen />);
+      const { getByText, getByTestId } = render(<BenchmarkScreen />);
 
       // Start benchmark
       fireEvent.press(getByTestId('start-test-button'));
@@ -162,7 +162,7 @@ describe('BenchmarkScreen', () => {
     it('should disable start button during benchmark execution', async () => {
       modelStore.activeModelId = modelStore.models[0].id;
       modelStore.context = new LlamaContext(mockLlamaContextParams);
-      const {getByTestId} = render(<BenchmarkScreen />);
+      const { getByTestId } = render(<BenchmarkScreen />);
       const startButton = getByTestId('start-test-button');
 
       // Start benchmark
@@ -189,7 +189,7 @@ describe('BenchmarkScreen', () => {
       };
       benchmarkStore.results = [result];
 
-      const {getByText} = render(<BenchmarkScreen />);
+      const { getByText } = render(<BenchmarkScreen />);
 
       // Verify memory usage display
       expect(getByText('Peak Memory')).toBeDefined();
@@ -203,7 +203,7 @@ describe('BenchmarkScreen', () => {
       modelStore.activeModelId = modelStore.models[0].id;
       modelStore.context = new LlamaContext(mockLlamaContextParams);
 
-      const {getByText, getByTestId} = render(<BenchmarkScreen />);
+      const { getByText, getByTestId } = render(<BenchmarkScreen />);
 
       // Open advanced settings
       fireEvent.press(getByTestId('advanced-settings-button'));
@@ -226,12 +226,12 @@ describe('BenchmarkScreen', () => {
 
   describe('Device Info Integration', () => {
     it('renders device info card', () => {
-      const {getByText} = render(<BenchmarkScreen />);
+      const { getByText } = render(<BenchmarkScreen />);
       expect(getByText('Device Information')).toBeDefined();
     });
 
     it('should include device info in benchmark submission', async () => {
-      const {getByTestId} = render(<BenchmarkScreen />);
+      const { getByTestId } = render(<BenchmarkScreen />);
 
       // Wait for device info to be collected
       await waitFor(() => {
@@ -271,7 +271,7 @@ describe('BenchmarkScreen', () => {
       // Force to show confirm dialog
       uiStore.benchmarkShareDialog.shouldShow = true;
 
-      const {getByTestId, queryByTestId, getAllByTestId} = render(
+      const { getByTestId, queryByTestId, getAllByTestId } = render(
         <BenchmarkScreen />,
       );
 
@@ -311,7 +311,7 @@ describe('BenchmarkScreen', () => {
         () => {
           expect(queryByTestId('share-benchmark-dialog')).toBeNull();
         },
-        {timeout: 5000},
+        { timeout: 5000 },
       );
 
       // Verify preference was saved
@@ -336,7 +336,7 @@ describe('BenchmarkScreen', () => {
         cloneDeep(mockResult),
       ];
       uiStore.benchmarkShareDialog.shouldShow = true;
-      const {getByTestId, queryByTestId, getAllByTestId} = render(
+      const { getByTestId, queryByTestId, getAllByTestId } = render(
         <BenchmarkScreen />,
       );
 
@@ -367,7 +367,7 @@ describe('BenchmarkScreen', () => {
       // wait for the dialog to be closed
       await waitForElementToBeRemoved(
         () => queryByTestId('share-benchmark-dialog'),
-        {timeout: 4000},
+        { timeout: 4000 },
       );
 
       // Since the store is mock we need to manually set the state
@@ -383,7 +383,7 @@ describe('BenchmarkScreen', () => {
     });
 
     it('should show raw data in share dialog', async () => {
-      const {getByTestId, getByText} = render(<BenchmarkScreen />);
+      const { getByTestId, getByText } = render(<BenchmarkScreen />);
 
       // Trigger share
       const submitButton = getByTestId('submit-benchmark-button');
@@ -409,7 +409,7 @@ describe('BenchmarkScreen', () => {
   describe('Result Management', () => {
     it('renders benchmark results when available', async () => {
       benchmarkStore.results = [mockResult];
-      const {getByText} = render(<BenchmarkScreen />);
+      const { getByText } = render(<BenchmarkScreen />);
 
       await waitFor(() => {
         expect(getByText('Test Results')).toBeDefined();
@@ -421,7 +421,7 @@ describe('BenchmarkScreen', () => {
       // Add results to store
       benchmarkStore.results = [mockResult, mockSubmittedResult];
 
-      const {getAllByTestId, getAllByText} = render(<BenchmarkScreen />);
+      const { getAllByTestId, getAllByText } = render(<BenchmarkScreen />);
 
       // Delete first result
       const deleteButtons = getAllByTestId('delete-result-button');
@@ -441,7 +441,7 @@ describe('BenchmarkScreen', () => {
       // Add results to store
       benchmarkStore.results = [mockResult];
 
-      const {getAllByTestId, getByText} = render(<BenchmarkScreen />);
+      const { getAllByTestId, getByText } = render(<BenchmarkScreen />);
 
       // Attempt to delete result
       const deleteButtons = getAllByTestId('delete-result-button');
@@ -456,7 +456,7 @@ describe('BenchmarkScreen', () => {
 
     it('allows clearing all results after confirmation', async () => {
       benchmarkStore.results = [mockResult];
-      const {getByTestId} = render(<BenchmarkScreen />);
+      const { getByTestId } = render(<BenchmarkScreen />);
 
       // Click clear all button
       const clearButton = getByTestId('clear-all-button');
@@ -473,7 +473,7 @@ describe('BenchmarkScreen', () => {
       // Add results to store
       benchmarkStore.results = [mockResult, mockSubmittedResult];
 
-      const {getByTestId} = render(<BenchmarkScreen />);
+      const { getByTestId } = render(<BenchmarkScreen />);
 
       // Clear all results
       const clearAllButton = getByTestId('clear-all-button');
@@ -489,7 +489,7 @@ describe('BenchmarkScreen', () => {
 
     it('keeps results if clear all is cancelled', async () => {
       benchmarkStore.results = [mockResult];
-      const {getByTestId} = render(<BenchmarkScreen />);
+      const { getByTestId } = render(<BenchmarkScreen />);
 
       // Click clear all button
       const clearButton = getByTestId('clear-all-button');

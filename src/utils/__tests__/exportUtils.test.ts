@@ -1,6 +1,6 @@
 import Share from 'react-native-share';
 import * as RNFS from '@dr.pogodin/react-native-fs';
-import {Alert, Platform} from 'react-native';
+import { Alert, Platform } from 'react-native';
 
 // const mockDocumentPath = '/mock/documents';
 // jest.mock('@dr.pogodin/react-native-fs', () => ({
@@ -18,7 +18,7 @@ import {
   exportPal,
   exportAllPals,
 } from '../exportUtils';
-import {ensureLegacyStoragePermission} from '../androidPermission';
+import { ensureLegacyStoragePermission } from '../androidPermission';
 
 // Mock dependencies
 jest.mock('react-native', () => ({
@@ -32,7 +32,7 @@ jest.mock('react-native', () => ({
 
 // Mock react-native-share
 jest.mock('react-native-share', () => ({
-  open: jest.fn().mockResolvedValue({success: true}),
+  open: jest.fn().mockResolvedValue({ success: true }),
 }));
 
 jest.mock('@dr.pogodin/react-native-fs', () => ({
@@ -50,8 +50,8 @@ jest.mock('date-fns', () => ({
 }));
 
 // Import the actual repository to spy on it
-import {chatSessionRepository} from '../../repositories/ChatSessionRepository';
-import {palStore} from '../../store';
+import { chatSessionRepository } from '../../repositories/ChatSessionRepository';
+import { palStore } from '../../store';
 import {
   getAbsoluteThumbnailPath,
   getFullThumbnailUri,
@@ -194,8 +194,8 @@ describe('exportUtils', () => {
 
   describe('exportAllChatSessions', () => {
     const mockSessions = [
-      {id: 'session-1', title: 'Session 1', date: '2024-01-01T00:00:00Z'},
-      {id: 'session-2', title: 'Session 2', date: '2024-01-02T00:00:00Z'},
+      { id: 'session-1', title: 'Session 1', date: '2024-01-01T00:00:00Z' },
+      { id: 'session-2', title: 'Session 2', date: '2024-01-02T00:00:00Z' },
     ];
 
     const mockSessionData = {
@@ -453,7 +453,7 @@ describe('exportUtils', () => {
       it('should export all pals successfully', async () => {
         const mockPals = [
           mockPal,
-          {...mockPal, id: 'pal-2', name: 'Test Pal 2'},
+          { ...mockPal, id: 'pal-2', name: 'Test Pal 2' },
         ];
         palStore.pals = mockPals as any;
 

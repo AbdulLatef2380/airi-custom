@@ -1,5 +1,5 @@
-import type {TurboModule} from 'react-native';
-import {TurboModuleRegistry} from 'react-native';
+import type { TurboModule } from 'react-native';
+import { TurboModuleRegistry } from 'react-native';
 
 export interface CPUProcessor {
   processor?: string;
@@ -45,7 +45,9 @@ export interface Spec extends TurboModule {
    * Collect memory metrics and write a snapshot entry to disk.
    * Appends to Documents/memory-snapshots.json (iOS) or externalFilesDir/memory-snapshots.json (Android).
    */
-  writeMemorySnapshot(label: string): Promise<{label: string; status: string}>;
+  writeMemorySnapshot(
+    label: string,
+  ): Promise<{ label: string; status: string }>;
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>('HardwareInfo');

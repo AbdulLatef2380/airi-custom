@@ -1,1 +1,1 @@
-export {FABGroup} from './FABGroup';
+export { FABGroup } from './FABGroup';

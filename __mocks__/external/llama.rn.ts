@@ -4,7 +4,7 @@ class MockLlamaContext {
   gpu: boolean;
   reasonNoGPU: string;
   systemInfo: string;
-  model: {isChatTemplateSupported?: boolean};
+  model: { isChatTemplateSupported?: boolean };
 
   constructor({
     contextId,
@@ -17,7 +17,7 @@ class MockLlamaContext {
     gpu?: boolean;
     reasonNoGPU?: string;
     systemInfo?: string;
-    model?: {isChatTemplateSupported?: boolean};
+    model?: { isChatTemplateSupported?: boolean };
   }) {
     this.id = contextId;
     this.contextId = contextId;

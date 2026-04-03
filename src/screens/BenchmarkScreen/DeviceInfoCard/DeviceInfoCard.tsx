@@ -1,19 +1,19 @@
-import React, {useEffect, useState, useContext} from 'react';
-import {View, TouchableOpacity} from 'react-native';
-import {Platform} from 'react-native';
+import React, { useEffect, useState, useContext } from 'react';
+import { View, TouchableOpacity } from 'react-native';
+import { Platform } from 'react-native';
 
-import {Card, Text, Icon} from 'react-native-paper';
+import { Card, Text, Icon } from 'react-native-paper';
 import RNDeviceInfo from 'react-native-device-info';
 
-import {Divider} from '../../../components';
+import { Divider } from '../../../components';
 
-import {useTheme} from '../../../hooks';
-import {L10nContext} from '../../../utils';
-import {t} from '../../../locales';
+import { useTheme } from '../../../hooks';
+import { L10nContext } from '../../../utils';
+import { t } from '../../../locales';
 
-import {createStyles} from './styles';
+import { createStyles } from './styles';
 
-import {DeviceInfo} from '../../../utils/types';
+import { DeviceInfo } from '../../../utils/types';
 import {
   getCpuInfo,
   getGpuInfo,
@@ -29,7 +29,7 @@ type Props = {
   testId?: string;
 };
 
-export const DeviceInfoCard = ({onDeviceInfo, testId}: Props) => {
+export const DeviceInfoCard = ({ onDeviceInfo, testId }: Props) => {
   const theme = useTheme();
   const styles = createStyles(theme);
   const l10n = useContext(L10nContext);

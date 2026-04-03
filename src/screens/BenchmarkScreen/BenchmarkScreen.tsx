@@ -1,33 +1,43 @@
-import {View, ScrollView} from 'react-native';
-import React, {useState, useCallback, useContext} from 'react';
+import { View, ScrollView } from 'react-native';
+import React, { useState, useCallback, useContext } from 'react';
 
-import {v4 as uuidv4} from 'uuid';
-import {observer} from 'mobx-react';
+import { v4 as uuidv4 } from 'uuid';
+import { observer } from 'mobx-react';
 import RNDeviceInfo from 'react-native-device-info';
 import Slider from '@react-native-community/slider';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {Text, Button, Card, ActivityIndicator, Icon} from 'react-native-paper';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import {
+  Text,
+  Button,
+  Card,
+  ActivityIndicator,
+  Icon,
+} from 'react-native-paper';
 
-import {submitBenchmark} from '../../api/benchmark';
+import { submitBenchmark } from '../../api/benchmark';
 
-import {Menu, Dialog, Checkbox} from '../../components';
+import { Menu, Dialog, Checkbox } from '../../components';
 
-import {useTheme} from '../../hooks';
-import {L10nContext} from '../../utils';
-import {t} from '../../locales';
+import { useTheme } from '../../hooks';
+import { L10nContext } from '../../utils';
+import { t } from '../../locales';
 
-import {createStyles} from './styles';
-import {DeviceInfoCard} from './DeviceInfoCard';
-import {BenchResultCard} from './BenchResultCard';
+import { createStyles } from './styles';
+import { DeviceInfoCard } from './DeviceInfoCard';
+import { BenchResultCard } from './BenchResultCard';
 
-import {modelStore, benchmarkStore, uiStore} from '../../store';
+import { modelStore, benchmarkStore, uiStore } from '../../store';
 
-import type {DeviceInfo, Model} from '../../utils/types';
-import {BenchmarkConfig, BenchmarkResult, ModelOrigin} from '../../utils/types';
+import type { DeviceInfo, Model } from '../../utils/types';
+import {
+  BenchmarkConfig,
+  BenchmarkResult,
+  ModelOrigin,
+} from '../../utils/types';
 
 const DEFAULT_CONFIGS: BenchmarkConfig[] = [
-  {pp: 512, tg: 128, pl: 1, nr: 3, label: 'Default'},
-  {pp: 128, tg: 32, pl: 1, nr: 3, label: 'Fast'},
+  { pp: 512, tg: 128, pl: 1, nr: 3, label: 'Default' },
+  { pp: 128, tg: 32, pl: 1, nr: 3, label: 'Fast' },
 ];
 
 const getBinarySteps = (min: number, max: number): number[] => {
@@ -42,23 +52,23 @@ const getBinarySteps = (min: number, max: number): number[] => {
 
 const BENCHMARK_PARAMS_METADATA = {
   pp: {
-    validation: {min: 64, max: 4096},
+    validation: { min: 64, max: 4096 },
     descriptionKey:
       'Number of prompt processing tokens (max: physical batch size)',
     steps: getBinarySteps(64, 4096),
   },
   tg: {
-    validation: {min: 32, max: 2048},
+    validation: { min: 32, max: 2048 },
     descriptionKey: 'Number of text generation tokens',
     steps: getBinarySteps(32, 2048),
   },
   pl: {
-    validation: {min: 1, max: 4},
+    validation: { min: 1, max: 4 },
     descriptionKey: 'Pipeline parallel size',
     steps: [1, 2, 3, 4],
   },
   nr: {
-    validation: {min: 1, max: 10},
+    validation: { min: 1, max: 10 },
     descriptionKey: 'Number of repetitions',
     steps: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
   },
@@ -119,7 +129,7 @@ export const BenchmarkScreen: React.FC = observer(() => {
       const total = await RNDeviceInfo.getTotalMemory();
       const used = await RNDeviceInfo.getUsedMemory();
       const percentage = (used / total) * 100;
-      return {total, used, percentage};
+      return { total, used, percentage };
     } catch (error) {
       console.error('Failed to fetch memory stats:', error);
       return null;
@@ -163,7 +173,7 @@ export const BenchmarkScreen: React.FC = observer(() => {
         }
       }, 1000);
 
-      const {speedPp: ppAvg, speedTg: tgAvg} = await modelStore.context.bench(
+      const { speedPp: ppAvg, speedTg: tgAvg } = await modelStore.context.bench(
         selectedConfig.pp,
         selectedConfig.tg,
         selectedConfig.pl,
@@ -308,7 +318,7 @@ export const BenchmarkScreen: React.FC = observer(() => {
           mode="outlined"
           onPress={() => setShowModelMenu(true)}
           contentStyle={styles.modelSelectorContent}
-          icon={({color}) => (
+          icon={({ color }) => (
             <Icon source="chevron-down" size={24} color={color} />
           )}>
           {selectedModel?.name ||
@@ -427,9 +437,9 @@ export const BenchmarkScreen: React.FC = observer(() => {
           {l10n.benchmark.dialogs.advancedSettings.description}
         </Text>
         <View style={styles.slidersContainer}>
-          {renderSlider({name: 'pp'})}
-          {renderSlider({name: 'tg'})}
-          {renderSlider({name: 'nr'})}
+          {renderSlider({ name: 'pp' })}
+          {renderSlider({ name: 'tg' })}
+          {renderSlider({ name: 'nr' })}
         </View>
       </View>
     </Dialog>

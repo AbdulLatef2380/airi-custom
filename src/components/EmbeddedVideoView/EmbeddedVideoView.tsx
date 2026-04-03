@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
   View,
   TouchableOpacity,
@@ -8,7 +8,7 @@ import {
   Alert,
 } from 'react-native';
 
-import {observer} from 'mobx-react';
+import { observer } from 'mobx-react';
 import 'react-native-get-random-values';
 import * as RNFS from '@dr.pogodin/react-native-fs';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -19,12 +19,12 @@ import {
   CameraPosition,
 } from 'react-native-vision-camera';
 
-import {useTheme} from '../../hooks';
+import { useTheme } from '../../hooks';
 
-import {createStyles} from './styles';
-import {ResponseBubble} from '../ResponseBubble';
+import { createStyles } from './styles';
+import { ResponseBubble } from '../ResponseBubble';
 
-import {L10nContext} from '../../utils';
+import { L10nContext } from '../../utils';
 
 interface EmbeddedVideoViewProps {
   onCapture: (imageBase64: string) => void;
@@ -43,9 +43,9 @@ export const EmbeddedVideoView = observer(
     responseText,
   }: EmbeddedVideoViewProps) => {
     const theme = useTheme();
-    const styles = createStyles({theme});
+    const styles = createStyles({ theme });
     const l10n = React.useContext(L10nContext);
-    const {hasPermission, requestPermission} = useCameraPermission();
+    const { hasPermission, requestPermission } = useCameraPermission();
     const [cameraPosition, setCameraPosition] =
       useState<CameraPosition>('back');
     const [isCapturing, setIsCapturing] = useState(false);

@@ -5,9 +5,9 @@
 const createQueryBuilder = () => {
   const queryBuilder = {
     select: jest.fn().mockReturnValue(queryBuilder),
-    insert: jest.fn().mockResolvedValue({data: null, error: null}),
-    update: jest.fn().mockResolvedValue({data: null, error: null}),
-    delete: jest.fn().mockResolvedValue({data: null, error: null}),
+    insert: jest.fn().mockResolvedValue({ data: null, error: null }),
+    update: jest.fn().mockResolvedValue({ data: null, error: null }),
+    delete: jest.fn().mockResolvedValue({ data: null, error: null }),
     eq: jest.fn().mockReturnValue(queryBuilder),
     neq: jest.fn().mockReturnValue(queryBuilder),
     gt: jest.fn().mockReturnValue(queryBuilder),
@@ -35,8 +35,8 @@ const createQueryBuilder = () => {
     limit: jest.fn().mockReturnValue(queryBuilder),
     range: jest.fn().mockReturnValue(queryBuilder),
     abortSignal: jest.fn().mockReturnValue(queryBuilder),
-    single: jest.fn().mockResolvedValue({data: null, error: null}),
-    maybeSingle: jest.fn().mockResolvedValue({data: null, error: null}),
+    single: jest.fn().mockResolvedValue({ data: null, error: null }),
+    maybeSingle: jest.fn().mockResolvedValue({ data: null, error: null }),
     csv: jest.fn().mockReturnValue(queryBuilder),
     geojson: jest.fn().mockReturnValue(queryBuilder),
     explain: jest.fn().mockReturnValue(queryBuilder),
@@ -44,13 +44,13 @@ const createQueryBuilder = () => {
     returns: jest.fn().mockReturnValue(queryBuilder),
     // Add execution methods that return promises
     then: jest.fn().mockImplementation(resolve => {
-      return Promise.resolve({data: [], error: null}).then(resolve);
+      return Promise.resolve({ data: [], error: null }).then(resolve);
     }),
     catch: jest.fn().mockImplementation(reject => {
-      return Promise.resolve({data: [], error: null}).catch(reject);
+      return Promise.resolve({ data: [], error: null }).catch(reject);
     }),
     finally: jest.fn().mockImplementation(fn => {
-      return Promise.resolve({data: [], error: null}).finally(fn);
+      return Promise.resolve({ data: [], error: null }).finally(fn);
     }),
   };
 
@@ -60,22 +60,22 @@ const createQueryBuilder = () => {
 const mockSupabaseClient = {
   auth: {
     getSession: jest.fn().mockResolvedValue({
-      data: {session: null},
+      data: { session: null },
       error: null,
     }),
     getUser: jest.fn().mockResolvedValue({
-      data: {user: null},
+      data: { user: null },
       error: null,
     }),
     signInWithIdToken: jest.fn().mockResolvedValue({
-      data: {user: null, session: null},
+      data: { user: null, session: null },
       error: null,
     }),
     signOut: jest.fn().mockResolvedValue({
       error: null,
     }),
     onAuthStateChange: jest.fn().mockReturnValue({
-      data: {subscription: {unsubscribe: jest.fn()}},
+      data: { subscription: { unsubscribe: jest.fn() } },
     }),
   },
   from: jest.fn().mockImplementation(() => createQueryBuilder()),

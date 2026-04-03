@@ -1,7 +1,7 @@
-import {Model} from '@nozbe/watermelondb';
-import {field, text} from '@nozbe/watermelondb/decorators';
-import {CompletionParams} from '../../utils/completionTypes';
-import {migrateCompletionSettings} from '../../utils/completionSettingsVersions';
+import { Model } from '@nozbe/watermelondb';
+import { field, text } from '@nozbe/watermelondb/decorators';
+import { CompletionParams } from '../../utils/completionTypes';
+import { migrateCompletionSettings } from '../../utils/completionSettingsVersions';
 
 export default class GlobalSetting extends Model {
   static table = 'global_settings';

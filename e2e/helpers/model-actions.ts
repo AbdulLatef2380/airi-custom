@@ -5,13 +5,13 @@
  * so each feature test doesn't need to duplicate model setup logic.
  */
 
-import {ChatPage} from '../pages/ChatPage';
-import {DrawerPage} from '../pages/DrawerPage';
-import {ModelsPage} from '../pages/ModelsPage';
-import {HFSearchSheet} from '../pages/HFSearchSheet';
-import {ModelDetailsSheet} from '../pages/ModelDetailsSheet';
-import {Selectors} from './selectors';
-import {TIMEOUTS, ModelTestConfig} from '../fixtures/models';
+import { ChatPage } from '../pages/ChatPage';
+import { DrawerPage } from '../pages/DrawerPage';
+import { ModelsPage } from '../pages/ModelsPage';
+import { HFSearchSheet } from '../pages/HFSearchSheet';
+import { ModelDetailsSheet } from '../pages/ModelDetailsSheet';
+import { Selectors } from './selectors';
+import { TIMEOUTS, ModelTestConfig } from '../fixtures/models';
 
 declare const browser: WebdriverIO.Browser;
 
@@ -84,11 +84,11 @@ export async function downloadAndLoadModel(
     model.downloadFile,
   );
   const modelCardContainer = browser.$(containerSelector);
-  await modelCardContainer.waitForDisplayed({timeout: downloadTimeout});
+  await modelCardContainer.waitForDisplayed({ timeout: downloadTimeout });
 
   // Find and click load button
   const loadBtn = modelCardContainer.$(Selectors.modelCard.loadButtonElement);
-  await loadBtn.waitForDisplayed({timeout: 10000});
+  await loadBtn.waitForDisplayed({ timeout: 10000 });
   await loadBtn.click();
 
   // Handle potential memory/performance warning alert
@@ -128,10 +128,10 @@ export async function waitForInferenceComplete(
 
     // Swipe up to scroll down while waiting (in case content is long)
     try {
-      const {width, height} = await (browser as any).getWindowSize();
+      const { width, height } = await (browser as any).getWindowSize();
       await (browser as any)
-        .action('pointer', {parameters: {pointerType: 'touch'}})
-        .move({x: Math.floor(width / 2), y: Math.floor(height * 0.7)})
+        .action('pointer', { parameters: { pointerType: 'touch' } })
+        .move({ x: Math.floor(width / 2), y: Math.floor(height * 0.7) })
         .down()
         .move({
           x: Math.floor(width / 2),

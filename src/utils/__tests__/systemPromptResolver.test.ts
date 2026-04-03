@@ -2,8 +2,8 @@ import {
   resolveSystemPrompt,
   resolveSystemMessages,
 } from '../systemPromptResolver';
-import type {Pal} from '../../types/pal';
-import type {Model} from '../types';
+import type { Pal } from '../../types/pal';
+import type { Model } from '../types';
 
 describe('systemPromptResolver', () => {
   describe('resolveSystemPrompt', () => {
@@ -17,7 +17,7 @@ describe('systemPromptResolver', () => {
         },
       };
 
-      const result = resolveSystemPrompt({pal: pal as Pal});
+      const result = resolveSystemPrompt({ pal: pal as Pal });
 
       expect(result).toBe('You are Gandalf, a wizard in Middle-earth.');
     });
@@ -28,7 +28,7 @@ describe('systemPromptResolver', () => {
         parameters: {},
       };
 
-      const result = resolveSystemPrompt({pal: pal as Pal});
+      const result = resolveSystemPrompt({ pal: pal as Pal });
 
       expect(result).toBe('You are a helpful assistant.');
     });
@@ -39,7 +39,7 @@ describe('systemPromptResolver', () => {
         parameters: undefined,
       };
 
-      const result = resolveSystemPrompt({pal: pal as Pal});
+      const result = resolveSystemPrompt({ pal: pal as Pal });
 
       expect(result).toBe('You are a helpful assistant.');
     });
@@ -143,7 +143,7 @@ describe('systemPromptResolver', () => {
         parameters: {},
       };
 
-      const result = resolveSystemMessages({pal: pal as Pal});
+      const result = resolveSystemMessages({ pal: pal as Pal });
 
       expect(result).toEqual([
         {
@@ -191,7 +191,7 @@ describe('systemPromptResolver', () => {
         },
       };
 
-      const result = resolveSystemMessages({pal: pal as Pal});
+      const result = resolveSystemMessages({ pal: pal as Pal });
 
       expect(result).toEqual([
         {

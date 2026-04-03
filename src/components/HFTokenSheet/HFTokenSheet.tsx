@@ -1,20 +1,20 @@
-import React, {useState, useContext, useEffect} from 'react';
-import {View, Linking} from 'react-native';
+import React, { useState, useContext, useEffect } from 'react';
+import { View, Linking } from 'react-native';
 import {
   Text,
   Button,
   Snackbar,
   TextInput as PaperTextInput,
 } from 'react-native-paper';
-import {observer} from 'mobx-react';
+import { observer } from 'mobx-react';
 
-import {Sheet, TextInput} from '..';
-import {useTheme} from '../../hooks';
-import {hfStore} from '../../store';
-import {L10nContext} from '../../utils';
+import { Sheet, TextInput } from '..';
+import { useTheme } from '../../hooks';
+import { hfStore } from '../../store';
+import { L10nContext } from '../../utils';
 
-import {createStyles} from './styles';
-import {EyeIcon, EyeOffIcon} from '../../assets/icons';
+import { createStyles } from './styles';
+import { EyeIcon, EyeOffIcon } from '../../assets/icons';
 
 interface HFTokenSheetProps {
   isVisible: boolean;
@@ -23,7 +23,7 @@ interface HFTokenSheetProps {
 }
 
 export const HFTokenSheet: React.FC<HFTokenSheetProps> = observer(
-  ({isVisible, onDismiss, onSave}) => {
+  ({ isVisible, onDismiss, onSave }) => {
     const theme = useTheme();
     const l10n = useContext(L10nContext);
     const styles = createStyles(theme);
@@ -152,7 +152,7 @@ export const HFTokenSheet: React.FC<HFTokenSheetProps> = observer(
               right={
                 <PaperTextInput.Icon
                   testID="hf-token-input-icon"
-                  icon={({color}) =>
+                  icon={({ color }) =>
                     secureTextEntry ? (
                       <EyeIcon width={24} height={24} stroke={color} />
                     ) : (

@@ -21,7 +21,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # ✅ Required for git diff HEAD~1
+          fetch-depth: 0 # ✅ Required for git diff HEAD~1
 
       - name: Check if translation-only
         id: check
@@ -224,7 +224,7 @@ jobs:
 
       - name: Install dependencies
         run: yarn install
-      
+
       - name: Create Env.xcconfig
         run: |
           cat > ios/Config/Env.xcconfig << 'EOL'

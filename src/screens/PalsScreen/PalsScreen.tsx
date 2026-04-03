@@ -1,14 +1,14 @@
-import React, {useState, useEffect, useCallback, useContext} from 'react';
-import {View, FlatList, ScrollView, RefreshControl} from 'react-native';
-import {Text} from 'react-native-paper';
-import {observer} from 'mobx-react-lite';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
+import { View, FlatList, ScrollView, RefreshControl } from 'react-native';
+import { Text } from 'react-native-paper';
+import { observer } from 'mobx-react-lite';
 
-import {PlusIcon} from '../../assets/icons';
+import { PlusIcon } from '../../assets/icons';
 
-import {useTheme} from '../../hooks';
-import {createStyles} from './styles';
-import {handlePalByType, isLocalPal} from '../../utils/pal-type-guards';
-import {L10nContext} from '../../utils';
+import { useTheme } from '../../hooks';
+import { createStyles } from './styles';
+import { handlePalByType, isLocalPal } from '../../utils/pal-type-guards';
+import { L10nContext } from '../../utils';
 
 // Components
 import {
@@ -22,11 +22,11 @@ import {
   ProfileSheet,
 } from './components';
 
-import {SectionDivider} from '../../components/PalsSheets/SectionDivider';
+import { SectionDivider } from '../../components/PalsSheets/SectionDivider';
 
 // Unified pal sheet component
-import {PalSheet} from '../../components/PalsSheets';
-import {AuthSheet, PalDetailSheet} from '../../components/PalsHub';
+import { PalSheet } from '../../components/PalsSheets';
+import { AuthSheet, PalDetailSheet } from '../../components/PalsHub';
 
 // Pal template factories
 import {
@@ -37,11 +37,11 @@ import {
 } from '../../utils/pal-templates';
 
 // Services and stores
-import {authService, syncService} from '../../services';
-import {palStore, Pal} from '../../store';
-import {hasVideoCapability} from '../../utils/pal-capabilities';
+import { authService, syncService } from '../../services';
+import { palStore, Pal } from '../../store';
+import { hasVideoCapability } from '../../utils/pal-capabilities';
 
-import type {PalsHubPal} from '../../types/palshub';
+import type { PalsHubPal } from '../../types/palshub';
 
 export const PalsScreen: React.FC = observer(() => {
   const theme = useTheme();
@@ -120,7 +120,7 @@ export const PalsScreen: React.FC = observer(() => {
   const loadData = async () => {
     try {
       // Load public pals for browsing
-      await palStore.searchPalsHubPals({sortBy: 'newest', limit: 20});
+      await palStore.searchPalsHubPals({ sortBy: 'newest', limit: 20 });
       if (authService.isAuthenticated) {
         await Promise.all([
           palStore.loadUserLibrary(),
@@ -223,7 +223,7 @@ export const PalsScreen: React.FC = observer(() => {
     data: (PalsHubPal | Pal)[];
   }> => {
     if (isSearchExpanded && searchResults.length > 0) {
-      return [{title: '', data: searchResults}];
+      return [{ title: '', data: searchResults }];
     }
 
     const localPals = palStore.getLocalPals();
@@ -232,7 +232,8 @@ export const PalsScreen: React.FC = observer(() => {
 
     switch (activeFilter) {
       case 'all': {
-        const sections: Array<{title: string; data: (PalsHubPal | Pal)[]}> = [];
+        const sections: Array<{ title: string; data: (PalsHubPal | Pal)[] }> =
+          [];
 
         // Add local pals section (includes both local and downloaded pals)
         const allLocalPals = [...localPals, ...downloadedPals];
@@ -267,7 +268,8 @@ export const PalsScreen: React.FC = observer(() => {
         return sections;
       }
       case 'my-pals': {
-        const sections: Array<{title: string; data: (PalsHubPal | Pal)[]}> = [];
+        const sections: Array<{ title: string; data: (PalsHubPal | Pal)[] }> =
+          [];
 
         // Add local pals section (includes both local and downloaded pals)
         const allLocalPals = [...localPals, ...downloadedPals];
@@ -296,11 +298,11 @@ export const PalsScreen: React.FC = observer(() => {
       }
       default:
         // For other filters, use single section without header
-        return [{title: '', data: getFilteredData()}];
+        return [{ title: '', data: getFilteredData() }];
     }
   };
 
-  const renderPalCard = ({item}: {item: PalsHubPal | Pal}) => (
+  const renderPalCard = ({ item }: { item: PalsHubPal | Pal }) => (
     <SquarePalCard
       pal={item}
       onPress={() => handlePalPress(item)}
@@ -312,8 +314,8 @@ export const PalsScreen: React.FC = observer(() => {
 
   // Component to render a section with proper grid layout
   const SectionGrid: React.FC<{
-    section: {title: string; data: (PalsHubPal | Pal)[]};
-  }> = ({section}) => {
+    section: { title: string; data: (PalsHubPal | Pal)[] };
+  }> = ({ section }) => {
     const pairs: Array<(PalsHubPal | Pal)[]> = [];
     for (let i = 0; i < section.data.length; i += 2) {
       pairs.push(section.data.slice(i, i + 2));

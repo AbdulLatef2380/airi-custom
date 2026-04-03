@@ -1,10 +1,10 @@
 import React from 'react';
-import type {TextInput as RNTextInput} from 'react-native';
-import {fireEvent} from '@testing-library/react-native';
-import {FormProvider, useForm} from 'react-hook-form';
+import type { TextInput as RNTextInput } from 'react-native';
+import { fireEvent } from '@testing-library/react-native';
+import { FormProvider, useForm } from 'react-hook-form';
 
-import {render} from '../../../../jest/test-utils';
-import {FormField} from '../FormField';
+import { render } from '../../../../jest/test-utils';
+import { FormField } from '../FormField';
 
 // Simple test form data type for testing the generic FormField component
 interface TestFormData {
@@ -32,7 +32,7 @@ const TestWrapper = ({
 
 describe('FormField', () => {
   it('renders with required props', () => {
-    const {getByText, getByPlaceholderText} = render(
+    const { getByText, getByPlaceholderText } = render(
       <TestWrapper>
         <FormField name="name" label="Name" placeholder="Enter name" />
       </TestWrapper>,
@@ -43,7 +43,7 @@ describe('FormField', () => {
   });
 
   it('shows required asterisk when required prop is true', () => {
-    const {getByText} = render(
+    const { getByText } = render(
       <TestWrapper>
         <FormField name="name" label="Name" required />
       </TestWrapper>,
@@ -53,7 +53,7 @@ describe('FormField', () => {
   });
 
   it('shows sublabel when provided', () => {
-    const {getByText} = render(
+    const { getByText } = render(
       <TestWrapper>
         <FormField
           name="name"
@@ -67,7 +67,7 @@ describe('FormField', () => {
   });
 
   it('updates form value on text change', () => {
-    const {getByPlaceholderText} = render(
+    const { getByPlaceholderText } = render(
       <TestWrapper>
         <FormField name="name" label="Name" placeholder="Enter name" />
       </TestWrapper>,
@@ -102,12 +102,12 @@ describe('FormField', () => {
       );
     };
 
-    const {getByText} = render(<TestComponent />);
+    const { getByText } = render(<TestComponent />);
     expect(getByText('Name is required')).toBeDefined();
   });
 
   it('renders multiline input when multiline prop is true', () => {
-    const {getByPlaceholderText} = render(
+    const { getByPlaceholderText } = render(
       <TestWrapper>
         <FormField
           name="systemPrompt"
@@ -125,7 +125,7 @@ describe('FormField', () => {
 
   it('calls onSubmitEditing when not multiline', () => {
     const onSubmitEditing = jest.fn();
-    const {getByPlaceholderText} = render(
+    const { getByPlaceholderText } = render(
       <TestWrapper>
         <FormField
           name="name"
@@ -143,7 +143,7 @@ describe('FormField', () => {
 
   it('does not pass onSubmitEditing when multiline', () => {
     const onSubmitEditing = jest.fn();
-    const {getByPlaceholderText} = render(
+    const { getByPlaceholderText } = render(
       <TestWrapper>
         <FormField
           name="systemPrompt"
@@ -160,7 +160,7 @@ describe('FormField', () => {
   });
 
   it('disables input when disabled prop is true', () => {
-    const {getByPlaceholderText} = render(
+    const { getByPlaceholderText } = render(
       <TestWrapper>
         <FormField name="name" label="Name" placeholder="Enter name" disabled />
       </TestWrapper>,
@@ -171,8 +171,8 @@ describe('FormField', () => {
   });
 
   it('handles empty or undefined values', () => {
-    const {getByPlaceholderText} = render(
-      <TestWrapper defaultValues={{name: undefined}}>
+    const { getByPlaceholderText } = render(
+      <TestWrapper defaultValues={{ name: undefined }}>
         <FormField name="name" label="Name" placeholder="Enter name" />
       </TestWrapper>,
     );

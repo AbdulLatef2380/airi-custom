@@ -1,18 +1,18 @@
 import React from 'react';
-import {View, Linking} from 'react-native';
-import {Text, Portal} from 'react-native-paper';
+import { View, Linking } from 'react-native';
+import { Text, Portal } from 'react-native-paper';
 
-import {Dialog, DialogAction} from '../Dialog';
-import {Model} from '../../utils/types';
-import {useTheme} from '../../hooks';
-import {L10nContext} from '../../utils';
-import {t} from '../../locales';
-import {ErrorState} from '../../utils/errors';
-import {createStyles} from './styles';
-import {CheckCircleIcon} from '../../assets/icons';
-import {hfStore} from '../../store';
+import { Dialog, DialogAction } from '../Dialog';
+import { Model } from '../../utils/types';
+import { useTheme } from '../../hooks';
+import { L10nContext } from '../../utils';
+import { t } from '../../locales';
+import { ErrorState } from '../../utils/errors';
+import { createStyles } from './styles';
+import { CheckCircleIcon } from '../../assets/icons';
+import { hfStore } from '../../store';
 
-const CheckIcon = ({color}: {color: string}) => (
+const CheckIcon = ({ color }: { color: string }) => (
   <CheckCircleIcon width={16} height={16} stroke={color} />
 );
 
@@ -113,7 +113,7 @@ export const DownloadErrorDialog: React.FC<DownloadErrorDialogProps> = ({
         return alerts.getTokenMessage;
       default:
         return !error?.message
-          ? t(alerts.downloadFailedMessage, {message: ''})
+          ? t(alerts.downloadFailedMessage, { message: '' })
           : undefined;
     }
   };

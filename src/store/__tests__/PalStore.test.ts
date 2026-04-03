@@ -1,9 +1,9 @@
-import {runInAction} from 'mobx';
-import {palStore} from '../PalStore';
-import {palsHubService} from '../../services';
-import {palRepository} from '../../repositories/PalRepository';
-import type {Pal} from '../../types/pal';
-import type {PalsHubPal} from '../../types/palshub';
+import { runInAction } from 'mobx';
+import { palStore } from '../PalStore';
+import { palsHubService } from '../../services';
+import { palRepository } from '../../repositories/PalRepository';
+import type { Pal } from '../../types/pal';
+import type { PalsHubPal } from '../../types/palshub';
 import * as imageUtils from '../../utils/imageUtils';
 
 // Mock dependencies
@@ -85,7 +85,7 @@ describe('PalStore', () => {
       palStore.userLibrary = [];
       palStore.userCreatedPals = [];
       palStore.isLoadingPalsHub = false;
-      palStore.syncState = {status: 'idle'};
+      palStore.syncState = { status: 'idle' };
       palStore.isMigrating = false;
       palStore.migrationComplete = false;
     });
@@ -151,7 +151,7 @@ describe('PalStore', () => {
           type: 'local' as const,
         };
 
-        const createdPal = {...newPalData, ...mockPal};
+        const createdPal = { ...newPalData, ...mockPal };
         (palRepository.createPal as jest.Mock).mockResolvedValue(createdPal);
 
         const result = await palStore.createPal(newPalData);
@@ -181,7 +181,7 @@ describe('PalStore', () => {
           'Creation failed',
         );
         expect(palStore.pals).not.toContain(
-          expect.objectContaining({name: 'New Test Pal'}),
+          expect.objectContaining({ name: 'New Test Pal' }),
         );
       });
     });
@@ -220,7 +220,7 @@ describe('PalStore', () => {
         (palRepository.updatePal as jest.Mock).mockRejectedValue(error);
 
         await expect(
-          palStore.updatePal(mockPal.id, {name: 'Updated'}),
+          palStore.updatePal(mockPal.id, { name: 'Updated' }),
         ).rejects.toThrow('Update failed');
       });
 
@@ -228,7 +228,7 @@ describe('PalStore', () => {
         (palRepository.updatePal as jest.Mock).mockResolvedValue(null);
 
         await expect(
-          palStore.updatePal(mockPal.id, {name: 'Updated'}),
+          palStore.updatePal(mockPal.id, { name: 'Updated' }),
         ).rejects.toThrow('Failed to update pal - no updated pal returned');
       });
     });
@@ -285,9 +285,9 @@ describe('PalStore', () => {
         expect(palStore.isLoadingPalsHub).toBe(false);
         expect(palStore.syncState.status).toBe('idle');
 
-        const result = await palStore.searchPalsHubPals({query: 'test'});
+        const result = await palStore.searchPalsHubPals({ query: 'test' });
 
-        expect(palsHubService.getPals).toHaveBeenCalledWith({query: 'test'});
+        expect(palsHubService.getPals).toHaveBeenCalledWith({ query: 'test' });
         expect(result).toEqual(mockResponse);
         expect(palStore.cachedPalsHubPals).toEqual(mockResponse.pals);
         expect(palStore.isLoadingPalsHub).toBe(false);
@@ -379,7 +379,7 @@ describe('PalStore', () => {
     describe('helper methods', () => {
       it('should get categories', async () => {
         const mockCategories = {
-          categories: [{id: '1', name: 'AI Assistant'}],
+          categories: [{ id: '1', name: 'AI Assistant' }],
         };
 
         (palsHubService.getCategories as jest.Mock).mockResolvedValue(
@@ -394,15 +394,15 @@ describe('PalStore', () => {
 
       it('should get tags', async () => {
         const mockTags = {
-          tags: [{id: '1', name: 'helpful'}],
+          tags: [{ id: '1', name: 'helpful' }],
         };
 
         (palsHubService.getTags as jest.Mock).mockResolvedValue(mockTags);
 
-        const result = await palStore.getTags({query: 'help'});
+        const result = await palStore.getTags({ query: 'help' });
 
         expect(result).toEqual(mockTags);
-        expect(palsHubService.getTags).toHaveBeenCalledWith({query: 'help'});
+        expect(palsHubService.getTags).toHaveBeenCalledWith({ query: 'help' });
       });
 
       it('should get specific pal', async () => {
@@ -424,7 +424,7 @@ describe('PalStore', () => {
       });
 
       it('should check pal ownership', async () => {
-        const mockOwnership = {owned: true, purchase_date: '2023-01-01'};
+        const mockOwnership = { owned: true, purchase_date: '2023-01-01' };
 
         (palsHubService.checkPalOwnership as jest.Mock).mockResolvedValue(
           mockOwnership,
@@ -558,7 +558,7 @@ describe('PalStore', () => {
             ...mockPal,
             id: 'video-pal',
             name: 'Video Pal',
-            capabilities: {video: true},
+            capabilities: { video: true },
           },
           {
             ...mockPal,

@@ -1,18 +1,18 @@
 import React from 'react';
-import {fireEvent, render, act} from '../../../../jest/test-utils';
-import {Alert} from 'react-native';
-import {ChatGenerationSettingsSheet} from '../ChatGenerationSettingsSheet';
-import {chatSessionStore, defaultCompletionSettings} from '../../../store';
-import {validateCompletionSettings} from '../../../utils/modelSettings';
+import { fireEvent, render, act } from '../../../../jest/test-utils';
+import { Alert } from 'react-native';
+import { ChatGenerationSettingsSheet } from '../ChatGenerationSettingsSheet';
+import { chatSessionStore, defaultCompletionSettings } from '../../../store';
+import { validateCompletionSettings } from '../../../utils/modelSettings';
 
 // Mock modelSettings validation
 jest.mock('../../../utils/modelSettings', () => ({
   COMPLETION_PARAMS_METADATA: {
     temperature: {
-      validation: {type: 'numeric', min: 0, max: 2, required: true},
+      validation: { type: 'numeric', min: 0, max: 2, required: true },
     },
   },
-  validateCompletionSettings: jest.fn().mockReturnValue({errors: {}}),
+  validateCompletionSettings: jest.fn().mockReturnValue({ errors: {} }),
 }));
 
 // Mock Alert
@@ -20,9 +20,9 @@ jest.spyOn(Alert, 'alert');
 
 // Mock the CompletionSettings component
 jest.mock('../../CompletionSettings', () => {
-  const {View, TouchableOpacity} = require('react-native');
+  const { View, TouchableOpacity } = require('react-native');
   return {
-    CompletionSettings: ({onChange}) => (
+    CompletionSettings: ({ onChange }) => (
       <View testID="completion-settings">
         <TouchableOpacity
           testID="mock-settings-update"
@@ -35,8 +35,8 @@ jest.mock('../../CompletionSettings', () => {
 
 // Mock Sheet component
 jest.mock('../../Sheet/Sheet', () => {
-  const {View, Button} = require('react-native');
-  const MockSheet = ({children, isVisible, onClose, title}) => {
+  const { View, Button } = require('react-native');
+  const MockSheet = ({ children, isVisible, onClose, title }) => {
     if (!isVisible) {
       return null;
     }
@@ -48,13 +48,13 @@ jest.mock('../../Sheet/Sheet', () => {
       </View>
     );
   };
-  MockSheet.ScrollView = ({children}) => (
+  MockSheet.ScrollView = ({ children }) => (
     <View testID="sheet-scroll-view">{children}</View>
   );
-  MockSheet.Actions = ({children}) => (
+  MockSheet.Actions = ({ children }) => (
     <View testID="sheet-actions">{children}</View>
   );
-  return {Sheet: MockSheet};
+  return { Sheet: MockSheet };
 });
 
 // Mock the stores
@@ -95,11 +95,11 @@ describe('ChatGenerationSettingsSheet', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     // Reset validateCompletionSettings to return success by default
-    (validateCompletionSettings as jest.Mock).mockReturnValue({errors: {}});
+    (validateCompletionSettings as jest.Mock).mockReturnValue({ errors: {} });
   });
 
   it('renders correctly when visible', () => {
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <ChatGenerationSettingsSheet {...defaultProps} />,
     );
 
@@ -108,7 +108,7 @@ describe('ChatGenerationSettingsSheet', () => {
   });
 
   it('does not render when not visible', () => {
-    const {queryByTestId} = render(
+    const { queryByTestId } = render(
       <ChatGenerationSettingsSheet {...defaultProps} isVisible={false} />,
     );
 
@@ -116,7 +116,7 @@ describe('ChatGenerationSettingsSheet', () => {
   });
 
   it('loads active session settings when available', () => {
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <ChatGenerationSettingsSheet {...defaultProps} />,
     );
 
@@ -129,7 +129,7 @@ describe('ChatGenerationSettingsSheet', () => {
     const originalSessions = chatSessionStore.sessions;
     chatSessionStore.sessions = [];
 
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <ChatGenerationSettingsSheet {...defaultProps} />,
     );
 
@@ -141,7 +141,7 @@ describe('ChatGenerationSettingsSheet', () => {
   });
 
   it('handles save settings correctly for active session', async () => {
-    const {getByText} = render(
+    const { getByText } = render(
       <ChatGenerationSettingsSheet {...defaultProps} />,
     );
 
@@ -158,7 +158,7 @@ describe('ChatGenerationSettingsSheet', () => {
     const originalSessions = chatSessionStore.sessions;
     chatSessionStore.sessions = [];
 
-    const {getByText} = render(
+    const { getByText } = render(
       <ChatGenerationSettingsSheet {...defaultProps} />,
     );
 
@@ -174,7 +174,7 @@ describe('ChatGenerationSettingsSheet', () => {
   });
 
   it('handles reset settings correctly', async () => {
-    const {getByText} = render(
+    const { getByText } = render(
       <ChatGenerationSettingsSheet {...defaultProps} />,
     );
 
@@ -204,7 +204,7 @@ describe('ChatGenerationSettingsSheet', () => {
       },
     });
 
-    const {getByTestId, getByText} = render(
+    const { getByTestId, getByText } = render(
       <ChatGenerationSettingsSheet {...defaultProps} />,
     );
 

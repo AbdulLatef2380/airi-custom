@@ -16,18 +16,18 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
-import {expect} from '@wdio/globals';
-import {ChatPage} from '../../pages/ChatPage';
-import {DrawerPage} from '../../pages/DrawerPage';
-import {ModelsPage} from '../../pages/ModelsPage';
+import { expect } from '@wdio/globals';
+import { ChatPage } from '../../pages/ChatPage';
+import { DrawerPage } from '../../pages/DrawerPage';
+import { ModelsPage } from '../../pages/ModelsPage';
 import {
   Selectors,
   byPartialText,
   nativeTextElement,
 } from '../../helpers/selectors';
-import {Gestures} from '../../helpers/gestures';
-import {TIMEOUTS} from '../../fixtures/models';
-import {SCREENSHOT_DIR} from '../../wdio.shared.conf';
+import { Gestures } from '../../helpers/gestures';
+import { TIMEOUTS } from '../../fixtures/models';
+import { SCREENSHOT_DIR } from '../../wdio.shared.conf';
 
 declare const driver: WebdriverIO.Browser;
 declare const browser: WebdriverIO.Browser;
@@ -68,7 +68,7 @@ describe('Remote Server Features', () => {
       const testName = this.currentTest.title.replace(/\s+/g, '-');
       try {
         if (!fs.existsSync(SCREENSHOT_DIR)) {
-          fs.mkdirSync(SCREENSHOT_DIR, {recursive: true});
+          fs.mkdirSync(SCREENSHOT_DIR, { recursive: true });
         }
         await driver.saveScreenshot(
           path.join(SCREENSHOT_DIR, `failure-${testName}-${timestamp}.png`),
@@ -91,7 +91,7 @@ describe('Remote Server Features', () => {
 
     // Enter server URL
     const urlInput = browser.$(Selectors.remoteModel.urlInput);
-    await urlInput.waitForDisplayed({timeout: 5000});
+    await urlInput.waitForDisplayed({ timeout: 5000 });
     await urlInput.clearValue();
     await urlInput.setValue(SERVER_CONFIG.url);
     console.log(`Entered server URL: ${SERVER_CONFIG.url}`);
@@ -104,7 +104,7 @@ describe('Remote Server Features', () => {
     if (SERVER_CONFIG.apiKey) {
       const apiKeyInput = browser.$(Selectors.remoteModel.apiKeyInput);
       const apiKeyVisible = await apiKeyInput
-        .waitForDisplayed({timeout: 5000})
+        .waitForDisplayed({ timeout: 5000 })
         .then(() => true)
         .catch(() => false);
 
@@ -112,7 +112,7 @@ describe('Remote Server Features', () => {
         // Toggle secure text entry OFF so keyboard typing works reliably
         const eyeToggle = browser.$('~remote-apikey-toggle');
         const eyeVisible = await eyeToggle
-          .waitForDisplayed({timeout: 3000})
+          .waitForDisplayed({ timeout: 3000 })
           .then(() => true)
           .catch(() => false);
         if (eyeVisible) {
@@ -148,7 +148,7 @@ describe('Remote Server Features', () => {
     // Verify connection succeeded
     const connectedText = browser.$(byPartialText('Connected'));
     const isConnected = await connectedText
-      .waitForDisplayed({timeout: 10000})
+      .waitForDisplayed({ timeout: 10000 })
       .then(() => true)
       .catch(() => false);
     console.log(
@@ -160,7 +160,7 @@ describe('Remote Server Features', () => {
     if (REMOTE_MODEL_HINT) {
       const modelEl = browser.$(byPartialText(REMOTE_MODEL_HINT));
       const visible = await modelEl
-        .waitForDisplayed({timeout: 5000})
+        .waitForDisplayed({ timeout: 5000 })
         .then(() => true)
         .catch(() => false);
       if (visible) {
@@ -179,7 +179,7 @@ describe('Remote Server Features', () => {
           '-ios predicate string:value == "radio button, unchecked"',
         );
         const radioVisible = await firstRadio
-          .waitForDisplayed({timeout: 3000})
+          .waitForDisplayed({ timeout: 3000 })
           .then(() => true)
           .catch(() => false);
         if (radioVisible) {
@@ -197,8 +197,8 @@ describe('Remote Server Features', () => {
       await Gestures.swipeUpInSheet();
       await browser.pause(300);
     }
-    await addButton.waitForDisplayed({timeout: 5000});
-    await addButton.waitForEnabled({timeout: 5000});
+    await addButton.waitForDisplayed({ timeout: 5000 });
+    await addButton.waitForEnabled({ timeout: 5000 });
     await addButton.click();
     await browser.pause(1000);
 
@@ -217,16 +217,16 @@ describe('Remote Server Features', () => {
 
     // The chat placeholder shows "Select Model" button when models are available
     const selectModelBtn = browser.$(byPartialText('Select Model'));
-    await selectModelBtn.waitForDisplayed({timeout: 10000});
+    await selectModelBtn.waitForDisplayed({ timeout: 10000 });
     await selectModelBtn.click();
     await browser.pause(1000);
 
     // The model picker opens on the Pals tab.
     // Swipe LEFT to navigate from Pals tab to Models tab.
-    const {width, height} = await driver.getWindowSize();
+    const { width, height } = await driver.getWindowSize();
     await driver
-      .action('pointer', {parameters: {pointerType: 'touch'}})
-      .move({x: Math.round(width * 0.8), y: Math.round(height * 0.65)})
+      .action('pointer', { parameters: { pointerType: 'touch' } })
+      .move({ x: Math.round(width * 0.8), y: Math.round(height * 0.65) })
       .down()
       .move({
         x: Math.round(width * 0.2),
@@ -244,7 +244,7 @@ describe('Remote Server Features', () => {
     if (REMOTE_MODEL_HINT) {
       const modelEl = browser.$(byPartialText(REMOTE_MODEL_HINT));
       const visible = await modelEl
-        .waitForDisplayed({timeout: 10000})
+        .waitForDisplayed({ timeout: 10000 })
         .then(() => true)
         .catch(() => false);
       if (visible) {
@@ -258,7 +258,7 @@ describe('Remote Server Features', () => {
         try {
           const debugDir = path.join(__dirname, '../../debug-output');
           if (!fs.existsSync(debugDir)) {
-            fs.mkdirSync(debugDir, {recursive: true});
+            fs.mkdirSync(debugDir, { recursive: true });
           }
           const pageSource = await driver.getPageSource();
           const debugFile = path.join(debugDir, 'model-picker-debug.xml');
@@ -283,8 +283,8 @@ describe('Remote Server Features', () => {
     } else {
       // No hint — tap the first model item by position
       await driver
-        .action('pointer', {parameters: {pointerType: 'touch'}})
-        .move({x: Math.round(width * 0.5), y: Math.round(height * 0.55)})
+        .action('pointer', { parameters: { pointerType: 'touch' } })
+        .move({ x: Math.round(width * 0.5), y: Math.round(height * 0.55) })
         .down()
         .up()
         .perform();
@@ -296,12 +296,12 @@ describe('Remote Server Features', () => {
 
     // Send a message
     const chatInput = browser.$(Selectors.chat.input);
-    await chatInput.waitForDisplayed({timeout: 10000});
+    await chatInput.waitForDisplayed({ timeout: 10000 });
     await chatPage.sendMessage('Hello');
 
     // Wait for AI response
     const aiMessageEl = browser.$(Selectors.chat.aiMessage);
-    await aiMessageEl.waitForExist({timeout: 30000});
+    await aiMessageEl.waitForExist({ timeout: 30000 });
     console.log('AI message element appeared');
 
     // Poll for the response to complete
@@ -318,9 +318,7 @@ describe('Remote Server Features', () => {
 
         if (responseText && responseText.length > 0) {
           const stopButton = browser.$(Selectors.chat.stopButton);
-          const stopVisible = await stopButton
-            .isDisplayed()
-            .catch(() => false);
+          const stopVisible = await stopButton.isDisplayed().catch(() => false);
           if (!stopVisible) {
             break;
           }
@@ -351,7 +349,7 @@ describe('Remote Server Features', () => {
     // Tap "Remove Server" button
     const removeButton = browser.$(Selectors.serverDetails.removeButton);
     const removeVisible = await removeButton
-      .waitForDisplayed({timeout: 8000})
+      .waitForDisplayed({ timeout: 8000 })
       .then(() => true)
       .catch(() => false);
 
@@ -360,7 +358,7 @@ describe('Remote Server Features', () => {
       await Gestures.swipeUpInSheet();
       await browser.pause(500);
     }
-    await removeButton.waitForDisplayed({timeout: 5000});
+    await removeButton.waitForDisplayed({ timeout: 5000 });
     await removeButton.click();
 
     // The sheet dismisses first (onDismiss), then a native alert appears

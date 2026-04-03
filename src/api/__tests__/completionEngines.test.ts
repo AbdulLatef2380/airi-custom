@@ -1,4 +1,4 @@
-import {LlamaContext} from 'llama.rn';
+import { LlamaContext } from 'llama.rn';
 
 import {
   LocalCompletionEngine,
@@ -18,7 +18,7 @@ describe('LocalCompletionEngine', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    mockContext = new LlamaContext({contextId: 1} as any);
+    mockContext = new LlamaContext({ contextId: 1 } as any);
     engine = new LocalCompletionEngine(mockContext);
   });
 
@@ -27,7 +27,7 @@ describe('LocalCompletionEngine', () => {
       text: 'Hello world',
       content: 'Hello world',
       reasoning_content: undefined,
-      timings: {predicted_per_second: 50},
+      timings: { predicted_per_second: 50 },
       tokens_predicted: 2,
       tokens_evaluated: 5,
       truncated: false,
@@ -42,7 +42,7 @@ describe('LocalCompletionEngine', () => {
     (mockContext.completion as jest.Mock).mockResolvedValueOnce(mockResult);
 
     const params = {
-      messages: [{role: 'user', content: 'Hello'}],
+      messages: [{ role: 'user', content: 'Hello' }],
       temperature: 0.7,
     } as any;
 
@@ -53,7 +53,7 @@ describe('LocalCompletionEngine', () => {
     expect(result.content).toBe('Hello world');
     expect(result.stopped_eos).toBe(true);
     expect(result.tokens_predicted).toBe(2);
-    expect(result.timings).toEqual({predicted_per_second: 50});
+    expect(result.timings).toEqual({ predicted_per_second: 50 });
   });
 
   it('passes callback to LlamaContext and maps token data', async () => {
@@ -65,7 +65,7 @@ describe('LocalCompletionEngine', () => {
     (mockContext.completion as jest.Mock).mockImplementationOnce(
       async (params: any, cb: any) => {
         // Simulate LlamaContext calling the callback with TokenData shape
-        cb({token: 'tok', content: 'tok', reasoning_content: 'think'});
+        cb({ token: 'tok', content: 'tok', reasoning_content: 'think' });
         return mockResult;
       },
     );
@@ -122,7 +122,7 @@ describe('OpenAICompletionEngine', () => {
 
     const onToken = jest.fn();
     const params = {
-      messages: [{role: 'user', content: 'Hi'}],
+      messages: [{ role: 'user', content: 'Hi' }],
       temperature: 0.8,
       top_p: 0.95,
       n_predict: 200,
@@ -133,7 +133,7 @@ describe('OpenAICompletionEngine', () => {
 
     expect(mockedStreamChat).toHaveBeenCalledWith(
       {
-        messages: [{role: 'user', content: 'Hi'}],
+        messages: [{ role: 'user', content: 'Hi' }],
         model: 'test-model',
         temperature: 0.8,
         top_p: 0.95,
@@ -157,14 +157,14 @@ describe('OpenAICompletionEngine', () => {
     });
 
     const params = {
-      messages: [{role: 'user', content: 'Hi'}],
+      messages: [{ role: 'user', content: 'Hi' }],
     } as any;
 
     await engine.completion(params);
 
     expect(mockedStreamChat).toHaveBeenCalledWith(
       expect.objectContaining({
-        messages: [{role: 'user', content: 'Hi'}],
+        messages: [{ role: 'user', content: 'Hi' }],
         model: 'test-model',
         temperature: undefined,
         top_p: undefined,
@@ -185,11 +185,13 @@ describe('OpenAICompletionEngine', () => {
     mockedStreamChat.mockImplementation(
       async (_p: any, _u: any, _k: any, signal: AbortSignal) => {
         capturedSignal = signal;
-        return {text: '', content: ''};
+        return { text: '', content: '' };
       },
     );
 
-    await engine.completion({messages: [{role: 'user', content: 'Hi'}]} as any);
+    await engine.completion({
+      messages: [{ role: 'user', content: 'Hi' }],
+    } as any);
 
     expect(capturedSignal).toBeDefined();
     expect(capturedSignal!.aborted).toBe(false);
@@ -210,9 +212,11 @@ describe('OpenAICompletionEngine', () => {
       'model-id',
     );
 
-    mockedStreamChat.mockResolvedValueOnce({text: '', content: ''});
+    mockedStreamChat.mockResolvedValueOnce({ text: '', content: '' });
 
-    noKeyEngine.completion({messages: [{role: 'user', content: 'Hi'}]} as any);
+    noKeyEngine.completion({
+      messages: [{ role: 'user', content: 'Hi' }],
+    } as any);
 
     expect(mockedStreamChat).toHaveBeenCalledWith(
       expect.any(Object),

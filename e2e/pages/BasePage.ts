@@ -18,7 +18,7 @@ export abstract class BasePage {
     timeout = BasePage.DEFAULT_TIMEOUT,
   ): Promise<ChainableElement> {
     const element = browser.$(selector);
-    await element.waitForDisplayed({timeout});
+    await element.waitForDisplayed({ timeout });
     return element;
   }
 
@@ -30,7 +30,7 @@ export abstract class BasePage {
     timeout = BasePage.DEFAULT_TIMEOUT,
   ): Promise<ChainableElement> {
     const element = browser.$(selector);
-    await element.waitForExist({timeout});
+    await element.waitForExist({ timeout });
     return element;
   }
 
@@ -43,7 +43,7 @@ export abstract class BasePage {
   ): Promise<boolean> {
     try {
       const element = browser.$(selector);
-      await element.waitForDisplayed({timeout});
+      await element.waitForDisplayed({ timeout });
       return true;
     } catch {
       return false;
@@ -58,7 +58,7 @@ export abstract class BasePage {
     timeout = BasePage.DEFAULT_TIMEOUT,
   ): Promise<void> {
     const element = browser.$(selector);
-    await element.waitForDisplayed({timeout, reverse: true});
+    await element.waitForDisplayed({ timeout, reverse: true });
   }
 
   /**
@@ -69,8 +69,8 @@ export abstract class BasePage {
     timeout = BasePage.DEFAULT_TIMEOUT,
   ): Promise<ChainableElement> {
     const element = browser.$(selector);
-    await element.waitForDisplayed({timeout});
-    await element.waitForEnabled({timeout});
+    await element.waitForDisplayed({ timeout });
+    await element.waitForEnabled({ timeout });
     return element;
   }
 
@@ -106,12 +106,12 @@ export abstract class BasePage {
    * See: https://github.com/appium/appium/issues/17550
    */
   protected async dismissKeyboard(): Promise<void> {
-    const isIOS = (browser as unknown as {isIOS?: boolean}).isIOS;
+    const isIOS = (browser as unknown as { isIOS?: boolean }).isIOS;
 
     if (isIOS) {
       // Check if keyboard is actually shown; skip if not
       const isShown = await (
-        browser as unknown as {isKeyboardShown: () => Promise<boolean>}
+        browser as unknown as { isKeyboardShown: () => Promise<boolean> }
       )
         .isKeyboardShown()
         .catch(() => false);
@@ -131,14 +131,14 @@ export abstract class BasePage {
         // Tap the sheet/screen content area to blur the input.
         // Use 40% from top to stay well inside a bottom sheet
         // (avoids close button at top and keyboard at bottom).
-        const {width, height} = await (
+        const { width, height } = await (
           browser as unknown as {
-            getWindowSize: () => Promise<{width: number; height: number}>;
+            getWindowSize: () => Promise<{ width: number; height: number }>;
           }
         ).getWindowSize();
         await browser
-          .action('pointer', {parameters: {pointerType: 'touch'}})
-          .move({x: Math.floor(width / 2), y: Math.floor(height * 0.4)})
+          .action('pointer', { parameters: { pointerType: 'touch' } })
+          .move({ x: Math.floor(width / 2), y: Math.floor(height * 0.4) })
           .down()
           .up()
           .perform();
@@ -148,7 +148,7 @@ export abstract class BasePage {
       // Android: hideKeyboard() works reliably
       try {
         await (
-          browser as unknown as {hideKeyboard: () => Promise<void>}
+          browser as unknown as { hideKeyboard: () => Promise<void> }
         ).hideKeyboard();
       } catch {
         // Keyboard might not be visible
@@ -172,7 +172,7 @@ export abstract class BasePage {
     timeout = BasePage.DEFAULT_TIMEOUT,
   ): Promise<ChainableElement> {
     // Wait for at least one element to exist
-    await browser.$(selector).waitForExist({timeout});
+    await browser.$(selector).waitForExist({ timeout });
 
     const elements = browser.$$(selector);
     const count = await elements.length;

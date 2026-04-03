@@ -1,15 +1,15 @@
-import React, {useContext, useEffect, useState} from 'react';
-import {TouchableOpacity, View, Alert, SectionList} from 'react-native';
-import {observer} from 'mobx-react';
-import {Divider, Drawer, Text} from 'react-native-paper';
-import {GestureHandlerRootView} from 'react-native-gesture-handler';
-import {DrawerContentComponentProps} from '@react-navigation/drawer';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import React, { useContext, useEffect, useState } from 'react';
+import { TouchableOpacity, View, Alert, SectionList } from 'react-native';
+import { observer } from 'mobx-react';
+import { Divider, Drawer, Text } from 'react-native-paper';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { DrawerContentComponentProps } from '@react-navigation/drawer';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import {useTheme} from '../../hooks';
-import {createStyles} from './styles';
-import {chatSessionStore, SessionMetaData} from '../../store';
-import {Menu, RenameModal, Checkbox} from '..';
+import { useTheme } from '../../hooks';
+import { createStyles } from './styles';
+import { chatSessionStore, SessionMetaData } from '../../store';
+import { Menu, RenameModal, Checkbox } from '..';
 import {
   BenchmarkIcon,
   ChatIcon,
@@ -21,10 +21,10 @@ import {
   TrashIcon,
   AppInfoIcon,
 } from '../../assets/icons';
-import {L10nContext} from '../../utils';
-import {t} from '../../locales';
-import {ROUTES} from '../../utils/navigationConstants';
-import {exportChatSession} from '../../utils/exportUtils';
+import { L10nContext } from '../../utils';
+import { t } from '../../locales';
+import { ROUTES } from '../../utils/navigationConstants';
+import { exportChatSession } from '../../utils/exportUtils';
 
 // Check if app is in debug mode
 const isDebugMode = __DEV__;
@@ -36,7 +36,7 @@ interface SessionItemProps {
   onPress: (sessionId: string) => void;
   onLongPress: (sessionId: string, event: any) => void;
   menuVisible: string | null;
-  menuPosition: {x: number; y: number};
+  menuPosition: { x: number; y: number };
   onMenuDismiss: () => void;
   onPressRename: (session: SessionMetaData) => void;
   onPressDelete: (sessionId: string) => void;
@@ -136,7 +136,7 @@ const SessionItem = React.memo<SessionItemProps>(
                 onMenuDismiss();
               }}
               label={l10n.common.delete}
-              labelStyle={{color: theme.colors.error}}
+              labelStyle={{ color: theme.colors.error }}
               leadingIcon={() => <TrashIcon stroke={theme.colors.error} />}
             />
             <Divider style={styles.menuDivider} />
@@ -179,7 +179,9 @@ const SelectionModeHeader: React.FC<SelectionModeHeaderProps> = ({
   return (
     <View style={styles.selectionModeHeader}>
       <TouchableOpacity onPress={onCancel} testID="cancel-selection-button">
-        <Text style={{color: theme.colors.primary}}>{l10n.common.cancel}</Text>
+        <Text style={{ color: theme.colors.primary }}>
+          {l10n.common.cancel}
+        </Text>
       </TouchableOpacity>
 
       <Text style={styles.selectedCountText}>
@@ -262,7 +264,7 @@ SelectAllRow.displayName = 'SelectAllRow';
 export const SidebarContent: React.FC<DrawerContentComponentProps> = observer(
   props => {
     const [menuVisible, setMenuVisible] = useState<string | null>(null);
-    const [menuPosition, setMenuPosition] = useState({x: 0, y: 0});
+    const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
     const [sessionToRename, setSessionToRename] =
       useState<SessionMetaData | null>(null);
 
@@ -290,8 +292,8 @@ export const SidebarContent: React.FC<DrawerContentComponentProps> = observer(
     }, [l10n.components.sidebarContent.dateGroups]);
 
     const openMenu = React.useCallback((sessionId: string, event: any) => {
-      const {nativeEvent} = event;
-      setMenuPosition({x: nativeEvent.pageX, y: nativeEvent.pageY});
+      const { nativeEvent } = event;
+      setMenuPosition({ x: nativeEvent.pageX, y: nativeEvent.pageY });
       setMenuVisible(sessionId);
     }, []);
 
@@ -429,7 +431,7 @@ export const SidebarContent: React.FC<DrawerContentComponentProps> = observer(
 
     // Render section header (date labels)
     const renderSectionHeader = React.useCallback(
-      ({section}: {section: {title: string}}) => (
+      ({ section }: { section: { title: string } }) => (
         <View style={styles.drawerSection}>
           <Text variant="bodySmall" style={styles.dateLabel}>
             {section.title}
@@ -442,7 +444,7 @@ export const SidebarContent: React.FC<DrawerContentComponentProps> = observer(
     // Render session item
     // observer() HOC handles MobX reactivity for chatSessionStore.activeSessionId
     const renderItem = React.useCallback(
-      ({item}: {item: SessionMetaData}) => {
+      ({ item }: { item: SessionMetaData }) => {
         const isActive = chatSessionStore.activeSessionId === item.id;
         const isSelected = chatSessionStore.selectedSessionIds.has(item.id);
         return (
@@ -569,7 +571,7 @@ export const SidebarContent: React.FC<DrawerContentComponentProps> = observer(
         <View
           style={[
             styles.contentWrapper,
-            {paddingTop: insets.top, paddingBottom: insets.bottom},
+            { paddingTop: insets.top, paddingBottom: insets.bottom },
           ]}>
           {chatSessionStore.isSelectionMode ? (
             <>

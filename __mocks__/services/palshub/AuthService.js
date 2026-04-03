@@ -90,7 +90,7 @@ const authService = mockAuthService;
 export default authService;
 
 // Named export for compatibility
-export {authService};
+export { authService };
 
 // CommonJS compatibility
 module.exports = authService;

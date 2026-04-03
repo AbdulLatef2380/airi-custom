@@ -1,18 +1,18 @@
-import React, {useState, useEffect, useCallback, useContext} from 'react';
-import {View, Animated, TextInput, TouchableOpacity} from 'react-native';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
+import { View, Animated, TextInput, TouchableOpacity } from 'react-native';
 
-import {observer} from 'mobx-react-lite';
+import { observer } from 'mobx-react-lite';
 
-import {SearchIcon, XIcon} from '../../../../assets/icons';
+import { SearchIcon, XIcon } from '../../../../assets/icons';
 
-import {useTheme} from '../../../../hooks';
-import {L10nContext} from '../../../../utils';
+import { useTheme } from '../../../../hooks';
+import { L10nContext } from '../../../../utils';
 
-import {createStyles} from './styles';
+import { createStyles } from './styles';
 
-import {palStore} from '../../../../store/PalStore';
+import { palStore } from '../../../../store/PalStore';
 
-import type {PalsHubPal} from '../../../../types/palshub';
+import type { PalsHubPal } from '../../../../types/palshub';
 
 interface ExpandableSearchProps {
   isExpanded: boolean;
@@ -21,7 +21,7 @@ interface ExpandableSearchProps {
 }
 
 export const ExpandableSearch: React.FC<ExpandableSearchProps> = observer(
-  ({isExpanded, onToggle, onSearchResults}) => {
+  ({ isExpanded, onToggle, onSearchResults }) => {
     const theme = useTheme();
     const styles = createStyles(theme);
     const l10n = useContext(L10nContext);
@@ -76,7 +76,7 @@ export const ExpandableSearch: React.FC<ExpandableSearchProps> = observer(
 
     return (
       <Animated.View
-        style={[styles.container, {height: animatedHeight}]}
+        style={[styles.container, { height: animatedHeight }]}
         testID="expandable-search">
         <View style={styles.searchContent}>
           <View style={styles.searchInputContainer}>

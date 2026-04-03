@@ -1,19 +1,19 @@
-import {View, Alert, Platform} from 'react-native';
-import React, {useContext, useState, useEffect, useCallback} from 'react';
+import { View, Alert, Platform } from 'react-native';
+import React, { useContext, useState, useEffect, useCallback } from 'react';
 
-import {ContextParams} from 'llama.rn';
+import { ContextParams } from 'llama.rn';
 import DeviceInfo from 'react-native-device-info';
-import {Text, Button, Checkbox, ActivityIndicator} from 'react-native-paper';
+import { Text, Button, Checkbox, ActivityIndicator } from 'react-native-paper';
 
-import {submitModelLoadErrorReport} from '../../api/feedback';
+import { submitModelLoadErrorReport } from '../../api/feedback';
 
-import {useTheme} from '../../hooks';
+import { useTheme } from '../../hooks';
 
-import {createStyles} from './styles';
+import { createStyles } from './styles';
 
-import {ErrorState, L10nContext, formatBytes} from '../../utils';
+import { ErrorState, L10nContext, formatBytes } from '../../utils';
 
-import {Sheet, TextInput} from '..';
+import { Sheet, TextInput } from '..';
 
 interface ModelErrorReportSheetProps {
   isVisible: boolean;
@@ -145,14 +145,14 @@ export const ModelErrorReportSheet: React.FC<ModelErrorReportSheetProps> = ({
       Alert.alert(
         l10n.components.modelErrorReportSheet.success.title,
         l10n.components.modelErrorReportSheet.success.message,
-        [{text: l10n.common.ok, onPress: handleClose}],
+        [{ text: l10n.common.ok, onPress: handleClose }],
       );
     } catch (err) {
       console.error('Model error report submission error:', err);
       Alert.alert(
         l10n.components.modelErrorReportSheet.error.title,
         l10n.components.modelErrorReportSheet.error.message,
-        [{text: l10n.common.ok}],
+        [{ text: l10n.common.ok }],
       );
     } finally {
       setIsSubmitting(false);
@@ -194,12 +194,12 @@ export const ModelErrorReportSheet: React.FC<ModelErrorReportSheetProps> = ({
 
   // Build model info summary
   const sheetL10n = l10n.components.modelErrorReportSheet;
-  const modelInfoFields: Array<{label: string; value: string}> = [];
+  const modelInfoFields: Array<{ label: string; value: string }> = [];
   if (modelName) {
-    modelInfoFields.push({label: sheetL10n.modelName, value: modelName});
+    modelInfoFields.push({ label: sheetL10n.modelName, value: modelName });
   }
   if (modelUrl) {
-    modelInfoFields.push({label: sheetL10n.modelSource, value: modelUrl});
+    modelInfoFields.push({ label: sheetL10n.modelSource, value: modelUrl });
   }
   if (modelSize !== undefined) {
     modelInfoFields.push({
@@ -211,7 +211,7 @@ export const ModelErrorReportSheet: React.FC<ModelErrorReportSheetProps> = ({
   // Build device info summary
   const deviceInfoFields = deviceData
     ? [
-        {label: sheetL10n.deviceModel, value: deviceData.deviceModel},
+        { label: sheetL10n.deviceModel, value: deviceData.deviceModel },
         {
           label: sheetL10n.osVersion,
           value: `${deviceData.systemName} ${deviceData.systemVersion}`,
@@ -229,7 +229,7 @@ export const ModelErrorReportSheet: React.FC<ModelErrorReportSheetProps> = ({
             ]
           : []),
         ...(deviceData.isEmulator
-          ? [{label: sheetL10n.isEmulator, value: 'Yes'}]
+          ? [{ label: sheetL10n.isEmulator, value: 'Yes' }]
           : []),
       ]
     : [];

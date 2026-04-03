@@ -9,8 +9,8 @@ import {
 } from '../index';
 import enData from '../en.json';
 
-import type {Translations} from '../types';
-import type {AvailableLanguage} from '../index';
+import type { Translations } from '../types';
+import type { AvailableLanguage } from '../index';
 
 const EXPECTED_SECTIONS = [
   'common',
@@ -110,7 +110,7 @@ describe('l10n object', () => {
   it('l10n.ja falls back to English for missing keys', () => {
     // Verify the merge mechanism by building a partial ja
     // and checking that merge fills in the gap.
-    const partialJa = {common: {cancel: 'partial-ja-cancel'}};
+    const partialJa = { common: { cancel: 'partial-ja-cancel' } };
     const merged: Translations = _.merge({}, enData, partialJa);
 
     // The key we set should have the partial value
@@ -121,7 +121,7 @@ describe('l10n object', () => {
   });
 
   it('l10n.zh falls back to English for missing keys', () => {
-    const partialZh = {common: {cancel: 'partial-zh-cancel'}};
+    const partialZh = { common: { cancel: 'partial-zh-cancel' } };
     const merged: Translations = _.merge({}, enData, partialZh);
 
     expect(merged.common.cancel).toBe('partial-zh-cancel');
@@ -313,7 +313,7 @@ describe('type safety', () => {
 
 describe('t() interpolation helper', () => {
   it('replaces a single placeholder', () => {
-    const result = t('Hello {{name}}', {name: 'World'});
+    const result = t('Hello {{name}}', { name: 'World' });
     expect(result).toBe('Hello World');
   });
 
@@ -327,7 +327,7 @@ describe('t() interpolation helper', () => {
   });
 
   it('preserves unreplaced placeholders when key is missing from params', () => {
-    const result = t('Hello {{name}}, welcome to {{place}}', {name: 'Bob'});
+    const result = t('Hello {{name}}, welcome to {{place}}', { name: 'Bob' });
     expect(result).toBe('Hello Bob, welcome to {{place}}');
   });
 
@@ -345,12 +345,12 @@ describe('t() interpolation helper', () => {
   });
 
   it('handles template with no placeholders', () => {
-    const result = t('Just a plain string', {key: 'unused'});
+    const result = t('Just a plain string', { key: 'unused' });
     expect(result).toBe('Just a plain string');
   });
 
   it('replaces duplicate placeholders', () => {
-    const result = t('{{x}} and {{x}} again', {x: 'val'});
+    const result = t('{{x}} and {{x}} again', { x: 'val' });
     expect(result).toBe('val and val again');
   });
 
@@ -366,7 +366,7 @@ describe('t() interpolation helper', () => {
   });
 
   it('converts number 0 correctly (not treated as falsy)', () => {
-    const result = t('Count: {{count}}', {count: 0});
+    const result = t('Count: {{count}}', { count: 0 });
     expect(result).toBe('Count: 0');
   });
 

@@ -1,5 +1,5 @@
-import {StyleSheet} from 'react-native';
-import {Theme} from '../../utils/types';
+import { StyleSheet } from 'react-native';
+import { Theme } from '../../utils/types';
 
 export const createStyles = (theme: Theme) =>
   StyleSheet.create({
@@ -46,7 +46,7 @@ export const createStyles = (theme: Theme) =>
       position: 'absolute',
       right: 8,
       top: '50%',
-      transform: [{translateY: -12}],
+      transform: [{ translateY: -12 }],
       padding: 4,
       zIndex: 100,
     },

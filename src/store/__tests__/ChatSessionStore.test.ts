@@ -1,10 +1,13 @@
 jest.unmock('../ChatSessionStore'); // this is not really needed, as only importing from store is mocked.
 
-import {chatSessionStore, defaultCompletionSettings} from '../ChatSessionStore';
-import {chatSessionRepository} from '../../repositories/ChatSessionRepository';
+import {
+  chatSessionStore,
+  defaultCompletionSettings,
+} from '../ChatSessionStore';
+import { chatSessionRepository } from '../../repositories/ChatSessionRepository';
 
-import {MessageType} from '../../utils/types';
-import {waitFor} from '@testing-library/react-native';
+import { MessageType } from '../../utils/types';
+import { waitFor } from '@testing-library/react-native';
 
 // Use the mock from __mocks__/repositories/ChatSessionRepository.js
 //jest.mock('../../repositories/ChatSessionRepository');
@@ -30,7 +33,7 @@ describe('chatSessionStore', () => {
     id: 'message1',
     text: 'Hello, world!',
     type: 'text',
-    author: {id: 'user1', name: 'User'},
+    author: { id: 'user1', name: 'User' },
     createdAt: Date.now(),
   } as MessageType.Text;
 
@@ -242,7 +245,7 @@ describe('chatSessionStore', () => {
         undefined,
       );
 
-      const updatedMessage = {text: 'Updated message text'};
+      const updatedMessage = { text: 'Updated message text' };
       await chatSessionStore.updateMessage(
         mockMessage.id,
         mockSession.id,
@@ -288,7 +291,7 @@ describe('chatSessionStore', () => {
       // Update with timings - should merge, not replace
       await chatSessionStore.updateMessage(mockMessage.id, mockSession.id, {
         metadata: {
-          timings: {total: 100},
+          timings: { total: 100 },
           copyable: true,
         },
       });
@@ -298,7 +301,7 @@ describe('chatSessionStore', () => {
       ).metadata;
 
       // New metadata should be present
-      expect(updatedMetadata?.timings).toEqual({total: 100});
+      expect(updatedMetadata?.timings).toEqual({ total: 100 });
       expect(updatedMetadata?.copyable).toBe(true);
 
       // Existing metadata should be preserved (not wiped)
@@ -331,14 +334,14 @@ describe('chatSessionStore', () => {
 
       await chatSessionStore.updateMessage(mockMessage.id, mockSession.id, {
         metadata: {
-          timings: {total: 100},
+          timings: { total: 100 },
         },
       });
 
       const updatedMetadata = (
         chatSessionStore.sessions[0].messages[0] as MessageType.Text
       ).metadata;
-      expect(updatedMetadata?.timings).toEqual({total: 100});
+      expect(updatedMetadata?.timings).toEqual({ total: 100 });
     });
   });
 
@@ -372,7 +375,7 @@ describe('chatSessionStore', () => {
         id: 'session1',
         title: 'New Session',
         date: new Date().toISOString(),
-        messages: [{...mockMessage, text: longMessage}],
+        messages: [{ ...mockMessage, text: longMessage }],
         completionSettings: defaultCompletionSettings,
         settingsSource: 'pal' as 'pal' | 'custom',
       };
@@ -862,7 +865,7 @@ describe('chatSessionStore', () => {
       id: 'message2',
       text: 'Second message',
       type: 'text',
-      author: {id: 'assistant', name: 'Assistant'},
+      author: { id: 'assistant', name: 'Assistant' },
       createdAt: Date.now() - 1000,
     } as MessageType.Text;
 
@@ -870,7 +873,7 @@ describe('chatSessionStore', () => {
       id: 'message3',
       text: 'Third message',
       type: 'text',
-      author: {id: 'user1', name: 'User'},
+      author: { id: 'user1', name: 'User' },
       createdAt: Date.now(),
     } as MessageType.Text;
 
@@ -936,7 +939,7 @@ describe('chatSessionStore', () => {
       id: 'message2',
       text: 'Second message',
       type: 'text',
-      author: {id: 'assistant', name: 'Assistant'},
+      author: { id: 'assistant', name: 'Assistant' },
       createdAt: Date.now() - 1000,
     } as MessageType.Text;
 
@@ -944,7 +947,7 @@ describe('chatSessionStore', () => {
       id: 'message3',
       text: 'Third message',
       type: 'text',
-      author: {id: 'user1', name: 'User'},
+      author: { id: 'user1', name: 'User' },
       createdAt: Date.now(),
     } as MessageType.Text;
 
@@ -1054,7 +1057,7 @@ describe('chatSessionStore', () => {
         id: 'message1',
         text: 'Hello, world!',
         type: 'text',
-        author: {id: 'user1', name: 'User'},
+        author: { id: 'user1', name: 'User' },
         createdAt: mockTime,
       } as MessageType.Text;
 
@@ -1080,7 +1083,7 @@ describe('chatSessionStore', () => {
     });
 
     it('should apply update immediately when no throttle is active', () => {
-      const update = {text: 'Streaming text...'};
+      const update = { text: 'Streaming text...' };
 
       chatSessionStore.updateMessageStreaming(
         testMessage.id,
@@ -1134,7 +1137,7 @@ describe('chatSessionStore', () => {
     });
 
     it('should persist updates to database asynchronously', () => {
-      const update = {text: 'Persisted text'};
+      const update = { text: 'Persisted text' };
 
       chatSessionStore.updateMessageStreaming(
         testMessage.id,
@@ -1152,7 +1155,7 @@ describe('chatSessionStore', () => {
       chatSessionStore.updateMessageStreaming(
         testMessage.id,
         'non-existent-session',
-        {text: 'test'},
+        { text: 'test' },
       );
 
       // Should not throw, just silently fail
@@ -1181,7 +1184,7 @@ describe('chatSessionStore', () => {
         id: 'image-msg',
         type: 'image',
         uri: 'file://image.jpg',
-        author: {id: 'user1'},
+        author: { id: 'user1' },
         createdAt: Date.now(),
       } as MessageType.Image;
 
@@ -1196,7 +1199,7 @@ describe('chatSessionStore', () => {
     });
 
     it('should use activeSessionId when sessionId parameter is empty', () => {
-      const update = {text: 'Active session update'};
+      const update = { text: 'Active session update' };
 
       chatSessionStore.updateMessageStreaming(testMessage.id, '', update);
 
@@ -1330,7 +1333,7 @@ describe('chatSessionStore', () => {
             id: 'msg1',
             text: 'Hello',
             type: 'text',
-            author: {id: 'user1'},
+            author: { id: 'user1' },
             createdAt: Date.now(),
           }),
         },
@@ -1339,7 +1342,7 @@ describe('chatSessionStore', () => {
             id: 'msg2',
             text: 'World',
             type: 'text',
-            author: {id: 'user1'},
+            author: { id: 'user1' },
             createdAt: Date.now(),
           }),
         },
@@ -1348,7 +1351,7 @@ describe('chatSessionStore', () => {
       const mockSessionData = {
         session: mockSession,
         messages: mockMessages,
-        completionSettings: {getSettings: () => defaultCompletionSettings},
+        completionSettings: { getSettings: () => defaultCompletionSettings },
       };
 
       (chatSessionRepository.getSessionById as jest.Mock).mockResolvedValue(
@@ -1372,7 +1375,7 @@ describe('chatSessionStore', () => {
         id: 'msg1',
         text: 'Hello',
         type: 'text',
-        author: {id: 'user1'},
+        author: { id: 'user1' },
         createdAt: Date.now(),
       } as MessageType.Text;
 
@@ -1415,7 +1418,7 @@ describe('chatSessionStore', () => {
             id: 'msg1',
             text: 'Hello',
             type: 'text',
-            author: {id: 'user1'},
+            author: { id: 'user1' },
             createdAt: Date.now(),
           }),
         },
@@ -1424,7 +1427,7 @@ describe('chatSessionStore', () => {
       const mockSessionData = {
         session: mockSession,
         messages: mockMessages,
-        completionSettings: {getSettings: () => defaultCompletionSettings},
+        completionSettings: { getSettings: () => defaultCompletionSettings },
       };
 
       (chatSessionRepository.getSessionById as jest.Mock).mockResolvedValue(
@@ -1452,7 +1455,7 @@ describe('chatSessionStore', () => {
           id: 'msg1',
           text: 'Hello',
           type: 'text',
-          author: {id: 'user1'},
+          author: { id: 'user1' },
           createdAt: Date.now(),
         }),
       };
@@ -1486,7 +1489,7 @@ describe('chatSessionStore', () => {
         id: 'msg1',
         text: 'Hello',
         type: 'text',
-        author: {id: 'user1'},
+        author: { id: 'user1' },
         createdAt: Date.now(),
       } as MessageType.Text;
 
@@ -1507,7 +1510,7 @@ describe('chatSessionStore', () => {
         id: 'msg2',
         text: 'World',
         type: 'text',
-        author: {id: 'user1'},
+        author: { id: 'user1' },
         createdAt: Date.now(),
       } as MessageType.Text;
 
@@ -1621,7 +1624,7 @@ describe('chatSessionStore', () => {
             id: 'msg1',
             text: 'Hello from session 1',
             type: 'text',
-            author: {id: 'user1'},
+            author: { id: 'user1' },
             createdAt: Date.now(),
           }),
         },
@@ -1633,7 +1636,7 @@ describe('chatSessionStore', () => {
             id: 'msg2',
             text: 'Hello from session 2',
             type: 'text',
-            author: {id: 'user1'},
+            author: { id: 'user1' },
             createdAt: Date.now(),
           }),
         },
@@ -1643,12 +1646,12 @@ describe('chatSessionStore', () => {
         .mockResolvedValueOnce({
           session: mockSession1,
           messages: mockMessages1,
-          completionSettings: {getSettings: () => defaultCompletionSettings},
+          completionSettings: { getSettings: () => defaultCompletionSettings },
         })
         .mockResolvedValueOnce({
           session: mockSession2,
           messages: mockMessages2,
-          completionSettings: {getSettings: () => defaultCompletionSettings},
+          completionSettings: { getSettings: () => defaultCompletionSettings },
         });
 
       await chatSessionStore.setActiveSession('session1');

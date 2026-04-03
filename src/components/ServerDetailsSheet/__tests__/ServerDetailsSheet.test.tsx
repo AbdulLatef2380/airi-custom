@@ -1,13 +1,13 @@
 import React from 'react';
-import {Alert} from 'react-native';
-import {render, fireEvent, waitFor} from '../../../../jest/test-utils';
-import {ServerDetailsSheet} from '../ServerDetailsSheet';
-import {serverStore} from '../../../store';
+import { Alert } from 'react-native';
+import { render, fireEvent, waitFor } from '../../../../jest/test-utils';
+import { ServerDetailsSheet } from '../ServerDetailsSheet';
+import { serverStore } from '../../../store';
 
 // Mock the Sheet component following HFTokenSheet test pattern
 jest.mock('../../Sheet', () => {
-  const {View, Button} = require('react-native');
-  const MockSheet = ({children, isVisible, onClose, title}: any) => {
+  const { View, Button } = require('react-native');
+  const MockSheet = ({ children, isVisible, onClose, title }: any) => {
     if (!isVisible) {
       return null;
     }
@@ -19,13 +19,13 @@ jest.mock('../../Sheet', () => {
       </View>
     );
   };
-  MockSheet.ScrollView = ({children}: any) => (
+  MockSheet.ScrollView = ({ children }: any) => (
     <View testID="sheet-scroll-view">{children}</View>
   );
-  MockSheet.Actions = ({children}: any) => (
+  MockSheet.Actions = ({ children }: any) => (
     <View testID="sheet-actions">{children}</View>
   );
-  return {Sheet: MockSheet};
+  return { Sheet: MockSheet };
 });
 
 // Mock the openai API module
@@ -52,13 +52,13 @@ describe('ServerDetailsSheet', () => {
     serverStore.servers = [testServer];
     (serverStore.getApiKey as jest.Mock).mockResolvedValue('sk-test-key');
     (serverStore.getUserSelectedModelsForServer as jest.Mock).mockReturnValue([
-      {serverId: 'srv-1', remoteModelId: 'llama-7b'},
-      {serverId: 'srv-1', remoteModelId: 'codellama'},
+      { serverId: 'srv-1', remoteModelId: 'llama-7b' },
+      { serverId: 'srv-1', remoteModelId: 'codellama' },
     ]);
   });
 
   it('renders nothing when not visible', () => {
-    const {queryByTestId} = render(
+    const { queryByTestId } = render(
       <ServerDetailsSheet
         isVisible={false}
         onDismiss={jest.fn()}
@@ -70,7 +70,7 @@ describe('ServerDetailsSheet', () => {
   });
 
   it('renders nothing when serverId is null', () => {
-    const {queryByTestId} = render(
+    const { queryByTestId } = render(
       <ServerDetailsSheet
         isVisible={true}
         onDismiss={jest.fn()}
@@ -82,7 +82,7 @@ describe('ServerDetailsSheet', () => {
   });
 
   it('renders server details when visible with valid serverId', async () => {
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <ServerDetailsSheet
         isVisible={true}
         onDismiss={jest.fn()}
@@ -96,7 +96,7 @@ describe('ServerDetailsSheet', () => {
   });
 
   it('renders the URL input with server URL', async () => {
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <ServerDetailsSheet
         isVisible={true}
         onDismiss={jest.fn()}
@@ -109,7 +109,7 @@ describe('ServerDetailsSheet', () => {
   });
 
   it('renders the save button', () => {
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <ServerDetailsSheet
         isVisible={true}
         onDismiss={jest.fn()}
@@ -121,7 +121,7 @@ describe('ServerDetailsSheet', () => {
   });
 
   it('renders the remove server button', () => {
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <ServerDetailsSheet
         isVisible={true}
         onDismiss={jest.fn()}
@@ -133,7 +133,7 @@ describe('ServerDetailsSheet', () => {
   });
 
   it('displays models using this server', () => {
-    const {getByText} = render(
+    const { getByText } = render(
       <ServerDetailsSheet
         isVisible={true}
         onDismiss={jest.fn()}
@@ -149,7 +149,7 @@ describe('ServerDetailsSheet', () => {
     jest.useFakeTimers();
     jest.spyOn(Alert, 'alert').mockImplementation();
 
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <ServerDetailsSheet
         isVisible={true}
         onDismiss={jest.fn()}
@@ -164,8 +164,8 @@ describe('ServerDetailsSheet', () => {
       expect.any(String),
       expect.stringContaining('LM Studio'),
       expect.arrayContaining([
-        expect.objectContaining({style: 'cancel'}),
-        expect.objectContaining({style: 'destructive'}),
+        expect.objectContaining({ style: 'cancel' }),
+        expect.objectContaining({ style: 'destructive' }),
       ]),
     );
     jest.useRealTimers();
@@ -183,7 +183,7 @@ describe('ServerDetailsSheet', () => {
         destructiveButton?.onPress();
       });
 
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <ServerDetailsSheet
         isVisible={true}
         onDismiss={mockDismiss}
@@ -203,7 +203,7 @@ describe('ServerDetailsSheet', () => {
   it('calls updateServer and setApiKey on save', async () => {
     const mockDismiss = jest.fn();
 
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <ServerDetailsSheet
         isVisible={true}
         onDismiss={mockDismiss}

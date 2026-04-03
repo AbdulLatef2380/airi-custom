@@ -5,7 +5,7 @@ import {
   mockGGUFSpecs2,
   mockHFModelFiles1,
 } from '../../../jest/fixtures/models';
-import {hfStore} from '../../store/HFStore';
+import { hfStore } from '../../store/HFStore';
 import {
   fetchGGUFSpecs,
   fetchModelFilesDetails,
@@ -258,7 +258,7 @@ describe('HFStore', () => {
     it('should update model siblings with file sizes', async () => {
       hfStore.models = [mockHFModel1];
       const fileDetails = [
-        {path: 'hf-model-name-1.Q4_K_M.gguf', size: 1111, oid: 'abc123'},
+        { path: 'hf-model-name-1.Q4_K_M.gguf', size: 1111, oid: 'abc123' },
       ];
 
       (fetchModelFilesDetails as jest.Mock).mockResolvedValueOnce(fileDetails);

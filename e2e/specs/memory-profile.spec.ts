@@ -14,12 +14,12 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
-import {execSync} from 'child_process';
-import {expect} from '@wdio/globals';
-import {ChatPage} from '../pages/ChatPage';
-import {DrawerPage} from '../pages/DrawerPage';
-import {ModelsPage} from '../pages/ModelsPage';
-import {Selectors} from '../helpers/selectors';
+import { execSync } from 'child_process';
+import { expect } from '@wdio/globals';
+import { ChatPage } from '../pages/ChatPage';
+import { DrawerPage } from '../pages/DrawerPage';
+import { ModelsPage } from '../pages/ModelsPage';
+import { Selectors } from '../helpers/selectors';
 import {
   downloadAndLoadModel,
   waitForInferenceComplete,
@@ -36,7 +36,7 @@ import {
   getModelsToTest,
   ModelTestConfig,
 } from '../fixtures/models';
-import {SCREENSHOT_DIR, OUTPUT_DIR} from '../wdio.shared.conf';
+import { SCREENSHOT_DIR, OUTPUT_DIR } from '../wdio.shared.conf';
 
 declare const driver: WebdriverIO.Browser;
 declare const browser: WebdriverIO.Browser;
@@ -59,20 +59,34 @@ function getModelForTest(): ModelTestConfig {
 /**
  * Get device info from Appium capabilities (works with multiple devices).
  */
-function getDeviceInfo(): {device: string; os_version: string; platform: string} {
+function getDeviceInfo(): {
+  device: string;
+  os_version: string;
+  platform: string;
+} {
   const caps = (driver.capabilities || {}) as Record<string, any>;
   const isAndroid = (driver as any).isAndroid;
 
   if (isAndroid) {
     return {
-      device: caps['deviceModel'] || caps['deviceName'] || process.env.E2E_DEVICE_NAME || 'unknown',
-      os_version: caps['platformVersion'] || process.env.E2E_PLATFORM_VERSION || 'unknown',
+      device:
+        caps['deviceModel'] ||
+        caps['deviceName'] ||
+        process.env.E2E_DEVICE_NAME ||
+        'unknown',
+      os_version:
+        caps['platformVersion'] ||
+        process.env.E2E_PLATFORM_VERSION ||
+        'unknown',
       platform: 'android',
     };
   } else {
     return {
       device: caps['deviceName'] || process.env.E2E_DEVICE_NAME || 'unknown',
-      os_version: caps['platformVersion'] || process.env.E2E_PLATFORM_VERSION || 'unknown',
+      os_version:
+        caps['platformVersion'] ||
+        process.env.E2E_PLATFORM_VERSION ||
+        'unknown',
       platform: 'ios',
     };
   }
@@ -105,9 +119,10 @@ function buildReport(
   // Calculate peak memory (iOS: phys + metal, Android: pss)
   let peakBytes = 0;
   for (const snap of snapshots) {
-    const memBytes = snap.native.phys_footprint !== undefined
-      ? snap.native.phys_footprint + (snap.native.metal_allocated ?? 0)
-      : snap.native.pss_total ?? 0;
+    const memBytes =
+      snap.native.phys_footprint !== undefined
+        ? snap.native.phys_footprint + (snap.native.metal_allocated ?? 0)
+        : (snap.native.pss_total ?? 0);
     if (memBytes > peakBytes) {
       peakBytes = memBytes;
     }
@@ -125,7 +140,7 @@ function buildReport(
       label: snap.label,
       timestamp: snap.timestamp,
       native: snap.native,
-      ...(snap.hermes ? {hermes: snap.hermes} : {}),
+      ...(snap.hermes ? { hermes: snap.hermes } : {}),
     })),
     peak_memory_mb: Math.round((peakBytes / (1024 * 1024)) * 100) / 100,
   };
@@ -152,7 +167,7 @@ describe('Memory Profile', () => {
       const testName = this.currentTest.title.replace(/\s+/g, '-');
       try {
         if (!fs.existsSync(SCREENSHOT_DIR)) {
-          fs.mkdirSync(SCREENSHOT_DIR, {recursive: true});
+          fs.mkdirSync(SCREENSHOT_DIR, { recursive: true });
         }
         await driver.saveScreenshot(
           path.join(SCREENSHOT_DIR, `failure-${testName}-${timestamp}.png`),
@@ -218,10 +233,10 @@ describe('Memory Profile', () => {
       model.downloadFile,
     );
     const modelCardContainer = browser.$(containerSelector);
-    await modelCardContainer.waitForDisplayed({timeout: 10000});
+    await modelCardContainer.waitForDisplayed({ timeout: 10000 });
 
     const offloadBtn = browser.$(Selectors.modelCard.offloadButton);
-    await offloadBtn.waitForDisplayed({timeout: 10000});
+    await offloadBtn.waitForDisplayed({ timeout: 10000 });
     await offloadBtn.click();
     await browser.pause(2000); // Wait for model to unload
 
@@ -236,7 +251,7 @@ describe('Memory Profile', () => {
 
     // Write report to OUTPUT_DIR
     if (!fs.existsSync(OUTPUT_DIR)) {
-      fs.mkdirSync(OUTPUT_DIR, {recursive: true});
+      fs.mkdirSync(OUTPUT_DIR, { recursive: true });
     }
     const reportPath = path.join(OUTPUT_DIR, 'memory-profile.json');
     fs.writeFileSync(reportPath, JSON.stringify(report, null, 2));

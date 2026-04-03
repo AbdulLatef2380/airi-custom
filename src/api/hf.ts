@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import {urls} from '../config';
+import { urls } from '../config';
 
 import {
   GGUFSpecs,
@@ -106,7 +106,7 @@ export const fetchModelFilesDetails = async (
       headers.Authorization = `Bearer ${authToken}`;
     }
 
-    const response = await fetch(url, {headers});
+    const response = await fetch(url, { headers });
 
     if (!response.ok) {
       throw new Error(`Error fetching model files: ${response.statusText}`);
@@ -138,7 +138,7 @@ export const fetchGGUFSpecs = async (
       headers.Authorization = `Bearer ${authToken}`;
     }
 
-    const response = await fetch(url, {headers});
+    const response = await fetch(url, { headers });
 
     if (!response.ok) {
       throw new Error(`Error fetching GGUF specs: ${response.statusText}`);
@@ -191,7 +191,7 @@ export async function fetchModelInfo({
       headers,
     });
 
-    const modelData: Partial<HuggingFaceModel> = {...response.data};
+    const modelData: Partial<HuggingFaceModel> = { ...response.data };
 
     // Remove unwanted fields
     for (const field of stripFields) {

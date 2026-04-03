@@ -10,7 +10,7 @@ import {
 
 describe('migrateCompletionSettings', () => {
   it('should add version 0 to settings without version', () => {
-    const settings = {temperature: 0.7};
+    const settings = { temperature: 0.7 };
     const migrated = migrateCompletionSettings(settings);
 
     expect(migrated.version).toBe(CURRENT_COMPLETION_SETTINGS_VERSION);
@@ -134,7 +134,7 @@ describe('migrateCompletionSettings', () => {
       version: 0,
       temperature: 0.7,
     };
-    const originalSettings = {...settings};
+    const originalSettings = { ...settings };
     const migrated = migrateCompletionSettings(settings);
 
     expect(settings).toEqual(originalSettings);

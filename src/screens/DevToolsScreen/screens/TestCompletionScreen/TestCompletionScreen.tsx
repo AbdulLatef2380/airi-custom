@@ -1,12 +1,12 @@
 /* eslint-disable no-useless-escape */
-import React, {useState} from 'react';
-import {View, ScrollView} from 'react-native';
+import React, { useState } from 'react';
+import { View, ScrollView } from 'react-native';
 
-import {observer} from 'mobx-react';
-import {JinjaFormattedChatResult} from 'llama.rn';
-import {CompletionParams} from '../../../../utils/completionTypes';
+import { observer } from 'mobx-react';
+import { JinjaFormattedChatResult } from 'llama.rn';
+import { CompletionParams } from '../../../../utils/completionTypes';
 import Clipboard from '@react-native-clipboard/clipboard';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import {
   Text,
   Button,
@@ -17,15 +17,15 @@ import {
   SegmentedButtons,
 } from 'react-native-paper';
 
-import {Menu} from '../../../../components';
+import { Menu } from '../../../../components';
 
-import {useTheme} from '../../../../hooks';
+import { useTheme } from '../../../../hooks';
 
-import {createStyles} from './styles';
+import { createStyles } from './styles';
 
-import {modelStore} from '../../../../store';
+import { modelStore } from '../../../../store';
 
-import {Model, ChatMessage} from '../../../../utils/types';
+import { Model, ChatMessage } from '../../../../utils/types';
 
 // JSON Schema to GBNF example
 const JSON_SCHEMA_EXAMPLE = `
@@ -572,7 +572,7 @@ export const TestCompletionScreen: React.FC = observer(() => {
         },
         {
           name: 'With Jinja',
-          params: {jinja: true},
+          params: { jinja: true },
         },
         {
           name: 'With JSON Schema',
@@ -707,7 +707,7 @@ export const TestCompletionScreen: React.FC = observer(() => {
           params: {
             grammar: JSON_GBNF,
             grammar_lazy: true,
-            grammar_triggers: [{type: 3, value: 'true', token: 0}], // type 3 = PATTERN_START
+            grammar_triggers: [{ type: 3, value: 'true', token: 0 }], // type 3 = PATTERN_START
           },
           // This test uses PATTERN_START trigger with value 'true'
           // Expected: The grammar will be activated when 'true' appears at the start of a token
@@ -718,7 +718,7 @@ export const TestCompletionScreen: React.FC = observer(() => {
           params: {
             grammar: JSON_GBNF,
             grammar_lazy: true,
-            grammar_triggers: [{type: 2, value: 'false', token: 0}], // type 2 = PATTERN
+            grammar_triggers: [{ type: 2, value: 'false', token: 0 }], // type 2 = PATTERN
           },
           // This test uses PATTERN trigger with value 'false'
           // Expected: The grammar will be activated when 'false' appears anywhere in the text
@@ -729,7 +729,7 @@ export const TestCompletionScreen: React.FC = observer(() => {
           params: {
             grammar: JSON_GBNF,
             grammar_lazy: true,
-            grammar_triggers: [{type: 1, value: 'json', token: 0}], // type 1 = WORD
+            grammar_triggers: [{ type: 1, value: 'json', token: 0 }], // type 1 = WORD
             preserved_tokens: ['json'],
           },
           // This test uses WORD trigger with value 'json'
@@ -741,7 +741,7 @@ export const TestCompletionScreen: React.FC = observer(() => {
           params: {
             grammar: JSON_GBNF,
             grammar_lazy: true,
-            grammar_triggers: [{type: 0, value: '{', token: 0}], // type 0 = TOKEN
+            grammar_triggers: [{ type: 0, value: '{', token: 0 }], // type 0 = TOKEN
           },
           // This test uses TOKEN trigger with value '{'
           // Expected: The grammar will be activated when the model generates the '{' character
@@ -1008,8 +1008,8 @@ export const TestCompletionScreen: React.FC = observer(() => {
                         value={textCompletionMethod}
                         onValueChange={setTextCompletionMethod}
                         buttons={[
-                          {value: 'direct', label: 'Direct'},
-                          {value: 'formatted', label: 'Formatted'},
+                          { value: 'direct', label: 'Direct' },
+                          { value: 'formatted', label: 'Formatted' },
                         ]}
                       />
 
@@ -1022,8 +1022,8 @@ export const TestCompletionScreen: React.FC = observer(() => {
                               setUseJinja(value === 'true')
                             }
                             buttons={[
-                              {value: 'false', label: 'No'},
-                              {value: 'true', label: 'Yes'},
+                              { value: 'false', label: 'No' },
+                              { value: 'true', label: 'Yes' },
                             ]}
                           />
                         </View>

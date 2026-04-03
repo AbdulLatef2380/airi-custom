@@ -1,12 +1,12 @@
-import {makeAutoObservable, observable} from 'mobx';
+import { makeAutoObservable, observable } from 'mobx';
 
-import {ServerConfig} from '../../src/utils/types';
-import {RemoteModelInfo} from '../../src/api/openai';
+import { ServerConfig } from '../../src/utils/types';
+import { RemoteModelInfo } from '../../src/api/openai';
 
 class MockServerStore {
   servers: ServerConfig[] = [];
   serverModels: Map<string, RemoteModelInfo[]> = observable.map();
-  userSelectedModels: Array<{serverId: string; remoteModelId: string}> = [];
+  userSelectedModels: Array<{ serverId: string; remoteModelId: string }> = [];
   isLoading = false;
   error: string | null = null;
   privacyNoticeAcknowledged = false;
@@ -55,7 +55,7 @@ class MockServerStore {
     this.fetchAllRemoteModels = jest.fn().mockResolvedValue(undefined);
     this.testServerConnection = jest
       .fn()
-      .mockResolvedValue({ok: true, modelCount: 3});
+      .mockResolvedValue({ ok: true, modelCount: 3 });
     this.acknowledgePrivacyNotice = jest.fn();
     this.addUserSelectedModel = jest.fn();
     this.removeUserSelectedModel = jest.fn();

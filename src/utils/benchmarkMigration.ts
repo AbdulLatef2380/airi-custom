@@ -3,8 +3,8 @@
  * Handles schema changes in benchmark result data structure
  */
 
-import {BenchmarkResult} from './types';
-import {migrateContextInitParams} from './contextInitParamsVersions';
+import { BenchmarkResult } from './types';
+import { migrateContextInitParams } from './contextInitParamsVersions';
 
 /**
  * Migrates benchmark result initSettings from legacy format to current format
@@ -16,7 +16,7 @@ export function migrateBenchmarkResult(
     return result;
   }
 
-  const migratedResult = {...result};
+  const migratedResult = { ...result };
 
   migratedResult.initSettings = migrateContextInitParams(result.initSettings);
 

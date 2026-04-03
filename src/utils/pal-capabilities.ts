@@ -1,4 +1,4 @@
-import type {Pal, PalCapabilities} from '../types/pal';
+import type { Pal, PalCapabilities } from '../types/pal';
 
 /**
  * Clean capability detection functions

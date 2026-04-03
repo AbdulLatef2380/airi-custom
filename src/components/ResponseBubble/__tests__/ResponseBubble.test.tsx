@@ -1,8 +1,8 @@
 import React from 'react';
-import {Text, LayoutAnimation} from 'react-native';
-import {fireEvent} from '@testing-library/react-native';
-import {render} from '../../../../jest/test-utils';
-import {ResponseBubble} from '../ResponseBubble';
+import { Text, LayoutAnimation } from 'react-native';
+import { fireEvent } from '@testing-library/react-native';
+import { render } from '../../../../jest/test-utils';
+import { ResponseBubble } from '../ResponseBubble';
 
 // Mock LayoutAnimation - need to spy on the actual LayoutAnimation object
 jest.spyOn(LayoutAnimation, 'configureNext').mockImplementation(jest.fn());
@@ -14,7 +14,7 @@ describe('ResponseBubble', () => {
 
   describe('Content Display', () => {
     it('should display children content to the user', () => {
-      const {getByText} = render(
+      const { getByText } = render(
         <ResponseBubble>
           <Text>Hello, this is a response</Text>
         </ResponseBubble>,
@@ -24,7 +24,7 @@ describe('ResponseBubble', () => {
     });
 
     it('should update displayed content when children change', () => {
-      const {rerender, getByText, queryByText} = render(
+      const { rerender, getByText, queryByText } = render(
         <ResponseBubble>
           <Text>Initial message</Text>
         </ResponseBubble>,
@@ -43,7 +43,7 @@ describe('ResponseBubble', () => {
     });
 
     it('should handle empty content gracefully', () => {
-      const {queryByTestId} = render(<ResponseBubble />);
+      const { queryByTestId } = render(<ResponseBubble />);
       // Should render without crashing
       expect(queryByTestId('masked-view')).toBeNull(); // Starts expanded
     });
@@ -51,7 +51,7 @@ describe('ResponseBubble', () => {
 
   describe('Expand/Collapse Behavior', () => {
     it('should start in expanded state showing full content', () => {
-      const {queryByTestId} = render(
+      const { queryByTestId } = render(
         <ResponseBubble>
           <Text>Content</Text>
         </ResponseBubble>,
@@ -62,7 +62,7 @@ describe('ResponseBubble', () => {
     });
 
     it('should toggle to partial state when user taps the bubble', () => {
-      const {getByText, queryByTestId} = render(
+      const { getByText, queryByTestId } = render(
         <ResponseBubble>
           <Text>Content</Text>
         </ResponseBubble>,
@@ -79,7 +79,7 @@ describe('ResponseBubble', () => {
     });
 
     it('should toggle back to expanded when tapped again', () => {
-      const {getByText, queryByTestId} = render(
+      const { getByText, queryByTestId } = render(
         <ResponseBubble>
           <Text>Content</Text>
         </ResponseBubble>,

@@ -1,13 +1,13 @@
 import React from 'react';
 
-import {Text} from 'react-native-paper';
+import { Text } from 'react-native-paper';
 
-import {render, fireEvent} from '../../../../jest/test-utils';
+import { render, fireEvent } from '../../../../jest/test-utils';
 
-import {Bubble} from '../Bubble';
+import { Bubble } from '../Bubble';
 
 jest.mock('react-native-vector-icons/MaterialCommunityIcons', () => {
-  const {Text: PaperText} = require('react-native-paper');
+  const { Text: PaperText } = require('react-native-paper');
   return props => <PaperText>{props.name}</PaperText>;
 });
 
@@ -21,7 +21,7 @@ describe('Bubble', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     mockMessage = {
-      author: {id: 'user1'},
+      author: { id: 'user1' },
       createdAt: 0,
       id: 'uuidv4',
       text: 'Hello, world!',
@@ -47,7 +47,7 @@ describe('Bubble', () => {
   };
 
   it('renders correctly with all props', () => {
-    const {getByText, getByTestId} = renderBubble(mockMessage);
+    const { getByText, getByTestId } = renderBubble(mockMessage);
     expect(getByTestId('child')).toBeTruthy();
     expect(getByText('10ms/token, 100.00 tokens/sec')).toBeTruthy();
     expect(getByText('content-copy')).toBeTruthy();
@@ -56,14 +56,14 @@ describe('Bubble', () => {
   it('does not render copy icon when message is not copyable', () => {
     const nonCopyableMessage = {
       ...mockMessage,
-      metadata: {...mockMessage.metadata, copyable: false},
+      metadata: { ...mockMessage.metadata, copyable: false },
     };
-    const {queryByText} = renderBubble(nonCopyableMessage);
+    const { queryByText } = renderBubble(nonCopyableMessage);
     expect(queryByText('content-copy')).toBeNull();
   });
 
   it('calls Clipboard.setString when copy icon is pressed', () => {
-    const {getByText} = renderBubble(mockMessage);
+    const { getByText } = renderBubble(mockMessage);
     fireEvent.press(getByText('content-copy'));
     expect(
       require('@react-native-clipboard/clipboard').setString,
@@ -71,8 +71,8 @@ describe('Bubble', () => {
   });
 
   it('does not crash when message.metadata is undefined', () => {
-    const messageWithoutMetadata = {...mockMessage, metadata: undefined};
-    const {getByText} = renderBubble(messageWithoutMetadata);
+    const messageWithoutMetadata = { ...mockMessage, metadata: undefined };
+    const { getByText } = renderBubble(messageWithoutMetadata);
     expect(getByText('Child content')).toBeTruthy();
   });
 
@@ -89,7 +89,7 @@ describe('Bubble', () => {
       },
     };
 
-    const {getByText} = renderBubble(messageWithTimeToFirstToken);
+    const { getByText } = renderBubble(messageWithTimeToFirstToken);
 
     expect(getByText('10ms/token, 100.00 tokens/sec, 250ms TTFT')).toBeTruthy();
   });
@@ -107,7 +107,7 @@ describe('Bubble', () => {
       },
     };
 
-    const {getByText} = renderBubble(messageWithNullTimeToFirstToken);
+    const { getByText } = renderBubble(messageWithNullTimeToFirstToken);
 
     // Should show timing without TTFT
     expect(getByText('10ms/token, 100.00 tokens/sec')).toBeTruthy();
@@ -126,7 +126,7 @@ describe('Bubble', () => {
       },
     };
 
-    const {getByText} = renderBubble(messageWithoutTimeToFirstToken);
+    const { getByText } = renderBubble(messageWithoutTimeToFirstToken);
 
     // Should show timing without TTFT
     expect(getByText('10ms/token, 100.00 tokens/sec')).toBeTruthy();
@@ -143,7 +143,7 @@ describe('Bubble', () => {
       },
     };
 
-    const {getByText} = renderBubble(messageWithTtftOnly);
+    const { getByText } = renderBubble(messageWithTtftOnly);
 
     expect(getByText('150ms TTFT')).toBeTruthy();
   });
@@ -156,7 +156,7 @@ describe('Bubble', () => {
       },
     };
 
-    const {queryByTestId} = renderBubble(messageWithCopyableOnly);
+    const { queryByTestId } = renderBubble(messageWithCopyableOnly);
 
     // Footer is gated on timings, not copyable — prevents showing
     // an awkward copy icon before streaming has started/finished
@@ -172,7 +172,7 @@ describe('Bubble', () => {
       },
     };
 
-    const {getByText, queryByTestId} = renderBubble(messageWithEmptyTimings);
+    const { getByText, queryByTestId } = renderBubble(messageWithEmptyTimings);
 
     // Footer shows because timings object exists (set after completion)
     expect(queryByTestId('message-timing')).toBeTruthy();
@@ -185,7 +185,7 @@ describe('Bubble', () => {
       metadata: {},
     };
 
-    const {queryByTestId} = renderBubble(messageWithNoFooter);
+    const { queryByTestId } = renderBubble(messageWithNoFooter);
 
     expect(queryByTestId('message-timing')).toBeNull();
   });

@@ -1,5 +1,5 @@
-import {StyleSheet} from 'react-native';
-import {Theme} from '../../../../utils/types';
+import { StyleSheet } from 'react-native';
+import { Theme } from '../../../../utils/types';
 
 export const createStyles = (theme: Theme) =>
   StyleSheet.create({
@@ -16,7 +16,7 @@ export const createStyles = (theme: Theme) =>
         ? {}
         : {
             shadowColor: theme.colors.shadow,
-            shadowOffset: {width: 0, height: 2},
+            shadowOffset: { width: 0, height: 2 },
             shadowOpacity: 0.05,
             shadowRadius: 8,
             elevation: 2,
@@ -77,7 +77,7 @@ export const createStyles = (theme: Theme) =>
           }
         : {
             shadowColor: theme.colors.shadow,
-            shadowOffset: {width: 0, height: 2},
+            shadowOffset: { width: 0, height: 2 },
             shadowOpacity: 0.1,
             shadowRadius: 4,
             elevation: 3,
@@ -269,7 +269,7 @@ export const createStyles = (theme: Theme) =>
       ...(theme.dark
         ? {
             shadowColor: theme.colors.error,
-            shadowOffset: {width: 0, height: 0},
+            shadowOffset: { width: 0, height: 0 },
             shadowOpacity: 0.15,
             shadowRadius: 4,
           }

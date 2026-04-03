@@ -1,16 +1,16 @@
-import React, {useContext} from 'react';
-import {View} from 'react-native';
-import {Text} from 'react-native-paper';
-import {observer} from 'mobx-react-lite';
+import React, { useContext } from 'react';
+import { View } from 'react-native';
+import { Text } from 'react-native-paper';
+import { observer } from 'mobx-react-lite';
 
-import {useTheme} from '../../hooks';
-import {L10nContext, formatBytes} from '../../utils';
-import {t} from '../../locales';
-import {getModelMemoryRequirement} from '../../utils/memoryEstimator';
-import {Model} from '../../utils/types';
-import {modelStore} from '../../store';
+import { useTheme } from '../../hooks';
+import { L10nContext, formatBytes } from '../../utils';
+import { t } from '../../locales';
+import { getModelMemoryRequirement } from '../../utils/memoryEstimator';
+import { Model } from '../../utils/types';
+import { modelStore } from '../../store';
 
-import {createStyles} from './styles';
+import { createStyles } from './styles';
 
 interface MemoryRequirementProps {
   model: Model;
@@ -24,7 +24,7 @@ interface MemoryRequirementProps {
  * Tappable with tooltip explaining the estimate.
  */
 export const MemoryRequirement: React.FC<MemoryRequirementProps> = observer(
-  ({model, projectionModel}) => {
+  ({ model, projectionModel }) => {
     const theme = useTheme();
     const l10n = useContext(L10nContext);
     const styles = createStyles(theme);
@@ -37,7 +37,7 @@ export const MemoryRequirement: React.FC<MemoryRequirementProps> = observer(
     );
 
     const sizeText = formatBytes(memoryRequirement, 1); // "2.5 GB"
-    const displayText = t(l10n.memory.estimatedMemory, {size: sizeText});
+    const displayText = t(l10n.memory.estimatedMemory, { size: sizeText });
 
     return (
       <View style={styles.container} testID="memory-requirement">

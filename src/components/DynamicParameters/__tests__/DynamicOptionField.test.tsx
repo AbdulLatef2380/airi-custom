@@ -1,15 +1,15 @@
 import React from 'react';
-import {FormProvider, useForm} from 'react-hook-form';
-import {render} from '../../../../jest/test-utils';
-import {DynamicOptionField} from '../DynamicOptionField';
-import type {ParameterDefinition} from '../../../types/pal';
+import { FormProvider, useForm } from 'react-hook-form';
+import { render } from '../../../../jest/test-utils';
+import { DynamicOptionField } from '../DynamicOptionField';
+import type { ParameterDefinition } from '../../../types/pal';
 
 // Wrapper component to provide form context
 const TestWrapper: React.FC<{
   children: React.ReactNode;
   defaultValues?: Record<string, any>;
-}> = ({children, defaultValues = {}}) => {
-  const methods = useForm({defaultValues});
+}> = ({ children, defaultValues = {} }) => {
+  const methods = useForm({ defaultValues });
   return <FormProvider {...methods}>{children}</FormProvider>;
 };
 
@@ -24,7 +24,7 @@ describe('DynamicOptionField', () => {
   };
 
   it('should render with label and description', () => {
-    const {getByText} = render(
+    const { getByText } = render(
       <TestWrapper>
         <DynamicOptionField parameter={mockParameter} />
       </TestWrapper>,
@@ -35,7 +35,7 @@ describe('DynamicOptionField', () => {
   });
 
   it('should render selector with correct placeholder', () => {
-    const {getByText} = render(
+    const { getByText } = render(
       <TestWrapper>
         <DynamicOptionField parameter={mockParameter} />
       </TestWrapper>,
@@ -45,7 +45,7 @@ describe('DynamicOptionField', () => {
   });
 
   it('should be disabled when disabled prop is true', () => {
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <TestWrapper>
         <DynamicOptionField parameter={mockParameter} disabled={true} />
       </TestWrapper>,
@@ -56,9 +56,9 @@ describe('DynamicOptionField', () => {
   });
 
   it('should show required indicator when required', () => {
-    const requiredParameter = {...mockParameter, required: true};
+    const requiredParameter = { ...mockParameter, required: true };
 
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <TestWrapper>
         <DynamicOptionField parameter={requiredParameter} />
       </TestWrapper>,
@@ -69,7 +69,7 @@ describe('DynamicOptionField', () => {
   });
 
   it('should display error message when provided', () => {
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <TestWrapper>
         <DynamicOptionField
           parameter={mockParameter}
@@ -83,8 +83,8 @@ describe('DynamicOptionField', () => {
   });
 
   it('should use default value from form context', () => {
-    const {getByTestId} = render(
-      <TestWrapper defaultValues={{testOption: 'Option 2'}}>
+    const { getByTestId } = render(
+      <TestWrapper defaultValues={{ testOption: 'Option 2' }}>
         <DynamicOptionField parameter={mockParameter} />
       </TestWrapper>,
     );
@@ -94,9 +94,9 @@ describe('DynamicOptionField', () => {
   });
 
   it('should handle empty options array', () => {
-    const parameterWithoutOptions = {...mockParameter, options: []};
+    const parameterWithoutOptions = { ...mockParameter, options: [] };
 
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <TestWrapper>
         <DynamicOptionField parameter={parameterWithoutOptions} />
       </TestWrapper>,
@@ -107,9 +107,9 @@ describe('DynamicOptionField', () => {
   });
 
   it('should handle undefined options', () => {
-    const parameterWithoutOptions = {...mockParameter, options: undefined};
+    const parameterWithoutOptions = { ...mockParameter, options: undefined };
 
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <TestWrapper>
         <DynamicOptionField parameter={parameterWithoutOptions} />
       </TestWrapper>,

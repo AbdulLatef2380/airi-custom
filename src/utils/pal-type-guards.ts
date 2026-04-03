@@ -5,8 +5,8 @@
  * without relying on fragile property existence checks.
  */
 
-import type {Pal} from '../types/pal';
-import type {PalsHubPal} from '../types/palshub';
+import type { Pal } from '../types/pal';
+import type { PalsHubPal } from '../types/palshub';
 
 /**
  * Type guard to check if a pal is a local pal

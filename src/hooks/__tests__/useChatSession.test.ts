@@ -1,8 +1,8 @@
-import {LlamaContext} from 'llama.rn';
-import {renderHook, act, waitFor} from '@testing-library/react-native';
+import { LlamaContext } from 'llama.rn';
+import { renderHook, act, waitFor } from '@testing-library/react-native';
 
-import {textMessage} from '../../../jest/fixtures';
-import {sessionFixtures} from '../../../jest/fixtures/chatSessions';
+import { textMessage } from '../../../jest/fixtures';
+import { sessionFixtures } from '../../../jest/fixtures/chatSessions';
 import {
   mockBasicModel,
   mockDefaultCompletionParams,
@@ -10,12 +10,12 @@ import {
   modelsList,
 } from '../../../jest/fixtures/models';
 
-import {useChatSession} from '../useChatSession';
+import { useChatSession } from '../useChatSession';
 
-import {chatSessionStore, modelStore, palStore} from '../../store';
+import { chatSessionStore, modelStore, palStore } from '../../store';
 
-import {l10n} from '../../locales';
-import {assistant} from '../../utils/chat';
+import { l10n } from '../../locales';
+import { assistant } from '../../utils/chat';
 
 const mockAssistant = {
   id: 'h3o3lc5xj',
@@ -59,8 +59,8 @@ describe('useChatSession', () => {
   });
 
   it('should send a message and update the chat session', async () => {
-    const {result} = renderHook(() =>
-      useChatSession({current: null}, textMessage.author, mockAssistant),
+    const { result } = renderHook(() =>
+      useChatSession({ current: null }, textMessage.author, mockAssistant),
     );
 
     await act(async () => {
@@ -74,8 +74,8 @@ describe('useChatSession', () => {
   it('should handle model not loaded scenario', async () => {
     modelStore.context = undefined;
     modelStore.engine = undefined;
-    const {result} = renderHook(() =>
-      useChatSession({current: null}, textMessage.author, assistant),
+    const { result } = renderHook(() =>
+      useChatSession({ current: null }, textMessage.author, assistant),
     );
 
     await act(async () => {
@@ -89,7 +89,7 @@ describe('useChatSession', () => {
       id: expect.any(String),
       text: l10n.en.chat.modelNotLoaded,
       type: 'text',
-      metadata: {system: true},
+      metadata: { system: true },
     });
   });
 
@@ -101,8 +101,8 @@ describe('useChatSession', () => {
         .mockRejectedValueOnce(new Error(errorMessage));
     }
 
-    const {result} = renderHook(() =>
-      useChatSession({current: null}, textMessage.author, mockAssistant),
+    const { result } = renderHook(() =>
+      useChatSession({ current: null }, textMessage.author, mockAssistant),
     );
 
     await act(async () => {
@@ -118,8 +118,8 @@ describe('useChatSession', () => {
   });
 
   it('should reset the conversation', () => {
-    const {result} = renderHook(() =>
-      useChatSession({current: null}, textMessage.author, mockAssistant),
+    const { result } = renderHook(() =>
+      useChatSession({ current: null }, textMessage.author, mockAssistant),
     );
 
     result.current.handleResetConversation();
@@ -133,8 +133,8 @@ describe('useChatSession', () => {
   });
 
   it('should not stop completion when inferencing is false', () => {
-    const {result} = renderHook(() =>
-      useChatSession({current: null}, textMessage.author, mockAssistant),
+    const { result } = renderHook(() =>
+      useChatSession({ current: null }, textMessage.author, mockAssistant),
     );
 
     result.current.handleStopPress();
@@ -154,8 +154,8 @@ describe('useChatSession', () => {
         .mockImplementation(() => completionPromise);
     }
 
-    const {result} = renderHook(() =>
-      useChatSession({current: null}, textMessage.author, mockAssistant),
+    const { result } = renderHook(() =>
+      useChatSession({ current: null }, textMessage.author, mockAssistant),
     );
 
     const sendPromise = result.current.handleSendPress(textMessage);
@@ -166,7 +166,7 @@ describe('useChatSession', () => {
     });
 
     // Complete the mocked completion and wait for the handler to finish
-    resolveCompletion!({timings: {total: 100}, usage: {}});
+    resolveCompletion!({ timings: { total: 100 }, usage: {} });
     await act(async () => {
       await sendPromise;
     });
@@ -174,9 +174,13 @@ describe('useChatSession', () => {
   });
 
   test.each([
-    {systemPrompt: undefined, shouldInclude: false, description: 'undefined'},
-    {systemPrompt: '', shouldInclude: false, description: 'empty string'},
-    {systemPrompt: '   ', shouldInclude: false, description: 'whitespace-only'},
+    { systemPrompt: undefined, shouldInclude: false, description: 'undefined' },
+    { systemPrompt: '', shouldInclude: false, description: 'empty string' },
+    {
+      systemPrompt: '   ',
+      shouldInclude: false,
+      description: 'whitespace-only',
+    },
     {
       systemPrompt: 'You are a helpful assistant',
       shouldInclude: true,
@@ -189,11 +193,11 @@ describe('useChatSession', () => {
     },
   ])(
     'should handle system prompt for $description',
-    async ({systemPrompt, shouldInclude}) => {
+    async ({ systemPrompt, shouldInclude }) => {
       const testModel = {
         ...mockBasicModel,
         id: 'test-model',
-        chatTemplate: {...mockBasicModel.chatTemplate, systemPrompt},
+        chatTemplate: { ...mockBasicModel.chatTemplate, systemPrompt },
       };
 
       modelStore.models = [testModel];
@@ -206,12 +210,12 @@ describe('useChatSession', () => {
           .fn()
           .mockImplementation((params, _onData) => {
             capturedMessages = params.messages || [];
-            return Promise.resolve({timings: {total: 100}, usage: {}});
+            return Promise.resolve({ timings: { total: 100 }, usage: {} });
           });
       }
 
-      const {result} = renderHook(() =>
-        useChatSession({current: null}, textMessage.author, mockAssistant),
+      const { result } = renderHook(() =>
+        useChatSession({ current: null }, textMessage.author, mockAssistant),
       );
 
       await act(async () => {
@@ -245,8 +249,8 @@ describe('useChatSession', () => {
         setting: 'Middle-earth',
       },
       parameterSchema: [
-        {key: 'name', type: 'text' as const, label: 'Name', required: true},
-        {key: 'role', type: 'text' as const, label: 'Role', required: true},
+        { key: 'name', type: 'text' as const, label: 'Name', required: true },
+        { key: 'role', type: 'text' as const, label: 'Role', required: true },
         {
           key: 'setting',
           type: 'text' as const,
@@ -284,12 +288,12 @@ describe('useChatSession', () => {
         .fn()
         .mockImplementation((params, _onData) => {
           capturedMessages = params.messages || [];
-          return Promise.resolve({timings: {total: 100}, usage: {}});
+          return Promise.resolve({ timings: { total: 100 }, usage: {} });
         });
     }
 
-    const {result} = renderHook(() =>
-      useChatSession({current: null}, textMessage.author, mockAssistant),
+    const { result } = renderHook(() =>
+      useChatSession({ current: null }, textMessage.author, mockAssistant),
     );
 
     await act(async () => {
@@ -321,14 +325,14 @@ describe('useChatSession', () => {
           return Promise.resolve({
             text: mockContent,
             reasoning_content: mockReasoningContent,
-            timings: {total: 100},
+            timings: { total: 100 },
             usage: {},
           });
         });
     }
 
-    const {result} = renderHook(() =>
-      useChatSession({current: null}, textMessage.author, mockAssistant),
+    const { result } = renderHook(() =>
+      useChatSession({ current: null }, textMessage.author, mockAssistant),
     );
 
     await act(async () => {
@@ -389,12 +393,12 @@ describe('useChatSession', () => {
         .fn()
         .mockImplementation((params, _onData) => {
           capturedMessages = params.messages || [];
-          return Promise.resolve({timings: {total: 100}, usage: {}});
+          return Promise.resolve({ timings: { total: 100 }, usage: {} });
         });
     }
 
-    const {result} = renderHook(() =>
-      useChatSession({current: null}, textMessage.author, mockAssistant),
+    const { result } = renderHook(() =>
+      useChatSession({ current: null }, textMessage.author, mockAssistant),
     );
 
     await act(async () => {

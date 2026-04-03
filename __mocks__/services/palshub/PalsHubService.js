@@ -3,7 +3,7 @@
 
 const mockPalsHubService = {
   // Methods
-  getPals: jest.fn().mockResolvedValue({pals: [], total: 0}),
+  getPals: jest.fn().mockResolvedValue({ pals: [], total: 0 }),
   getPal: jest.fn().mockResolvedValue(null),
   getMyPals: jest.fn().mockResolvedValue(null),
   getUserLibrary: jest.fn().mockResolvedValue([]),
@@ -13,7 +13,7 @@ const mockPalsHubService = {
   createPal: jest.fn().mockResolvedValue(null),
   updatePal: jest.fn().mockResolvedValue(null),
   deletePal: jest.fn().mockResolvedValue(undefined),
-  searchPals: jest.fn().mockResolvedValue({pals: [], total: 0}),
+  searchPals: jest.fn().mockResolvedValue({ pals: [], total: 0 }),
   getCategories: jest.fn().mockResolvedValue([]),
   getTags: jest.fn().mockResolvedValue([]),
   downloadPalImage: jest.fn().mockResolvedValue(null),
@@ -34,7 +34,7 @@ const palsHubService = mockPalsHubService;
 export default palsHubService;
 
 // Named export for compatibility
-export {palsHubService};
+export { palsHubService };
 
 // CommonJS compatibility
 module.exports = palsHubService;

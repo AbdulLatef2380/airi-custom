@@ -1,4 +1,4 @@
-import {sessionFixtures} from '../../jest/fixtures/chatSessions';
+import { sessionFixtures } from '../../jest/fixtures/chatSessions';
 
 // Mock defaultCompletionSettings to avoid circular imports
 // This should match the actual defaultCompletionSettings from ChatSessionStore

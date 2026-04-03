@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {ImageRequireSource, ImageURISource, View} from 'react-native';
+import { ImageRequireSource, ImageURISource, View } from 'react-native';
 
 interface Props {
   imageIndex: number;

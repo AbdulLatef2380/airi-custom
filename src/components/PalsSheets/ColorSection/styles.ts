@@ -1,5 +1,5 @@
-import {StyleSheet} from 'react-native';
-import {Theme} from '../../../utils/types';
+import { StyleSheet } from 'react-native';
+import { Theme } from '../../../utils/types';
 
 export const createStyles = (theme: Theme) =>
   StyleSheet.create({
@@ -25,7 +25,7 @@ export const createStyles = (theme: Theme) =>
       borderRadius: 12,
       overflow: 'hidden',
       flexDirection: 'row',
-      transform: [{rotate: '45deg'}],
+      transform: [{ rotate: '45deg' }],
     },
     colorHalf: {
       width: '50%',
@@ -41,7 +41,7 @@ export const createStyles = (theme: Theme) =>
       borderColor: theme.colors.onBackground,
       borderWidth: 2.5,
       shadowColor: theme.colors.onBackground,
-      shadowOffset: {width: 0, height: 1},
+      shadowOffset: { width: 0, height: 1 },
       shadowOpacity: 0.3,
       shadowRadius: 2,
       elevation: 3,

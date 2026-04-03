@@ -1,19 +1,19 @@
 import React from 'react';
-import {View} from 'react-native';
+import { View } from 'react-native';
 
-import {Text} from 'react-native-paper';
+import { Text } from 'react-native-paper';
 
-import {useTheme} from '../../hooks';
+import { useTheme } from '../../hooks';
 
-import {createStyles} from './styles';
+import { createStyles } from './styles';
 
-import {Divider} from '..';
+import { Divider } from '..';
 
 interface SectionDividerProps {
   label: string;
 }
 
-export const SectionDivider: React.FC<SectionDividerProps> = ({label}) => {
+export const SectionDivider: React.FC<SectionDividerProps> = ({ label }) => {
   const theme = useTheme();
   const styles = createStyles(theme);
 

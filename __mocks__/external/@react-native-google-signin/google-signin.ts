@@ -8,11 +8,11 @@ export const GoogleSignin = {
   configure: jest.fn(),
   hasPlayServices: jest.fn().mockResolvedValue(true),
   isSignedIn: jest.fn().mockResolvedValue(false),
-  signIn: jest.fn().mockResolvedValue({idToken: 'test', user: {}}),
+  signIn: jest.fn().mockResolvedValue({ idToken: 'test', user: {} }),
   signOut: jest.fn(),
   revokeAccess: jest.fn(),
   getTokens: jest
     .fn()
-    .mockResolvedValue({idToken: 'test', accessToken: 'test'}),
+    .mockResolvedValue({ idToken: 'test', accessToken: 'test' }),
   signInSilently: jest.fn().mockRejectedValue(new Error('Not signed in')),
 };

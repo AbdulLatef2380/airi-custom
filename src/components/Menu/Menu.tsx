@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
 import {
   Divider,
@@ -6,11 +6,11 @@ import {
   MenuProps as PaperMenuProps,
 } from 'react-native-paper';
 
-import {useTheme} from '../../hooks';
+import { useTheme } from '../../hooks';
 
-import {createStyles} from './styles';
-import {MenuItem, MenuItemProps} from './MenuItem';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import { createStyles } from './styles';
+import { MenuItem, MenuItemProps } from './MenuItem';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const Separator = () => {
   const theme = useTheme();
@@ -26,7 +26,7 @@ const GroupSeparator = () => {
       title=""
       style={[
         styles.groupSeparator,
-        {backgroundColor: theme.colors.menuGroupSeparator},
+        { backgroundColor: theme.colors.menuGroupSeparator },
       ]}
       disabled
     />
@@ -42,7 +42,7 @@ export const Menu: React.FC<MenuProps> & {
   Item: typeof MenuItem;
   GroupSeparator: typeof GroupSeparator;
   Separator: typeof Separator;
-} = ({children, selectable = false, ...menuProps}) => {
+} = ({ children, selectable = false, ...menuProps }) => {
   const theme = useTheme();
   const styles = createStyles(theme);
   const [hasActiveSubmenu, setHasActiveSubmenu] = useState(false);

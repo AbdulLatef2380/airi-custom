@@ -1,11 +1,11 @@
 import React from 'react';
-import {Checkbox} from '../Checkbox';
-import {fireEvent, render} from '../../../../jest/test-utils';
+import { Checkbox } from '../Checkbox';
+import { fireEvent, render } from '../../../../jest/test-utils';
 
 describe('Checkbox', () => {
   it('renders correctly in unchecked state', () => {
     const onPress = jest.fn();
-    const {queryByTestId} = render(
+    const { queryByTestId } = render(
       <Checkbox checked={false} onPress={onPress} />,
     );
 
@@ -14,7 +14,7 @@ describe('Checkbox', () => {
 
   it('renders correctly in checked state', async () => {
     const onPress = jest.fn();
-    const {findByTestId} = render(
+    const { findByTestId } = render(
       <Checkbox checked={true} onPress={onPress} />,
     );
 
@@ -26,7 +26,7 @@ describe('Checkbox', () => {
 
   it('calls onPress when clicked and not disabled', () => {
     const onPress = jest.fn();
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <Checkbox checked={false} onPress={onPress} />,
     );
 
@@ -36,7 +36,7 @@ describe('Checkbox', () => {
 
   it('does not call onPress when disabled', () => {
     const onPress = jest.fn();
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <Checkbox checked={false} onPress={onPress} disabled={true} />,
     );
 

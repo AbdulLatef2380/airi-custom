@@ -6,7 +6,7 @@ import {
   supportsThinking,
   templateSupportsThinking,
 } from '../thinkingCapabilityDetection';
-import {Model} from '../types';
+import { Model } from '../types';
 
 // Mock model for testing
 const createMockModel = (name: string, chatTemplate?: string): Model => ({

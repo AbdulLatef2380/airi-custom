@@ -1,5 +1,5 @@
 import React from 'react';
-import {Alert} from 'react-native';
+import { Alert } from 'react-native';
 
 import {
   render,
@@ -7,12 +7,12 @@ import {
   waitFor,
   act,
 } from '../../../../../../jest/test-utils';
-import {SquarePalCard} from '../SquarePalCard';
+import { SquarePalCard } from '../SquarePalCard';
 
-import {palStore, chatSessionStore, modelStore} from '../../../../../store';
-import {downloadedModel} from '../../../../../../jest/fixtures/models';
-import type {Pal} from '../../../../../store/PalStore';
-import type {PalsHubPal} from '../../../../../types/palshub';
+import { palStore, chatSessionStore, modelStore } from '../../../../../store';
+import { downloadedModel } from '../../../../../../jest/fixtures/models';
+import type { Pal } from '../../../../../store/PalStore';
+import type { PalsHubPal } from '../../../../../types/palshub';
 
 // Mock navigation
 const mockNavigate = jest.fn();
@@ -28,7 +28,7 @@ jest.mock('../../../../../utils/exportUtils', () => ({
   exportPal: jest.fn(),
 }));
 
-const {exportPal} = require('../../../../../utils/exportUtils');
+const { exportPal } = require('../../../../../utils/exportUtils');
 
 describe('SquarePalCard', () => {
   const mockOnPress = jest.fn();
@@ -106,7 +106,7 @@ describe('SquarePalCard', () => {
   describe('Rendering', () => {
     it('renders local pal correctly', () => {
       const pal = createLocalPal();
-      const {getByText} = render(
+      const { getByText } = render(
         <SquarePalCard pal={pal} onPress={mockOnPress} isLocal={true} />,
       );
 
@@ -116,7 +116,7 @@ describe('SquarePalCard', () => {
 
     it('renders PalsHub pal correctly', () => {
       const pal = createPalsHubPal();
-      const {getByText} = render(
+      const { getByText } = render(
         <SquarePalCard pal={pal} onPress={mockOnPress} />,
       );
 
@@ -126,8 +126,8 @@ describe('SquarePalCard', () => {
     });
 
     it('renders rating and review count for PalsHub pal', () => {
-      const pal = createPalsHubPal({average_rating: 4.5, review_count: 10});
-      const {getByText} = render(
+      const pal = createPalsHubPal({ average_rating: 4.5, review_count: 10 });
+      const { getByText } = render(
         <SquarePalCard pal={pal} onPress={mockOnPress} />,
       );
 
@@ -137,7 +137,7 @@ describe('SquarePalCard', () => {
 
     it('renders tags for PalsHub pal', () => {
       const pal = createPalsHubPal();
-      const {getByText} = render(
+      const { getByText } = render(
         <SquarePalCard pal={pal} onPress={mockOnPress} />,
       );
 
@@ -149,7 +149,7 @@ describe('SquarePalCard', () => {
       const pal = createLocalPal({
         thumbnail_url: 'https://example.com/thumb.jpg',
       });
-      const {UNSAFE_getByType} = render(
+      const { UNSAFE_getByType } = render(
         <SquarePalCard pal={pal} onPress={mockOnPress} isLocal={true} />,
       );
 
@@ -158,8 +158,8 @@ describe('SquarePalCard', () => {
     });
 
     it('renders first letter when no thumbnail available', () => {
-      const pal = createLocalPal({name: 'Test Pal'});
-      const {getByText} = render(
+      const pal = createLocalPal({ name: 'Test Pal' });
+      const { getByText } = render(
         <SquarePalCard pal={pal} onPress={mockOnPress} isLocal={true} />,
       );
 
@@ -167,8 +167,8 @@ describe('SquarePalCard', () => {
     });
 
     it('renders protection badge for protected PalsHub pals', () => {
-      const pal = createPalsHubPal({protection_level: 'reveal_on_purchase'});
-      const {UNSAFE_getAllByType} = render(
+      const pal = createPalsHubPal({ protection_level: 'reveal_on_purchase' });
+      const { UNSAFE_getAllByType } = render(
         <SquarePalCard pal={pal} onPress={mockOnPress} />,
       );
 
@@ -183,7 +183,7 @@ describe('SquarePalCard', () => {
   describe('User Interactions', () => {
     it('calls onPress when card is pressed', () => {
       const pal = createLocalPal();
-      const {getByText} = render(
+      const { getByText } = render(
         <SquarePalCard pal={pal} onPress={mockOnPress} isLocal={true} />,
       );
 
@@ -194,7 +194,7 @@ describe('SquarePalCard', () => {
     it('shows delete confirmation when delete button is pressed', () => {
       jest.spyOn(Alert, 'alert');
       const pal = createLocalPal();
-      const {UNSAFE_getAllByType} = render(
+      const { UNSAFE_getAllByType } = render(
         <SquarePalCard pal={pal} onPress={mockOnPress} isLocal={true} />,
       );
 
@@ -211,7 +211,7 @@ describe('SquarePalCard', () => {
 
     it('calls exportPal when share button is pressed', async () => {
       const pal = createLocalPal();
-      const {UNSAFE_getAllByType} = render(
+      const { UNSAFE_getAllByType } = render(
         <SquarePalCard pal={pal} onPress={mockOnPress} isLocal={true} />,
       );
 
@@ -233,12 +233,12 @@ describe('SquarePalCard', () => {
 
   describe('Chat Navigation', () => {
     it('navigates to chat when chat button is pressed for local pal', async () => {
-      const pal = createLocalPal({defaultModel: downloadedModel});
+      const pal = createLocalPal({ defaultModel: downloadedModel });
       // availableModels is computed from models.filter(m => m.isDownloaded)
       // So we just need to set models with downloaded models
       modelStore.models = [downloadedModel];
 
-      const {UNSAFE_getAllByType} = render(
+      const { UNSAFE_getAllByType } = render(
         <SquarePalCard pal={pal} onPress={mockOnPress} isLocal={true} />,
       );
 
@@ -264,7 +264,7 @@ describe('SquarePalCard', () => {
       const pal = createPalsHubPal();
       palStore.pals = []; // No local pals
 
-      const {UNSAFE_getAllByType} = render(
+      const { UNSAFE_getAllByType } = render(
         <SquarePalCard pal={pal} onPress={mockOnPress} />,
       );
 
@@ -284,11 +284,11 @@ describe('SquarePalCard', () => {
   describe('Model Warning', () => {
     it('shows model warning when default model is not available', () => {
       const pal = createLocalPal({
-        defaultModel: {...downloadedModel, id: 'unavailable-model'},
+        defaultModel: { ...downloadedModel, id: 'unavailable-model' },
       });
       modelStore.isModelAvailable = jest.fn().mockReturnValue(false);
 
-      const {getByText} = render(
+      const { getByText } = render(
         <SquarePalCard pal={pal} onPress={mockOnPress} isLocal={true} />,
       );
 
@@ -297,10 +297,10 @@ describe('SquarePalCard', () => {
     });
 
     it('does not show model warning when model is available', () => {
-      const pal = createLocalPal({defaultModel: downloadedModel});
+      const pal = createLocalPal({ defaultModel: downloadedModel });
       modelStore.isModelAvailable = jest.fn().mockReturnValue(true);
 
-      const {queryByText} = render(
+      const { queryByText } = render(
         <SquarePalCard pal={pal} onPress={mockOnPress} isLocal={true} />,
       );
 
@@ -309,7 +309,7 @@ describe('SquarePalCard', () => {
 
     it('does not show model warning for PalsHub pals', () => {
       const pal = createPalsHubPal();
-      const {queryByText} = render(
+      const { queryByText } = render(
         <SquarePalCard pal={pal} onPress={mockOnPress} />,
       );
 
@@ -320,9 +320,9 @@ describe('SquarePalCard', () => {
   describe('Content Display', () => {
     it('truncates long descriptions', () => {
       const longDescription = 'A'.repeat(200);
-      const pal = createLocalPal({description: longDescription});
+      const pal = createLocalPal({ description: longDescription });
 
-      const {getByText} = render(
+      const { getByText } = render(
         <SquarePalCard pal={pal} onPress={mockOnPress} isLocal={true} />,
       );
 
@@ -339,7 +339,7 @@ describe('SquarePalCard', () => {
         systemPrompt: 'You are a helpful coding assistant.',
       });
 
-      const {getByText} = render(
+      const { getByText } = render(
         <SquarePalCard pal={pal} onPress={mockOnPress} isLocal={true} />,
       );
 
@@ -358,7 +358,7 @@ describe('SquarePalCard', () => {
         },
       });
 
-      const {getByText} = render(
+      const { getByText } = render(
         <SquarePalCard pal={pal} onPress={mockOnPress} isLocal={true} />,
       );
 
@@ -376,7 +376,7 @@ describe('SquarePalCard', () => {
         },
       });
 
-      const {getByText} = render(
+      const { getByText } = render(
         <SquarePalCard pal={pal} onPress={mockOnPress} isLocal={true} />,
       );
 
@@ -392,7 +392,7 @@ describe('SquarePalCard', () => {
         capabilities: {},
       });
 
-      const {getByText} = render(
+      const { getByText } = render(
         <SquarePalCard pal={pal} onPress={mockOnPress} isLocal={true} />,
       );
 
@@ -403,7 +403,7 @@ describe('SquarePalCard', () => {
   describe('Action Buttons Visibility', () => {
     it('shows share and delete buttons for local pals', () => {
       const pal = createLocalPal();
-      const {UNSAFE_getAllByType} = render(
+      const { UNSAFE_getAllByType } = render(
         <SquarePalCard pal={pal} onPress={mockOnPress} isLocal={true} />,
       );
 
@@ -416,7 +416,7 @@ describe('SquarePalCard', () => {
 
     it('does not show share and delete buttons for PalsHub pals', () => {
       const pal = createPalsHubPal();
-      const {UNSAFE_queryAllByType} = render(
+      const { UNSAFE_queryAllByType } = render(
         <SquarePalCard pal={pal} onPress={mockOnPress} />,
       );
 
@@ -430,11 +430,11 @@ describe('SquarePalCard', () => {
 
     it('shows chat button for downloaded PalsHub pal', () => {
       const palsHubPal = createPalsHubPal();
-      const localPal = createLocalPal({palshub_id: palsHubPal.id});
+      const localPal = createLocalPal({ palshub_id: palsHubPal.id });
       palStore.pals = [localPal];
       palStore.isPalsHubPalDownloaded = jest.fn().mockReturnValue(true);
 
-      const {UNSAFE_getAllByType} = render(
+      const { UNSAFE_getAllByType } = render(
         <SquarePalCard pal={palsHubPal} onPress={mockOnPress} />,
       );
 
@@ -455,7 +455,7 @@ describe('SquarePalCard', () => {
         },
       });
 
-      const {UNSAFE_getAllByType} = render(
+      const { UNSAFE_getAllByType } = render(
         <SquarePalCard pal={pal} onPress={mockOnPress} isLocal={true} />,
       );
 
@@ -466,9 +466,9 @@ describe('SquarePalCard', () => {
     });
 
     it('shows chat icon for non-video pals', () => {
-      const pal = createLocalPal({capabilities: {}});
+      const pal = createLocalPal({ capabilities: {} });
 
-      const {UNSAFE_getAllByType} = render(
+      const { UNSAFE_getAllByType } = render(
         <SquarePalCard pal={pal} onPress={mockOnPress} isLocal={true} />,
       );
 
@@ -485,7 +485,7 @@ describe('SquarePalCard', () => {
         price_cents: 999,
       });
 
-      const {getByText} = render(
+      const { getByText } = render(
         <SquarePalCard pal={pal} onPress={mockOnPress} />,
       );
 
@@ -502,7 +502,7 @@ describe('SquarePalCard', () => {
       exportPal.mockRejectedValueOnce(new Error('Share failed'));
 
       const pal = createLocalPal();
-      const {UNSAFE_getAllByType} = render(
+      const { UNSAFE_getAllByType } = render(
         <SquarePalCard pal={pal} onPress={mockOnPress} isLocal={true} />,
       );
 
@@ -519,7 +519,7 @@ describe('SquarePalCard', () => {
         expect(Alert.alert).toHaveBeenCalledWith(
           'Share Error',
           'Failed to share pal. Please try again.',
-          [{text: 'OK'}],
+          [{ text: 'OK' }],
         );
       });
     });
@@ -531,7 +531,7 @@ describe('SquarePalCard', () => {
         .mockRejectedValueOnce(new Error('Failed'));
 
       const pal = createLocalPal();
-      const {UNSAFE_getAllByType} = render(
+      const { UNSAFE_getAllByType } = render(
         <SquarePalCard pal={pal} onPress={mockOnPress} isLocal={true} />,
       );
 

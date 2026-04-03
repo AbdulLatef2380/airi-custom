@@ -1,14 +1,14 @@
-import React, {useState, useContext} from 'react';
-import {View, TouchableOpacity} from 'react-native';
-import {Text} from 'react-native-paper';
-import {observer} from 'mobx-react-lite';
+import React, { useState, useContext } from 'react';
+import { View, TouchableOpacity } from 'react-native';
+import { Text } from 'react-native-paper';
+import { observer } from 'mobx-react-lite';
 
-import {PlusIcon} from '../../../../assets/icons';
-import {Menu} from '../../../../components/Menu';
+import { PlusIcon } from '../../../../assets/icons';
+import { Menu } from '../../../../components/Menu';
 
-import {useTheme} from '../../../../hooks';
-import {L10nContext} from '../../../../utils';
-import {createStyles} from './styles';
+import { useTheme } from '../../../../hooks';
+import { L10nContext } from '../../../../utils';
+import { createStyles } from './styles';
 
 interface AddPalMenuProps {
   iconColor: string;
@@ -17,7 +17,7 @@ interface AddPalMenuProps {
 }
 
 export const AddPalMenu: React.FC<AddPalMenuProps> = observer(
-  ({iconColor, iconSize, onCreatePal}) => {
+  ({ iconColor, iconSize, onCreatePal }) => {
     const theme = useTheme();
     const styles = createStyles(theme);
     const l10n = useContext(L10nContext);

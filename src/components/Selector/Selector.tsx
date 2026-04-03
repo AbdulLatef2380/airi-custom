@@ -1,15 +1,15 @@
-import React, {useState, useRef} from 'react';
-import {View} from 'react-native';
+import React, { useState, useRef } from 'react';
+import { View } from 'react-native';
 
-import {Button, Text, Icon} from 'react-native-paper';
+import { Button, Text, Icon } from 'react-native-paper';
 
-import {useTheme} from '../../hooks';
+import { useTheme } from '../../hooks';
 
-import {Menu} from '../Menu';
-import {createStyles} from './styles';
+import { Menu } from '../Menu';
+import { createStyles } from './styles';
 
 // Icon component for the chevron-down icon
-const ChevronDownIcon = ({size, color}: {size: number; color: string}) => (
+const ChevronDownIcon = ({ size, color }: { size: number; color: string }) => (
   <Icon source="chevron-down" size={size} color={color} />
 );
 

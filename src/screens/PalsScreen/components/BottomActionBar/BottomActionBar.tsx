@@ -1,17 +1,17 @@
-import React, {useContext} from 'react';
-import {View, TouchableOpacity} from 'react-native';
+import React, { useContext } from 'react';
+import { View, TouchableOpacity } from 'react-native';
 
-import {Text} from 'react-native-paper';
-import {observer} from 'mobx-react-lite';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import { Text } from 'react-native-paper';
+import { observer } from 'mobx-react-lite';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import {SearchIcon, UserIcon} from '../../../../assets/icons';
+import { SearchIcon, UserIcon } from '../../../../assets/icons';
 
-import {useTheme} from '../../../../hooks';
-import {L10nContext} from '../../../../utils';
+import { useTheme } from '../../../../hooks';
+import { L10nContext } from '../../../../utils';
 
-import {createStyles} from './styles';
-import {AddPalMenu} from '../AddPalMenu';
+import { createStyles } from './styles';
+import { AddPalMenu } from '../AddPalMenu';
 
 export type BottomActionType = 'search' | 'add' | 'profile';
 
@@ -52,7 +52,7 @@ const ActionButton: React.FC<ActionButtonProps> = ({
 };
 
 export const BottomActionBar: React.FC<BottomActionBarProps> = observer(
-  ({onActionPress, onCreatePal, isAuthenticated}) => {
+  ({ onActionPress, onCreatePal, isAuthenticated }) => {
     const theme = useTheme();
     const insets = useSafeAreaInsets();
     const styles = createStyles(theme, insets);

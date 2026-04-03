@@ -1,5 +1,11 @@
 import * as React from 'react';
-import {Animated, ColorValue, Easing, StyleProp, ViewStyle} from 'react-native';
+import {
+  Animated,
+  ColorValue,
+  Easing,
+  StyleProp,
+  ViewStyle,
+} from 'react-native';
 
 import styles from './styles';
 
@@ -15,7 +21,7 @@ export const CircularActivityIndicator = ({
   style,
 }: CircularActivityIndicatorProps) => {
   const spinValue = React.useRef(new Animated.Value(0)).current;
-  const {circle} = styles({color, size});
+  const { circle } = styles({ color, size });
 
   React.useEffect(() => {
     Animated.loop(

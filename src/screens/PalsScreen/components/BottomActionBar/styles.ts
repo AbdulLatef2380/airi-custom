@@ -1,6 +1,6 @@
-import {StyleSheet} from 'react-native';
-import {Theme} from '../../../../utils/types';
-import {EdgeInsets} from 'react-native-safe-area-context';
+import { StyleSheet } from 'react-native';
+import { Theme } from '../../../../utils/types';
+import { EdgeInsets } from 'react-native-safe-area-context';
 
 export const createStyles = (theme: Theme, insets: EdgeInsets) =>
   StyleSheet.create({

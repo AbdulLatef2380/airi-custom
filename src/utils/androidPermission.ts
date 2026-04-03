@@ -1,5 +1,5 @@
-import {Platform, PermissionsAndroid, Alert} from 'react-native';
-import {uiStore} from '../store';
+import { Platform, PermissionsAndroid, Alert } from 'react-native';
+import { uiStore } from '../store';
 
 export async function ensureLegacyStoragePermission() {
   // Skip everything on iOS or any Android 11+ device (API 29+)
@@ -35,7 +35,7 @@ export async function ensureLegacyStoragePermission() {
     Alert.alert(
       l10n.components.exportUtils.permissionDenied,
       l10n.components.exportUtils.permissionDeniedMessage,
-      [{text: 'OK'}],
+      [{ text: 'OK' }],
     );
   }
   return granted;

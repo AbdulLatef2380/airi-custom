@@ -1,12 +1,12 @@
 import React from 'react';
-import {View, TouchableOpacity, ScrollView} from 'react-native';
-import {observer} from 'mobx-react-lite';
-import {useFormContext, Controller} from 'react-hook-form';
+import { View, TouchableOpacity, ScrollView } from 'react-native';
+import { observer } from 'mobx-react-lite';
+import { useFormContext, Controller } from 'react-hook-form';
 
-import {useTheme} from '../../../hooks';
-import {createStyles} from './styles';
-import {SectionDivider} from '../SectionDivider';
-import type {PalFormData} from '../types';
+import { useTheme } from '../../../hooks';
+import { createStyles } from './styles';
+import { SectionDivider } from '../SectionDivider';
+import type { PalFormData } from '../types';
 
 type ColorPair = {
   id: string;
@@ -21,13 +21,13 @@ const colorPairs: ColorPair[] = [
     id: 'dark-mode',
     colors: ['#333333', '#e5e5e6'],
   },
-  {id: 'blue-light', colors: ['#70A6F5', '#D9F2FF']},
-  {id: 'blue-mid', colors: ['#2444DA', '#70A6F5']},
-  {id: 'green-light', colors: ['#A2D29E', '#CBFFDC']},
-  {id: 'pink-light', colors: ['#FFBBFE', '#FAEFFE']},
-  {id: 'orange-beige', colors: ['#FFAD50', '#F1EAD9']},
-  {id: 'pink-rose', colors: ['#9E204F', '#F6E1EA']},
-  {id: 'navy-purple', colors: ['#253375', '#8B94C1']},
+  { id: 'blue-light', colors: ['#70A6F5', '#D9F2FF'] },
+  { id: 'blue-mid', colors: ['#2444DA', '#70A6F5'] },
+  { id: 'green-light', colors: ['#A2D29E', '#CBFFDC'] },
+  { id: 'pink-light', colors: ['#FFBBFE', '#FAEFFE'] },
+  { id: 'orange-beige', colors: ['#FFAD50', '#F1EAD9'] },
+  { id: 'pink-rose', colors: ['#9E204F', '#F6E1EA'] },
+  { id: 'navy-purple', colors: ['#253375', '#8B94C1'] },
 ];
 
 const DualColorCircle = ({
@@ -48,12 +48,12 @@ const DualColorCircle = ({
         isSelected && styles.selectedColorButtonContainer,
       ]}>
       <View style={styles.colorButton}>
-        <View style={[styles.colorHalf, {backgroundColor: colors[0]}]} />
+        <View style={[styles.colorHalf, { backgroundColor: colors[0] }]} />
         <View
           style={[
             styles.colorHalf,
             styles.rightHalf,
-            {backgroundColor: colors[1]},
+            { backgroundColor: colors[1] },
           ]}
         />
       </View>
@@ -62,7 +62,7 @@ const DualColorCircle = ({
 };
 
 export const ColorSection = observer(() => {
-  const {control} = useFormContext<PalFormData>();
+  const { control } = useFormContext<PalFormData>();
   const theme = useTheme();
   const styles = createStyles(theme);
 
@@ -72,7 +72,7 @@ export const ColorSection = observer(() => {
       <Controller
         control={control}
         name="color"
-        render={({field: {onChange, value}}) => (
+        render={({ field: { onChange, value } }) => (
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}

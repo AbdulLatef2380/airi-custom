@@ -1,22 +1,22 @@
 import * as React from 'react';
-import {Image, Text, View} from 'react-native';
+import { Image, Text, View } from 'react-native';
 
-import {useTheme} from '../../hooks';
+import { useTheme } from '../../hooks';
 
-import {styles} from './styles';
+import { styles } from './styles';
 
-import {MessageType} from '../../utils/types';
-import {formatBytes, L10nContext, UserContext} from '../../utils';
+import { MessageType } from '../../utils/types';
+import { formatBytes, L10nContext, UserContext } from '../../utils';
 
 export interface FileMessageProps {
   message: MessageType.DerivedFile;
 }
 
-export const FileMessage = ({message}: FileMessageProps) => {
+export const FileMessage = ({ message }: FileMessageProps) => {
   const l10n = React.useContext(L10nContext);
   const user = React.useContext(UserContext);
   const theme = useTheme();
-  const {container, icon, iconContainer, name, size, textContainer} = styles({
+  const { container, icon, iconContainer, name, size, textContainer } = styles({
     message,
     theme,
     user,

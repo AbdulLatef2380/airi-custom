@@ -3,8 +3,8 @@
  * Centralizes siblings processing, filtering, and normalization logic
  */
 
-import {urls} from '../config';
-import type {HuggingFaceModel, ModelFile} from './types';
+import { urls } from '../config';
+import type { HuggingFaceModel, ModelFile } from './types';
 
 // Regex pattern for detecting sharded GGUF files
 const RE_GGUF_SHARD_FILE =

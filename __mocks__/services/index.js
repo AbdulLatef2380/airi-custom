@@ -2,10 +2,10 @@
 // This mock re-exports all the palshub service mocks
 
 // Import the individual service mocks
-const {authService} = require('./palshub/AuthService');
-const {syncService} = require('./palshub/SyncService');
-const {palsHubService} = require('./palshub/PalsHubService');
-const {PalsHubErrorHandler, RetryHandler} = require('./palshub/ErrorHandler');
+const { authService } = require('./palshub/AuthService');
+const { syncService } = require('./palshub/SyncService');
+const { palsHubService } = require('./palshub/PalsHubService');
+const { PalsHubErrorHandler, RetryHandler } = require('./palshub/ErrorHandler');
 const {
   supabase,
   getAuthHeaders,

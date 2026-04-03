@@ -2,8 +2,8 @@
  * Helper functions for multimodal support
  */
 
-import {extractModelPrecision, getQuantRank} from '.';
-import {HuggingFaceModel, ModelFile} from './types';
+import { extractModelPrecision, getQuantRank } from '.';
+import { HuggingFaceModel, ModelFile } from './types';
 
 const MMProjRegex = /[-_.]*mmproj[-_.].+\.gguf$/i;
 
@@ -113,7 +113,7 @@ export function getRecommendedProjectionModel(
  * @param models Array of models to filter
  * @returns Array of models with projection models removed
  */
-export function filterProjectionModels<T extends {modelType?: string}>(
+export function filterProjectionModels<T extends { modelType?: string }>(
   models: T[],
 ): T[] {
   return models.filter(model => model.modelType !== 'projection');

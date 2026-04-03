@@ -1,14 +1,14 @@
-import React, {useMemo} from 'react';
-import {useTheme} from '../../hooks';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {StyleProp, View, ViewStyle} from 'react-native';
+import React, { useMemo } from 'react';
+import { useTheme } from '../../hooks';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { StyleProp, View, ViewStyle } from 'react-native';
 
 interface ActionsProps {
   children: React.ReactNode;
   style?: StyleProp<ViewStyle>;
 }
 
-export const Actions = ({children, style}: ActionsProps) => {
+export const Actions = ({ children, style }: ActionsProps) => {
   const theme = useTheme();
   const insets = useSafeAreaInsets();
 

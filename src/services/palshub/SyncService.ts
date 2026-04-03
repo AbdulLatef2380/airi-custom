@@ -1,15 +1,15 @@
-import {Q} from '@nozbe/watermelondb';
-import {makeAutoObservable} from 'mobx';
+import { Q } from '@nozbe/watermelondb';
+import { makeAutoObservable } from 'mobx';
 
-import {database} from '../../database';
-import type {EntityType} from '../../database/models/SyncStatus';
-import type {CachedPal, UserLibrary, SyncStatus} from '../../database/models';
+import { database } from '../../database';
+import type { EntityType } from '../../database/models/SyncStatus';
+import type { CachedPal, UserLibrary, SyncStatus } from '../../database/models';
 
-import {authService} from './AuthService';
-import {palsHubService} from './PalsHubService';
-import {PalsHubErrorHandler, RetryHandler} from './ErrorHandler';
+import { authService } from './AuthService';
+import { palsHubService } from './PalsHubService';
+import { PalsHubErrorHandler, RetryHandler } from './ErrorHandler';
 
-import type {PalsHubPal, SyncState} from '../../types/palshub';
+import type { PalsHubPal, SyncState } from '../../types/palshub';
 
 export interface SyncProgress {
   current: number;
@@ -29,15 +29,15 @@ class SyncService {
 
   get syncState(): SyncState {
     if (this.isSyncing) {
-      return {status: 'syncing'};
+      return { status: 'syncing' };
     }
     if (this.syncError) {
-      return {status: 'error', error: this.syncError};
+      return { status: 'error', error: this.syncError };
     }
     if (this.lastSyncTime > 0) {
-      return {status: 'success', lastSync: this.lastSyncTime};
+      return { status: 'success', lastSync: this.lastSyncTime };
     }
-    return {status: 'idle'};
+    return { status: 'idle' };
   }
 
   // Main sync method
@@ -49,7 +49,11 @@ class SyncService {
     try {
       this.isSyncing = true;
       this.syncError = null;
-      this.syncProgress = {current: 0, total: 4, operation: 'Starting sync...'};
+      this.syncProgress = {
+        current: 0,
+        total: 4,
+        operation: 'Starting sync...',
+      };
 
       // Only sync if user is authenticated
       if (!authService.isAuthenticated) {
@@ -66,7 +70,11 @@ class SyncService {
       await this.syncCategories();
 
       // Sync tags
-      this.syncProgress = {current: 2, total: 4, operation: 'Syncing tags...'};
+      this.syncProgress = {
+        current: 2,
+        total: 4,
+        operation: 'Syncing tags...',
+      };
       await this.syncTags();
 
       // Sync user library
@@ -106,7 +114,7 @@ class SyncService {
 
     try {
       const libraryResponse = await RetryHandler.withRetry(() =>
-        palsHubService.getLibrary({limit: 20}),
+        palsHubService.getLibrary({ limit: 20 }),
       );
 
       const userLibraryCollection = database.get<UserLibrary>('user_library');
@@ -193,7 +201,7 @@ class SyncService {
   async syncTags(): Promise<void> {
     try {
       const tagsResponse = await RetryHandler.withRetry(() =>
-        palsHubService.getTags({limit: 20}),
+        palsHubService.getTags({ limit: 20 }),
       );
 
       const globalSettingsCollection = database.get('global_settings');

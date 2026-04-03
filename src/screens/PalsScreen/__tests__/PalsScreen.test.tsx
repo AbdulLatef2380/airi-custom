@@ -1,13 +1,13 @@
 import React from 'react';
-import {fireEvent, waitFor} from '@testing-library/react-native';
+import { fireEvent, waitFor } from '@testing-library/react-native';
 
-import {render} from '../../../../jest/test-utils';
+import { render } from '../../../../jest/test-utils';
 
-import {PalsScreen} from '../PalsScreen';
+import { PalsScreen } from '../PalsScreen';
 
-import {authService, syncService} from '../../../services';
-import {palStore} from '../../../store';
-import {createPal, createPalsHubPal} from '../../../../jest/fixtures/pals';
+import { authService, syncService } from '../../../services';
+import { palStore } from '../../../store';
+import { createPal, createPalsHubPal } from '../../../../jest/fixtures/pals';
 
 describe('PalsScreen', () => {
   beforeEach(() => {
@@ -108,13 +108,13 @@ describe('PalsScreen', () => {
     beforeEach(() => {
       // Set up test data with different pal types
       palStore.pals = [
-        createPal({id: 'local-1', name: 'Local Pal 1', source: 'local'}),
-        createPal({id: 'local-2', name: 'Local Pal 2', source: 'local'}),
+        createPal({ id: 'local-1', name: 'Local Pal 1', source: 'local' }),
+        createPal({ id: 'local-2', name: 'Local Pal 2', source: 'local' }),
         createPal({
           id: 'video-1',
           name: 'Video Pal',
           source: 'local',
-          capabilities: {video: true, multimodal: true},
+          capabilities: { video: true, multimodal: true },
         }),
         createPal({
           id: 'downloaded-1',
@@ -124,7 +124,11 @@ describe('PalsScreen', () => {
       ];
 
       palStore.cachedPalsHubPals = [
-        createPalsHubPal({id: 'hub-1', title: 'Free Hub Pal', price_cents: 0}),
+        createPalsHubPal({
+          id: 'hub-1',
+          title: 'Free Hub Pal',
+          price_cents: 0,
+        }),
         createPalsHubPal({
           id: 'hub-2',
           title: 'Premium Hub Pal',
@@ -147,7 +151,7 @@ describe('PalsScreen', () => {
     });
 
     it('should display all pals when "all" filter is active', async () => {
-      const {getByText} = render(<PalsScreen />, {
+      const { getByText } = render(<PalsScreen />, {
         withNavigation: true,
         withSafeArea: true,
         withBottomSheetProvider: true,
@@ -161,7 +165,7 @@ describe('PalsScreen', () => {
     });
 
     it('should filter local pals when "local" filter is pressed', async () => {
-      const {getByText, queryByText} = render(<PalsScreen />, {
+      const { getByText, queryByText } = render(<PalsScreen />, {
         withNavigation: true,
         withSafeArea: true,
         withBottomSheetProvider: true,
@@ -187,7 +191,7 @@ describe('PalsScreen', () => {
     });
 
     it('should filter video pals when "video" filter is pressed', async () => {
-      const {getByText, queryByText} = render(<PalsScreen />, {
+      const { getByText, queryByText } = render(<PalsScreen />, {
         withNavigation: true,
         withSafeArea: true,
         withBottomSheetProvider: true,
@@ -212,7 +216,7 @@ describe('PalsScreen', () => {
     });
 
     it('should filter free pals when "free" filter is pressed', async () => {
-      const {getByText, queryByText} = render(<PalsScreen />, {
+      const { getByText, queryByText } = render(<PalsScreen />, {
         withNavigation: true,
         withSafeArea: true,
         withBottomSheetProvider: true,
@@ -237,7 +241,7 @@ describe('PalsScreen', () => {
     });
 
     it('should filter premium pals when "premium" filter is pressed', async () => {
-      const {getByText, queryByText, getByTestId} = render(<PalsScreen />, {
+      const { getByText, queryByText, getByTestId } = render(<PalsScreen />, {
         withNavigation: true,
         withSafeArea: true,
         withBottomSheetProvider: true,
@@ -266,7 +270,7 @@ describe('PalsScreen', () => {
     it('should show auth bar when user is not authenticated', () => {
       authService.isAuthenticated = false;
 
-      const {getByTestId} = render(<PalsScreen />, {
+      const { getByTestId } = render(<PalsScreen />, {
         withNavigation: true,
         withSafeArea: true,
         withBottomSheetProvider: true,
@@ -278,7 +282,7 @@ describe('PalsScreen', () => {
     it('should not show auth bar when user is authenticated', () => {
       authService.isAuthenticated = true;
 
-      const {queryByTestId} = render(<PalsScreen />, {
+      const { queryByTestId } = render(<PalsScreen />, {
         withNavigation: true,
         withSafeArea: true,
         withBottomSheetProvider: true,
@@ -290,7 +294,7 @@ describe('PalsScreen', () => {
     it('should dismiss auth bar when dismiss button is pressed', async () => {
       authService.isAuthenticated = false;
 
-      const {getByTestId, queryByTestId} = render(<PalsScreen />, {
+      const { getByTestId, queryByTestId } = render(<PalsScreen />, {
         withNavigation: true,
         withSafeArea: true,
         withBottomSheetProvider: true,
@@ -313,15 +317,19 @@ describe('PalsScreen', () => {
   describe('Pal Interactions', () => {
     beforeEach(() => {
       palStore.pals = [
-        createPal({id: 'local-1', name: 'Local Test Pal', source: 'local'}),
+        createPal({ id: 'local-1', name: 'Local Test Pal', source: 'local' }),
       ];
       palStore.cachedPalsHubPals = [
-        createPalsHubPal({id: 'hub-1', title: 'Hub Test Pal', price_cents: 0}),
+        createPalsHubPal({
+          id: 'hub-1',
+          title: 'Hub Test Pal',
+          price_cents: 0,
+        }),
       ];
     });
 
     it('should open pal sheet when local pal is pressed', async () => {
-      const {getByText} = render(<PalsScreen />, {
+      const { getByText } = render(<PalsScreen />, {
         withNavigation: true,
         withSafeArea: true,
         withBottomSheetProvider: true,
@@ -341,7 +349,7 @@ describe('PalsScreen', () => {
     });
 
     it('should open pal detail sheet when PalsHub pal is pressed', async () => {
-      const {getByText} = render(<PalsScreen />, {
+      const { getByText } = render(<PalsScreen />, {
         withNavigation: true,
         withSafeArea: true,
         withBottomSheetProvider: true,
@@ -365,7 +373,7 @@ describe('PalsScreen', () => {
       palStore.pals = [];
       palStore.cachedPalsHubPals = [];
 
-      const {getByText} = render(<PalsScreen />, {
+      const { getByText } = render(<PalsScreen />, {
         withNavigation: true,
         withSafeArea: true,
         withBottomSheetProvider: true,
@@ -379,10 +387,10 @@ describe('PalsScreen', () => {
     it('should show appropriate empty state for local filter', async () => {
       palStore.pals = [];
       palStore.cachedPalsHubPals = [
-        createPalsHubPal({id: 'hub-1', title: 'Hub Pal', price_cents: 0}),
+        createPalsHubPal({ id: 'hub-1', title: 'Hub Pal', price_cents: 0 }),
       ];
 
-      const {getByText} = render(<PalsScreen />, {
+      const { getByText } = render(<PalsScreen />, {
         withNavigation: true,
         withSafeArea: true,
         withBottomSheetProvider: true,
@@ -401,10 +409,10 @@ describe('PalsScreen', () => {
   describe('Pull to Refresh', () => {
     it('should have refresh control on FlatList', async () => {
       palStore.pals = [
-        createPal({id: 'local-1', name: 'Test Pal', source: 'local'}),
+        createPal({ id: 'local-1', name: 'Test Pal', source: 'local' }),
       ];
 
-      const {getByTestId} = render(<PalsScreen />, {
+      const { getByTestId } = render(<PalsScreen />, {
         withNavigation: true,
         withSafeArea: true,
         withBottomSheetProvider: true,
@@ -421,7 +429,7 @@ describe('PalsScreen', () => {
 
   describe('Bottom Action Bar', () => {
     it('should toggle search when search button is pressed', async () => {
-      const {getByTestId, queryByTestId} = render(<PalsScreen />, {
+      const { getByTestId, queryByTestId } = render(<PalsScreen />, {
         withNavigation: true,
         withSafeArea: true,
         withBottomSheetProvider: true,
@@ -443,7 +451,7 @@ describe('PalsScreen', () => {
     it('should show auth sheet when profile button is pressed and user is not authenticated', async () => {
       authService.isAuthenticated = false;
 
-      const {getByTestId} = render(<PalsScreen />, {
+      const { getByTestId } = render(<PalsScreen />, {
         withNavigation: true,
         withSafeArea: true,
         withBottomSheetProvider: true,
@@ -460,7 +468,7 @@ describe('PalsScreen', () => {
     it('should show profile sheet when profile button is pressed and user is authenticated', async () => {
       authService.isAuthenticated = true;
 
-      const {getByTestId} = render(<PalsScreen />, {
+      const { getByTestId } = render(<PalsScreen />, {
         withNavigation: true,
         withSafeArea: true,
         withBottomSheetProvider: true,
@@ -478,13 +486,13 @@ describe('PalsScreen', () => {
   describe('Data Loading', () => {
     it('should render without errors when data is available', async () => {
       palStore.pals = [
-        createPal({id: 'local-1', name: 'Test Pal', source: 'local'}),
+        createPal({ id: 'local-1', name: 'Test Pal', source: 'local' }),
       ];
       palStore.cachedPalsHubPals = [
-        createPalsHubPal({id: 'hub-1', title: 'Hub Pal', price_cents: 0}),
+        createPalsHubPal({ id: 'hub-1', title: 'Hub Pal', price_cents: 0 }),
       ];
 
-      const {getByText} = render(<PalsScreen />, {
+      const { getByText } = render(<PalsScreen />, {
         withNavigation: true,
         withSafeArea: true,
         withBottomSheetProvider: true,
@@ -499,13 +507,13 @@ describe('PalsScreen', () => {
     it('should render correctly when authenticated', async () => {
       authService.isAuthenticated = true;
       palStore.pals = [
-        createPal({id: 'local-1', name: 'Local Pal', source: 'local'}),
+        createPal({ id: 'local-1', name: 'Local Pal', source: 'local' }),
       ];
       palStore.userLibrary = [
-        createPalsHubPal({id: 'lib-1', title: 'Library Pal', price_cents: 0}),
+        createPalsHubPal({ id: 'lib-1', title: 'Library Pal', price_cents: 0 }),
       ];
 
-      const {getByText, queryByTestId} = render(<PalsScreen />, {
+      const { getByText, queryByTestId } = render(<PalsScreen />, {
         withNavigation: true,
         withSafeArea: true,
         withBottomSheetProvider: true,
@@ -522,10 +530,10 @@ describe('PalsScreen', () => {
     it('should render correctly when not authenticated', async () => {
       authService.isAuthenticated = false;
       palStore.pals = [
-        createPal({id: 'local-1', name: 'Local Pal', source: 'local'}),
+        createPal({ id: 'local-1', name: 'Local Pal', source: 'local' }),
       ];
 
-      const {getByText, getByTestId} = render(<PalsScreen />, {
+      const { getByText, getByTestId } = render(<PalsScreen />, {
         withNavigation: true,
         withSafeArea: true,
         withBottomSheetProvider: true,

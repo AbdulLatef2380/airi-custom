@@ -1,4 +1,4 @@
-import {MessageType, Size, User} from '../src/utils/types';
+import { MessageType, Size, User } from '../src/utils/types';
 
 export const defaultDerivedMessageProps = {
   nextMessageInGroup: false,

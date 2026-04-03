@@ -1,22 +1,22 @@
-import React, {useEffect, useRef, useState, useContext} from 'react';
-import {TextInput as RNTextInput} from 'react-native';
-import {View, Keyboard} from 'react-native';
+import React, { useEffect, useRef, useState, useContext } from 'react';
+import { TextInput as RNTextInput } from 'react-native';
+import { View, Keyboard } from 'react-native';
 
-import {Button, Text, Switch, Chip} from 'react-native-paper';
+import { Button, Text, Switch, Chip } from 'react-native-paper';
 import LinearGradient from 'react-native-linear-gradient';
 import MaskedView from '@react-native-masked-view/masked-view';
 
-import {Divider, TextInput} from '../../../components';
+import { Divider, TextInput } from '../../../components';
 
-import {useTheme} from '../../../hooks';
+import { useTheme } from '../../../hooks';
 
-import {createStyles} from './styles';
-import {ChatTemplatePicker} from '../ChatTemplatePicker';
+import { createStyles } from './styles';
+import { ChatTemplatePicker } from '../ChatTemplatePicker';
 
-import {ChatTemplateConfig} from '../../../utils/types';
-import {Sheet} from '../../../components/Sheet';
-import {L10nContext} from '../../../utils';
-import {CompletionParams} from '../../../utils/completionTypes';
+import { ChatTemplateConfig } from '../../../utils/types';
+import { Sheet } from '../../../components/Sheet';
+import { L10nContext } from '../../../utils';
+import { CompletionParams } from '../../../utils/completionTypes';
 
 interface ModelSettingsProps {
   modelName: string;
@@ -58,7 +58,7 @@ export const ModelSettings: React.FC<ModelSettingsProps> = ({
 
   useEffect(() => {
     if (textInputRef.current) {
-      textInputRef.current.setNativeProps({text: localChatTemplate});
+      textInputRef.current.setNativeProps({ text: localChatTemplate });
     }
   }, [localChatTemplate, isDialogVisible]);
 
@@ -133,8 +133,8 @@ export const ModelSettings: React.FC<ModelSettingsProps> = ({
           <LinearGradient
             colors={[theme.colors.onSurface, 'transparent']}
             style={styles.chatTemplatePreviewGradient}
-            start={{x: 0.7, y: 0}}
-            end={{x: 1, y: 0}}
+            start={{ x: 0.7, y: 0 }}
+            end={{ x: 1, y: 0 }}
           />
         </MaskedView>
         <Button

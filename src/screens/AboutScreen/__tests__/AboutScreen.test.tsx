@@ -1,16 +1,16 @@
 import React from 'react';
-import {Alert, Linking, Platform} from 'react-native';
+import { Alert, Linking, Platform } from 'react-native';
 import {
   render as baseRender,
   fireEvent,
   act,
 } from '../../../../jest/test-utils';
-import {AboutScreen} from '../AboutScreen';
-import {submitFeedback} from '../../../api/feedback';
-import {l10n} from '../../../locales';
+import { AboutScreen } from '../AboutScreen';
+import { submitFeedback } from '../../../api/feedback';
+import { l10n } from '../../../locales';
 
 const render = (ui: React.ReactElement, options: any = {}) =>
-  baseRender(ui, {withBottomSheetProvider: true, ...options});
+  baseRender(ui, { withBottomSheetProvider: true, ...options });
 
 // Mock DeviceInfo
 jest.mock('react-native-device-info', () => ({
@@ -40,7 +40,7 @@ describe('AboutScreen', () => {
   });
 
   it('renders correctly', () => {
-    const {getByText} = render(<AboutScreen />);
+    const { getByText } = render(<AboutScreen />);
 
     expect(getByText('PocketPal AI')).toBeTruthy();
     expect(getByText('v1.0.0 (100)')).toBeTruthy();
@@ -49,7 +49,7 @@ describe('AboutScreen', () => {
   });
 
   it('copies version to clipboard when version button is pressed', () => {
-    const {getByText} = render(<AboutScreen />);
+    const { getByText } = render(<AboutScreen />);
 
     fireEvent.press(getByText('v1.0.0 (100)'));
 
@@ -60,7 +60,7 @@ describe('AboutScreen', () => {
   });
 
   it('opens GitHub URL when GitHub button is pressed', () => {
-    const {getByText} = render(<AboutScreen />);
+    const { getByText } = render(<AboutScreen />);
 
     fireEvent.press(getByText('Star on GitHub'));
 
@@ -71,7 +71,7 @@ describe('AboutScreen', () => {
 
   it('opens Buy Me a Coffee URL when sponsor button is pressed on non-iOS platforms', () => {
     Platform.OS = 'android';
-    const {getByText} = render(<AboutScreen />);
+    const { getByText } = render(<AboutScreen />);
 
     fireEvent.press(getByText(l10n.en.about.sponsorButton));
 
@@ -82,13 +82,13 @@ describe('AboutScreen', () => {
 
   it('does not show sponsor button on iOS', () => {
     Platform.OS = 'ios';
-    const {queryByText} = render(<AboutScreen />);
+    const { queryByText } = render(<AboutScreen />);
 
     expect(queryByText(l10n.en.about.sponsorButton)).toBeNull();
   });
 
   it('opens feedback form when share thoughts button is pressed', async () => {
-    const {getByText, findByText} = render(<AboutScreen />);
+    const { getByText, findByText } = render(<AboutScreen />);
 
     fireEvent.press(getByText(l10n.en.feedback.shareThoughtsButton));
 
@@ -105,7 +105,7 @@ describe('AboutScreen', () => {
   });
 
   it('submits feedback successfully', async () => {
-    const {findByText, getByText, findByPlaceholderText} = render(
+    const { findByText, getByText, findByPlaceholderText } = render(
       <AboutScreen />,
     );
 
@@ -152,7 +152,7 @@ describe('AboutScreen', () => {
   });
 
   it('shows validation error when submitting empty feedback', async () => {
-    const {getByText, findByText} = render(<AboutScreen />);
+    const { getByText, findByText } = render(<AboutScreen />);
 
     // Open feedback form
     fireEvent.press(getByText(l10n.en.feedback.shareThoughtsButton));
@@ -172,7 +172,7 @@ describe('AboutScreen', () => {
   it('handles feedback submission error', async () => {
     (submitFeedback as jest.Mock).mockRejectedValueOnce(new Error('API Error'));
 
-    const {getByText, findByText, findByPlaceholderText} = render(
+    const { getByText, findByText, findByPlaceholderText } = render(
       <AboutScreen />,
     );
 

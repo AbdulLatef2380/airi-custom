@@ -1,16 +1,16 @@
 import React from 'react';
-import {Keyboard} from 'react-native';
+import { Keyboard } from 'react-native';
 
-import {render, fireEvent, act} from '../../../../../jest/test-utils';
+import { render, fireEvent, act } from '../../../../../jest/test-utils';
 
-import {ModelSettings} from '../ModelSettings';
+import { ModelSettings } from '../ModelSettings';
 
 jest.useFakeTimers(); // Mock all timers
 
 // Mock Sheet component
 jest.mock('../../../../components/Sheet', () => {
-  const {View, TextInput, Button} = require('react-native');
-  const MockSheet = ({children, isVisible, onClose}) => {
+  const { View, TextInput, Button } = require('react-native');
+  const MockSheet = ({ children, isVisible, onClose }) => {
     if (!isVisible) {
       return null;
     }
@@ -25,7 +25,7 @@ jest.mock('../../../../components/Sheet', () => {
   MockSheet.View = View;
   MockSheet.TextInput = TextInput;
   MockSheet.Actions = View;
-  return {Sheet: MockSheet};
+  return { Sheet: MockSheet };
 });
 
 describe('ModelSettings', () => {
@@ -54,7 +54,7 @@ describe('ModelSettings', () => {
 
   beforeEach(() => {
     // Reset all properties to initial values
-    mockProps.chatTemplate = {...defaultTemplate};
+    mockProps.chatTemplate = { ...defaultTemplate };
     mockProps.stopWords = [];
     mockProps.isActive = false;
 
@@ -67,7 +67,7 @@ describe('ModelSettings', () => {
   });
 
   it('renders correctly with initial props', () => {
-    const {getByText, getByPlaceholderText} = render(
+    const { getByText, getByPlaceholderText } = render(
       <ModelSettings {...mockProps} />,
     );
 
@@ -79,7 +79,7 @@ describe('ModelSettings', () => {
   });
 
   it('allows editing model name input', async () => {
-    const {getByDisplayValue} = render(<ModelSettings {...mockProps} />);
+    const { getByDisplayValue } = render(<ModelSettings {...mockProps} />);
 
     // Find the model name input by its current value
     const modelNameInput = getByDisplayValue('test-model');
@@ -97,7 +97,7 @@ describe('ModelSettings', () => {
   });
 
   it('handles BOS token changes', async () => {
-    const {getByPlaceholderText} = render(<ModelSettings {...mockProps} />);
+    const { getByPlaceholderText } = render(<ModelSettings {...mockProps} />);
 
     const bosInput = getByPlaceholderText('BOS Token');
     await act(async () => {
@@ -111,7 +111,7 @@ describe('ModelSettings', () => {
   });
 
   it('handles EOS token changes', async () => {
-    const {getByPlaceholderText} = render(<ModelSettings {...mockProps} />);
+    const { getByPlaceholderText } = render(<ModelSettings {...mockProps} />);
 
     const eosInput = getByPlaceholderText('EOS Token');
     await act(async () => {
@@ -122,7 +122,7 @@ describe('ModelSettings', () => {
   });
 
   it('toggles BOS switch correctly', async () => {
-    const {getByTestId} = render(<ModelSettings {...mockProps} />);
+    const { getByTestId } = render(<ModelSettings {...mockProps} />);
 
     const bosSwitch = getByTestId('BOS-switch');
 
@@ -134,7 +134,7 @@ describe('ModelSettings', () => {
   });
 
   it('saves template changes', async () => {
-    const {getByText, getByPlaceholderText, getByTestId} = render(
+    const { getByText, getByPlaceholderText, getByTestId } = render(
       <ModelSettings {...mockProps} />,
     );
 
@@ -162,7 +162,7 @@ describe('ModelSettings', () => {
   });
 
   it('handles system prompt changes', async () => {
-    const {getByTestId} = render(<ModelSettings {...mockProps} />);
+    const { getByTestId } = render(<ModelSettings {...mockProps} />);
 
     const systemPromptInput = getByTestId('system-prompt-input');
     const newPrompt = 'New system prompt';
@@ -177,7 +177,7 @@ describe('ModelSettings', () => {
   });
 
   it('dismisses keyboard when the template sheet is closed', async () => {
-    const {getByTestId, getByText, getByPlaceholderText} = render(
+    const { getByTestId, getByText, getByPlaceholderText } = render(
       <ModelSettings {...mockProps} />,
     );
     const editButton = getByText('Edit');
@@ -199,7 +199,7 @@ describe('ModelSettings', () => {
   });
 
   it('handles stop words additions and removals', () => {
-    const {getByTestId} = render(<ModelSettings {...mockProps} />);
+    const { getByTestId } = render(<ModelSettings {...mockProps} />);
 
     // Test adding new stop word
     const stopInput = getByTestId('stop-input');
@@ -210,10 +210,10 @@ describe('ModelSettings', () => {
 
     // Mock existing stop words
     mockProps.stopWords = ['<stop1>'];
-    const {getAllByRole} = render(<ModelSettings {...mockProps} />);
+    const { getAllByRole } = render(<ModelSettings {...mockProps} />);
 
     // Test removing stop word using chip close button
-    const closeButtons = getAllByRole('button', {name: /close/i});
+    const closeButtons = getAllByRole('button', { name: /close/i });
     fireEvent.press(closeButtons[0]);
 
     expect(mockProps.onStopWordsChange).toHaveBeenCalledWith([]);

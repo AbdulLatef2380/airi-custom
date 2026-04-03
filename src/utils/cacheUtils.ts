@@ -1,5 +1,5 @@
 import * as RNFS from '@dr.pogodin/react-native-fs';
-import {Platform} from 'react-native';
+import { Platform } from 'react-native';
 
 /**
  * Utility functions for managing KV cache files used for inference optimization
@@ -52,7 +52,7 @@ export const getSessionCacheInfo = async (): Promise<{
     const exists = await RNFS.exists(cacheDir);
 
     if (!exists) {
-      return {fileCount: 0, totalSizeBytes: 0};
+      return { fileCount: 0, totalSizeBytes: 0 };
     }
 
     const files = await RNFS.readDir(cacheDir);
@@ -70,7 +70,7 @@ export const getSessionCacheInfo = async (): Promise<{
     };
   } catch (error) {
     console.error('Error getting session cache info:', error);
-    return {fileCount: 0, totalSizeBytes: 0};
+    return { fileCount: 0, totalSizeBytes: 0 };
   }
 };
 

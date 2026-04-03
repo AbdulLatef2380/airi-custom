@@ -1,10 +1,10 @@
 import * as utils from '@flyerhq/react-native-link-preview/lib/utils';
-import {fireEvent, render, waitFor} from '@testing-library/react-native';
+import { fireEvent, render, waitFor } from '@testing-library/react-native';
 import * as React from 'react';
-import {Linking} from 'react-native';
+import { Linking } from 'react-native';
 
-import {derivedTextMessage} from '../../../../jest/fixtures';
-import {TextMessage} from '../TextMessage';
+import { derivedTextMessage } from '../../../../jest/fixtures';
+import { TextMessage } from '../TextMessage';
 
 describe('text message', () => {
   // eslint-disable-next-line jest/no-disabled-tests
@@ -23,11 +23,11 @@ describe('text message', () => {
         title: 'title',
       });
     const openUrlMock = jest.spyOn(Linking, 'openURL');
-    const {getByRole, getByText, debug} = render(
+    const { getByRole, getByText, debug } = render(
       <TextMessage
         message={{
           ...derivedTextMessage,
-          author: {id: 'newUserId', firstName: 'John'},
+          author: { id: 'newUserId', firstName: 'John' },
           text: link,
         }}
         messageWidth={440}
@@ -63,9 +63,9 @@ describe('text message', () => {
         title: 'title',
       });
     const openUrlMock = jest.spyOn(Linking, 'openURL');
-    const {getByRole, getByText} = render(
+    const { getByRole, getByText } = render(
       <TextMessage
-        message={{...derivedTextMessage, text: link}}
+        message={{ ...derivedTextMessage, text: link }}
         messageWidth={440}
         onPreviewDataFetched={jest.fn}
         showName={false}
@@ -89,11 +89,11 @@ describe('text message', () => {
       .spyOn(utils, 'getPreviewData')
       .mockResolvedValue({});
     const openUrlMock = jest.spyOn(Linking, 'openURL');
-    const {getByText} = render(
+    const { getByText } = render(
       <TextMessage
         message={{
           ...derivedTextMessage,
-          author: {id: 'newUserId', firstName: 'John'},
+          author: { id: 'newUserId', firstName: 'John' },
           text: email,
         }}
         messageWidth={440}

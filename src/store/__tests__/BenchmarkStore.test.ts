@@ -1,5 +1,5 @@
-import {BenchmarkStore} from '../BenchmarkStore';
-import {BenchmarkResult} from '../../utils/types';
+import { BenchmarkStore } from '../BenchmarkStore';
+import { BenchmarkResult } from '../../utils/types';
 
 describe('BenchmarkStore', () => {
   let store: BenchmarkStore;
@@ -42,7 +42,7 @@ describe('BenchmarkStore', () => {
 
   it('clears all results', () => {
     store.addResult(mockResult);
-    store.addResult({...mockResult, uuid: 'test-uuid-2'});
+    store.addResult({ ...mockResult, uuid: 'test-uuid-2' });
     store.clearResults();
     expect(store.results.length).toBe(0);
   });

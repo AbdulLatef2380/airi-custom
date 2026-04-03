@@ -1,11 +1,11 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 
-import {observer} from 'mobx-react';
-import {Portal, Dialog, Button, Text, Paragraph} from 'react-native-paper';
+import { observer } from 'mobx-react';
+import { Portal, Dialog, Button, Text, Paragraph } from 'react-native-paper';
 
-import {styles} from './styles';
+import { styles } from './styles';
 
-import {L10nContext} from '../../utils';
+import { L10nContext } from '../../utils';
 
 type ModelsResetDialogProps = {
   testID?: string;
@@ -15,7 +15,7 @@ type ModelsResetDialogProps = {
 };
 
 export const ModelsResetDialog: React.FC<ModelsResetDialogProps> = observer(
-  ({testID, visible, onDismiss, onReset}) => {
+  ({ testID, visible, onDismiss, onReset }) => {
     const l10n = useContext(L10nContext);
     return (
       <Portal>

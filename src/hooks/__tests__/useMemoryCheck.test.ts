@@ -1,16 +1,16 @@
 import DeviceInfo from 'react-native-device-info';
-import {renderHook} from '@testing-library/react-hooks';
-import {runInAction} from 'mobx';
+import { renderHook } from '@testing-library/react-hooks';
+import { runInAction } from 'mobx';
 
-import {largeMemoryModel, localModel} from '../../../jest/fixtures/models';
-import {modelStore} from '../../store';
+import { largeMemoryModel, localModel } from '../../../jest/fixtures/models';
+import { modelStore } from '../../store';
 
 // Unmock the hook for actual testing
 jest.unmock('../useMemoryCheck');
 
-import {useMemoryCheck} from '../useMemoryCheck';
+import { useMemoryCheck } from '../useMemoryCheck';
 
-import {l10n} from '../../locales';
+import { l10n } from '../../locales';
 
 describe('useMemoryCheck', () => {
   beforeEach(() => {
@@ -30,7 +30,7 @@ describe('useMemoryCheck', () => {
     // localModel.size is 2GB, requirement = 2GB × 1.2 = 2.4GB (fallback estimation)
     // ceiling = max(4GB, 5GB) = 5GB
     // 2.4GB <= 5GB → passes
-    const {result, waitForNextUpdate} = renderHook(() =>
+    const { result, waitForNextUpdate } = renderHook(() =>
       useMemoryCheck(localModel),
     );
 
@@ -58,7 +58,7 @@ describe('useMemoryCheck', () => {
     // largeMemoryModel.size = totalMemory × 1.1 (from fixture)
     // requirement = size × 1.2 (fallback estimation)
     // This will exceed the 2GB ceiling
-    const {result, waitForNextUpdate} = renderHook(() =>
+    const { result, waitForNextUpdate } = renderHook(() =>
       useMemoryCheck(largeMemoryModel),
     );
 
@@ -84,7 +84,7 @@ describe('useMemoryCheck', () => {
     // localModel.size = 2GB, requirement = 2.4GB
     // availableBytes = max(0, 5GB) = 5GB
     // 2.4GB <= 5GB → fits
-    const {result, waitForNextUpdate} = renderHook(() =>
+    const { result, waitForNextUpdate } = renderHook(() =>
       useMemoryCheck(localModel),
     );
 
@@ -112,7 +112,7 @@ describe('useMemoryCheck', () => {
     // localModel.size = 2GB, requirement = 2.4GB
     // ceiling = max(2GB, 5GB) = 5GB
     // 2.4GB <= 5GB → passes
-    const {result, waitForNextUpdate} = renderHook(() =>
+    const { result, waitForNextUpdate } = renderHook(() =>
       useMemoryCheck(localModel),
     );
 
@@ -140,7 +140,7 @@ describe('useMemoryCheck', () => {
       modelStore.largestSuccessfulLoad = 3 * 1e9;
     });
 
-    const {result, waitForNextUpdate} = renderHook(() =>
+    const { result, waitForNextUpdate } = renderHook(() =>
       useMemoryCheck(localModel),
     );
 
@@ -161,7 +161,7 @@ describe('useMemoryCheck', () => {
       modelStore.largestSuccessfulLoad = 2 * 1e9;
     });
 
-    const {result: result2, waitForNextUpdate: wait2} = renderHook(() =>
+    const { result: result2, waitForNextUpdate: wait2 } = renderHook(() =>
       useMemoryCheck(localModel),
     );
 
@@ -193,7 +193,7 @@ describe('useMemoryCheck', () => {
       .spyOn(console, 'error')
       .mockImplementation(() => {});
 
-    const {result, waitForNextUpdate} = renderHook(() =>
+    const { result, waitForNextUpdate } = renderHook(() =>
       useMemoryCheck(largeMemoryModel),
     );
 
@@ -233,7 +233,7 @@ describe('useMemoryCheck', () => {
     // Mock total memory to be higher than requirement
     (DeviceInfo.getTotalMemory as jest.Mock).mockResolvedValue(8 * 1e9); // 8GB total
 
-    const {result, waitForNextUpdate} = renderHook(
+    const { result, waitForNextUpdate } = renderHook(
       () => useMemoryCheck(localModel), // 2GB model → 2.4GB requirement
     );
 
@@ -258,7 +258,7 @@ describe('useMemoryCheck', () => {
     // Mock total memory to be less than requirement
     (DeviceInfo.getTotalMemory as jest.Mock).mockResolvedValue(2 * 1e9); // 2GB total
 
-    const {result, waitForNextUpdate} = renderHook(
+    const { result, waitForNextUpdate } = renderHook(
       () => useMemoryCheck(localModel), // 2GB model → 2.4GB requirement
     );
 

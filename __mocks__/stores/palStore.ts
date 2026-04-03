@@ -1,5 +1,5 @@
-import type {Pal, LegacyPalData} from '../../src/store/PalStore';
-import {migrateLegacyPalToNew} from '../../src/utils/pal-migration';
+import type { Pal, LegacyPalData } from '../../src/store/PalStore';
+import { migrateLegacyPalToNew } from '../../src/utils/pal-migration';
 
 class MockPalStore {
   pals: Pal[] = [];

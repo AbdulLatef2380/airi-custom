@@ -1,21 +1,21 @@
 import React from 'react';
 
-import {render, fireEvent} from '@testing-library/react-native';
+import { render, fireEvent } from '@testing-library/react-native';
 
-import {ChatTemplatePicker} from '../ChatTemplatePicker';
+import { ChatTemplatePicker } from '../ChatTemplatePicker';
 
 jest.useFakeTimers();
 
 jest.mock('../../../../utils/chat', () => ({
   chatTemplates: {
-    template1: {name: 'Template 1'},
-    template2: {name: 'Template 2'},
+    template1: { name: 'Template 1' },
+    template2: { name: 'Template 2' },
   },
 }));
 
 describe('ChatTemplatePicker', () => {
   it('renders correctly with initial value', () => {
-    const {getByText, getByTestId} = render(
+    const { getByText, getByTestId } = render(
       <ChatTemplatePicker
         selectedTemplateName="template1"
         handleChatTemplateNameChange={jest.fn()}
@@ -27,7 +27,7 @@ describe('ChatTemplatePicker', () => {
   });
 
   it('displays the correct templates in the picker', () => {
-    const {getByText, getByTestId} = render(
+    const { getByText, getByTestId } = render(
       <ChatTemplatePicker
         selectedTemplateName="template2"
         handleChatTemplateNameChange={jest.fn()}
@@ -40,7 +40,7 @@ describe('ChatTemplatePicker', () => {
 
   it('calls handleChatTemplateNameChange when a template is selected', () => {
     const mockHandleChatTemplateNameChange = jest.fn();
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <ChatTemplatePicker
         selectedTemplateName="template1"
         handleChatTemplateNameChange={mockHandleChatTemplateNameChange}

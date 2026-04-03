@@ -1,18 +1,18 @@
-import {View, TouchableOpacity, Alert} from 'react-native';
-import React, {useContext, useEffect, useState} from 'react';
+import { View, TouchableOpacity, Alert } from 'react-native';
+import React, { useContext, useEffect, useState } from 'react';
 
-import {observer} from 'mobx-react';
-import {Text, ActivityIndicator} from 'react-native-paper';
+import { observer } from 'mobx-react';
+import { Text, ActivityIndicator } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {useTheme} from '../../hooks';
+import { useTheme } from '../../hooks';
 
-import {createStyles} from './styles';
+import { createStyles } from './styles';
 
-import {modelStore} from '../../store';
+import { modelStore } from '../../store';
 
-import {Model} from '../../utils/types';
-import {L10nContext, formatBytes} from '../../utils';
+import { Model } from '../../utils/types';
+import { L10nContext, formatBytes } from '../../utils';
 
 interface ProjectionModelSelectorProps {
   model: Model;
@@ -114,7 +114,7 @@ export const ProjectionModelSelector = observer(
         Alert.alert(
           l10n.models.multimodal.cannotDeleteTitle,
           l10n.models.multimodal.cannotDeleteActive,
-          [{text: l10n.common.ok, style: 'default'}],
+          [{ text: l10n.common.ok, style: 'default' }],
         );
         return;
       }
@@ -132,7 +132,7 @@ export const ProjectionModelSelector = observer(
 
       // Show confirmation dialog (always allow deletion for manual action)
       Alert.alert(l10n.models.multimodal.deleteProjectionTitle, message, [
-        {text: l10n.common.cancel, style: 'cancel'},
+        { text: l10n.common.cancel, style: 'cancel' },
         {
           text: l10n.common.delete,
           style: 'destructive',
@@ -151,7 +151,7 @@ export const ProjectionModelSelector = observer(
                 error instanceof Error
                   ? error.message
                   : 'Unknown error occurred',
-                [{text: l10n.common.ok, style: 'default'}],
+                [{ text: l10n.common.ok, style: 'default' }],
               );
             }
           },

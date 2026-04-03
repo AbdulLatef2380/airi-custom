@@ -1,1 +1,1 @@
-export {PalGenerationSettingsSheet} from './PalGenerationSettingsSheet';
+export { PalGenerationSettingsSheet } from './PalGenerationSettingsSheet';

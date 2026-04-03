@@ -1,4 +1,4 @@
-import {StyleSheet, Platform} from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 
 export const createStyles = () => {
   // Colors
@@ -11,7 +11,7 @@ export const createStyles = () => {
       ...Platform.select({
         ios: {
           shadowColor: shadowColor,
-          shadowOffset: {width: 0, height: 2},
+          shadowOffset: { width: 0, height: 2 },
           shadowOpacity: 0.4,
           shadowRadius: 12,
         },

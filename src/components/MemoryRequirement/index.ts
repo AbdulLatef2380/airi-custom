@@ -1,1 +1,1 @@
-export {MemoryRequirement} from './MemoryRequirement';
+export { MemoryRequirement } from './MemoryRequirement';

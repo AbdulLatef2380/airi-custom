@@ -1,11 +1,11 @@
 import React from 'react';
-import {render} from '@testing-library/react-native';
-import {Selector, SelectorOption} from '../Selector';
+import { render } from '@testing-library/react-native';
+import { Selector, SelectorOption } from '../Selector';
 
 const mockOptions: SelectorOption[] = [
-  {label: 'Option 1', value: 'option1'},
-  {label: 'Option 2', value: 'option2'},
-  {label: 'Option 3', value: 'option3', disabled: true},
+  { label: 'Option 1', value: 'option1' },
+  { label: 'Option 2', value: 'option2' },
+  { label: 'Option 3', value: 'option3', disabled: true },
 ];
 
 describe('Selector', () => {
@@ -16,7 +16,7 @@ describe('Selector', () => {
   });
 
   it('renders with placeholder when no value selected', () => {
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <Selector
         options={mockOptions}
         onChange={mockOnChange}
@@ -29,7 +29,7 @@ describe('Selector', () => {
   });
 
   it('renders with selected value', () => {
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <Selector
         options={mockOptions}
         value="option1"
@@ -43,7 +43,7 @@ describe('Selector', () => {
   });
 
   it('renders label and sublabel', () => {
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <Selector
         options={mockOptions}
         onChange={mockOnChange}
@@ -58,7 +58,7 @@ describe('Selector', () => {
   });
 
   it('renders error state', () => {
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <Selector
         options={mockOptions}
         onChange={mockOnChange}
@@ -72,7 +72,7 @@ describe('Selector', () => {
   });
 
   it('calls onChange when option is selected', () => {
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <Selector
         options={mockOptions}
         onChange={mockOnChange}
@@ -86,7 +86,7 @@ describe('Selector', () => {
   });
 
   it('renders when disabled', () => {
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <Selector
         options={mockOptions}
         onChange={mockOnChange}

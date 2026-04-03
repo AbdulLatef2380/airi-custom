@@ -6,7 +6,7 @@ import React, {
   useMemo,
   useRef,
 } from 'react';
-import {View, TouchableOpacity} from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import {
   Text,
   Button,
@@ -16,26 +16,26 @@ import {
   ActivityIndicator,
   Icon,
 } from 'react-native-paper';
-import {observer} from 'mobx-react';
-import {runInAction} from 'mobx';
+import { observer } from 'mobx-react';
+import { runInAction } from 'mobx';
 import debounce from 'lodash/debounce';
 
-import {Sheet, TextInput} from '..';
-import {useTheme} from '../../hooks';
-import {serverStore} from '../../store';
-import {L10nContext} from '../../utils';
-import {isLocalHost} from '../../utils/network';
-import {ServerConfig} from '../../utils/types';
+import { Sheet, TextInput } from '..';
+import { useTheme } from '../../hooks';
+import { serverStore } from '../../store';
+import { L10nContext } from '../../utils';
+import { isLocalHost } from '../../utils/network';
+import { ServerConfig } from '../../utils/types';
 import {
   RemoteModelInfo,
   fetchModels,
   fetchModelsWithHeaders,
   detectServerType,
 } from '../../api/openai';
-import {t} from '../../locales';
+import { t } from '../../locales';
 
-import {createStyles} from './styles';
-import {EyeIcon, EyeOffIcon} from '../../assets/icons';
+import { createStyles } from './styles';
+import { EyeIcon, EyeOffIcon } from '../../assets/icons';
 
 interface RemoteModelSheetProps {
   isVisible: boolean;
@@ -44,7 +44,7 @@ interface RemoteModelSheetProps {
 }
 
 export const RemoteModelSheet: React.FC<RemoteModelSheetProps> = observer(
-  ({isVisible, onDismiss, onModelAdded}) => {
+  ({ isVisible, onDismiss, onModelAdded }) => {
     const theme = useTheme();
     const l10n = useContext(L10nContext);
     const styles = createStyles(theme);
@@ -123,11 +123,11 @@ export const RemoteModelSheet: React.FC<RemoteModelSheetProps> = observer(
         setProbeResult(null);
         try {
           const key = apiKeyRef.current.trim() || undefined;
-          const {models, headers} = await fetchModelsWithHeaders(
+          const { models, headers } = await fetchModelsWithHeaders(
             trimmedUrl,
             key,
           );
-          setProbeResult({ok: true});
+          setProbeResult({ ok: true });
           setAvailableModels(models);
           if (models.length === 1) {
             setSelectedModelId(models[0].id);
@@ -147,7 +147,7 @@ export const RemoteModelSheet: React.FC<RemoteModelSheetProps> = observer(
             }
           });
         } catch (error: any) {
-          setProbeResult({ok: false, error: error.message});
+          setProbeResult({ ok: false, error: error.message });
         } finally {
           setIsProbing(false);
         }
@@ -217,9 +217,9 @@ export const RemoteModelSheet: React.FC<RemoteModelSheetProps> = observer(
         if (notYetAdded.length === 1) {
           setSelectedModelId(notYetAdded[0].id);
         }
-        setProbeResult({ok: true});
+        setProbeResult({ ok: true });
       } catch (error: any) {
-        setProbeResult({ok: false, error: error.message});
+        setProbeResult({ ok: false, error: error.message });
       } finally {
         setIsProbing(false);
       }
@@ -416,7 +416,7 @@ export const RemoteModelSheet: React.FC<RemoteModelSheetProps> = observer(
                   <Text
                     style={[
                       styles.probeStatusText,
-                      {color: theme.colors.onSurfaceVariant},
+                      { color: theme.colors.onSurfaceVariant },
                     ]}>
                     {l10n.settings.connecting}
                   </Text>
@@ -492,7 +492,7 @@ export const RemoteModelSheet: React.FC<RemoteModelSheetProps> = observer(
                   right={
                     <PaperTextInput.Icon
                       testID="remote-apikey-toggle"
-                      icon={({color}) =>
+                      icon={({ color }) =>
                         secureTextEntry ? (
                           <EyeIcon width={24} height={24} stroke={color} />
                         ) : (
@@ -576,7 +576,7 @@ export const RemoteModelSheet: React.FC<RemoteModelSheetProps> = observer(
               <Text
                 style={[
                   styles.probeStatusText,
-                  {color: theme.colors.onSurfaceVariant},
+                  { color: theme.colors.onSurfaceVariant },
                 ]}>
                 {l10n.settings.connecting}
               </Text>

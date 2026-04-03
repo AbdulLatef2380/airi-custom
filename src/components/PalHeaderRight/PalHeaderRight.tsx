@@ -1,19 +1,19 @@
-import {View, Keyboard, Alert} from 'react-native';
+import { View, Keyboard, Alert } from 'react-native';
 
-import React, {useContext, useState} from 'react';
+import React, { useContext, useState } from 'react';
 
-import {observer} from 'mobx-react';
-import {IconButton, useTheme} from 'react-native-paper';
+import { observer } from 'mobx-react';
+import { IconButton, useTheme } from 'react-native-paper';
 
-import {createStyles} from './styles';
-import {L10nContext} from '../../utils';
-import {t} from '../../locales';
+import { createStyles } from './styles';
+import { L10nContext } from '../../utils';
+import { t } from '../../locales';
 
-import {Menu} from '..';
-import {DotsVerticalIcon, ShareIcon} from '../../assets/icons';
+import { Menu } from '..';
+import { DotsVerticalIcon, ShareIcon } from '../../assets/icons';
 
-import {exportAllPals} from '../../utils/exportUtils';
-import {importPals} from '../../utils/importUtils';
+import { exportAllPals } from '../../utils/exportUtils';
+import { importPals } from '../../utils/importUtils';
 
 export const PalHeaderRight = observer(() => {
   const theme = useTheme();

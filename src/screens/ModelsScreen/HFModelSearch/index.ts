@@ -1,1 +1,1 @@
-export {HFModelSearch} from './HFModelSearch';
+export { HFModelSearch } from './HFModelSearch';

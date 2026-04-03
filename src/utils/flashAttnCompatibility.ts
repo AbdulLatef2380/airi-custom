@@ -3,9 +3,9 @@
  * Based on llama.cpp backend and cache type compatibility matrix
  */
 
-import {Platform} from 'react-native';
-import {CacheType} from './types';
-import {getAvailableDevices} from './deviceSelection';
+import { Platform } from 'react-native';
+import { CacheType } from './types';
+import { getAvailableDevices } from './deviceSelection';
 
 export type FlashAttnType = 'auto' | 'on' | 'off';
 export type BackendType = 'metal' | 'opencl' | 'hexagon' | 'cpu' | 'blas';
@@ -85,13 +85,13 @@ export function isCacheTypeVSafe(
   cacheTypeV: CacheType | string,
   flashAttnType: FlashAttnType,
   backend: BackendType,
-): {safe: boolean; reason?: string} {
+): { safe: boolean; reason?: string } {
   // Check if this is a quantized cache type
   const isQuantizedV = isQuantizedCacheType(cacheTypeV);
 
   if (!isQuantizedV) {
     // F16 and F32 are always safe regardless of flash attention or backend
-    return {safe: true};
+    return { safe: true };
   }
 
   // Quantized V cache REQUIRES flash attention to be enabled
@@ -121,7 +121,7 @@ export function isCacheTypeVSafe(
       };
     }
     // Metal, CPU, BLAS: safe with 'on'
-    return {safe: true};
+    return { safe: true };
   }
 
   // flashAttnType === 'auto'
@@ -149,7 +149,7 @@ export function isCacheTypeVSafe(
 
   // Metal, CPU, BLAS + 'auto' + quantized V = ✅ Safe
   // These backends reliably support flash attention with 'auto'
-  return {safe: true};
+  return { safe: true };
 }
 
 /**
@@ -159,13 +159,13 @@ export function isCacheTypeKSafe(
   _cacheTypeK: CacheType | string,
   _flashAttnType: FlashAttnType,
   _backend: BackendType,
-): {safe: boolean; reason?: string} {
+): { safe: boolean; reason?: string } {
   // Cache type K is generally safe with all flash attention modes
   // Only potential issue is block size alignment, which is model-specific
   // and not something we can validate at settings time
 
   // For safety, we allow all combinations for K
-  return {safe: true};
+  return { safe: true };
 }
 
 /**
@@ -181,14 +181,14 @@ export function getAllowedCacheTypeVOptions(
   reason?: string;
 }> {
   const allOptions = [
-    {value: CacheType.F16, label: 'F16 (Default)'},
-    {value: CacheType.F32, label: 'F32'},
-    {value: CacheType.Q8_0, label: 'Q8_0'},
-    {value: CacheType.Q5_1, label: 'Q5_1'},
-    {value: CacheType.Q5_0, label: 'Q5_0'},
-    {value: CacheType.Q4_1, label: 'Q4_1'},
-    {value: CacheType.Q4_0, label: 'Q4_0'},
-    {value: CacheType.IQ4_NL, label: 'IQ4_NL'},
+    { value: CacheType.F16, label: 'F16 (Default)' },
+    { value: CacheType.F32, label: 'F32' },
+    { value: CacheType.Q8_0, label: 'Q8_0' },
+    { value: CacheType.Q5_1, label: 'Q5_1' },
+    { value: CacheType.Q5_0, label: 'Q5_0' },
+    { value: CacheType.Q4_1, label: 'Q4_1' },
+    { value: CacheType.Q4_0, label: 'Q4_0' },
+    { value: CacheType.IQ4_NL, label: 'IQ4_NL' },
   ];
 
   return allOptions.map(option => {
@@ -214,14 +214,14 @@ export function getAllowedCacheTypeKOptions(
   reason?: string;
 }> {
   const allOptions = [
-    {value: CacheType.F16, label: 'F16 (Default)'},
-    {value: CacheType.F32, label: 'F32'},
-    {value: CacheType.Q8_0, label: 'Q8_0'},
-    {value: CacheType.Q5_1, label: 'Q5_1'},
-    {value: CacheType.Q5_0, label: 'Q5_0'},
-    {value: CacheType.Q4_1, label: 'Q4_1'},
-    {value: CacheType.Q4_0, label: 'Q4_0'},
-    {value: CacheType.IQ4_NL, label: 'IQ4_NL'},
+    { value: CacheType.F16, label: 'F16 (Default)' },
+    { value: CacheType.F32, label: 'F32' },
+    { value: CacheType.Q8_0, label: 'Q8_0' },
+    { value: CacheType.Q5_1, label: 'Q5_1' },
+    { value: CacheType.Q5_0, label: 'Q5_0' },
+    { value: CacheType.Q4_1, label: 'Q4_1' },
+    { value: CacheType.Q4_0, label: 'Q4_0' },
+    { value: CacheType.IQ4_NL, label: 'IQ4_NL' },
   ];
 
   return allOptions.map(option => {

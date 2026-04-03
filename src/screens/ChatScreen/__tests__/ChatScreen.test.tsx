@@ -1,22 +1,22 @@
 import React from 'react';
-import {runInAction} from 'mobx';
+import { runInAction } from 'mobx';
 
-import {LlamaContext} from 'llama.rn';
+import { LlamaContext } from 'llama.rn';
 import {
   render as baseRender,
   fireEvent,
   act,
   waitFor,
 } from '../../../../jest/test-utils';
-import {ChatScreen} from '../ChatScreen';
+import { ChatScreen } from '../ChatScreen';
 
-import {chatSessionStore, modelStore} from '../../../store';
+import { chatSessionStore, modelStore } from '../../../store';
 
-import {l10n} from '../../../locales';
-import {mockLlamaContextParams} from '../../../../jest/fixtures/models';
+import { l10n } from '../../../locales';
+import { mockLlamaContextParams } from '../../../../jest/fixtures/models';
 
 const render = (ui: React.ReactElement, options: any = {}) =>
-  baseRender(ui, {withBottomSheetProvider: true, ...options});
+  baseRender(ui, { withBottomSheetProvider: true, ...options });
 
 describe('ChatScreen', () => {
   let llamaRN;
@@ -27,7 +27,7 @@ describe('ChatScreen', () => {
   });
 
   it('renders correctly when model is not loaded', () => {
-    const {getByPlaceholderText} = render(<ChatScreen />, {
+    const { getByPlaceholderText } = render(<ChatScreen />, {
       withNavigation: true,
     });
     expect(getByPlaceholderText(l10n.en.chat.modelNotLoaded)).toBeTruthy();
@@ -35,7 +35,7 @@ describe('ChatScreen', () => {
 
   it('renders correctly when model is loading', () => {
     modelStore.isContextLoading = true;
-    const {getByPlaceholderText} = render(<ChatScreen />, {
+    const { getByPlaceholderText } = render(<ChatScreen />, {
       withNavigation: true,
     });
     expect(getByPlaceholderText(l10n.en.chat.loadingModel)).toBeTruthy();
@@ -49,7 +49,7 @@ describe('ChatScreen', () => {
       ),
       stopCompletion: jest.fn(),
     };
-    const {getByPlaceholderText} = render(<ChatScreen />, {
+    const { getByPlaceholderText } = render(<ChatScreen />, {
       withNavigation: true,
     });
     expect(getByPlaceholderText(l10n.en.chat.typeYourMessage)).toBeTruthy();
@@ -62,7 +62,7 @@ describe('ChatScreen', () => {
       modelStore.context = new LlamaContext(mockLlamaContextParams);
     });
     modelStore.context!.completion = jest.fn().mockResolvedValue({
-      timings: {predicted_per_token_ms: 10, predicted_per_second: 100},
+      timings: { predicted_per_token_ms: 10, predicted_per_second: 100 },
     });
     modelStore.engine = {
       completion: jest.fn((params, onData) =>
@@ -71,7 +71,7 @@ describe('ChatScreen', () => {
       stopCompletion: jest.fn(),
     };
 
-    const {getByPlaceholderText, getByTestId} = render(<ChatScreen />, {
+    const { getByPlaceholderText, getByTestId } = render(<ChatScreen />, {
       withNavigation: true,
     });
     const input = getByPlaceholderText(l10n.en.chat.typeYourMessage);
@@ -86,7 +86,7 @@ describe('ChatScreen', () => {
     await waitFor(() => {
       expect(chatSessionStore.addMessageToCurrentSession).toHaveBeenCalledWith(
         expect.objectContaining({
-          author: expect.objectContaining({id: 'y9d7f8pgn'}),
+          author: expect.objectContaining({ id: 'y9d7f8pgn' }),
           text: 'Hello, PocketPal AI!',
         }),
       );
@@ -116,7 +116,7 @@ describe('ChatScreen', () => {
       stopCompletion: jest.fn(),
     };
 
-    const {getByPlaceholderText, getByTestId} = render(<ChatScreen />, {
+    const { getByPlaceholderText, getByTestId } = render(<ChatScreen />, {
       withNavigation: true,
     });
     const input = getByPlaceholderText(l10n.en.chat.typeYourMessage);
@@ -132,9 +132,9 @@ describe('ChatScreen', () => {
 
     expect(chatSessionStore.addMessageToCurrentSession).toHaveBeenCalledWith(
       expect.objectContaining({
-        author: expect.objectContaining({id: 'h3o3lc5xj'}),
+        author: expect.objectContaining({ id: 'h3o3lc5xj' }),
         text: 'Completion failed: Completion failed',
-        metadata: expect.objectContaining({system: true}),
+        metadata: expect.objectContaining({ system: true }),
       }),
     );
   });
@@ -152,25 +152,25 @@ describe('ChatScreen', () => {
       .mockReturnValue([
         {
           id: 'unique-message-id-1',
-          author: {id: 'y9d7f8pgn'},
+          author: { id: 'y9d7f8pgn' },
           text: 'User message',
           type: 'text',
         },
         {
           id: 'unique-message-id-2',
-          author: {id: 'h3o3lc5xj'},
+          author: { id: 'h3o3lc5xj' },
           text: 'Assistant message',
           type: 'text',
         },
         {
           id: 'unique-message-id-3',
-          author: {id: 'system'},
+          author: { id: 'system' },
           text: 'System message',
           type: 'text',
         },
       ]);
 
-    const {getByText} = render(<ChatScreen />, {
+    const { getByText } = render(<ChatScreen />, {
       withNavigation: true,
     });
 
@@ -198,7 +198,7 @@ describe('ChatScreen', () => {
       stopCompletion: jest.fn(),
     };
 
-    const {getByPlaceholderText, getByTestId} = render(<ChatScreen />, {
+    const { getByPlaceholderText, getByTestId } = render(<ChatScreen />, {
       withNavigation: true,
     });
     const input = getByPlaceholderText(l10n.en.chat.typeYourMessage);

@@ -1,6 +1,6 @@
 // __mocks__/@gorhom/bottom-sheet.js
 const React = require('react');
-const {View} = require('react-native');
+const { View } = require('react-native');
 
 // Create a mock ref with the methods that BottomSheet components use
 const createMockRef = () => ({
@@ -17,22 +17,22 @@ const createMockRef = () => ({
 const BottomSheetBase = React.forwardRef((props, ref) => {
   // Set up the ref with mock methods
   React.useImperativeHandle(ref, createMockRef, []);
-  return React.createElement(View, {...props}, props.children);
+  return React.createElement(View, { ...props }, props.children);
 });
 
 // Mock FlatList that actually renders items
 const BottomSheetFlatList = React.forwardRef((props, ref) => {
   React.useImperativeHandle(ref, createMockRef, []);
-  const {data, renderItem, keyExtractor, ...restProps} = props;
+  const { data, renderItem, keyExtractor, ...restProps } = props;
 
   return React.createElement(
     View,
-    {...restProps},
+    { ...restProps },
     data?.map((item, index) =>
       React.createElement(
         View,
-        {key: keyExtractor ? keyExtractor(item) : index},
-        renderItem ? renderItem({item, index}) : null,
+        { key: keyExtractor ? keyExtractor(item) : index },
+        renderItem ? renderItem({ item, index }) : null,
       ),
     ),
   );
@@ -41,7 +41,7 @@ const BottomSheetFlatList = React.forwardRef((props, ref) => {
 // Provide aliases for all components that may be imported
 const BottomSheet = BottomSheetBase;
 const BottomSheetModal = BottomSheetBase;
-const BottomSheetModalProvider = ({children}) =>
+const BottomSheetModalProvider = ({ children }) =>
   React.createElement(View, null, children);
 const BottomSheetBackdrop = BottomSheetBase;
 const BottomSheetScrollView = BottomSheetBase;
@@ -50,8 +50,8 @@ const BottomSheetView = BottomSheetBase;
 
 // Add TextInput component for BottomSheet
 const BottomSheetTextInput = React.forwardRef((props, ref) => {
-  const {TextInput} = require('react-native');
-  return React.createElement(TextInput, {...props, ref});
+  const { TextInput } = require('react-native');
+  return React.createElement(TextInput, { ...props, ref });
 });
 
 const SCROLLABLE_TYPE = {

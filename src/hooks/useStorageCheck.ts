@@ -1,12 +1,12 @@
-import {useEffect, useState, useContext} from 'react';
+import { useEffect, useState, useContext } from 'react';
 
 import DeviceInfo from 'react-native-device-info';
 
-import {formatBytes, hasEnoughSpace} from '../utils';
-import {L10nContext} from '../utils';
-import {t} from '../locales';
+import { formatBytes, hasEnoughSpace } from '../utils';
+import { L10nContext } from '../utils';
+import { t } from '../locales';
 
-import {Model, ModelOrigin} from '../utils/types';
+import { Model, ModelOrigin } from '../utils/types';
 
 interface StorageCheckOptions {
   /**
@@ -26,7 +26,7 @@ export const useStorageCheck = (
   model: Model,
   options: StorageCheckOptions = {},
 ) => {
-  const {enablePeriodicCheck = true, checkInterval = 10000} = options;
+  const { enablePeriodicCheck = true, checkInterval = 10000 } = options;
   const l10n = useContext(L10nContext);
 
   const [storageStatus, setStorageStatus] = useState({
@@ -79,7 +79,7 @@ export const useStorageCheck = (
       } catch (error) {
         if (!abortController.signal.aborted) {
           console.error('Storage check failed:', error);
-          setStorageStatus({isOk: false, message: l10n.storage.checkFailed});
+          setStorageStatus({ isOk: false, message: l10n.storage.checkFailed });
         }
       }
     };

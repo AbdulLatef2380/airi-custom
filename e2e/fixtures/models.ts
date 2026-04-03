@@ -59,7 +59,7 @@ export const QUICK_TEST_MODEL: ModelTestConfig = {
   searchQuery: 'bartowski SmolLM2-135M-Instruct',
   selectorText: 'SmolLM2-135M-Instruct',
   downloadFile: 'SmolLM2-135M-Instruct-Q2_K.gguf',
-  prompts: [{input: 'Hi', description: 'Basic greeting'}],
+  prompts: [{ input: 'Hi', description: 'Basic greeting' }],
 };
 
 export const TEST_MODELS: ModelTestConfig[] = [
@@ -70,7 +70,7 @@ export const TEST_MODELS: ModelTestConfig[] = [
     searchQuery: 'LiquidAI LFM2.5-VL-1.6B',
     selectorText: 'LFM2.5-VL-1.6B',
     downloadFile: 'LFM2.5-VL-1.6B-Q4_0.gguf',
-    prompts: [{input: 'Hi', description: 'Basic greeting'}],
+    prompts: [{ input: 'Hi', description: 'Basic greeting' }],
     downloadTimeout: 600000, // 10 min - larger model
   },
   {
@@ -78,7 +78,7 @@ export const TEST_MODELS: ModelTestConfig[] = [
     searchQuery: 'bartowski Qwen_Qwen3-0.6B',
     selectorText: 'Qwen_Qwen3-0.6B',
     downloadFile: 'Qwen_Qwen3-0.6B-Q4_0.gguf',
-    prompts: [{input: 'Hi', description: 'Basic greeting'}],
+    prompts: [{ input: 'Hi', description: 'Basic greeting' }],
   },
   {
     id: 'qwen3-1.7b',
@@ -86,14 +86,14 @@ export const TEST_MODELS: ModelTestConfig[] = [
     selectorText: 'Qwen_Qwen3-1.7B',
     downloadFile: 'Qwen_Qwen3-1.7B-Q4_K_M.gguf',
     downloadTimeout: 600000,
-    prompts: [{input: 'Hi', description: 'Basic greeting'}],
+    prompts: [{ input: 'Hi', description: 'Basic greeting' }],
   },
   {
     id: 'gemma-3n-e2b',
     searchQuery: 'bartowski google_gemma-3n-E2B-it',
     selectorText: 'google_gemma-3n-E2B-it',
     downloadFile: 'google_gemma-3n-E2B-it-Q2_K.gguf',
-    prompts: [{input: 'Hi', description: 'Basic greeting'}],
+    prompts: [{ input: 'Hi', description: 'Basic greeting' }],
     downloadTimeout: 600000,
   },
   {
@@ -101,7 +101,7 @@ export const TEST_MODELS: ModelTestConfig[] = [
     searchQuery: 'ggml-org SmolVLM-256M-Instruct',
     selectorText: 'SmolVLM-256M-Instruct',
     downloadFile: 'SmolVLM-256M-Instruct-Q8_0.gguf',
-    prompts: [{input: 'Hi', description: 'Basic greeting'}],
+    prompts: [{ input: 'Hi', description: 'Basic greeting' }],
     isVision: true,
   },
 ];
@@ -116,7 +116,7 @@ export const CRASH_REPRO_MODELS: ModelTestConfig[] = [
     searchQuery: 'bartowski gemma-2-2b-it',
     selectorText: 'gemma-2-2b-it',
     downloadFile: 'gemma-2-2b-it-Q6_K.gguf',
-    prompts: [{input: 'Hi', description: 'Basic greeting'}],
+    prompts: [{ input: 'Hi', description: 'Basic greeting' }],
     downloadTimeout: 600000,
   },
   {
@@ -124,7 +124,7 @@ export const CRASH_REPRO_MODELS: ModelTestConfig[] = [
     searchQuery: 'bartowski Llama-3.2-3B-Instruct',
     selectorText: 'Llama-3.2-3B-Instruct',
     downloadFile: 'Llama-3.2-3B-Instruct-Q6_K.gguf',
-    prompts: [{input: 'Hi', description: 'Basic greeting'}],
+    prompts: [{ input: 'Hi', description: 'Basic greeting' }],
     downloadTimeout: 600000,
   },
   {
@@ -132,7 +132,7 @@ export const CRASH_REPRO_MODELS: ModelTestConfig[] = [
     searchQuery: 'ggml-org SmolVLM-500M-Instruct',
     selectorText: 'SmolVLM-500M-Instruct',
     downloadFile: 'SmolVLM-500M-Instruct-Q8_0.gguf',
-    prompts: [{input: 'Describe this image', description: 'Vision test'}],
+    prompts: [{ input: 'Describe this image', description: 'Vision test' }],
     isVision: true,
   },
   {
@@ -140,7 +140,7 @@ export const CRASH_REPRO_MODELS: ModelTestConfig[] = [
     searchQuery: 'bartowski Qwen2.5-1.5B-Instruct',
     selectorText: 'Qwen2.5-1.5B-Instruct',
     downloadFile: 'Qwen2.5-1.5B-Instruct-Q8_0.gguf',
-    prompts: [{input: 'Hi', description: 'Basic greeting'}],
+    prompts: [{ input: 'Hi', description: 'Basic greeting' }],
     downloadTimeout: 600000,
   },
 ];
@@ -148,7 +148,10 @@ export const CRASH_REPRO_MODELS: ModelTestConfig[] = [
 /**
  * All available models (TEST_MODELS + CRASH_REPRO_MODELS)
  */
-export const ALL_MODELS: ModelTestConfig[] = [...TEST_MODELS, ...CRASH_REPRO_MODELS];
+export const ALL_MODELS: ModelTestConfig[] = [
+  ...TEST_MODELS,
+  ...CRASH_REPRO_MODELS,
+];
 
 /**
  * Get models to test based on environment variable filter

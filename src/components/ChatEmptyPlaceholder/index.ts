@@ -1,1 +1,1 @@
-export {ChatEmptyPlaceholder} from './ChatEmptyPlaceholder';
+export { ChatEmptyPlaceholder } from './ChatEmptyPlaceholder';

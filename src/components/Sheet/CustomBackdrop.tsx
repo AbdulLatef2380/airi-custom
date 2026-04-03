@@ -2,8 +2,8 @@ import {
   BottomSheetBackdrop,
   BottomSheetBackdropProps,
 } from '@gorhom/bottom-sheet';
-import React, {useMemo} from 'react';
-import {useTheme} from 'react-native-paper';
+import React, { useMemo } from 'react';
+import { useTheme } from 'react-native-paper';
 // import {Extrapolation, interpolate} from 'react-native-reanimated';
 // import {useAnimatedStyle} from 'react-native-reanimated';
 

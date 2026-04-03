@@ -1,1 +1,1 @@
-export {default} from './DatabaseInspectorScreen';
+export { default } from './DatabaseInspectorScreen';

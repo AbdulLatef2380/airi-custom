@@ -1,4 +1,4 @@
-import type {Model} from '../utils/types';
+import type { Model } from '../utils/types';
 
 export type ParameterType = 'text' | 'select' | 'datetime_tag';
 

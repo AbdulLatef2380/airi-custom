@@ -1,6 +1,6 @@
 //import {fireEvent, render} from '@testing-library/react-native';
 import * as React from 'react';
-import {runInAction} from 'mobx';
+import { runInAction } from 'mobx';
 
 import {
   fileMessage,
@@ -8,12 +8,12 @@ import {
   textMessage,
   user,
 } from '../../../../jest/fixtures';
-import {l10n} from '../../../locales';
-import {MessageType} from '../../../utils/types';
-import {ChatView} from '../ChatView';
-import {fireEvent, render} from '../../../../jest/test-utils';
-import {ChatEmptyPlaceholder} from '../../ChatEmptyPlaceholder';
-import {modelStore} from '../../../store';
+import { l10n } from '../../../locales';
+import { MessageType } from '../../../utils/types';
+import { ChatView } from '../ChatView';
+import { fireEvent, render } from '../../../../jest/test-utils';
+import { ChatEmptyPlaceholder } from '../../ChatEmptyPlaceholder';
+import { modelStore } from '../../../store';
 
 jest.useFakeTimers();
 
@@ -36,9 +36,13 @@ describe('chat', () => {
       },
     ];
     const onSendPress = jest.fn();
-    const {getByTestId, getByText} = render(
+    const { getByTestId, getByText } = render(
       <ChatView messages={messages} onSendPress={onSendPress} user={user} />,
-      {withSafeArea: true, withNavigation: true, withBottomSheetProvider: true},
+      {
+        withSafeArea: true,
+        withNavigation: true,
+        withBottomSheetProvider: true,
+      },
     );
 
     const button = getByTestId('message-image').parent;
@@ -72,14 +76,14 @@ describe('chat', () => {
       },
     ];
     const onSendPress = jest.fn();
-    const {getByLabelText, getByPlaceholderText} = render(
+    const { getByLabelText, getByPlaceholderText } = render(
       <ChatView
         messages={messages}
         onSendPress={onSendPress}
-        textInputProps={{defaultValue: 'text'}}
+        textInputProps={{ defaultValue: 'text' }}
         user={user}
       />,
-      {withNavigation: true, withBottomSheetProvider: true},
+      { withNavigation: true, withBottomSheetProvider: true },
     );
     const textInput = getByPlaceholderText(
       l10n.en.components.chatInput.inputPlaceholder,
@@ -90,7 +94,7 @@ describe('chat', () => {
       l10n.en.components.sendButton.accessibilityLabel,
     );
     fireEvent.press(button);
-    expect(onSendPress).toHaveBeenCalledWith({text: 'text', type: 'text'});
+    expect(onSendPress).toHaveBeenCalledWith({ text: 'text', type: 'text' });
   });
 
   it('opens file on a file message tap', () => {
@@ -103,7 +107,7 @@ describe('chat', () => {
         onFilePress(message);
       }
     };
-    const {getByLabelText} = render(
+    const { getByLabelText } = render(
       <ChatView
         onMessagePress={onMessagePress}
         messages={messages}
@@ -111,7 +115,7 @@ describe('chat', () => {
         showUserAvatars
         user={user}
       />,
-      {withNavigation: true, withBottomSheetProvider: true},
+      { withNavigation: true, withBottomSheetProvider: true },
     );
 
     const button = getByLabelText(
@@ -134,7 +138,7 @@ describe('chat', () => {
 
     const onMessageLongPress = jest.fn();
 
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <ChatView
         onMessagePress={onMessagePress}
         onMessageLongPress={onMessageLongPress}
@@ -143,7 +147,7 @@ describe('chat', () => {
         showUserAvatars
         user={user}
       />,
-      {withNavigation: true, withBottomSheetProvider: true},
+      { withNavigation: true, withBottomSheetProvider: true },
     );
 
     const button = getByTestId('ContentContainer');
@@ -164,7 +168,7 @@ describe('chat', () => {
 
     const onMessageLongPress = jest.fn();
 
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <ChatView
         onMessagePress={onMessagePress}
         onMessageLongPress={onMessageLongPress}
@@ -173,7 +177,7 @@ describe('chat', () => {
         showUserAvatars
         user={user}
       />,
-      {withNavigation: true, withBottomSheetProvider: true},
+      { withNavigation: true, withBottomSheetProvider: true },
     );
 
     const button = getByTestId('ContentContainer');
@@ -193,7 +197,7 @@ describe('chat', () => {
         onSendPress={onSendPress}
         user={user}
       />,
-      {withNavigation: true, withBottomSheetProvider: true},
+      { withNavigation: true, withBottomSheetProvider: true },
     );
 
     expect(ChatEmptyPlaceholder).toHaveBeenCalled();

@@ -33,7 +33,7 @@ export const defaultCompletionParams = {
 
 export function migrateCompletionSettings(settings) {
   // Clone the settings to avoid modifying the original
-  const migratedSettings = {...settings};
+  const migratedSettings = { ...settings };
 
   // If no version is specified, assume it's the initial version (0)
   if (migratedSettings.version === undefined) {

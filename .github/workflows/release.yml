@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       version_type:
-        description: "Type of version bump (major, minor, patch, premajor, preminor, prepatch, prerelease)"
+        description: 'Type of version bump (major, minor, patch, premajor, preminor, prepatch, prerelease)'
         required: true
-        default: "patch"
+        default: 'patch'
         type: choice
         options:
           - major
@@ -30,7 +30,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Important for git history
+          fetch-depth: 0 # Important for git history
           ssh-key: ${{ secrets.DEPLOY_KEY }}
 
       # Step 2: Set up JDK 17
@@ -55,7 +55,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.2.3'  # Specify a Ruby version
+          ruby-version: '3.2.3' # Specify a Ruby version
           bundler-cache: true
 
       # Step 6: Combined version bump
@@ -135,8 +135,8 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: android/app/build/outputs/apk/release/app-release.apk
-          tag_name: "v${{ env.VERSION }}"
-          name: "Release v${{ env.VERSION }}"
+          tag_name: 'v${{ env.VERSION }}'
+          name: 'Release v${{ env.VERSION }}'
           draft: false
           prerelease: false
           generate_release_notes: true
@@ -152,7 +152,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.ref }}    # This ensures we get the latest changes including the version bump
+          ref: ${{ github.ref }} # This ensures we get the latest changes including the version bump
           fetch-depth: 0
 
       # Step 1: Setup Xcode to use the correct version
@@ -175,7 +175,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.2.3'  # Specify a Ruby version
+          ruby-version: '3.2.3' # Specify a Ruby version
           bundler-cache: true
 
       # Step 5: Install CocoaPods dependencies

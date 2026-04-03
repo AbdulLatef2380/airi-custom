@@ -1,23 +1,23 @@
-import React, {useState, useEffect, useContext} from 'react';
-import {View, Image, Alert, Linking} from 'react-native';
+import React, { useState, useEffect, useContext } from 'react';
+import { View, Image, Alert, Linking } from 'react-native';
 
-import {observer} from 'mobx-react-lite';
-import {Text, Button, Surface, Divider} from 'react-native-paper';
+import { observer } from 'mobx-react-lite';
+import { Text, Button, Surface, Divider } from 'react-native-paper';
 
-import {StarIcon, DownloadIcon, UserIcon} from '../../../assets/icons';
+import { StarIcon, DownloadIcon, UserIcon } from '../../../assets/icons';
 
-import {useTheme} from '../../../hooks';
-import {L10nContext} from '../../../utils';
-import {getFullThumbnailUri} from '../../../utils/imageUtils';
+import { useTheme } from '../../../hooks';
+import { L10nContext } from '../../../utils';
+import { getFullThumbnailUri } from '../../../utils/imageUtils';
 
-import {Sheet} from '../../Sheet';
-import {createStyles} from './styles';
+import { Sheet } from '../../Sheet';
+import { createStyles } from './styles';
 
-import {palsHubService} from '../../../services';
+import { palsHubService } from '../../../services';
 
-import {palStore} from '../../../store';
+import { palStore } from '../../../store';
 
-import type {PalsHubPal} from '../../../types/palshub';
+import type { PalsHubPal } from '../../../types/palshub';
 
 import {
   getPalDisplayLabel,
@@ -34,7 +34,7 @@ interface PalDetailSheetProps {
 }
 
 export const PalDetailSheet: React.FC<PalDetailSheetProps> = observer(
-  ({pal, isVisible, onClose}) => {
+  ({ pal, isVisible, onClose }) => {
     const theme = useTheme();
     const l10n = useContext(L10nContext);
     const styles = createStyles(theme);
@@ -99,7 +99,7 @@ export const PalDetailSheet: React.FC<PalDetailSheetProps> = observer(
         Alert.alert(
           l10n.palsScreen.palDetailSheet.success,
           l10n.palsScreen.palDetailSheet.palAddedToCollection,
-          [{text: l10n.common.ok, onPress: onClose}],
+          [{ text: l10n.common.ok, onPress: onClose }],
         );
       } catch (downloadError) {
         const errorMessage =
@@ -123,7 +123,7 @@ export const PalDetailSheet: React.FC<PalDetailSheetProps> = observer(
           <View style={styles.thumbnailContainer}>
             {displayPal.thumbnail_url ? (
               <Image
-                source={{uri: getFullThumbnailUri(displayPal.thumbnail_url)}}
+                source={{ uri: getFullThumbnailUri(displayPal.thumbnail_url) }}
                 style={styles.thumbnail}
               />
             ) : (

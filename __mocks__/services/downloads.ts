@@ -1,4 +1,4 @@
-import {downloadingModel} from '../../jest/fixtures/models';
+import { downloadingModel } from '../../jest/fixtures/models';
 
 export const downloadManager = {
   isDownloading: jest.fn().mockImplementation(modelId => {

@@ -1,12 +1,12 @@
 import Clipboard from '@react-native-clipboard/clipboard';
-import {renderHook, act} from '@testing-library/react-hooks';
+import { renderHook, act } from '@testing-library/react-hooks';
 
-import {textMessage, user} from '../../../jest/fixtures';
-import {createModel} from '../../../jest/fixtures/models';
+import { textMessage, user } from '../../../jest/fixtures';
+import { createModel } from '../../../jest/fixtures/models';
 
-import {useMessageActions} from '../useMessageActions';
+import { useMessageActions } from '../useMessageActions';
 
-import {chatSessionStore, modelStore} from '../../store';
+import { chatSessionStore, modelStore } from '../../store';
 
 jest.mock('@react-native-clipboard/clipboard', () => ({
   setString: jest.fn(),
@@ -26,7 +26,7 @@ describe('useMessageActions', () => {
       ...textMessage,
       id: '2',
       text: 'Hi there',
-      author: {id: 'assistant'},
+      author: { id: 'assistant' },
     },
   ];
 
@@ -35,7 +35,7 @@ describe('useMessageActions', () => {
   });
 
   it('copies message text to clipboard', () => {
-    const {result} = renderHook(() =>
+    const { result } = renderHook(() =>
       useMessageActions({
         user,
         messages,
@@ -56,7 +56,7 @@ describe('useMessageActions', () => {
   });
 
   it('enters edit mode for user message', () => {
-    const {result} = renderHook(() =>
+    const { result } = renderHook(() =>
       useMessageActions({
         user,
         messages,
@@ -82,7 +82,7 @@ describe('useMessageActions', () => {
   });
 
   it('does not enter edit mode for assistant message', () => {
-    const {result} = renderHook(() =>
+    const { result } = renderHook(() =>
       useMessageActions({
         user,
         messages,
@@ -93,7 +93,7 @@ describe('useMessageActions', () => {
 
     const assistantMessage = {
       ...textMessage,
-      author: {id: 'assistant'},
+      author: { id: 'assistant' },
       type: 'text' as const,
     };
 
@@ -107,7 +107,7 @@ describe('useMessageActions', () => {
 
   describe('handleTryAgain', () => {
     it('resubmits user message', async () => {
-      const {result} = renderHook(() =>
+      const { result } = renderHook(() =>
         useMessageActions({
           user,
           messages,
@@ -144,7 +144,7 @@ describe('useMessageActions', () => {
           ...textMessage,
           id: '2',
           text: 'Assistant response',
-          author: {id: 'assistant'},
+          author: { id: 'assistant' },
           type: 'text' as const,
         },
         {
@@ -156,7 +156,7 @@ describe('useMessageActions', () => {
         },
       ];
 
-      const {result} = renderHook(() =>
+      const { result } = renderHook(() =>
         useMessageActions({
           user,
           messages: _messages,
@@ -182,7 +182,7 @@ describe('useMessageActions', () => {
 
   describe('handleTryAgainWith', () => {
     it('uses current model if model ID matches', async () => {
-      const {result} = renderHook(() =>
+      const { result } = renderHook(() =>
         useMessageActions({
           user,
           messages,
@@ -203,7 +203,7 @@ describe('useMessageActions', () => {
     });
 
     it('initializes new model if model ID differs', async () => {
-      const {result} = renderHook(() =>
+      const { result } = renderHook(() =>
         useMessageActions({
           user,
           messages,
@@ -214,7 +214,7 @@ describe('useMessageActions', () => {
 
       modelStore.activeModelId = 'model-1';
       modelStore.models = [
-        createModel({id: 'model-2', name: 'Model 2', isDownloaded: true}),
+        createModel({ id: 'model-2', name: 'Model 2', isDownloaded: true }),
       ];
 
       await act(async () => {

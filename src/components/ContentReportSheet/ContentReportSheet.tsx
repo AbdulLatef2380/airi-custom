@@ -1,24 +1,24 @@
-import {View, Alert} from 'react-native';
-import React, {useContext, useState} from 'react';
+import { View, Alert } from 'react-native';
+import React, { useContext, useState } from 'react';
 
-import {Text, Button, Switch, ActivityIndicator} from 'react-native-paper';
+import { Text, Button, Switch, ActivityIndicator } from 'react-native-paper';
 
-import {Sheet} from '../Sheet/Sheet';
+import { Sheet } from '../Sheet/Sheet';
 
-import {submitContentReport} from '../../api/feedback';
+import { submitContentReport } from '../../api/feedback';
 
-import {ChevronDownIcon} from '../../assets/icons';
+import { ChevronDownIcon } from '../../assets/icons';
 
-import {useTheme} from '../../hooks';
+import { useTheme } from '../../hooks';
 
-import {Menu} from '../Menu';
-import {createStyles} from './styles';
+import { Menu } from '../Menu';
+import { createStyles } from './styles';
 
-import {modelStore} from '../../store';
+import { modelStore } from '../../store';
 
-import {L10nContext} from '../../utils';
+import { L10nContext } from '../../utils';
 
-import {TextInput} from '..';
+import { TextInput } from '..';
 
 interface ContentReportSheetProps {
   isVisible: boolean;
@@ -35,7 +35,7 @@ const REPORT_CATEGORIES = [
 
 type ReportCategory = (typeof REPORT_CATEGORIES)[number];
 
-const ChevronDownButtonIcon = ({color}: {color: string}) => (
+const ChevronDownButtonIcon = ({ color }: { color: string }) => (
   <ChevronDownIcon width={16} height={16} stroke={color} />
 );
 
@@ -73,7 +73,7 @@ export const ContentReportSheet: React.FC<ContentReportSheetProps> = ({
       Alert.alert(
         l10n.components.contentReportSheet.validation.title,
         l10n.components.contentReportSheet.validation.message,
-        [{text: l10n.common.ok}],
+        [{ text: l10n.common.ok }],
       );
       return;
     }
@@ -93,14 +93,14 @@ export const ContentReportSheet: React.FC<ContentReportSheetProps> = ({
       Alert.alert(
         l10n.components.contentReportSheet.success.title,
         l10n.components.contentReportSheet.success.message,
-        [{text: l10n.common.ok, onPress: handleClose}],
+        [{ text: l10n.common.ok, onPress: handleClose }],
       );
     } catch (error) {
       console.error('Content report submission error:', error);
       Alert.alert(
         l10n.components.contentReportSheet.error.title,
         l10n.components.contentReportSheet.error.message,
-        [{text: l10n.common.ok}],
+        [{ text: l10n.common.ok }],
       );
     } finally {
       setIsSubmitting(false);

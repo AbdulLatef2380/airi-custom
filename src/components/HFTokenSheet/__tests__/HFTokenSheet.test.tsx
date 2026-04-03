@@ -1,16 +1,16 @@
 import React from 'react';
-import {Linking} from 'react-native';
-import {render, fireEvent, waitFor} from '../../../../jest/test-utils';
-import {HFTokenSheet} from '../HFTokenSheet';
-import {hfStore} from '../../../store';
+import { Linking } from 'react-native';
+import { render, fireEvent, waitFor } from '../../../../jest/test-utils';
+import { HFTokenSheet } from '../HFTokenSheet';
+import { hfStore } from '../../../store';
 
 // Mock Linking - need to spy on the actual Linking object
 const mockOpenURL = jest.fn().mockImplementation(() => Promise.resolve());
 jest.spyOn(Linking, 'openURL').mockImplementation(mockOpenURL);
 
 jest.mock('../../Sheet', () => {
-  const {View, Button} = require('react-native');
-  const MockSheet = ({children, isVisible, onClose, title}) => {
+  const { View, Button } = require('react-native');
+  const MockSheet = ({ children, isVisible, onClose, title }) => {
     if (!isVisible) {
       return null;
     }
@@ -22,13 +22,13 @@ jest.mock('../../Sheet', () => {
       </View>
     );
   };
-  MockSheet.ScrollView = ({children}) => (
+  MockSheet.ScrollView = ({ children }) => (
     <View testID="sheet-scroll-view">{children}</View>
   );
-  MockSheet.Actions = ({children}) => (
+  MockSheet.Actions = ({ children }) => (
     <View testID="sheet-actions">{children}</View>
   );
-  return {Sheet: MockSheet};
+  return { Sheet: MockSheet };
 });
 
 describe('HFTokenSheet', () => {
@@ -38,7 +38,7 @@ describe('HFTokenSheet', () => {
 
   it('renders correctly with an existing token', () => {
     hfStore.hfToken = 'existing-token';
-    const {queryByTestId, getByTestId} = render(
+    const { queryByTestId, getByTestId } = render(
       <HFTokenSheet isVisible={true} onDismiss={jest.fn()} />,
     );
 
@@ -52,7 +52,7 @@ describe('HFTokenSheet', () => {
 
   it('handles saving a token', async () => {
     const mockOnSave = jest.fn();
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <HFTokenSheet
         isVisible={true}
         onDismiss={jest.fn()}
@@ -77,7 +77,7 @@ describe('HFTokenSheet', () => {
 
   it('handles resetting a token', async () => {
     const mockOnSave = jest.fn();
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <HFTokenSheet
         isVisible={true}
         onDismiss={jest.fn()}
@@ -97,7 +97,7 @@ describe('HFTokenSheet', () => {
   });
 
   it('opens the Hugging Face token page when link is clicked', () => {
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <HFTokenSheet isVisible={true} onDismiss={jest.fn()} />,
     );
 
@@ -111,7 +111,7 @@ describe('HFTokenSheet', () => {
   });
 
   it('toggles password visibility when eye icon is pressed', () => {
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <HFTokenSheet isVisible={true} onDismiss={jest.fn()} />,
     );
 

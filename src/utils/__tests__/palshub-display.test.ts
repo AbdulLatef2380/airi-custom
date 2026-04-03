@@ -44,7 +44,7 @@ describe('palshub-display', () => {
     it('returns locked label for private paid pals', () => {
       // mockPrivatePalsHubPal has price_cents: 0 (inherited from free pal),
       // so we need a paid private pal to trigger the 'locked' label
-      const paidPrivatePal = {...mockPrivatePalsHubPal, price_cents: 500};
+      const paidPrivatePal = { ...mockPrivatePalsHubPal, price_cents: 500 };
       const label = getPalDisplayLabel(paidPrivatePal);
       expect(label.type).toBe('locked');
       expect(label.showLabel).toBe(true);

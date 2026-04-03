@@ -5,9 +5,9 @@
  * Uses shared Selectors utility for consistent cross-platform selectors
  */
 
-import {BasePage, ChainableElement} from './BasePage';
-import {Selectors, byText} from '../helpers/selectors';
-import {Gestures} from '../helpers/gestures';
+import { BasePage, ChainableElement } from './BasePage';
+import { Selectors, byText } from '../helpers/selectors';
+import { Gestures } from '../helpers/gestures';
 
 declare const browser: WebdriverIO.Browser;
 
@@ -165,7 +165,7 @@ export class ChatPage extends BasePage {
 
     // Tap "Generation settings" menu item
     const genSettingsItem = browser.$(byText('Generation settings'));
-    await genSettingsItem.waitForDisplayed({timeout: 5000});
+    await genSettingsItem.waitForDisplayed({ timeout: 5000 });
     await genSettingsItem.click();
     await browser.pause(500);
   }
@@ -180,7 +180,7 @@ export class ChatPage extends BasePage {
       3,
     );
     const input = browser.$(Selectors.generationSettings.temperatureInput);
-    await input.waitForDisplayed({timeout: 5000});
+    await input.waitForDisplayed({ timeout: 5000 });
     await input.clearValue();
     await input.setValue(value);
     await this.dismissKeyboard();
@@ -196,7 +196,7 @@ export class ChatPage extends BasePage {
       10,
     );
     const input = browser.$(Selectors.generationSettings.seedInput);
-    await input.waitForDisplayed({timeout: 5000});
+    await input.waitForDisplayed({ timeout: 5000 });
     await input.clearValue();
     await input.setValue(value);
     await this.dismissKeyboard();
@@ -218,7 +218,7 @@ export class ChatPage extends BasePage {
       await saveChangesBtn.click();
     } else {
       const saveBtn = browser.$(Selectors.generationSettings.saveButton);
-      await saveBtn.waitForDisplayed({timeout: 5000});
+      await saveBtn.waitForDisplayed({ timeout: 5000 });
       await saveBtn.click();
     }
     await browser.pause(500);

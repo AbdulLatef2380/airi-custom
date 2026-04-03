@@ -1,13 +1,13 @@
 import React from 'react';
 
-import {List} from 'react-native-paper';
-import {render, fireEvent} from '@testing-library/react-native';
+import { List } from 'react-native-paper';
+import { render, fireEvent } from '@testing-library/react-native';
 
-import {themeFixtures} from '../../../../../jest/fixtures/theme';
+import { themeFixtures } from '../../../../../jest/fixtures/theme';
 
-import {ModelAccordion} from '../ModelAccordion';
+import { ModelAccordion } from '../ModelAccordion';
 
-import {modelStore} from '../../../../store';
+import { modelStore } from '../../../../store';
 
 describe('ModelAccordion', () => {
   beforeEach(() => {
@@ -15,8 +15,8 @@ describe('ModelAccordion', () => {
   });
 
   it('renders the accordion with correct title and children', () => {
-    const group = {type: 'Test Group'};
-    const {getByText} = render(
+    const group = { type: 'Test Group' };
+    const { getByText } = render(
       <ModelAccordion group={group} expanded={true} onPress={jest.fn()}>
         <List.Item title="First item" />
         <List.Item title="Second item" />
@@ -29,8 +29,8 @@ describe('ModelAccordion', () => {
   });
 
   it('renders the accordion with correct title and children when expanded is false', () => {
-    const group = {type: 'Test Group'};
-    const {getByText, queryByText} = render(
+    const group = { type: 'Test Group' };
+    const { getByText, queryByText } = render(
       <ModelAccordion group={group} expanded={false} onPress={jest.fn()}>
         <List.Item title="First item" />
         <List.Item title="Second item" />
@@ -44,9 +44,9 @@ describe('ModelAccordion', () => {
 
   it('calls onPress when the accordion is pressed', () => {
     const mockOnPress = jest.fn();
-    const group = {type: 'Test Group'};
+    const group = { type: 'Test Group' };
 
-    const {getByText} = render(
+    const { getByText } = render(
       <ModelAccordion group={group} expanded={false} onPress={mockOnPress}>
         <List.Item title="Child Item" />
       </ModelAccordion>,
@@ -57,9 +57,9 @@ describe('ModelAccordion', () => {
   });
 
   it('displays the expanded state correctly', async () => {
-    const group = {type: 'Test Group'};
+    const group = { type: 'Test Group' };
 
-    const {getByText, queryByText, rerender} = render(
+    const { getByText, queryByText, rerender } = render(
       <ModelAccordion group={group} expanded={false} onPress={jest.fn()}>
         <List.Item title="Child Item" />
       </ModelAccordion>,
@@ -80,9 +80,9 @@ describe('ModelAccordion', () => {
     const activeModel = modelStore.models[0];
     modelStore.activeModelId = activeModel.id;
 
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <ModelAccordion
-        group={{type: activeModel.type}}
+        group={{ type: activeModel.type }}
         expanded={false}
         onPress={jest.fn()}>
         <List.Item title="Child Item" />

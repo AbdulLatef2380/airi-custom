@@ -1,23 +1,23 @@
-import React, {useContext, useState, useMemo} from 'react';
-import {View} from 'react-native';
-import {Button, Text, IconButton} from 'react-native-paper';
-import {observer} from 'mobx-react-lite';
-import {Controller, useFormContext} from 'react-hook-form';
+import React, { useContext, useState, useMemo } from 'react';
+import { View } from 'react-native';
+import { Button, Text, IconButton } from 'react-native-paper';
+import { observer } from 'mobx-react-lite';
+import { Controller, useFormContext } from 'react-hook-form';
 
-import {useTheme} from '../../hooks';
-import {createStyles} from './styles';
-import {FormField} from './FormField';
-import {SectionDivider} from './SectionDivider';
-import type {PalFormData} from './types';
-import {Checkbox} from '../Checkbox';
-import {ModelSelector} from './ModelSelector';
-import {useStructuredOutput} from '../../hooks/useStructuredOutput';
-import {modelStore} from '../../store';
-import {generateFinalSystemPrompt} from '../../utils/palshub-template-parser';
+import { useTheme } from '../../hooks';
+import { createStyles } from './styles';
+import { FormField } from './FormField';
+import { SectionDivider } from './SectionDivider';
+import type { PalFormData } from './types';
+import { Checkbox } from '../Checkbox';
+import { ModelSelector } from './ModelSelector';
+import { useStructuredOutput } from '../../hooks/useStructuredOutput';
+import { modelStore } from '../../store';
+import { generateFinalSystemPrompt } from '../../utils/palshub-template-parser';
 
-import {ModelNotAvailable} from './ModelNotAvailable';
-import {L10nContext} from '../../utils';
-import type {ParameterDefinition} from '../../types/pal';
+import { ModelNotAvailable } from './ModelNotAvailable';
+import { L10nContext } from '../../utils';
+import type { ParameterDefinition } from '../../types/pal';
 
 interface SystemPromptSectionProps {
   hideGeneratingPrompt?: boolean;
@@ -37,13 +37,13 @@ export const SystemPromptSection = observer(
     const styles = createStyles(theme);
     const l10n = useContext(L10nContext);
 
-    const {watch, control, getValues, setValue, clearErrors} =
+    const { watch, control, getValues, setValue, clearErrors } =
       useFormContext<PalFormData>();
     const useAIPrompt = watch('useAIPrompt');
     const promptGenerationModel = watch('promptGenerationModel');
     const isLoadingModel = modelStore.isContextLoading;
 
-    const {generate, isGenerating, stop} = useStructuredOutput();
+    const { generate, isGenerating, stop } = useStructuredOutput();
 
     // Smart display mode state
     const [showTemplateMode, setShowTemplateMode] = useState(false);
@@ -281,7 +281,7 @@ export const SystemPromptSection = observer(
           <Controller
             control={control}
             name="useAIPrompt"
-            render={({field: {onChange, value}}) => (
+            render={({ field: { onChange, value } }) => (
               <View style={styles.checkboxContainer}>
                 <Checkbox
                   checked={value}
@@ -302,7 +302,10 @@ export const SystemPromptSection = observer(
             <Controller
               name="promptGenerationModel"
               control={control}
-              render={({field: {onChange, value}, fieldState: {error}}) => (
+              render={({
+                field: { onChange, value },
+                fieldState: { error },
+              }) => (
                 <ModelSelector
                   value={value}
                   onChange={selected => {

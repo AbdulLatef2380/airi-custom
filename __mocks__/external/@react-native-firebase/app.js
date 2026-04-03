@@ -4,7 +4,7 @@ const mockFirebase = {
       configure: jest.fn(),
     }),
     initializeAppCheck: jest.fn(),
-    getToken: jest.fn().mockResolvedValue({token: 'mock-token'}),
+    getToken: jest.fn().mockResolvedValue({ token: 'mock-token' }),
   }),
 };
 

@@ -9,17 +9,17 @@ describe('SyncService', () => {
   it('needsSync respects auth and lastSyncTime thresholds', async () => {
     // Unauthenticated case
     jest.doMock('../AuthService', () => ({
-      authService: {isAuthenticated: false},
+      authService: { isAuthenticated: false },
     }));
-    const {syncService} = require('../SyncService');
+    const { syncService } = require('../SyncService');
     await expect(syncService.needsSync()).resolves.toBe(false);
 
     // Authenticated and fresh sync
     jest.resetModules();
     jest.doMock('../AuthService', () => ({
-      authService: {isAuthenticated: true},
+      authService: { isAuthenticated: true },
     }));
-    const {syncService: svc2} = require('../SyncService');
+    const { syncService: svc2 } = require('../SyncService');
     svc2.lastSyncTime = Date.now();
     await expect(svc2.needsSync()).resolves.toBe(false);
 
@@ -37,8 +37,8 @@ describe('SyncService', () => {
     jest.doMock('../AuthService', () => ({
       authService: {
         isAuthenticated: true,
-        user: {id: 'u1'},
-        session: {access_token: 't'},
+        user: { id: 'u1' },
+        session: { access_token: 't' },
       },
     }));
 
@@ -46,7 +46,7 @@ describe('SyncService', () => {
     jest.doMock('../PalsHubService', () => ({
       palsHubService: {
         getLibrary: jest.fn().mockResolvedValue({
-          pals: [{id: 'p1'}, {id: 'p2'}],
+          pals: [{ id: 'p1' }, { id: 'p2' }],
           total_count: 2,
           page: 1,
           limit: 20,
@@ -65,7 +65,7 @@ describe('SyncService', () => {
           retryable: false,
         }),
       },
-      RetryHandler: {withRetry: (op: any) => op()},
+      RetryHandler: { withRetry: (op: any) => op() },
     }));
 
     // Intercept database writes at module-level via a full module mock
@@ -75,7 +75,7 @@ describe('SyncService', () => {
         get: (tableName: string) => {
           if (tableName === 'user_library') {
             return {
-              query: () => ({fetch: async () => []}),
+              query: () => ({ fetch: async () => [] }),
               create: async (cb: any) => {
                 const r: any = {};
                 cb(r);
@@ -86,7 +86,7 @@ describe('SyncService', () => {
           }
           if (tableName === 'sync_status') {
             return {
-              query: () => ({fetch: async () => []}),
+              query: () => ({ fetch: async () => [] }),
               create: async (cb: any) => {
                 const r: any = {};
                 cb(r);
@@ -96,7 +96,7 @@ describe('SyncService', () => {
             } as any;
           }
           return {
-            query: () => ({fetch: async () => []}),
+            query: () => ({ fetch: async () => [] }),
             create: async () => ({}),
           } as any;
         },
@@ -104,7 +104,7 @@ describe('SyncService', () => {
       },
     }));
 
-    const {syncService} = require('../SyncService');
+    const { syncService } = require('../SyncService');
     await syncService.syncUserLibrary();
 
     expect(created).toHaveLength(2);

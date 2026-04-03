@@ -10,7 +10,7 @@
  * 3. Add a migration step in migrateCompletionSettings to handle the new setting
  */
 
-import {CompletionParams} from './completionTypes';
+import { CompletionParams } from './completionTypes';
 
 // Current version of the completion settings schema
 // Increment this when adding new settings or changing existing ones
@@ -56,7 +56,7 @@ export const defaultCompletionParams: CompletionParams = {
  */
 export function migrateCompletionSettings(settings: any): any {
   // Clone the settings to avoid modifying the original
-  const migratedSettings = {...settings};
+  const migratedSettings = { ...settings };
 
   // If no version is specified, assume it's the initial version (0)
   if (migratedSettings.version === undefined) {

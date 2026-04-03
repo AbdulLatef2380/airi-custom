@@ -4,18 +4,18 @@ import {
   BottomSheetTextInput,
   BottomSheetView,
 } from '@gorhom/bottom-sheet';
-import React, {forwardRef, useEffect, useMemo, useRef} from 'react';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {BottomSheetModalMethods} from '@gorhom/bottom-sheet/lib/typescript/types';
-import {Text} from 'react-native-paper';
-import {CloseIcon} from '../../assets/icons';
-import {useTheme} from '../../hooks';
-import {styles} from './styles';
+import React, { forwardRef, useEffect, useMemo, useRef } from 'react';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
+import { Text } from 'react-native-paper';
+import { CloseIcon } from '../../assets/icons';
+import { useTheme } from '../../hooks';
+import { styles } from './styles';
 import BottomSheetKeyboardAwareScrollView from './BottomSheetAwareScrollview';
-import {Dimensions, TouchableOpacity, View} from 'react-native';
-import {CustomBackdrop} from './CustomBackdrop';
-import {Actions} from './Actions';
-import {SheetHandle} from './SheetHandle';
+import { Dimensions, TouchableOpacity, View } from 'react-native';
+import { CustomBackdrop } from './CustomBackdrop';
+import { Actions } from './Actions';
+import { SheetHandle } from './SheetHandle';
 
 export interface SheetProps extends Partial<BottomSheetModalProps> {
   children?: React.ReactNode;
@@ -26,10 +26,9 @@ export interface SheetProps extends Partial<BottomSheetModalProps> {
   showCloseButton?: boolean;
 }
 
-interface SheetComponent
-  extends React.ForwardRefExoticComponent<
-    SheetProps & React.RefAttributes<BottomSheetModalMethods>
-  > {
+interface SheetComponent extends React.ForwardRefExoticComponent<
+  SheetProps & React.RefAttributes<BottomSheetModalMethods>
+> {
   ScrollView: typeof BottomSheetKeyboardAwareScrollView;
   View: typeof BottomSheetView;
   Actions: typeof Actions;

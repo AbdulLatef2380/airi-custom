@@ -1,20 +1,20 @@
-import {Image, View} from 'react-native';
-import React, {useContext, useState} from 'react';
+import { Image, View } from 'react-native';
+import React, { useContext, useState } from 'react';
 
-import {observer} from 'mobx-react';
-import {IconButton} from 'react-native-paper';
+import { observer } from 'mobx-react';
+import { IconButton } from 'react-native-paper';
 
 import iconHF from '../../assets/icon-hf.png';
 import iconHFLight from '../../assets/icon-hf-light.png';
 
-import {createStyles} from './styles';
-import {ModelsResetDialog} from '../ModelsResetDialog';
+import { createStyles } from './styles';
+import { ModelsResetDialog } from '../ModelsResetDialog';
 
-import {modelStore, uiStore} from '../../store';
+import { modelStore, uiStore } from '../../store';
 
-import {L10nContext} from '../../utils';
+import { L10nContext } from '../../utils';
 
-import {Menu} from '..';
+import { Menu } from '..';
 
 export const ModelsHeaderRight = observer(() => {
   const [menuVisible, setMenuVisible] = useState(false);
@@ -76,10 +76,10 @@ export const ModelsHeaderRight = observer(() => {
         {/* Filter section */}
         <Menu.Item label="Filters" isGroupLabel />
         <Menu.Item
-          icon={({size}) => (
+          icon={({ size }) => (
             <Image
               source={filters.includes('hf') ? iconHF : iconHFLight}
-              style={{width: size, height: size}}
+              style={{ width: size, height: size }}
             />
           )}
           onPress={() => toggleFilter('hf')}

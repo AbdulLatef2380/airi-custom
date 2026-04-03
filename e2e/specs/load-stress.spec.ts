@@ -12,18 +12,14 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
-import {ChatPage} from '../pages/ChatPage';
-import {DrawerPage} from '../pages/DrawerPage';
-import {ModelsPage} from '../pages/ModelsPage';
-import {HFSearchSheet} from '../pages/HFSearchSheet';
-import {ModelDetailsSheet} from '../pages/ModelDetailsSheet';
-import {Selectors, nativeTextElement} from '../helpers/selectors';
-import {
-  TIMEOUTS,
-  getModelsToTest,
-  ModelTestConfig,
-} from '../fixtures/models';
-import {SCREENSHOT_DIR, OUTPUT_DIR} from '../wdio.shared.conf';
+import { ChatPage } from '../pages/ChatPage';
+import { DrawerPage } from '../pages/DrawerPage';
+import { ModelsPage } from '../pages/ModelsPage';
+import { HFSearchSheet } from '../pages/HFSearchSheet';
+import { ModelDetailsSheet } from '../pages/ModelDetailsSheet';
+import { Selectors, nativeTextElement } from '../helpers/selectors';
+import { TIMEOUTS, getModelsToTest, ModelTestConfig } from '../fixtures/models';
+import { SCREENSHOT_DIR, OUTPUT_DIR } from '../wdio.shared.conf';
 
 declare const driver: WebdriverIO.Browser;
 declare const browser: WebdriverIO.Browser;
@@ -110,7 +106,10 @@ async function checkForLoadError(): Promise<string | null> {
     const alertTitle = browser.$(Selectors.alert.title);
     if (await alertTitle.isExisting().catch(() => false)) {
       const titleText = await alertTitle.getText().catch(() => '');
-      if (titleText.toLowerCase().includes('error') || titleText.toLowerCase().includes('failed')) {
+      if (
+        titleText.toLowerCase().includes('error') ||
+        titleText.toLowerCase().includes('failed')
+      ) {
         const alertMessage = browser.$(Selectors.alert.message);
         const message = await alertMessage.getText().catch(() => titleText);
         return message;
@@ -131,7 +130,7 @@ async function captureScreenshot(
 ): Promise<string | undefined> {
   // Use SCREENSHOT_DIR for Device Farm compatibility
   if (!fs.existsSync(SCREENSHOT_DIR)) {
-    fs.mkdirSync(SCREENSHOT_DIR, {recursive: true});
+    fs.mkdirSync(SCREENSHOT_DIR, { recursive: true });
   }
 
   const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
@@ -192,13 +191,17 @@ describe('Load Stress Test', () => {
   afterEach(async function (this: Mocha.Context) {
     // Save report regardless of test outcome - use OUTPUT_DIR for Device Farm compatibility
     if (!fs.existsSync(OUTPUT_DIR)) {
-      fs.mkdirSync(OUTPUT_DIR, {recursive: true});
+      fs.mkdirSync(OUTPUT_DIR, { recursive: true });
     }
 
     report.overallSuccess =
-      report.successfulCycles === report.totalCycles && report.failedCycles === 0;
+      report.successfulCycles === report.totalCycles &&
+      report.failedCycles === 0;
 
-    const reportPath = path.join(OUTPUT_DIR, `load-stress-report-${model.id}.json`);
+    const reportPath = path.join(
+      OUTPUT_DIR,
+      `load-stress-report-${model.id}.json`,
+    );
     fs.writeFileSync(reportPath, JSON.stringify(report, null, 2));
     console.log(`\nReport saved to: ${reportPath}`);
 
@@ -221,7 +224,9 @@ describe('Load Stress Test', () => {
     await modelsPage.waitForReady();
 
     // Check if model is already downloaded
-    const containerSelector = Selectors.modelCard.cardContainer(model.downloadFile);
+    const containerSelector = Selectors.modelCard.cardContainer(
+      model.downloadFile,
+    );
     let modelCardContainer = browser.$(containerSelector);
     let isDownloaded = await modelCardContainer.isExisting().catch(() => false);
 
@@ -243,7 +248,7 @@ describe('Load Stress Test', () => {
       // Wait for download to complete
       const downloadTimeout = model.downloadTimeout || TIMEOUTS.download;
       modelCardContainer = browser.$(containerSelector);
-      await modelCardContainer.waitForDisplayed({timeout: downloadTimeout});
+      await modelCardContainer.waitForDisplayed({ timeout: downloadTimeout });
 
       console.log('Download complete.');
     } else {
@@ -273,8 +278,10 @@ describe('Load Stress Test', () => {
 
         // Find and click load button
         modelCardContainer = browser.$(containerSelector);
-        const loadBtn = modelCardContainer.$(Selectors.modelCard.loadButtonElement);
-        await loadBtn.waitForDisplayed({timeout: 10000});
+        const loadBtn = modelCardContainer.$(
+          Selectors.modelCard.loadButtonElement,
+        );
+        await loadBtn.waitForDisplayed({ timeout: 10000 });
         await loadBtn.click();
 
         // Handle performance warning
@@ -305,7 +312,7 @@ describe('Load Stress Test', () => {
           // Wait for AI message to appear first (indicates response started)
           console.log('[Timing] Waiting for AI message to appear...');
           const aiMessage = browser.$(Selectors.chat.aiMessage);
-          await aiMessage.waitForExist({timeout: TIMEOUTS.inference});
+          await aiMessage.waitForExist({ timeout: TIMEOUTS.inference });
           console.log('[Timing] AI message exists');
 
           // Poll for completion by checking for timing pattern in accessibility label
@@ -328,13 +335,18 @@ describe('Load Stress Test', () => {
 
             // Swipe up to scroll down while waiting (in case content is long)
             try {
-              const {width, height} = await driver.getWindowSize();
-              await driver.action('pointer', {
-                parameters: {pointerType: 'touch'},
-              })
-                .move({x: Math.floor(width / 2), y: Math.floor(height * 0.7)})
+              const { width, height } = await driver.getWindowSize();
+              await driver
+                .action('pointer', {
+                  parameters: { pointerType: 'touch' },
+                })
+                .move({ x: Math.floor(width / 2), y: Math.floor(height * 0.7) })
                 .down()
-                .move({x: Math.floor(width / 2), y: Math.floor(height * 0.3), duration: 300})
+                .move({
+                  x: Math.floor(width / 2),
+                  y: Math.floor(height * 0.3),
+                  duration: 300,
+                })
                 .up()
                 .perform();
               console.log('[Timing] Swiped up to scroll');
@@ -353,22 +365,32 @@ describe('Load Stress Test', () => {
 
           cycleResult.inferenceSuccess = true;
           cycleResult.inferenceTimeMs = Date.now() - inferenceStartTime;
-          console.log(`Inference successful (${cycleResult.inferenceTimeMs}ms)`);
+          console.log(
+            `Inference successful (${cycleResult.inferenceTimeMs}ms)`,
+          );
         } catch (inferenceError) {
           cycleResult.inferenceSuccess = false;
           cycleResult.error = `Inference error: ${(inferenceError as Error).message}`;
           console.log(`Inference failed: ${cycleResult.error}`);
-          cycleResult.screenshot = await captureScreenshot(model.id, `cycle${cycle}-inference-error`);
+          cycleResult.screenshot = await captureScreenshot(
+            model.id,
+            `cycle${cycle}-inference-error`,
+          );
 
           // Dump page source for debugging (with timestamp matching screenshot)
           try {
             const pageSource = await driver.getPageSource();
             const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-            const sourceFile = path.join(OUTPUT_DIR, `page-source-${model.id}-cycle${cycle}-${timestamp}.xml`);
+            const sourceFile = path.join(
+              OUTPUT_DIR,
+              `page-source-${model.id}-cycle${cycle}-${timestamp}.xml`,
+            );
             fs.writeFileSync(sourceFile, pageSource);
             console.log(`Page source saved to: ${sourceFile}`);
           } catch (sourceError) {
-            console.log(`Failed to get page source: ${(sourceError as Error).message}`);
+            console.log(
+              `Failed to get page source: ${(sourceError as Error).message}`,
+            );
           }
         }
 
@@ -391,8 +413,10 @@ describe('Load Stress Test', () => {
           await browser.pause(1000); // Wait for unload
 
           // Verify unload by checking for load button again
-          const loadBtnAfterUnload = modelCardContainer.$(Selectors.modelCard.loadButtonElement);
-          await loadBtnAfterUnload.waitForDisplayed({timeout: 10000});
+          const loadBtnAfterUnload = modelCardContainer.$(
+            Selectors.modelCard.loadButtonElement,
+          );
+          await loadBtnAfterUnload.waitForDisplayed({ timeout: 10000 });
 
           cycleResult.unloadSuccess = true;
           console.log('Unload successful');
@@ -406,8 +430,12 @@ describe('Load Stress Test', () => {
       } catch (error) {
         const errorMessage = (error as Error).message;
         cycleResult.error = cycleResult.error || errorMessage;
-        cycleResult.loadTimeMs = cycleResult.loadTimeMs || Date.now() - loadStartTime;
-        cycleResult.screenshot = await captureScreenshot(model.id, `cycle${cycle}-error`);
+        cycleResult.loadTimeMs =
+          cycleResult.loadTimeMs || Date.now() - loadStartTime;
+        cycleResult.screenshot = await captureScreenshot(
+          model.id,
+          `cycle${cycle}-error`,
+        );
 
         console.log(`Cycle ${cycle} FAILED: ${errorMessage}`);
         report.failedCycles++;
@@ -448,7 +476,9 @@ describe('Load Stress Test', () => {
     // Assert overall success
     if (report.failedCycles > 0) {
       const failedCycles = report.cycles.filter(c => !c.loadSuccess || c.error);
-      const errors = failedCycles.map(c => `Cycle ${c.cycle}: ${c.error}`).join('\n');
+      const errors = failedCycles
+        .map(c => `Cycle ${c.cycle}: ${c.error}`)
+        .join('\n');
       throw new Error(`${report.failedCycles} cycle(s) failed:\n${errors}`);
     }
   });

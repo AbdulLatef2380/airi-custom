@@ -80,74 +80,74 @@ describe('unwrap', () => {
 
 describe('deepMerge', () => {
   it('should merge two flat objects', () => {
-    const target = {a: 1, b: 2};
-    const source = {b: 3, c: 4};
+    const target = { a: 1, b: 2 };
+    const source = { b: 3, c: 4 };
     const result = deepMerge(target, source);
-    expect(result).toEqual({a: 1, b: 2, c: 4}); // b should remain 2
+    expect(result).toEqual({ a: 1, b: 2, c: 4 }); // b should remain 2
   });
 
   it('should merge nested objects', () => {
-    const target = {a: {b: 1}};
-    const source = {a: {c: 2}};
+    const target = { a: { b: 1 } };
+    const source = { a: { c: 2 } };
     const result = deepMerge(target, source);
-    expect(result).toEqual({a: {b: 1, c: 2}}); // c should be added
+    expect(result).toEqual({ a: { b: 1, c: 2 } }); // c should be added
   });
 
   it('should overwrite nested properties', () => {
-    const target = {a: {b: 1, c: 2}};
-    const source = {a: {b: 3}};
+    const target = { a: { b: 1, c: 2 } };
+    const source = { a: { b: 3 } };
     const result = deepMerge(target, source);
-    expect(result).toEqual({a: {b: 1, c: 2}}); // b should remain 1
+    expect(result).toEqual({ a: { b: 1, c: 2 } }); // b should remain 1
   });
 
   it('should handle arrays correctly', () => {
-    const target = {a: [1, 2]};
-    const source = {a: [3, 4]};
+    const target = { a: [1, 2] };
+    const source = { a: [3, 4] };
     const result = deepMerge(target, source);
-    expect(result).toEqual({a: [1, 2]});
+    expect(result).toEqual({ a: [1, 2] });
   });
 
   it('should handle null values', () => {
-    const target = {a: null};
-    const source = {a: {b: 1}};
+    const target = { a: null };
+    const source = { a: { b: 1 } };
     const result = deepMerge(target, source);
-    expect(result).toEqual({a: {b: 1}}); // Replaces null with the object
+    expect(result).toEqual({ a: { b: 1 } }); // Replaces null with the object
   });
 
   it('should handle flat to nested', () => {
-    const target = {a: 1, c: {d: 2, e: 3}};
-    const source = {a: {b: 1}, c: 4};
+    const target = { a: 1, c: { d: 2, e: 3 } };
+    const source = { a: { b: 1 }, c: 4 };
     const result = deepMerge(target, source);
-    expect(result).toEqual({a: {b: 1}, c: 4});
+    expect(result).toEqual({ a: { b: 1 }, c: 4 });
   });
 
   it('should not modify the original objects', () => {
-    const target = {a: 1};
-    const source = {b: 2};
+    const target = { a: 1 };
+    const source = { b: 2 };
     deepMerge(target, source);
-    expect(target).toEqual({a: 1, b: 2});
-    expect(source).toEqual({b: 2}); // Source should remain unchanged
+    expect(target).toEqual({ a: 1, b: 2 });
+    expect(source).toEqual({ b: 2 }); // Source should remain unchanged
   });
 
   it('should handle empty objects', () => {
     const target = {};
-    const source = {a: 1};
+    const source = { a: 1 };
     const result = deepMerge(target, source);
-    expect(result).toEqual({a: 1}); // Merges from source
+    expect(result).toEqual({ a: 1 }); // Merges from source
   });
 
   it('should handle deeply nested objects', () => {
-    const target = {a: {b: {c: 1}}};
-    const source = {a: {b: {d: 2}}};
+    const target = { a: { b: { c: 1 } } };
+    const source = { a: { b: { d: 2 } } };
     const result = deepMerge(target, source);
-    expect(result).toEqual({a: {b: {c: 1, d: 2}}});
+    expect(result).toEqual({ a: { b: { c: 1, d: 2 } } });
   });
 
   it('should merge multiple levels of nesting', () => {
-    const target = {a: {b: {c: {d: 1, e: 3}}}};
-    const source = {a: {b: {c: {e: 2, f: 4}}}};
+    const target = { a: { b: { c: { d: 1, e: 3 } } } };
+    const source = { a: { b: { c: { e: 2, f: 4 } } } };
     const result = deepMerge(target, source);
-    expect(result).toEqual({a: {b: {c: {d: 1, e: 3, f: 4}}}});
+    expect(result).toEqual({ a: { b: { c: { d: 1, e: 3, f: 4 } } } });
   });
 });
 
@@ -199,19 +199,19 @@ describe('safeParseJSON', () => {
   // Case 1: Normal valid JSON
   test('parses valid JSON correctly', () => {
     const validJson = '{"prompt": "Hello world"}';
-    expect(safeParseJSON(validJson)).toEqual({prompt: 'Hello world'});
+    expect(safeParseJSON(validJson)).toEqual({ prompt: 'Hello world' });
   });
 
   // Case 2: JSON with trailing text
   test('parses JSON with trailing text', () => {
     const jsonWithTrailing = '{"prompt": "Hello world"} Some extra text here';
-    expect(safeParseJSON(jsonWithTrailing)).toEqual({prompt: 'Hello world'});
+    expect(safeParseJSON(jsonWithTrailing)).toEqual({ prompt: 'Hello world' });
   });
 
   // Case 3: Incomplete JSON missing closing brace
   test('handles incomplete JSON with missing closing brace', () => {
     const incompleteJson = '{"prompt": "Hello world';
-    expect(safeParseJSON(incompleteJson)).toEqual({prompt: 'Hello world'});
+    expect(safeParseJSON(incompleteJson)).toEqual({ prompt: 'Hello world' });
   });
 
   // Additional edge cases
@@ -261,7 +261,7 @@ describe('safeParseJSON', () => {
 });
 
 describe('inferRepoFromModelId', () => {
-  const {inferRepoFromModelId} = require('..');
+  const { inferRepoFromModelId } = require('..');
 
   it('should extract repo from valid HF model ID', () => {
     const modelId = 'bartowski/gemma-2-2b-it-GGUF/model.gguf';
@@ -296,7 +296,7 @@ describe('inferRepoFromModelId', () => {
 });
 
 describe('hfAsModel', () => {
-  const {hfAsModel} = require('..');
+  const { hfAsModel } = require('..');
   const {
     mockHFModel1,
     mockHFModelFiles1,

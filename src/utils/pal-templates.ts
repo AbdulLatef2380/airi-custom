@@ -1,4 +1,4 @@
-import type {Pal} from '../types/pal';
+import type { Pal } from '../types/pal';
 import {
   ASSISTANT_SCHEMA,
   ROLEPLAY_SCHEMA,

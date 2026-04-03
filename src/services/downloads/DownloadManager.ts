@@ -1,6 +1,6 @@
 import * as RNFS from '@dr.pogodin/react-native-fs';
-import {makeAutoObservable, observable} from 'mobx';
-import {NativeEventEmitter, Platform} from 'react-native';
+import { makeAutoObservable, observable } from 'mobx';
+import { NativeEventEmitter, Platform } from 'react-native';
 
 import {
   DownloadEventCallbacks,
@@ -9,9 +9,9 @@ import {
   DownloadProgress,
 } from './types';
 
-import {Model} from '../../utils/types';
-import {formatBytes, hasEnoughSpace} from '../../utils';
-import {uiStore} from '../../store';
+import { Model } from '../../utils/types';
+import { formatBytes, hasEnoughSpace } from '../../utils';
+import { uiStore } from '../../store';
 import NativeDownloadModule from '../../specs/NativeDownloadModule';
 import type {
   DownloadConfig,
@@ -281,7 +281,7 @@ export class DownloadManager {
         discretionary: false,
         progressInterval: 800,
         headers: {
-          ...(authToken ? {Authorization: `Bearer ${authToken}`} : {}),
+          ...(authToken ? { Authorization: `Bearer ${authToken}` } : {}),
         },
         begin: res => {
           console.log(`${TAG}: Download started for ID: ${model.id}`, {
@@ -414,7 +414,7 @@ export class DownloadManager {
         networkType: 'ANY',
         priority: 1,
         progressInterval: 1000,
-        ...(authToken ? {authToken} : {}),
+        ...(authToken ? { authToken } : {}),
       };
       const response: DownloadResponse =
         await NativeDownloadModule.startDownload(model.downloadUrl!, config);

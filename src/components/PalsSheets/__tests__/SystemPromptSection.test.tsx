@@ -1,11 +1,11 @@
 import React from 'react';
-import {fireEvent, render, waitFor} from '../../../../jest/test-utils';
-import {FormProvider, useForm} from 'react-hook-form';
-import {SystemPromptSection} from '../SystemPromptSection';
-import {modelStore} from '../../../store';
-import {useStructuredOutput} from '../../../hooks/useStructuredOutput';
-import {modelsList} from '../../../../jest/fixtures/models';
-import type {ParameterDefinition} from '../../../types/pal';
+import { fireEvent, render, waitFor } from '../../../../jest/test-utils';
+import { FormProvider, useForm } from 'react-hook-form';
+import { SystemPromptSection } from '../SystemPromptSection';
+import { modelStore } from '../../../store';
+import { useStructuredOutput } from '../../../hooks/useStructuredOutput';
+import { modelsList } from '../../../../jest/fixtures/models';
+import type { ParameterDefinition } from '../../../types/pal';
 
 // Mock the modelStore
 jest.mock('../../../store', () => {
@@ -89,7 +89,7 @@ describe('SystemPromptSection', () => {
   });
 
   it('renders basic fields correctly for non-templated pal', () => {
-    const {getByText, getByPlaceholderText} = render(
+    const { getByText, getByPlaceholderText } = render(
       <TestWrapper>
         <SystemPromptSection closeSheet={() => {}} parameterSchema={[]} />
       </TestWrapper>,
@@ -104,8 +104,8 @@ describe('SystemPromptSection', () => {
   });
 
   it('toggles AI prompt generation fields visibility', () => {
-    const {getByText, queryByText} = render(
-      <TestWrapper defaultValues={{useAIPrompt: false}}>
+    const { getByText, queryByText } = render(
+      <TestWrapper defaultValues={{ useAIPrompt: false }}>
         <SystemPromptSection closeSheet={() => {}} parameterSchema={[]} />
       </TestWrapper>,
       {
@@ -124,10 +124,12 @@ describe('SystemPromptSection', () => {
   });
 
   it('handles system prompt generation for assistant type', async () => {
-    mockGenerate.mockResolvedValueOnce({prompt: 'Generated assistant prompt'});
+    mockGenerate.mockResolvedValueOnce({
+      prompt: 'Generated assistant prompt',
+    });
 
     // Assistant pal - no parameter schema (simple pal)
-    const {getByText, getByPlaceholderText} = render(
+    const { getByText, getByPlaceholderText } = render(
       <TestWrapper
         defaultValues={{
           useAIPrompt: true,
@@ -153,19 +155,19 @@ describe('SystemPromptSection', () => {
   });
 
   it('handles system prompt generation for roleplay type', async () => {
-    mockGenerate.mockResolvedValueOnce({prompt: 'Generated roleplay prompt'});
+    mockGenerate.mockResolvedValueOnce({ prompt: 'Generated roleplay prompt' });
 
     // Roleplay pal - has parameter schema with roleplay fields
     const roleplaySchema: ParameterDefinition[] = [
-      {key: 'world', type: 'text', label: 'World', required: true},
-      {key: 'location', type: 'text', label: 'Location', required: true},
-      {key: 'aiRole', type: 'text', label: 'AI Role', required: true},
-      {key: 'userRole', type: 'text', label: 'User Role', required: true},
-      {key: 'situation', type: 'text', label: 'Situation', required: true},
-      {key: 'toneStyle', type: 'text', label: 'Tone & Style', required: true},
+      { key: 'world', type: 'text', label: 'World', required: true },
+      { key: 'location', type: 'text', label: 'Location', required: true },
+      { key: 'aiRole', type: 'text', label: 'AI Role', required: true },
+      { key: 'userRole', type: 'text', label: 'User Role', required: true },
+      { key: 'situation', type: 'text', label: 'Situation', required: true },
+      { key: 'toneStyle', type: 'text', label: 'Tone & Style', required: true },
     ];
 
-    const {getByText, getByPlaceholderText} = render(
+    const { getByText, getByPlaceholderText } = render(
       <TestWrapper
         defaultValues={{
           useAIPrompt: true,
@@ -201,7 +203,7 @@ describe('SystemPromptSection', () => {
   it('handles validation before generation', async () => {
     const validateFields = jest.fn().mockResolvedValue(false);
 
-    const {getByText} = render(
+    const { getByText } = render(
       <TestWrapper
         defaultValues={{
           useAIPrompt: true,
@@ -227,9 +229,9 @@ describe('SystemPromptSection', () => {
   });
 
   it('handles model initialization for generation', async () => {
-    mockGenerate.mockResolvedValueOnce({prompt: 'Generated prompt'});
+    mockGenerate.mockResolvedValueOnce({ prompt: 'Generated prompt' });
 
-    const {getByText} = render(
+    const { getByText } = render(
       <TestWrapper
         defaultValues={{
           useAIPrompt: true,
@@ -252,14 +254,19 @@ describe('SystemPromptSection', () => {
   });
 
   it('generates different prompts for roleplay vs assistant pals', async () => {
-    mockGenerate.mockResolvedValueOnce({prompt: 'Generated roleplay prompt'});
+    mockGenerate.mockResolvedValueOnce({ prompt: 'Generated roleplay prompt' });
 
     const roleplaySchema = [
-      {key: 'world', type: 'text' as const, label: 'World', required: true},
-      {key: 'aiRole', type: 'text' as const, label: 'AI Role', required: true},
+      { key: 'world', type: 'text' as const, label: 'World', required: true },
+      {
+        key: 'aiRole',
+        type: 'text' as const,
+        label: 'AI Role',
+        required: true,
+      },
     ];
 
-    const {getByText} = render(
+    const { getByText } = render(
       <TestWrapper
         defaultValues={{
           useAIPrompt: true,
@@ -300,11 +307,13 @@ describe('SystemPromptSection', () => {
   });
 
   it('includes parameter values in generation prompt', async () => {
-    mockGenerate.mockResolvedValueOnce({prompt: 'Generated assistant prompt'});
+    mockGenerate.mockResolvedValueOnce({
+      prompt: 'Generated assistant prompt',
+    });
 
     const assistantSchema = [];
 
-    const {getByText} = render(
+    const { getByText } = render(
       <TestWrapper
         defaultValues={{
           useAIPrompt: true,
@@ -341,7 +350,7 @@ describe('SystemPromptSection', () => {
   });
 
   it('generates video pal specific prompts and excludes technical parameters', async () => {
-    mockGenerate.mockResolvedValueOnce({prompt: 'Generated video prompt'});
+    mockGenerate.mockResolvedValueOnce({ prompt: 'Generated video prompt' });
 
     const videoSchema = [
       {
@@ -352,7 +361,7 @@ describe('SystemPromptSection', () => {
       },
     ];
 
-    const {getByText} = render(
+    const { getByText } = render(
       <TestWrapper
         defaultValues={{
           useAIPrompt: true,
@@ -395,7 +404,7 @@ describe('SystemPromptSection', () => {
   });
 
   it('shows system prompt changed warning and handles reset', () => {
-    const {getByText, getByPlaceholderText} = render(
+    const { getByText, getByPlaceholderText } = render(
       <TestWrapper
         defaultValues={{
           systemPrompt: 'Changed prompt',
@@ -422,7 +431,7 @@ describe('SystemPromptSection', () => {
   });
 
   it('disables generation when system prompt is manually changed', () => {
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <TestWrapper
         defaultValues={{
           useAIPrompt: true,
@@ -443,12 +452,12 @@ describe('SystemPromptSection', () => {
   // New template functionality tests
   describe('Template functionality', () => {
     const templateSchema: ParameterDefinition[] = [
-      {key: 'role', type: 'text', label: 'Role', required: true},
-      {key: 'setting', type: 'text', label: 'Setting', required: true},
+      { key: 'role', type: 'text', label: 'Role', required: true },
+      { key: 'setting', type: 'text', label: 'Setting', required: true },
     ];
 
     it('detects templated pals and shows template mode toggle', () => {
-      const {getByTestId} = render(
+      const { getByTestId } = render(
         <TestWrapper
           defaultValues={{
             systemPrompt: 'You are {{role}} in {{setting}}',
@@ -460,7 +469,7 @@ describe('SystemPromptSection', () => {
             parameterSchema={templateSchema}
           />
         </TestWrapper>,
-        {withNavigation: true},
+        { withNavigation: true },
       );
 
       // Should show toggle button for template mode (icon button)
@@ -468,7 +477,7 @@ describe('SystemPromptSection', () => {
     });
 
     it('renders final prompt in default mode for templated pals', () => {
-      const {getByText} = render(
+      const { getByText } = render(
         <TestWrapper
           defaultValues={{
             systemPrompt: 'You are {{role}} in {{setting}}',
@@ -480,7 +489,7 @@ describe('SystemPromptSection', () => {
             parameterSchema={templateSchema}
           />
         </TestWrapper>,
-        {withNavigation: true},
+        { withNavigation: true },
       );
 
       // Should show rendered prompt
@@ -488,7 +497,7 @@ describe('SystemPromptSection', () => {
     });
 
     it('shows reset parameters and reset template buttons for templated pals', () => {
-      const {getByText} = render(
+      const { getByText } = render(
         <TestWrapper
           defaultValues={{
             systemPrompt: 'You are {{role}} in {{setting}}',
@@ -500,7 +509,7 @@ describe('SystemPromptSection', () => {
             parameterSchema={templateSchema}
           />
         </TestWrapper>,
-        {withNavigation: true},
+        { withNavigation: true },
       );
 
       expect(getByText('Reset Parameters')).toBeTruthy();
@@ -508,9 +517,9 @@ describe('SystemPromptSection', () => {
     });
 
     it('preserves originalSystemPrompt when generating AI prompts', async () => {
-      mockGenerate.mockResolvedValueOnce({prompt: 'Generated new prompt'});
+      mockGenerate.mockResolvedValueOnce({ prompt: 'Generated new prompt' });
 
-      const {getByText} = render(
+      const { getByText } = render(
         <TestWrapper
           defaultValues={{
             useAIPrompt: true,
@@ -521,7 +530,7 @@ describe('SystemPromptSection', () => {
           }}>
           <SystemPromptSection closeSheet={() => {}} parameterSchema={[]} />
         </TestWrapper>,
-        {withNavigation: true},
+        { withNavigation: true },
       );
 
       // Click generate button

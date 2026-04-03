@@ -22,8 +22,8 @@ interface ScreenSize {
 
 // Element interface for gesture methods - must be compatible with awaited WebdriverIO elements
 interface ElementLike {
-  getLocation(): Promise<{x: number; y: number}>;
-  getSize(): Promise<{width: number; height: number}>;
+  getLocation(): Promise<{ x: number; y: number }>;
+  getSize(): Promise<{ width: number; height: number }>;
 }
 
 /**
@@ -46,7 +46,7 @@ async function swipe(options: SwipeOptions = {}): Promise<void> {
     endYPercent = 0.5,
   } = options;
 
-  const {width, height} = await getScreenSize();
+  const { width, height } = await getScreenSize();
 
   const startX = Math.floor(width * startXPercent);
   const startY = Math.floor(height * startYPercent);
@@ -57,13 +57,13 @@ async function swipe(options: SwipeOptions = {}): Promise<void> {
     {
       type: 'pointer',
       id: 'finger1',
-      parameters: {pointerType: 'touch'},
+      parameters: { pointerType: 'touch' },
       actions: [
-        {type: 'pointerMove', duration: 0, x: startX, y: startY},
-        {type: 'pointerDown', button: 0},
-        {type: 'pause', duration: 100},
-        {type: 'pointerMove', duration, x: endX, y: endY},
-        {type: 'pointerUp', button: 0},
+        { type: 'pointerMove', duration: 0, x: startX, y: startY },
+        { type: 'pointerDown', button: 0 },
+        { type: 'pause', duration: 100 },
+        { type: 'pointerMove', duration, x: endX, y: endY },
+        { type: 'pointerUp', button: 0 },
       ],
     },
   ]);
@@ -79,7 +79,7 @@ async function swipe(options: SwipeOptions = {}): Promise<void> {
 async function swipeDownOnElement(element: ElementLike): Promise<void> {
   const location = await element.getLocation();
   const size = await element.getSize();
-  const {height: screenHeight} = await getScreenSize();
+  const { height: screenHeight } = await getScreenSize();
 
   // Start from the center of the element
   const startX = Math.floor(location.x + size.width / 2);
@@ -90,13 +90,13 @@ async function swipeDownOnElement(element: ElementLike): Promise<void> {
     {
       type: 'pointer',
       id: 'finger1',
-      parameters: {pointerType: 'touch'},
+      parameters: { pointerType: 'touch' },
       actions: [
-        {type: 'pointerMove', duration: 0, x: startX, y: startY},
-        {type: 'pointerDown', button: 0},
-        {type: 'pause', duration: 200},
-        {type: 'pointerMove', duration: 300, x: startX, y: endY},
-        {type: 'pointerUp', button: 0},
+        { type: 'pointerMove', duration: 0, x: startX, y: startY },
+        { type: 'pointerDown', button: 0 },
+        { type: 'pause', duration: 200 },
+        { type: 'pointerMove', duration: 300, x: startX, y: endY },
+        { type: 'pointerUp', button: 0 },
       ],
     },
   ]);

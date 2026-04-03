@@ -1,7 +1,7 @@
-import {StyleSheet} from 'react-native';
-import {Theme} from '../../utils/types';
+import { StyleSheet } from 'react-native';
+import { Theme } from '../../utils/types';
 
-export const createStyles = ({theme}: {theme: Theme}) =>
+export const createStyles = ({ theme }: { theme: Theme }) =>
   StyleSheet.create({
     container: {
       position: 'absolute',
@@ -91,7 +91,7 @@ export const createStyles = ({theme}: {theme: Theme}) =>
       marginRight: 4,
       fontWeight: '500',
       textShadowColor: 'rgba(0, 0, 0, 0.5)',
-      textShadowOffset: {width: 0, height: 1},
+      textShadowOffset: { width: 0, height: 1 },
       textShadowRadius: 1,
     },
     intervalValue: {
@@ -102,7 +102,7 @@ export const createStyles = ({theme}: {theme: Theme}) =>
       textAlign: 'center',
       fontWeight: '600',
       textShadowColor: 'rgba(0, 0, 0, 0.5)',
-      textShadowOffset: {width: 0, height: 1},
+      textShadowOffset: { width: 0, height: 1 },
       textShadowRadius: 1,
     },
     intervalButton: {

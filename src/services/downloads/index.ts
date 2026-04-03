@@ -1,5 +1,5 @@
 // Create a singleton instance
-import {DownloadManager} from './DownloadManager';
+import { DownloadManager } from './DownloadManager';
 
 export * from './types';
 export * from './DownloadManager';

@@ -1,15 +1,15 @@
 import React from 'react';
-import {FormProvider, useForm} from 'react-hook-form';
-import {render, fireEvent} from '../../../../jest/test-utils';
-import {DynamicTextField} from '../DynamicTextField';
-import type {ParameterDefinition} from '../../../types/pal';
+import { FormProvider, useForm } from 'react-hook-form';
+import { render, fireEvent } from '../../../../jest/test-utils';
+import { DynamicTextField } from '../DynamicTextField';
+import type { ParameterDefinition } from '../../../types/pal';
 
 // Wrapper component to provide form context
 const TestWrapper: React.FC<{
   children: React.ReactNode;
   defaultValues?: Record<string, any>;
-}> = ({children, defaultValues = {}}) => {
-  const methods = useForm({defaultValues});
+}> = ({ children, defaultValues = {} }) => {
+  const methods = useForm({ defaultValues });
   return <FormProvider {...methods}>{children}</FormProvider>;
 };
 
@@ -24,7 +24,7 @@ describe('DynamicTextField', () => {
   };
 
   it('should render with label and description', () => {
-    const {getByText} = render(
+    const { getByText } = render(
       <TestWrapper>
         <DynamicTextField parameter={mockParameter} />
       </TestWrapper>,
@@ -35,9 +35,9 @@ describe('DynamicTextField', () => {
   });
 
   it('should show required indicator when required', () => {
-    const requiredParameter = {...mockParameter, required: true};
+    const requiredParameter = { ...mockParameter, required: true };
 
-    const {getByText} = render(
+    const { getByText } = render(
       <TestWrapper>
         <DynamicTextField parameter={requiredParameter} />
       </TestWrapper>,
@@ -47,7 +47,7 @@ describe('DynamicTextField', () => {
   });
 
   it('should render input field with placeholder', () => {
-    const {getByPlaceholderText} = render(
+    const { getByPlaceholderText } = render(
       <TestWrapper>
         <DynamicTextField parameter={mockParameter} />
       </TestWrapper>,
@@ -57,7 +57,7 @@ describe('DynamicTextField', () => {
   });
 
   it('should handle text input changes', () => {
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <TestWrapper>
         <DynamicTextField parameter={mockParameter} />
       </TestWrapper>,
@@ -70,7 +70,7 @@ describe('DynamicTextField', () => {
   });
 
   it('should display error message when provided', () => {
-    const {getByText} = render(
+    const { getByText } = render(
       <TestWrapper>
         <DynamicTextField
           parameter={mockParameter}
@@ -83,7 +83,7 @@ describe('DynamicTextField', () => {
   });
 
   it('should be disabled when disabled prop is true', () => {
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <TestWrapper>
         <DynamicTextField parameter={mockParameter} disabled={true} />
       </TestWrapper>,
@@ -99,7 +99,7 @@ describe('DynamicTextField', () => {
       description: undefined,
     };
 
-    const {queryByText} = render(
+    const { queryByText } = render(
       <TestWrapper>
         <DynamicTextField parameter={parameterWithoutDescription} />
       </TestWrapper>,
@@ -109,8 +109,8 @@ describe('DynamicTextField', () => {
   });
 
   it('should use default value from form context', () => {
-    const {getByTestId} = render(
-      <TestWrapper defaultValues={{testField: 'Initial value'}}>
+    const { getByTestId } = render(
+      <TestWrapper defaultValues={{ testField: 'Initial value' }}>
         <DynamicTextField parameter={mockParameter} />
       </TestWrapper>,
     );

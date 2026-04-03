@@ -1,15 +1,15 @@
 import * as RNFS from '@dr.pogodin/react-native-fs';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Q} from '@nozbe/watermelondb';
-import {database} from '../database';
+import { Q } from '@nozbe/watermelondb';
+import { database } from '../database';
 import LocalPal from '../database/models/LocalPal';
-import type {Pal} from '../types/pal';
+import type { Pal } from '../types/pal';
 import {
   migrateLegacyPalToNew,
   type LegacyPalData,
 } from '../utils/pal-migration';
-import {CompletionParams} from '../utils/completionTypes';
-import {migrateCompletionSettings} from '../utils/completionSettingsVersions';
+import { CompletionParams } from '../utils/completionTypes';
+import { migrateCompletionSettings } from '../utils/completionSettingsVersions';
 
 class PalRepository {
   // Check if we need to migrate from JSON/AsyncStorage

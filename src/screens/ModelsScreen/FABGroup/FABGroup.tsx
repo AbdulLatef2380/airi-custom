@@ -1,12 +1,12 @@
-import {Image} from 'react-native';
-import React, {useContext, useMemo, useState} from 'react';
+import { Image } from 'react-native';
+import React, { useContext, useMemo, useState } from 'react';
 
-import {FAB} from 'react-native-paper';
+import { FAB } from 'react-native-paper';
 
-import {useTheme} from '../../../hooks';
-import {L10nContext} from '../../../utils';
-import {CloudPlusIcon} from '../../../assets/icons';
-import {createStyles} from './styles';
+import { useTheme } from '../../../hooks';
+import { L10nContext } from '../../../utils';
+import { CloudPlusIcon } from '../../../assets/icons';
+import { createStyles } from './styles';
 
 interface FABGroupProps {
   onAddHFModel: () => void;
@@ -16,7 +16,7 @@ interface FABGroupProps {
   hasServers?: boolean;
 }
 
-const iconStyle = {width: 24, height: 24};
+const iconStyle = { width: 24, height: 24 };
 
 // Icon component type for react-native-paper FAB actions
 type IconComponentProps = {
@@ -45,7 +45,7 @@ export const FABGroup: React.FC<FABGroupProps> = ({
   const theme = useTheme();
   const styles = createStyles(theme);
 
-  const onStateChange = ({open: isOpen}) => setOpen(isOpen);
+  const onStateChange = ({ open: isOpen }) => setOpen(isOpen);
 
   const actions = useMemo(() => {
     const items = [

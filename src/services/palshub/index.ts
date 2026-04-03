@@ -1,10 +1,10 @@
 // PalsHub Services
-export {authService} from './AuthService';
-export {palsHubService} from './PalsHubService';
-export {syncService} from './SyncService';
+export { authService } from './AuthService';
+export { palsHubService } from './PalsHubService';
+export { syncService } from './SyncService';
 
 // Error Handling
-export {PalsHubErrorHandler, RetryHandler} from './ErrorHandler';
+export { PalsHubErrorHandler, RetryHandler } from './ErrorHandler';
 
 // Authentication helpers
-export {isAuthenticated, getCurrentUser} from './supabase';
+export { isAuthenticated, getCurrentUser } from './supabase';

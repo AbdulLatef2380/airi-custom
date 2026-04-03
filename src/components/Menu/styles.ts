@@ -1,13 +1,13 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
-import {Theme} from '../../utils/types';
+import { Theme } from '../../utils/types';
 
 export const createStyles = (theme: Theme) =>
   StyleSheet.create({
     menu: {
       shadowColor: 'rgba(0, 0, 0, 0.05)',
       shadowRadius: 70,
-      shadowOffset: {width: 0, height: 0},
+      shadowOffset: { width: 0, height: 0 },
       elevation: 5,
       borderRadius: 12,
       maxWidth: '90%',

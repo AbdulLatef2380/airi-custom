@@ -1,1 +1,1 @@
-export {AuthSheet} from './AuthSheet';
+export { AuthSheet } from './AuthSheet';

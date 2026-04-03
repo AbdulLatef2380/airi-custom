@@ -5,7 +5,7 @@ import {
   getRecommendedProjectionModel,
   getLLMFiles,
 } from '../multimodalHelpers';
-import {ModelFile} from '../types';
+import { ModelFile } from '../types';
 
 describe('multimodalHelpers', () => {
   // Test data for model files

@@ -1,1 +1,1 @@
-export {PalDetailSheet} from './PalDetailSheet';
+export { PalDetailSheet } from './PalDetailSheet';

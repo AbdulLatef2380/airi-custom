@@ -1,4 +1,4 @@
-import {Theme} from '../../utils/types';
+import { Theme } from '../../utils/types';
 
 export const createTableStyles = (theme: Theme) => ({
   tableOuter: {

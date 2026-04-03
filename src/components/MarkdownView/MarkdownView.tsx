@@ -1,17 +1,17 @@
-import {View} from 'react-native';
-import React, {useMemo} from 'react';
+import { View } from 'react-native';
+import React, { useMemo } from 'react';
 
-import {marked} from 'marked';
-import RenderHtml, {defaultSystemFonts} from 'react-native-render-html';
+import { marked } from 'marked';
+import RenderHtml, { defaultSystemFonts } from 'react-native-render-html';
 import CodeHighlighter from 'react-native-code-highlighter';
-import {atomOneDark} from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import { atomOneDark } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
-import {useTheme} from '../../hooks';
-import {ThinkingBubble} from '../ThinkingBubble';
-import {CodeBlockHeader} from '../CodeBlockHeader';
+import { useTheme } from '../../hooks';
+import { ThinkingBubble } from '../ThinkingBubble';
+import { CodeBlockHeader } from '../CodeBlockHeader';
 
-import {createTagsStyles, createStyles} from './styles';
-import {tableRenderers, tableHTMLElementModels} from './TableRenderers';
+import { createTagsStyles, createStyles } from './styles';
+import { tableRenderers, tableHTMLElementModels } from './TableRenderers';
 
 marked.use({});
 
@@ -59,7 +59,7 @@ const decodeHTMLEntities = (text: string): string => {
   return decoded;
 };
 
-const CodeRenderer = ({TDefaultRenderer, ...props}: any) => {
+const CodeRenderer = ({ TDefaultRenderer, ...props }: any) => {
   const theme = useTheme();
   const styles = createStyles(theme);
   const isCodeBlock = props?.tnode?.parent?.tagName === 'pre';
@@ -101,7 +101,7 @@ const CodeRenderer = ({TDefaultRenderer, ...props}: any) => {
 };
 
 export const MarkdownView: React.FC<MarkdownViewProps> = React.memo(
-  ({markdownText, maxMessageWidth, selectable = false, reasoningContent}) => {
+  ({ markdownText, maxMessageWidth, selectable = false, reasoningContent }) => {
     const _maxWidth = maxMessageWidth;
 
     const theme = useTheme();
@@ -145,7 +145,7 @@ export const MarkdownView: React.FC<MarkdownViewProps> = React.memo(
       () => marked(markdownText) as string,
       [markdownText],
     );
-    const source = useMemo(() => ({html: htmlContent}), [htmlContent]);
+    const source = useMemo(() => ({ html: htmlContent }), [htmlContent]);
 
     // Render reasoning content as markdown if present
     const reasoningHtmlContent = useMemo(
@@ -153,14 +153,14 @@ export const MarkdownView: React.FC<MarkdownViewProps> = React.memo(
       [reasoningContent],
     );
     const reasoningSource = useMemo(
-      () => (reasoningHtmlContent ? {html: reasoningHtmlContent} : null),
+      () => (reasoningHtmlContent ? { html: reasoningHtmlContent } : null),
       [reasoningHtmlContent],
     );
 
     return (
       <View
         testID="markdown-content"
-        style={[styles.markdownContainer, {maxWidth: _maxWidth}]}>
+        style={[styles.markdownContainer, { maxWidth: _maxWidth }]}>
         {/* Render reasoning/thinking content first if present */}
         {reasoningSource && !isEmptyContent(reasoningContent || '') && (
           <ThinkingBubble>

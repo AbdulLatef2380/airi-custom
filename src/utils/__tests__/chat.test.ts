@@ -1,18 +1,18 @@
-import {Templates} from 'chat-formatter';
+import { Templates } from 'chat-formatter';
 import {
   applyChatTemplate,
   convertToChatMessages,
   user,
   assistant,
 } from '../chat';
-import {ChatMessage, ChatTemplateConfig, MessageType} from '../types';
-import {createModel} from '../../../jest/fixtures/models';
+import { ChatMessage, ChatTemplateConfig, MessageType } from '../types';
+import { createModel } from '../../../jest/fixtures/models';
 
 const conversationWSystem: ChatMessage[] = [
-  {role: 'system', content: 'System prompt. '},
-  {role: 'user', content: 'Hi there!'},
-  {role: 'assistant', content: 'Nice to meet you!'},
-  {role: 'user', content: 'Can I ask a question?'},
+  { role: 'system', content: 'System prompt. ' },
+  { role: 'user', content: 'Hi there!' },
+  { role: 'assistant', content: 'Nice to meet you!' },
+  { role: 'user', content: 'Can I ask a question?' },
 ];
 
 describe('convertToChatMessages', () => {
@@ -83,11 +83,11 @@ describe('convertToChatMessages', () => {
           },
           {
             type: 'image_url',
-            image_url: {url: 'file:///path/to/image1.jpg'},
+            image_url: { url: 'file:///path/to/image1.jpg' },
           },
           {
             type: 'image_url',
-            image_url: {url: 'file:///path/to/image2.jpg'},
+            image_url: { url: 'file:///path/to/image2.jpg' },
           },
         ],
       },
@@ -176,7 +176,7 @@ describe('convertToChatMessages', () => {
           },
           {
             type: 'image_url',
-            image_url: {url: 'file:///path/to/image.jpg'},
+            image_url: { url: 'file:///path/to/image.jpg' },
           },
         ],
       },
@@ -242,7 +242,7 @@ describe('Test Danube2 Chat Templates', () => {
       addGenerationPrompt: true,
       name: 'danube2',
     };
-    const model = createModel({chatTemplate: chatTemplate});
+    const model = createModel({ chatTemplate: chatTemplate });
     const result = await applyChatTemplate(conversationWSystem, model, null);
     expect(result).toBe(
       'System prompt. </s><|prompt|>Hi there!</s><|answer|>Nice to meet you!</s><|prompt|>Can I ask a question?</s><|answer|>',

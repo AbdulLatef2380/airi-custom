@@ -1,5 +1,5 @@
-import {AppState} from 'react-native';
-import {runInAction} from 'mobx';
+import { AppState } from 'react-native';
+import { runInAction } from 'mobx';
 
 import * as Keychain from 'react-native-keychain';
 
@@ -16,13 +16,13 @@ jest.mock('../../api/openai', () => ({
 }));
 
 // Mock AppState.addEventListener
-const mockAddEventListener = jest.fn().mockReturnValue({remove: jest.fn()});
+const mockAddEventListener = jest.fn().mockReturnValue({ remove: jest.fn() });
 jest
   .spyOn(AppState, 'addEventListener')
   .mockImplementation(mockAddEventListener);
 
 // Import the singleton after mocks
-import {serverStore} from '../ServerStore';
+import { serverStore } from '../ServerStore';
 
 const mockedFetchModels = openaiModule.fetchModels as jest.Mock;
 const mockedTestConnection = openaiModule.testConnection as jest.Mock;
@@ -108,7 +108,7 @@ describe('ServerStore', () => {
         url: 'http://localhost:1234',
       });
 
-      serverStore.updateServer(id, {name: 'Updated'});
+      serverStore.updateServer(id, { name: 'Updated' });
 
       expect(serverStore.servers[0].name).toBe('Updated');
     });
@@ -119,7 +119,7 @@ describe('ServerStore', () => {
         url: 'http://localhost:1234',
       });
 
-      serverStore.updateServer('non-existent', {name: 'Updated'});
+      serverStore.updateServer('non-existent', { name: 'Updated' });
       expect(serverStore.servers[0].name).toBe('Server');
     });
 
@@ -129,7 +129,7 @@ describe('ServerStore', () => {
         url: 'http://localhost:1234',
       });
 
-      serverStore.updateServer(id, {url: 'http://localhost:5678'});
+      serverStore.updateServer(id, { url: 'http://localhost:5678' });
 
       expect(serverStore.servers[0].url).toBe('http://localhost:5678');
     });
@@ -157,7 +157,7 @@ describe('ServerStore', () => {
 
       runInAction(() => {
         serverStore.serverModels.set(id, [
-          {id: 'model-1', object: 'model', owned_by: 'system'},
+          { id: 'model-1', object: 'model', owned_by: 'system' },
         ]);
       });
 
@@ -187,16 +187,16 @@ describe('ServerStore', () => {
 
       runInAction(() => {
         serverStore.userSelectedModels = [
-          {serverId: id, remoteModelId: 'model-a'},
-          {serverId: id, remoteModelId: 'model-b'},
-          {serverId: 'other-server', remoteModelId: 'model-c'},
+          { serverId: id, remoteModelId: 'model-a' },
+          { serverId: id, remoteModelId: 'model-b' },
+          { serverId: 'other-server', remoteModelId: 'model-c' },
         ];
       });
 
       serverStore.removeServer(id);
 
       expect(serverStore.userSelectedModels).toEqual([
-        {serverId: 'other-server', remoteModelId: 'model-c'},
+        { serverId: 'other-server', remoteModelId: 'model-c' },
       ]);
     });
   });
@@ -207,7 +207,7 @@ describe('ServerStore', () => {
         serverStore.addUserSelectedModel('server-1', 'model-a');
 
         expect(serverStore.userSelectedModels).toEqual([
-          {serverId: 'server-1', remoteModelId: 'model-a'},
+          { serverId: 'server-1', remoteModelId: 'model-a' },
         ]);
       });
 
@@ -237,22 +237,22 @@ describe('ServerStore', () => {
       it('removes a specific model selection', () => {
         runInAction(() => {
           serverStore.userSelectedModels = [
-            {serverId: 'server-1', remoteModelId: 'model-a'},
-            {serverId: 'server-1', remoteModelId: 'model-b'},
+            { serverId: 'server-1', remoteModelId: 'model-a' },
+            { serverId: 'server-1', remoteModelId: 'model-b' },
           ];
         });
 
         serverStore.removeUserSelectedModel('server-1', 'model-a');
 
         expect(serverStore.userSelectedModels).toEqual([
-          {serverId: 'server-1', remoteModelId: 'model-b'},
+          { serverId: 'server-1', remoteModelId: 'model-b' },
         ]);
       });
 
       it('does nothing when entry does not exist', () => {
         runInAction(() => {
           serverStore.userSelectedModels = [
-            {serverId: 'server-1', remoteModelId: 'model-a'},
+            { serverId: 'server-1', remoteModelId: 'model-a' },
           ];
         });
 
@@ -266,17 +266,17 @@ describe('ServerStore', () => {
       it('returns models for a specific server', () => {
         runInAction(() => {
           serverStore.userSelectedModels = [
-            {serverId: 'server-1', remoteModelId: 'model-a'},
-            {serverId: 'server-2', remoteModelId: 'model-b'},
-            {serverId: 'server-1', remoteModelId: 'model-c'},
+            { serverId: 'server-1', remoteModelId: 'model-a' },
+            { serverId: 'server-2', remoteModelId: 'model-b' },
+            { serverId: 'server-1', remoteModelId: 'model-c' },
           ];
         });
 
         const result = serverStore.getUserSelectedModelsForServer('server-1');
 
         expect(result).toEqual([
-          {serverId: 'server-1', remoteModelId: 'model-a'},
-          {serverId: 'server-1', remoteModelId: 'model-c'},
+          { serverId: 'server-1', remoteModelId: 'model-a' },
+          { serverId: 'server-1', remoteModelId: 'model-c' },
         ]);
       });
 
@@ -310,7 +310,7 @@ describe('ServerStore', () => {
 
       runInAction(() => {
         serverStore.userSelectedModels = [
-          {serverId: id, remoteModelId: 'model-a'},
+          { serverId: id, remoteModelId: 'model-a' },
         ];
       });
 
@@ -342,8 +342,8 @@ describe('ServerStore', () => {
 
       runInAction(() => {
         serverStore.serverModels.set(id, [
-          {id: 'model-a', object: 'model', owned_by: 'system'},
-          {id: 'model-b', object: 'model', owned_by: 'system'},
+          { id: 'model-a', object: 'model', owned_by: 'system' },
+          { id: 'model-b', object: 'model', owned_by: 'system' },
         ]);
       });
 
@@ -361,13 +361,13 @@ describe('ServerStore', () => {
 
       runInAction(() => {
         serverStore.serverModels.set(id, [
-          {id: 'model-a', object: 'model', owned_by: 'system'},
-          {id: 'model-b', object: 'model', owned_by: 'system'},
-          {id: 'model-c', object: 'model', owned_by: 'system'},
+          { id: 'model-a', object: 'model', owned_by: 'system' },
+          { id: 'model-b', object: 'model', owned_by: 'system' },
+          { id: 'model-c', object: 'model', owned_by: 'system' },
         ]);
         serverStore.userSelectedModels = [
-          {serverId: id, remoteModelId: 'model-a'},
-          {serverId: id, remoteModelId: 'model-c'},
+          { serverId: id, remoteModelId: 'model-a' },
+          { serverId: id, remoteModelId: 'model-c' },
         ];
       });
 
@@ -385,10 +385,10 @@ describe('ServerStore', () => {
 
       runInAction(() => {
         serverStore.serverModels.set(id, [
-          {id: 'model-a', object: 'model', owned_by: 'system'},
+          { id: 'model-a', object: 'model', owned_by: 'system' },
         ]);
         serverStore.userSelectedModels = [
-          {serverId: id, remoteModelId: 'model-a'},
+          { serverId: id, remoteModelId: 'model-a' },
         ];
       });
 
@@ -411,7 +411,7 @@ describe('ServerStore', () => {
       expect(Keychain.setGenericPassword).toHaveBeenCalledWith(
         'apiKey',
         'sk-test-key',
-        {service: 'pocketpal-server-server-1'},
+        { service: 'pocketpal-server-server-1' },
       );
     });
 
@@ -478,8 +478,8 @@ describe('ServerStore', () => {
       jest.clearAllMocks();
 
       const mockModels = [
-        {id: 'llama-7b', object: 'model', owned_by: 'system'},
-        {id: 'codellama', object: 'model', owned_by: 'library'},
+        { id: 'llama-7b', object: 'model', owned_by: 'system' },
+        { id: 'codellama', object: 'model', owned_by: 'library' },
       ];
       mockedFetchModels.mockResolvedValueOnce(mockModels);
       (Keychain.getGenericPassword as jest.Mock).mockResolvedValueOnce(false);
@@ -571,12 +571,12 @@ describe('ServerStore', () => {
         url: 'http://localhost:1234',
       });
 
-      mockedTestConnection.mockResolvedValueOnce({ok: true, modelCount: 5});
+      mockedTestConnection.mockResolvedValueOnce({ ok: true, modelCount: 5 });
       (Keychain.getGenericPassword as jest.Mock).mockResolvedValueOnce(false);
 
       const result = await serverStore.testServerConnection(id);
 
-      expect(result).toEqual({ok: true, modelCount: 5});
+      expect(result).toEqual({ ok: true, modelCount: 5 });
       expect(mockedTestConnection).toHaveBeenCalledWith(
         'http://localhost:1234',
         undefined,
@@ -603,7 +603,7 @@ describe('ServerStore', () => {
         password: 'sk-key',
         username: 'apiKey',
       });
-      mockedTestConnection.mockResolvedValueOnce({ok: true, modelCount: 3});
+      mockedTestConnection.mockResolvedValueOnce({ ok: true, modelCount: 3 });
 
       await serverStore.testServerConnection(id);
 

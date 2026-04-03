@@ -1,13 +1,15 @@
 import React from 'react';
-import {fireEvent} from '@testing-library/react-native';
-import {render} from '../../../../jest/test-utils';
-import {AttachmentButton} from '../AttachmentButton';
+import { fireEvent } from '@testing-library/react-native';
+import { render } from '../../../../jest/test-utils';
+import { AttachmentButton } from '../AttachmentButton';
 
 describe('AttachmentButton', () => {
   describe('User Interaction', () => {
     it('should trigger onPress callback when user taps the button', () => {
       const mockOnPress = jest.fn();
-      const {getByTestId} = render(<AttachmentButton onPress={mockOnPress} />);
+      const { getByTestId } = render(
+        <AttachmentButton onPress={mockOnPress} />,
+      );
 
       fireEvent.press(getByTestId('attachment-button'));
 
@@ -16,7 +18,9 @@ describe('AttachmentButton', () => {
 
     it('should handle multiple rapid taps correctly', () => {
       const mockOnPress = jest.fn();
-      const {getByTestId} = render(<AttachmentButton onPress={mockOnPress} />);
+      const { getByTestId } = render(
+        <AttachmentButton onPress={mockOnPress} />,
+      );
 
       const button = getByTestId('attachment-button');
       fireEvent.press(button);
@@ -27,7 +31,7 @@ describe('AttachmentButton', () => {
     });
 
     it('should not crash when tapped without onPress handler', () => {
-      const {getByTestId} = render(<AttachmentButton />);
+      const { getByTestId } = render(<AttachmentButton />);
 
       expect(() =>
         fireEvent.press(getByTestId('attachment-button')),
@@ -40,10 +44,10 @@ describe('AttachmentButton', () => {
       const componentOnPress = jest.fn();
       const touchableOnPress = jest.fn();
 
-      const {getByTestId} = render(
+      const { getByTestId } = render(
         <AttachmentButton
           onPress={componentOnPress}
-          touchableOpacityProps={{onPress: touchableOnPress}}
+          touchableOpacityProps={{ onPress: touchableOnPress }}
         />,
       );
 
@@ -55,10 +59,10 @@ describe('AttachmentButton', () => {
 
     it('should respect disabled state from touchableOpacityProps', () => {
       const mockOnPress = jest.fn();
-      const {getByTestId} = render(
+      const { getByTestId } = render(
         <AttachmentButton
           onPress={mockOnPress}
-          touchableOpacityProps={{disabled: true}}
+          touchableOpacityProps={{ disabled: true }}
         />,
       );
 
@@ -67,8 +71,8 @@ describe('AttachmentButton', () => {
     });
 
     it('should allow custom testID override via touchableOpacityProps', () => {
-      const {getByTestId, queryByTestId} = render(
-        <AttachmentButton touchableOpacityProps={{testID: 'custom-id'}} />,
+      const { getByTestId, queryByTestId } = render(
+        <AttachmentButton touchableOpacityProps={{ testID: 'custom-id' }} />,
       );
 
       expect(getByTestId('custom-id')).toBeTruthy();
@@ -78,7 +82,7 @@ describe('AttachmentButton', () => {
 
   describe('Accessibility', () => {
     it('should have button role for screen readers', () => {
-      const {getByTestId} = render(<AttachmentButton />);
+      const { getByTestId } = render(<AttachmentButton />);
 
       expect(getByTestId('attachment-button').props.accessibilityRole).toBe(
         'button',
@@ -86,7 +90,7 @@ describe('AttachmentButton', () => {
     });
 
     it('should have descriptive accessibility label', () => {
-      const {getByTestId} = render(<AttachmentButton />);
+      const { getByTestId } = render(<AttachmentButton />);
 
       const label = getByTestId('attachment-button').props.accessibilityLabel;
       expect(label).toBeTruthy();

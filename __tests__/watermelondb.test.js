@@ -1,4 +1,4 @@
-import {database} from '../src/database';
+import { database } from '../src/database';
 
 describe('WatermelonDB', () => {
   it('should have a mocked database', () => {

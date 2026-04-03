@@ -1,6 +1,6 @@
-import {renderHook, act} from '@testing-library/react-hooks';
-import {useStructuredOutput} from '../useStructuredOutput';
-import {modelStore} from '../../store';
+import { renderHook, act } from '@testing-library/react-hooks';
+import { useStructuredOutput } from '../useStructuredOutput';
+import { modelStore } from '../../store';
 
 // Mock the modelStore
 jest.mock('../../store', () => ({
@@ -21,26 +21,26 @@ describe('useStructuredOutput', () => {
   });
 
   it('should generate structured output successfully', async () => {
-    const mockResponse = {text: '{"key": "value"}'};
+    const mockResponse = { text: '{"key": "value"}' };
     (modelStore.context!.completion as jest.Mock).mockResolvedValueOnce(
       mockResponse,
     );
 
-    const {result} = renderHook(() => useStructuredOutput());
+    const { result } = renderHook(() => useStructuredOutput());
 
     const prompt = 'test prompt';
-    const schema = {type: 'object', properties: {key: {type: 'string'}}};
+    const schema = { type: 'object', properties: { key: { type: 'string' } } };
 
     let output;
     await act(async () => {
       output = await result.current.generate(prompt, schema);
     });
 
-    expect(output).toEqual({key: 'value'});
+    expect(output).toEqual({ key: 'value' });
     expect(result.current.isGenerating).toBe(false);
     expect(result.current.error).toBeNull();
     expect(modelStore.context?.completion).toHaveBeenCalledWith({
-      messages: [{role: 'user', content: prompt}],
+      messages: [{ role: 'user', content: prompt }],
       response_format: {
         type: 'json_schema',
         json_schema: {
@@ -56,12 +56,12 @@ describe('useStructuredOutput', () => {
   });
 
   it('should handle custom options', async () => {
-    const mockResponse = {text: '{"key": "value"}'};
+    const mockResponse = { text: '{"key": "value"}' };
     (modelStore.context!.completion as jest.Mock).mockResolvedValueOnce(
       mockResponse,
     );
 
-    const {result} = renderHook(() => useStructuredOutput());
+    const { result } = renderHook(() => useStructuredOutput());
 
     const options = {
       temperature: 0.5,
@@ -84,19 +84,19 @@ describe('useStructuredOutput', () => {
   });
 
   it('should handle invalid JSON response', async () => {
-    const mockResponse = {text: 'invalid json'};
+    const mockResponse = { text: 'invalid json' };
     (modelStore.context!.completion as jest.Mock).mockResolvedValueOnce(
       mockResponse,
     );
 
-    const {result} = renderHook(() => useStructuredOutput());
+    const { result } = renderHook(() => useStructuredOutput());
 
     let output;
     await act(async () => {
       output = await result.current.generate('test', {});
     });
 
-    expect(output).toEqual({prompt: '', error: expect.any(Error)});
+    expect(output).toEqual({ prompt: '', error: expect.any(Error) });
     expect(result.current.isGenerating).toBe(false);
   });
 
@@ -104,7 +104,7 @@ describe('useStructuredOutput', () => {
     // Mock modelStore with undefined context
     (modelStore as any).context = undefined;
 
-    const {result} = renderHook(() => useStructuredOutput());
+    const { result } = renderHook(() => useStructuredOutput());
 
     let error;
     await act(async () => {
@@ -126,7 +126,7 @@ describe('useStructuredOutput', () => {
       new Error(errorMessage),
     );
 
-    const {result} = renderHook(() => useStructuredOutput());
+    const { result } = renderHook(() => useStructuredOutput());
 
     let error;
     await act(async () => {

@@ -1,4 +1,4 @@
-import {Alert, Platform, AlertButton, AlertOptions} from 'react-native';
+import { Alert, Platform, AlertButton, AlertOptions } from 'react-native';
 
 /**
  * A safe wrapper around Alert.alert that handles Android Activity lifecycle issues.

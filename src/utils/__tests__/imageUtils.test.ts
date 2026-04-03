@@ -38,7 +38,7 @@ describe('imageUtils', () => {
       mockRNFS.exists.mockResolvedValueOnce(false); // File doesn't exist
       mockRNFS.downloadFile.mockReturnValueOnce({
         jobId: 1,
-        promise: Promise.resolve({statusCode: 200}),
+        promise: Promise.resolve({ statusCode: 200 }),
       } as any);
 
       // Execute
@@ -77,7 +77,7 @@ describe('imageUtils', () => {
       mockRNFS.exists.mockResolvedValueOnce(false); // File doesn't exist
       mockRNFS.downloadFile.mockReturnValueOnce({
         jobId: 1,
-        promise: Promise.resolve({statusCode: 404}),
+        promise: Promise.resolve({ statusCode: 404 }),
       } as any);
 
       // Execute & Verify

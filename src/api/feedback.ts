@@ -1,10 +1,10 @@
-import {Platform} from 'react-native';
+import { Platform } from 'react-native';
 
 import axios from 'axios';
 import DeviceInfo from 'react-native-device-info';
 
-import {urls} from '../config';
-import {feedbackStore} from '../store';
+import { urls } from '../config';
+import { feedbackStore } from '../store';
 import {
   getAppCheckToken,
   checkConnectivity,
@@ -65,7 +65,7 @@ export type ModelLoadErrorReportData = {
  */
 export async function submitContentReport(
   reportData: Omit<ContentReportData, 'appFeedbackId'>,
-): Promise<{message: string}> {
+): Promise<{ message: string }> {
   try {
     // Check network connectivity first
     const isConnected = await checkConnectivity();
@@ -147,7 +147,7 @@ export async function submitContentReport(
  */
 export async function submitFeedback(
   feedbackData: Omit<FeedbackData, 'appFeedbackId'>,
-): Promise<{message: string}> {
+): Promise<{ message: string }> {
   try {
     // Check network connectivity first
     const isConnected = await checkConnectivity();
@@ -242,7 +242,7 @@ export async function submitFeedback(
  */
 export async function submitModelLoadErrorReport(
   reportData: Omit<ModelLoadErrorReportData, 'appFeedbackId'>,
-): Promise<{message: string}> {
+): Promise<{ message: string }> {
   try {
     // Check network connectivity first
     const isConnected = await checkConnectivity();

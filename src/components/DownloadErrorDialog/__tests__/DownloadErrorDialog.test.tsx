@@ -1,12 +1,12 @@
 import React from 'react';
-import {fireEvent} from '@testing-library/react-native';
-import {render} from '../../../../jest/test-utils';
-import {DownloadErrorDialog} from '../DownloadErrorDialog';
-import {Linking} from 'react-native';
-import {hfStore} from '../../../store';
-import {createModel} from '../../../../jest/fixtures/models';
-import {l10n} from '../../../locales';
-import {createErrorState, ErrorState} from '../../../utils/errors';
+import { fireEvent } from '@testing-library/react-native';
+import { render } from '../../../../jest/test-utils';
+import { DownloadErrorDialog } from '../DownloadErrorDialog';
+import { Linking } from 'react-native';
+import { hfStore } from '../../../store';
+import { createModel } from '../../../../jest/fixtures/models';
+import { l10n } from '../../../locales';
+import { createErrorState, ErrorState } from '../../../utils/errors';
 
 // Mock Linking - need to spy on the actual Linking object
 const mockOpenURL = jest.fn().mockImplementation(() => Promise.resolve());
@@ -41,7 +41,7 @@ describe('DownloadErrorDialog', () => {
   });
 
   it('does not render when not visible', () => {
-    const {queryByText} = render(
+    const { queryByText } = render(
       <DownloadErrorDialog
         visible={false}
         onDismiss={mockDismiss}
@@ -62,7 +62,7 @@ describe('DownloadErrorDialog', () => {
       },
     );
 
-    const {getByText} = render(
+    const { getByText } = render(
       <DownloadErrorDialog
         visible={true}
         onDismiss={mockDismiss}
@@ -114,7 +114,7 @@ describe('DownloadErrorDialog', () => {
     );
     console.log(error);
 
-    const {getByText} = render(
+    const { getByText } = render(
       <DownloadErrorDialog
         visible={true}
         onDismiss={mockDismiss}
@@ -154,7 +154,7 @@ describe('DownloadErrorDialog', () => {
       },
     );
 
-    const {getByText} = render(
+    const { getByText } = render(
       <DownloadErrorDialog
         visible={true}
         onDismiss={mockDismiss}
@@ -196,7 +196,7 @@ describe('DownloadErrorDialog', () => {
       },
     );
 
-    const {getByText, getByTestId} = render(
+    const { getByText, getByTestId } = render(
       <DownloadErrorDialog
         visible={true}
         onDismiss={mockDismiss}

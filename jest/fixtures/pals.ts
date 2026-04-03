@@ -1,6 +1,6 @@
-import type {Pal} from '../../src/types/pal';
-import type {PalsHubPal} from '../../src/types/palshub';
-import {downloadedModel, basicModel} from './models';
+import type { Pal } from '../../src/types/pal';
+import type { PalsHubPal } from '../../src/types/palshub';
+import { downloadedModel, basicModel } from './models';
 
 // Basic local pal
 export const mockLocalPal: Pal = {

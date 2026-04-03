@@ -1,6 +1,6 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
-import {MessageType, Theme, User} from '../../utils/types';
+import { MessageType, Theme, User } from '../../utils/types';
 
 export const styles = ({
   message,

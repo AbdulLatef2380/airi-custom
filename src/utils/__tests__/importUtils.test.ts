@@ -1,5 +1,5 @@
 import * as RNFS from '@dr.pogodin/react-native-fs';
-import {pick} from '@react-native-documents/picker';
+import { pick } from '@react-native-documents/picker';
 import {
   readJsonFile,
   validateImportedData,
@@ -23,7 +23,7 @@ describe('importUtils', () => {
 
       // Verify
       expect(RNFS.readFile).toHaveBeenCalled();
-      expect(result).toEqual({test: 'data'});
+      expect(result).toEqual({ test: 'data' });
     });
   });
 
@@ -178,7 +178,7 @@ describe('importUtils', () => {
       it('should import multiple pals', async () => {
         const multiplePals = [
           mockImportedPal,
-          {...mockImportedPal, id: 'imported-pal-2', name: 'Second Pal'},
+          { ...mockImportedPal, id: 'imported-pal-2', name: 'Second Pal' },
         ];
         (RNFS.readFile as jest.Mock).mockResolvedValue(
           JSON.stringify(multiplePals),

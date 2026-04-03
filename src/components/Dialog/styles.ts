@@ -1,6 +1,6 @@
-import {Dimensions, StyleSheet} from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 
-import {Theme} from '../../utils/types';
+import { Theme } from '../../utils/types';
 
 const dialogHeight = Dimensions.get('window').height * 0.65;
 

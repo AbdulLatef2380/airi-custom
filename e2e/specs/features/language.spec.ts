@@ -11,11 +11,11 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
-import {ChatPage} from '../../pages/ChatPage';
-import {DrawerPage} from '../../pages/DrawerPage';
-import {SettingsPage} from '../../pages/SettingsPage';
-import {byStaticText} from '../../helpers/selectors';
-import {SCREENSHOT_DIR} from '../../wdio.shared.conf';
+import { ChatPage } from '../../pages/ChatPage';
+import { DrawerPage } from '../../pages/DrawerPage';
+import { SettingsPage } from '../../pages/SettingsPage';
+import { byStaticText } from '../../helpers/selectors';
+import { SCREENSHOT_DIR } from '../../wdio.shared.conf';
 
 declare const driver: WebdriverIO.Browser;
 declare const browser: WebdriverIO.Browser;
@@ -27,7 +27,7 @@ declare const browser: WebdriverIO.Browser;
  */
 const LANGUAGE_ASSERTIONS: Record<
   string,
-  {screenTitle: string; firstCardTitle: string}
+  { screenTitle: string; firstCardTitle: string }
 > = {
   en: {
     screenTitle: 'Settings',
@@ -89,7 +89,7 @@ describe('Language Switching', () => {
       const testName = this.currentTest.title.replace(/\s+/g, '-');
       try {
         if (!fs.existsSync(SCREENSHOT_DIR)) {
-          fs.mkdirSync(SCREENSHOT_DIR, {recursive: true});
+          fs.mkdirSync(SCREENSHOT_DIR, { recursive: true });
         }
         await driver.saveScreenshot(
           path.join(SCREENSHOT_DIR, `failure-${testName}-${timestamp}.png`),
@@ -109,7 +109,7 @@ describe('Language Switching', () => {
 
     // Ensure screenshot directory exists
     if (!fs.existsSync(SCREENSHOT_DIR)) {
-      fs.mkdirSync(SCREENSHOT_DIR, {recursive: true});
+      fs.mkdirSync(SCREENSHOT_DIR, { recursive: true });
     }
 
     // Cycle through each language
@@ -135,12 +135,12 @@ describe('Language Switching', () => {
       // On iOS this avoids matching hidden drawer buttons.
       // On Android this matches both TextView and View (React Navigation header).
       const titleElement = browser.$(byStaticText(expected.screenTitle));
-      await titleElement.waitForDisplayed({timeout: 5000});
+      await titleElement.waitForDisplayed({ timeout: 5000 });
       console.log(`  Screen title: "${expected.screenTitle}" - OK`);
 
       // Assert the first card title changed (visible at top after re-render).
       const cardTitleElement = browser.$(byStaticText(expected.firstCardTitle));
-      await cardTitleElement.waitForDisplayed({timeout: 5000});
+      await cardTitleElement.waitForDisplayed({ timeout: 5000 });
       console.log(`  First card title: "${expected.firstCardTitle}" - OK`);
 
       // Take screenshot

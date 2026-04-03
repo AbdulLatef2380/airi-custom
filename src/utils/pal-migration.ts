@@ -1,8 +1,8 @@
-import {v4 as uuidv4} from 'uuid';
-import type {Pal, LegacyPalType} from '../types/pal';
-import {createCapabilitiesFromLegacyType} from './pal-capabilities';
-import {ROLEPLAY_SCHEMA, ASSISTANT_SCHEMA, VIDEO_SCHEMA} from '../types/pal';
-import {Model} from './types';
+import { v4 as uuidv4 } from 'uuid';
+import type { Pal, LegacyPalType } from '../types/pal';
+import { createCapabilitiesFromLegacyType } from './pal-capabilities';
+import { ROLEPLAY_SCHEMA, ASSISTANT_SCHEMA, VIDEO_SCHEMA } from '../types/pal';
+import { Model } from './types';
 
 // Migration-specific types (moved from PalsSheets/types.ts)
 export enum PalType {

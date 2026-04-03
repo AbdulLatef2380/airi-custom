@@ -9,14 +9,14 @@ import {
   ScrollView,
   Image,
 } from 'react-native';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import {useCameraPermission} from 'react-native-vision-camera';
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import { useCameraPermission } from 'react-native-vision-camera';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 
-import {observer} from 'mobx-react';
-import {IconButton, Text} from 'react-native-paper';
+import { observer } from 'mobx-react';
+import { IconButton, Text } from 'react-native-paper';
 
-import {hasVideoCapability} from '../../utils/pal-capabilities';
+import { hasVideoCapability } from '../../utils/pal-capabilities';
 
 import {
   ChevronUpIcon,
@@ -25,16 +25,16 @@ import {
   AtomIcon,
 } from '../../assets/icons';
 
-import {useTheme} from '../../hooks';
+import { useTheme } from '../../hooks';
 
-import {createStyles} from './styles';
+import { createStyles } from './styles';
 
-import {chatSessionStore, modelStore, palStore, uiStore} from '../../store';
+import { chatSessionStore, modelStore, palStore, uiStore } from '../../store';
 
-import {MessageType} from '../../utils/types';
-import {L10nContext, UserContext} from '../../utils';
+import { MessageType } from '../../utils/types';
+import { L10nContext, UserContext } from '../../utils';
 
-import {SendButton, StopButton, Menu} from '..';
+import { SendButton, StopButton, Menu } from '..';
 
 export interface ChatInputTopLevelProps {
   /** Whether the AI is currently streaming tokens */
@@ -133,7 +133,7 @@ export const ChatInput = observer(
     const currentActivePal = palStore.pals.find(pal => pal.id === activePalId);
 
     // Camera permission hook from react-native-vision-camera
-    const {hasPermission, requestPermission} = useCameraPermission();
+    const { hasPermission, requestPermission } = useCameraPermission();
 
     const hasActiveModel = !!modelStore.activeModelId;
 
@@ -152,7 +152,7 @@ export const ChatInput = observer(
     const [showModelWarning, setShowModelWarning] = React.useState(false);
     const isEditMode = chatSessionStore.isEditMode;
 
-    const styles = createStyles({theme, isEditMode});
+    const styles = createStyles({ theme, isEditMode });
 
     // For camera input, use promptText if provided
     const isVideoCapable =
@@ -385,7 +385,7 @@ export const ChatInput = observer(
                 {selectedImages.map((uri, index) => (
                   <View key={`${uri}-${index}`} style={styles.imageContainer}>
                     <Image
-                      source={{uri}}
+                      source={{ uri }}
                       style={styles.previewImage}
                       accessibilityLabel={`Image preview ${index + 1} of ${
                         selectedImages.length
@@ -423,7 +423,7 @@ export const ChatInput = observer(
             {isVideoCapable && (
               <Text
                 variant="labelSmall"
-                style={[styles.promptLabel, {color: onSurfaceColorVariant}]}>
+                style={[styles.promptLabel, { color: onSurfaceColorVariant }]}>
                 {l10n.palsScreen.prompt}:
               </Text>
             )}
@@ -513,7 +513,7 @@ export const ChatInput = observer(
                   accessibilityRole="button">
                   <Animated.View
                     style={{
-                      transform: [{rotate: rotateInterpolate}],
+                      transform: [{ rotate: rotateInterpolate }],
                     }}>
                     <ChevronUpIcon stroke={inputBackgroundColor} />
                   </Animated.View>
@@ -547,8 +547,8 @@ export const ChatInput = observer(
                 <TouchableOpacity
                   style={[
                     styles.thinkingToggleLeft,
-                    isThinkingEnabled && {backgroundColor: onSurfaceColor},
-                    {borderColor: onSurfaceColorVariant},
+                    isThinkingEnabled && { backgroundColor: onSurfaceColor },
+                    { borderColor: onSurfaceColorVariant },
                   ]}
                   onPress={() => onThinkingToggle?.(!isThinkingEnabled)}
                   accessibilityLabel={
@@ -571,8 +571,8 @@ export const ChatInput = observer(
                     style={[
                       styles.thinkingToggleText,
                       isThinkingEnabled
-                        ? {color: inputBackgroundColor}
-                        : {color: onSurfaceColorVariant},
+                        ? { color: inputBackgroundColor }
+                        : { color: onSurfaceColorVariant },
                     ]}>
                     {l10n.components.chatInput.thinkingToggle.thinkText}
                   </Text>
@@ -618,7 +618,7 @@ export const ChatInput = observer(
                 </TouchableOpacity>
               ) : (
                 isSendButtonVisible && (
-                  <View style={{opacity: sendButtonOpacity}}>
+                  <View style={{ opacity: sendButtonOpacity }}>
                     <SendButton color={onSurfaceColor} onPress={handleSend} />
                   </View>
                 )

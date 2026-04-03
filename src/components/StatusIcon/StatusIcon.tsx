@@ -1,9 +1,9 @@
 import * as React from 'react';
-import {Image, StyleSheet, View} from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
 
-import {CircularActivityIndicator} from '../CircularActivityIndicator';
+import { CircularActivityIndicator } from '../CircularActivityIndicator';
 
-import {MessageType, Theme} from '../../utils/types';
+import { MessageType, Theme } from '../../utils/types';
 
 export const StatusIcon = React.memo(
   ({
@@ -26,7 +26,7 @@ export const StatusIcon = React.memo(
           statusIcon = theme.icons?.deliveredIcon?.() ?? (
             <Image
               source={require('../../assets/icon-delivered.png')}
-              style={{tintColor: theme.colors.primary}}
+              style={{ tintColor: theme.colors.primary }}
               testID="DeliveredIcon"
             />
           );
@@ -35,7 +35,7 @@ export const StatusIcon = React.memo(
           statusIcon = theme.icons?.errorIcon?.() ?? (
             <Image
               source={require('../../assets/icon-error.png')}
-              style={{tintColor: theme.colors.error}}
+              style={{ tintColor: theme.colors.error }}
               testID="ErrorIcon"
             />
           );
@@ -44,7 +44,7 @@ export const StatusIcon = React.memo(
           statusIcon = theme.icons?.seenIcon?.() ?? (
             <Image
               source={require('../../assets/icon-seen.png')}
-              style={{tintColor: theme.colors.primary}}
+              style={{ tintColor: theme.colors.primary }}
               testID="SeenIcon"
             />
           );

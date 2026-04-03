@@ -8,7 +8,7 @@ import axios from 'axios';
 export const checkConnectivity = async (timeoutMs = 5000): Promise<boolean> => {
   try {
     // Try to fetch a small amount of data from a reliable endpoint
-    await axios.head('https://www.google.com', {timeout: timeoutMs});
+    await axios.head('https://www.google.com', { timeout: timeoutMs });
     return true;
   } catch (error) {
     console.error('Connectibity Error: ', error);

@@ -7,11 +7,11 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
-import {ChatPage} from '../pages/ChatPage';
-import {DrawerPage} from '../pages/DrawerPage';
-import {ModelsPage} from '../pages/ModelsPage';
-import {HFSearchSheet} from '../pages/HFSearchSheet';
-import {Selectors} from '../helpers/selectors';
+import { ChatPage } from '../pages/ChatPage';
+import { DrawerPage } from '../pages/DrawerPage';
+import { ModelsPage } from '../pages/ModelsPage';
+import { HFSearchSheet } from '../pages/HFSearchSheet';
+import { Selectors } from '../helpers/selectors';
 import { ModelDetailsSheet } from '../pages';
 
 declare const driver: WebdriverIO.Browser;
@@ -25,10 +25,14 @@ async function savePageSource(filename: string): Promise<string> {
   const pageSource = await driver.getPageSource();
 
   if (!fs.existsSync(OUTPUT_DIR)) {
-    fs.mkdirSync(OUTPUT_DIR, {recursive: true});
+    fs.mkdirSync(OUTPUT_DIR, { recursive: true });
   }
 
-  const platform = driver.isAndroid ? "Android" : driver.isIOS ? "iOS" : "unknown"; 
+  const platform = driver.isAndroid
+    ? 'Android'
+    : driver.isIOS
+      ? 'iOS'
+      : 'unknown';
   const filePath = path.join(OUTPUT_DIR, `${filename}-${platform}.xml`);
   fs.writeFileSync(filePath, pageSource);
   console.log(`Saved: ${filePath}`);

@@ -77,4 +77,4 @@ const RNFS = {
   __setDocumentDirectoryPath,
 };
 
-export {RNFS};
+export { RNFS };

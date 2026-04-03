@@ -1,25 +1,25 @@
 import React from 'react';
-import {render} from '../../../../jest/test-utils';
-import {ChatHeader} from '../ChatHeader';
+import { render } from '../../../../jest/test-utils';
+import { ChatHeader } from '../ChatHeader';
 
 // Mock the child components
 jest.mock('../../HeaderLeft', () => ({
   HeaderLeft: () => {
-    const {View} = require('react-native');
+    const { View } = require('react-native');
     return <View testID="header-left" />;
   },
 }));
 
 jest.mock('../../HeaderRight', () => ({
   HeaderRight: () => {
-    const {View} = require('react-native');
+    const { View } = require('react-native');
     return <View testID="header-right" />;
   },
 }));
 
 jest.mock('../../ChatHeaderTitle', () => ({
   ChatHeaderTitle: () => {
-    const {View} = require('react-native');
+    const { View } = require('react-native');
     return <View testID="chat-header-title" />;
   },
 }));
@@ -42,7 +42,7 @@ describe('ChatHeader', () => {
   });
 
   it('renders all child components', () => {
-    const {getByTestId} = render(<ChatHeader />);
+    const { getByTestId } = render(<ChatHeader />);
 
     expect(getByTestId('header-view')).toBeTruthy();
     expect(getByTestId('header-left')).toBeTruthy();
@@ -52,7 +52,7 @@ describe('ChatHeader', () => {
 
   it('applies correct styles when header divider should not be shown', () => {
     mockChatSessionStore.shouldShowHeaderDivider = false;
-    const {getByTestId} = render(<ChatHeader />, {withSafeArea: true});
+    const { getByTestId } = render(<ChatHeader />, { withSafeArea: true });
 
     const headerView = getByTestId('header-view');
     expect(headerView.props.style[1]).toMatchObject({
@@ -65,7 +65,7 @@ describe('ChatHeader', () => {
 
   it('applies correct styles when header divider should be shown', () => {
     mockChatSessionStore.shouldShowHeaderDivider = true;
-    const {getByTestId} = render(<ChatHeader />, {withSafeArea: true});
+    const { getByTestId } = render(<ChatHeader />, { withSafeArea: true });
 
     const headerView = getByTestId('header-view');
     expect(headerView.props.style[1]).toMatchObject({

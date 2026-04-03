@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect} from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   View,
   TouchableOpacity,
@@ -12,7 +12,7 @@ import {
 
 import LinearGradient from 'react-native-linear-gradient';
 import MaskedView from '@react-native-masked-view/masked-view';
-import {createStyles} from './styles';
+import { createStyles } from './styles';
 
 // Enable LayoutAnimation for Android
 if (
@@ -31,7 +31,7 @@ interface ResponseBubbleProps {
   children?: React.ReactNode;
 }
 
-export const ResponseBubble: React.FC<ResponseBubbleProps> = ({children}) => {
+export const ResponseBubble: React.FC<ResponseBubbleProps> = ({ children }) => {
   const styles = createStyles();
 
   const [bubbleState, setBubbleState] = useState<BubbleState>(
@@ -99,7 +99,7 @@ export const ResponseBubble: React.FC<ResponseBubbleProps> = ({children}) => {
     if (isScrollable && scrollViewRef.current) {
       // Use a longer timeout to ensure content is fully rendered
       setTimeout(() => {
-        scrollViewRef.current?.scrollToEnd({animated: true});
+        scrollViewRef.current?.scrollToEnd({ animated: true });
       }, 100);
     }
   }, [children, isScrollable]);
@@ -134,7 +134,7 @@ export const ResponseBubble: React.FC<ResponseBubbleProps> = ({children}) => {
               showsVerticalScrollIndicator={false}
               // scrollEventThrottle={16}
               onContentSizeChange={() =>
-                scrollViewRef.current?.scrollToEnd({animated: true})
+                scrollViewRef.current?.scrollToEnd({ animated: true })
               }
               // onLayout={() => {
               //   // Scroll when layout changes
@@ -169,7 +169,7 @@ export const ResponseBubble: React.FC<ResponseBubbleProps> = ({children}) => {
             style={[
               styles.chevronContainer,
               {
-                transform: [{rotate: chevronRotationDeg}],
+                transform: [{ rotate: chevronRotationDeg }],
               },
             ]}>
             <View style={styles.chevronIndicator} />

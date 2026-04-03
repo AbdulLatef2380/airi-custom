@@ -5,11 +5,11 @@
  * labels and actions based on pricing and ownership.
  */
 
-import {PALSHUB_API_BASE_URL} from '@env';
+import { PALSHUB_API_BASE_URL } from '@env';
 
-import type {PalsHubPal} from '../types/palshub';
-import {l10n} from '../locales';
-import {uiStore} from '../store';
+import type { PalsHubPal } from '../types/palshub';
+import { l10n } from '../locales';
+import { uiStore } from '../store';
 
 /**
  * Get display label for a pal based on its pricing and protection level
@@ -164,9 +164,18 @@ export function categorizePalsForDisplay(pals: PalsHubPal[]): {
  * Get sort options for pals
  */
 export const PAL_SORT_OPTIONS = [
-  {key: 'newest', label: l10n[uiStore.language].palsScreen.sortOptions.newest},
-  {key: 'oldest', label: l10n[uiStore.language].palsScreen.sortOptions.oldest},
-  {key: 'rating', label: l10n[uiStore.language].palsScreen.sortOptions.rating},
+  {
+    key: 'newest',
+    label: l10n[uiStore.language].palsScreen.sortOptions.newest,
+  },
+  {
+    key: 'oldest',
+    label: l10n[uiStore.language].palsScreen.sortOptions.oldest,
+  },
+  {
+    key: 'rating',
+    label: l10n[uiStore.language].palsScreen.sortOptions.rating,
+  },
   {
     key: 'popular',
     label: l10n[uiStore.language].palsScreen.sortOptions.popular,

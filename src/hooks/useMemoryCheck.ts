@@ -1,16 +1,16 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import DeviceInfo from 'react-native-device-info';
-import {L10nContext, formatBytes} from '../utils';
-import {t} from '../locales';
-import {Model, ContextInitParams} from '../utils/types';
-import {isHighEndDevice} from '../utils/deviceCapabilities';
-import {getModelMemoryRequirement} from '../utils/memoryEstimator';
+import { L10nContext, formatBytes } from '../utils';
+import { t } from '../locales';
+import { Model, ContextInitParams } from '../utils/types';
+import { isHighEndDevice } from '../utils/deviceCapabilities';
+import { getModelMemoryRequirement } from '../utils/memoryEstimator';
 // Note: This creates a circular dependency with ModelStore (which imports hasEnoughMemory).
 // This is intentional and runtime-safe because:
 // 1. modelStore is instantiated after class definition
 // 2. hasEnoughMemory is only called at runtime, not during module initialization
-import {modelStore} from '../store';
-import {MemoryFitStatus} from '../utils/memoryDisplay';
+import { modelStore } from '../store';
+import { MemoryFitStatus } from '../utils/memoryDisplay';
 
 /**
  * Check if there's enough memory to load a model.
@@ -42,7 +42,7 @@ export const hasEnoughMemory = async (
   }
 
   // Get calibration data from ModelStore
-  const {largestSuccessfulLoad, availableMemoryCeiling} = modelStore;
+  const { largestSuccessfulLoad, availableMemoryCeiling } = modelStore;
 
   // Calculate ceiling from calibration data
   let ceiling: number;
@@ -109,7 +109,7 @@ async function getMemoryFitDetails(
     status = 'wont_fit';
   }
 
-  return {status, requiredBytes, availableBytes};
+  return { status, requiredBytes, availableBytes };
 }
 
 /**
@@ -119,7 +119,7 @@ async function getMemoryFitDetails(
  * @param projectionModel - Optional mmproj model for multimodal
  */
 export const useMemoryCheck = (
-  model: Model | {size: number; supportsMultimodal?: boolean},
+  model: Model | { size: number; supportsMultimodal?: boolean },
   projectionModel?: Model,
 ) => {
   const l10n = React.useContext(L10nContext);
@@ -148,7 +148,7 @@ export const useMemoryCheck = (
       setFitStatus('fits');
 
       try {
-        const {status, requiredBytes, availableBytes} =
+        const { status, requiredBytes, availableBytes } =
           await getMemoryFitDetails(
             model as Model,
             projectionModel,
@@ -205,5 +205,5 @@ export const useMemoryCheck = (
     checkMemory();
   }, [model, projectionModel, l10n, calibrationCeiling, contextInitParams]);
 
-  return {memoryWarning, shortMemoryWarning, multimodalWarning, fitStatus};
+  return { memoryWarning, shortMemoryWarning, multimodalWarning, fitStatus };
 };

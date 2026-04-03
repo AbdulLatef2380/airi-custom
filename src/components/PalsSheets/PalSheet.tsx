@@ -6,34 +6,34 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import {View, TextInput as RNTextInput} from 'react-native';
+import { View, TextInput as RNTextInput } from 'react-native';
 
-import {z} from 'zod';
-import {observer} from 'mobx-react-lite';
-import {Button} from 'react-native-paper';
-import {zodResolver} from '@hookform/resolvers/zod';
-import {useForm, FormProvider, Controller} from 'react-hook-form';
+import { z } from 'zod';
+import { observer } from 'mobx-react-lite';
+import { Button } from 'react-native-paper';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm, FormProvider, Controller } from 'react-hook-form';
 
-import {useTheme} from '../../hooks';
+import { useTheme } from '../../hooks';
 
-import {createStyles} from './styles';
-import {FormField} from './FormField';
-import type {PalFormData} from './types';
-import {ColorSection} from './ColorSection';
-import {ModelSelector} from './ModelSelector';
-import {SectionDivider} from './SectionDivider';
-import {ModelNotAvailable} from './ModelNotAvailable';
-import {SystemPromptSection} from './SystemPromptSection';
-import {DynamicParameterForm} from '../DynamicParameters';
-import {PalGenerationSettingsSheet} from '../PalGenerationSettingsSheet';
+import { createStyles } from './styles';
+import { FormField } from './FormField';
+import type { PalFormData } from './types';
+import { ColorSection } from './ColorSection';
+import { ModelSelector } from './ModelSelector';
+import { SectionDivider } from './SectionDivider';
+import { ModelNotAvailable } from './ModelNotAvailable';
+import { SystemPromptSection } from './SystemPromptSection';
+import { DynamicParameterForm } from '../DynamicParameters';
+import { PalGenerationSettingsSheet } from '../PalGenerationSettingsSheet';
 
-import {palStore} from '../../store';
+import { palStore } from '../../store';
 
-import type {Pal} from '../../types/pal';
+import type { Pal } from '../../types/pal';
 
-import {L10nContext} from '../../utils';
+import { L10nContext } from '../../utils';
 
-import {Sheet} from '..';
+import { Sheet } from '..';
 
 interface PalSheetProps {
   isVisible: boolean;
@@ -56,7 +56,7 @@ const INITIAL_STATE: PalFormData = {
 };
 
 export const PalSheet: React.FC<PalSheetProps> = observer(
-  ({isVisible, onClose, pal}) => {
+  ({ isVisible, onClose, pal }) => {
     const theme = useTheme();
     const styles = createStyles(theme);
     const l10n = useContext(L10nContext);
@@ -118,7 +118,7 @@ export const PalSheet: React.FC<PalSheetProps> = observer(
     }, [activeSchema, l10n]);
 
     // This is used for "Enter" on an text field to focus the next one
-    const inputRefs = useRef<{[key: string]: RNTextInput | null}>({});
+    const inputRefs = useRef<{ [key: string]: RNTextInput | null }>({});
     const [isSaving, setIsSaving] = useState(false);
 
     // Manages values, errors, touches & makes Zod the source of truth for validation.
@@ -207,8 +207,8 @@ export const PalSheet: React.FC<PalSheetProps> = observer(
         }
         return Boolean(
           formState.generatingPrompt &&
-            formState.promptGenerationModel &&
-            result,
+          formState.promptGenerationModel &&
+          result,
         );
       }
       return result;
@@ -335,7 +335,10 @@ export const PalSheet: React.FC<PalSheetProps> = observer(
                 <Controller
                   name="defaultModel"
                   control={methods.control}
-                  render={({field: {onChange, value}, fieldState: {error}}) => (
+                  render={({
+                    field: { onChange, value },
+                    fieldState: { error },
+                  }) => (
                     <ModelSelector
                       value={value}
                       onChange={onChange}

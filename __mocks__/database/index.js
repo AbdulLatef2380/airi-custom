@@ -1,26 +1,26 @@
-import {Database} from '@nozbe/watermelondb';
-import {Q} from '@nozbe/watermelondb/QueryDescription';
+import { Database } from '@nozbe/watermelondb';
+import { Q } from '@nozbe/watermelondb/QueryDescription';
 
 // Mock models
 class ChatSession {
   static table = 'chat_sessions';
   static associations = {
-    messages: {type: 'has_many', foreignKey: 'session_id'},
-    completion_settings: {type: 'has_many', foreignKey: 'session_id'},
+    messages: { type: 'has_many', foreignKey: 'session_id' },
+    completion_settings: { type: 'has_many', foreignKey: 'session_id' },
   };
 }
 
 class Message {
   static table = 'messages';
   static associations = {
-    chat_sessions: {type: 'belongs_to', key: 'session_id'},
+    chat_sessions: { type: 'belongs_to', key: 'session_id' },
   };
 }
 
 class CompletionSetting {
   static table = 'completion_settings';
   static associations = {
-    chat_sessions: {type: 'belongs_to', key: 'session_id'},
+    chat_sessions: { type: 'belongs_to', key: 'session_id' },
   };
 }
 
@@ -131,73 +131,73 @@ const schema = {
     {
       name: 'chat_sessions',
       columns: [
-        {name: 'title', type: 'string'},
-        {name: 'date', type: 'string'},
-        {name: 'active_pal_id', type: 'string', isOptional: true},
-        {name: 'created_at', type: 'number'},
-        {name: 'updated_at', type: 'number'},
+        { name: 'title', type: 'string' },
+        { name: 'date', type: 'string' },
+        { name: 'active_pal_id', type: 'string', isOptional: true },
+        { name: 'created_at', type: 'number' },
+        { name: 'updated_at', type: 'number' },
       ],
     },
     {
       name: 'messages',
       columns: [
-        {name: 'session_id', type: 'string', isIndexed: true},
-        {name: 'author', type: 'string'},
-        {name: 'text', type: 'string', isOptional: true},
-        {name: 'type', type: 'string'},
-        {name: 'created_at', type: 'number'},
-        {name: 'metadata', type: 'string'},
-        {name: 'position', type: 'number'},
+        { name: 'session_id', type: 'string', isIndexed: true },
+        { name: 'author', type: 'string' },
+        { name: 'text', type: 'string', isOptional: true },
+        { name: 'type', type: 'string' },
+        { name: 'created_at', type: 'number' },
+        { name: 'metadata', type: 'string' },
+        { name: 'position', type: 'number' },
       ],
     },
     {
       name: 'completion_settings',
       columns: [
-        {name: 'session_id', type: 'string', isIndexed: true},
-        {name: 'settings', type: 'string'},
-        {name: 'created_at', type: 'number'},
-        {name: 'updated_at', type: 'number'},
+        { name: 'session_id', type: 'string', isIndexed: true },
+        { name: 'settings', type: 'string' },
+        { name: 'created_at', type: 'number' },
+        { name: 'updated_at', type: 'number' },
       ],
     },
     {
       name: 'global_settings',
       columns: [
-        {name: 'key', type: 'string', isIndexed: true},
-        {name: 'value', type: 'string'},
-        {name: 'created_at', type: 'number'},
-        {name: 'updated_at', type: 'number'},
+        { name: 'key', type: 'string', isIndexed: true },
+        { name: 'value', type: 'string' },
+        { name: 'created_at', type: 'number' },
+        { name: 'updated_at', type: 'number' },
       ],
     },
     {
       name: 'local_pals',
       columns: [
-        {name: 'name', type: 'string'},
-        {name: 'description', type: 'string', isOptional: true},
-        {name: 'thumbnail_url', type: 'string', isOptional: true},
-        {name: 'system_prompt', type: 'string'},
-        {name: 'original_system_prompt', type: 'string', isOptional: true},
-        {name: 'is_system_prompt_changed', type: 'boolean'},
-        {name: 'use_ai_prompt', type: 'boolean'},
-        {name: 'default_model', type: 'string', isOptional: true},
-        {name: 'prompt_generation_model', type: 'string', isOptional: true},
-        {name: 'generating_prompt', type: 'string', isOptional: true},
-        {name: 'color', type: 'string', isOptional: true},
-        {name: 'capabilities', type: 'string'},
-        {name: 'parameters', type: 'string'},
-        {name: 'parameter_schema', type: 'string'},
-        {name: 'source', type: 'string'},
-        {name: 'palshub_id', type: 'string', isOptional: true},
-        {name: 'creator_info', type: 'string', isOptional: true},
-        {name: 'categories', type: 'string', isOptional: true},
-        {name: 'tags', type: 'string', isOptional: true},
-        {name: 'rating', type: 'number', isOptional: true},
-        {name: 'review_count', type: 'number', isOptional: true},
-        {name: 'protection_level', type: 'string', isOptional: true},
-        {name: 'price_cents', type: 'number', isOptional: true},
-        {name: 'is_owned', type: 'boolean', isOptional: true},
-        {name: 'generation_settings', type: 'string', isOptional: true},
-        {name: 'created_at', type: 'number'},
-        {name: 'updated_at', type: 'number'},
+        { name: 'name', type: 'string' },
+        { name: 'description', type: 'string', isOptional: true },
+        { name: 'thumbnail_url', type: 'string', isOptional: true },
+        { name: 'system_prompt', type: 'string' },
+        { name: 'original_system_prompt', type: 'string', isOptional: true },
+        { name: 'is_system_prompt_changed', type: 'boolean' },
+        { name: 'use_ai_prompt', type: 'boolean' },
+        { name: 'default_model', type: 'string', isOptional: true },
+        { name: 'prompt_generation_model', type: 'string', isOptional: true },
+        { name: 'generating_prompt', type: 'string', isOptional: true },
+        { name: 'color', type: 'string', isOptional: true },
+        { name: 'capabilities', type: 'string' },
+        { name: 'parameters', type: 'string' },
+        { name: 'parameter_schema', type: 'string' },
+        { name: 'source', type: 'string' },
+        { name: 'palshub_id', type: 'string', isOptional: true },
+        { name: 'creator_info', type: 'string', isOptional: true },
+        { name: 'categories', type: 'string', isOptional: true },
+        { name: 'tags', type: 'string', isOptional: true },
+        { name: 'rating', type: 'number', isOptional: true },
+        { name: 'review_count', type: 'number', isOptional: true },
+        { name: 'protection_level', type: 'string', isOptional: true },
+        { name: 'price_cents', type: 'number', isOptional: true },
+        { name: 'is_owned', type: 'boolean', isOptional: true },
+        { name: 'generation_settings', type: 'string', isOptional: true },
+        { name: 'created_at', type: 'number' },
+        { name: 'updated_at', type: 'number' },
       ],
     },
   ],

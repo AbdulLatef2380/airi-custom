@@ -1,18 +1,18 @@
-import React, {useState, useContext, useCallback, useMemo} from 'react';
-import {View, TouchableOpacity, ScrollView, TextInput} from 'react-native';
+import React, { useState, useContext, useCallback, useMemo } from 'react';
+import { View, TouchableOpacity, ScrollView, TextInput } from 'react-native';
 
-import {Text} from 'react-native-paper';
+import { Text } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {useTheme} from '../../hooks';
+import { useTheme } from '../../hooks';
 
-import {Sheet} from '..';
-import {createStyles} from './styles';
+import { Sheet } from '..';
+import { createStyles } from './styles';
 
-import {L10nContext} from '../../utils';
-import {XIcon} from '../../assets/icons';
+import { L10nContext } from '../../utils';
+import { XIcon } from '../../assets/icons';
 
-import {SortOption, SearchFilters} from '../../store/HFStore';
+import { SortOption, SearchFilters } from '../../store/HFStore';
 
 interface EnhancedSearchBarProps {
   value: string;
@@ -114,7 +114,7 @@ export const EnhancedSearchBar = ({
 
   const handleSortFilterSelect = useCallback(
     (filterValue: SortOption) => {
-      onFiltersChange({sortBy: filterValue});
+      onFiltersChange({ sortBy: filterValue });
       closeFilterSheet();
     },
     [onFiltersChange, closeFilterSheet],
@@ -143,7 +143,7 @@ export const EnhancedSearchBar = ({
             <TouchableOpacity
               onPress={handleClearSearch}
               style={styles.clearButton}
-              hitSlop={{top: 10, bottom: 10, left: 10, right: 10}}>
+              hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
               <Icon
                 name="close"
                 size={20}
@@ -227,7 +227,7 @@ export const EnhancedSearchBar = ({
             <TextInput
               defaultValue={filters.author}
               // value={filters.author}
-              onChangeText={author => onFiltersChange({author})}
+              onChangeText={author => onFiltersChange({ author })}
               placeholder={l10n.models.search.filters.authorPlaceholder}
               placeholderTextColor={theme.colors.onSurfaceVariant}
               style={styles.authorInput}
@@ -238,8 +238,8 @@ export const EnhancedSearchBar = ({
             {filters.author.length > 0 && (
               <TouchableOpacity
                 style={styles.clearButton}
-                hitSlop={{top: 10, bottom: 10, left: 10, right: 10}}
-                onPress={() => onFiltersChange({author: ''})}>
+                hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                onPress={() => onFiltersChange({ author: '' })}>
                 <XIcon
                   width={20}
                   height={20}

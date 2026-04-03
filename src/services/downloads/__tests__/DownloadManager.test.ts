@@ -1,10 +1,10 @@
-import {NativeModules, Platform, NativeEventEmitter} from 'react-native';
+import { NativeModules, Platform, NativeEventEmitter } from 'react-native';
 
 import * as RNFS from '@dr.pogodin/react-native-fs';
 
-import {basicModel} from '../../../../jest/fixtures/models';
+import { basicModel } from '../../../../jest/fixtures/models';
 
-import {DownloadManager} from '../DownloadManager';
+import { DownloadManager } from '../DownloadManager';
 
 jest.mock('react-native', () => {
   // Create a shared mock for DownloadModule inside the factory
@@ -112,7 +112,7 @@ describe('DownloadManager', () => {
 
     const mockDownloadResult = {
       jobId: 123,
-      promise: Promise.resolve({statusCode: 200}),
+      promise: Promise.resolve({ statusCode: 200 }),
     };
 
     (RNFS.downloadFile as jest.Mock).mockReturnValue(mockDownloadResult);
@@ -248,7 +248,7 @@ describe('DownloadManager', () => {
 
     const mockDownloadResult = {
       jobId: 456,
-      promise: Promise.resolve({statusCode: 200}),
+      promise: Promise.resolve({ statusCode: 200 }),
     };
 
     (RNFS.downloadFile as jest.Mock).mockImplementation(options => {
@@ -337,7 +337,7 @@ describe('DownloadManager', () => {
 
     const mockDownloadResult = {
       jobId: 789,
-      promise: Promise.resolve({statusCode: 404}), // Error status
+      promise: Promise.resolve({ statusCode: 404 }), // Error status
     };
 
     (RNFS.downloadFile as jest.Mock).mockReturnValue(mockDownloadResult);

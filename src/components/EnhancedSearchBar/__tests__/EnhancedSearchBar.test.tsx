@@ -1,8 +1,8 @@
 import React from 'react';
-import {EnhancedSearchBar} from '../EnhancedSearchBar';
-import {SearchFilters} from '../../../store/HFStore';
-import {fireEvent, render} from '../../../../jest/test-utils';
-import {l10n} from '../../../locales';
+import { EnhancedSearchBar } from '../EnhancedSearchBar';
+import { SearchFilters } from '../../../store/HFStore';
+import { fireEvent, render } from '../../../../jest/test-utils';
+import { l10n } from '../../../locales';
 
 // Mock the theme hook
 jest.mock('../../../hooks', () => ({
@@ -39,7 +39,7 @@ describe('EnhancedSearchBar', () => {
   });
 
   it('renders correctly', () => {
-    const {getByPlaceholderText, getByTestId} = render(
+    const { getByPlaceholderText, getByTestId } = render(
       <EnhancedSearchBar {...defaultProps} testID="enhanced-search-bar" />,
       {
         withBottomSheetProvider: true,
@@ -54,7 +54,7 @@ describe('EnhancedSearchBar', () => {
 
   it('calls onChangeText when search input changes', () => {
     const onChangeText = jest.fn();
-    const {getByPlaceholderText} = render(
+    const { getByPlaceholderText } = render(
       <EnhancedSearchBar {...defaultProps} onChangeText={onChangeText} />,
       {
         withBottomSheetProvider: true,
@@ -70,7 +70,7 @@ describe('EnhancedSearchBar', () => {
   });
 
   it('shows clear button when search has text', () => {
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <EnhancedSearchBar
         {...defaultProps}
         value="test"
@@ -91,7 +91,7 @@ describe('EnhancedSearchBar', () => {
 
   it('opens filter sheet when filter buttons are pressed', () => {
     const onFiltersChange = jest.fn();
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <EnhancedSearchBar {...defaultProps} onFiltersChange={onFiltersChange} />,
       {
         withBottomSheetProvider: true,
@@ -115,7 +115,7 @@ describe('EnhancedSearchBar', () => {
       author: 'test-author',
     };
 
-    const {getByTestId, getByText} = render(
+    const { getByTestId, getByText } = render(
       <EnhancedSearchBar
         {...defaultProps}
         filters={filtersWithActive}

@@ -1,8 +1,8 @@
-import React, {useContext} from 'react';
-import {Alert, Keyboard, View} from 'react-native';
+import React, { useContext } from 'react';
+import { Alert, Keyboard, View } from 'react-native';
 
-import {observer} from 'mobx-react';
-import {Icon, IconButton, useTheme} from 'react-native-paper';
+import { observer } from 'mobx-react';
+import { Icon, IconButton, useTheme } from 'react-native-paper';
 
 import {
   // ClockFastForwardIcon,
@@ -16,22 +16,22 @@ import {
   TrashIcon,
 } from '../../assets/icons';
 
-import {Menu} from '../Menu';
-import {styles} from './styles';
+import { Menu } from '../Menu';
+import { styles } from './styles';
 
-import {chatSessionStore, modelStore, uiStore} from '../../store';
+import { chatSessionStore, modelStore, uiStore } from '../../store';
 
-import {L10nContext} from '../../utils';
-import {Model, ModelOrigin} from '../../utils/types';
-import {t} from '../../locales';
-import {importChatSessions} from '../../utils/importUtils';
+import { L10nContext } from '../../utils';
+import { Model, ModelOrigin } from '../../utils/types';
+import { t } from '../../locales';
+import { importChatSessions } from '../../utils/importUtils';
 import {
   exportChatSession,
   exportAllChatSessions,
 } from '../../utils/exportUtils';
 
-import {RenameModal, UsageStats} from '..';
-import {ChatGenerationSettingsSheet} from '..';
+import { RenameModal, UsageStats } from '..';
+import { ChatGenerationSettingsSheet } from '..';
 
 export const HeaderRight: React.FC = observer(() => {
   const theme = useTheme();
@@ -130,7 +130,7 @@ export const HeaderRight: React.FC = observer(() => {
       if (count > 0) {
         Alert.alert(
           'Import Success',
-          t(l10n.settings.importSuccess, {count: count.toString()}),
+          t(l10n.settings.importSuccess, { count: count.toString() }),
         );
         // Refresh the chat sessions
         await chatSessionStore.loadSessionList();
@@ -217,7 +217,7 @@ export const HeaderRight: React.FC = observer(() => {
             <Menu.Item
               onPress={onPressDelete}
               label={l10n.common.delete}
-              labelStyle={{color: theme.colors.error}}
+              labelStyle={{ color: theme.colors.error }}
               leadingIcon={() => <TrashIcon stroke={theme.colors.error} />}
             />
             {/* <Menu.Separator />

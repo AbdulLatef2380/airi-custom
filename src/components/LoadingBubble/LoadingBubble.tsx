@@ -1,18 +1,18 @@
-import {View, Animated} from 'react-native';
-import React, {useEffect, useRef} from 'react';
+import { View, Animated } from 'react-native';
+import React, { useEffect, useRef } from 'react';
 
-import {useTheme} from '../../hooks';
+import { useTheme } from '../../hooks';
 
-import {styles} from './styles';
+import { styles } from './styles';
 
-import {Theme} from '../../utils/types';
+import { Theme } from '../../utils/types';
 
 interface LoadingDotProps {
   delay: number;
   theme: Theme;
 }
 
-const LoadingDot: React.FC<LoadingDotProps> = ({delay, theme}) => {
+const LoadingDot: React.FC<LoadingDotProps> = ({ delay, theme }) => {
   const opacity = useRef(new Animated.Value(0.3)).current;
 
   useEffect(() => {
@@ -53,7 +53,7 @@ export const LoadingBubble: React.FC = () => {
     <View
       style={[
         styles.container,
-        {backgroundColor: theme.colors.surfaceVariant},
+        { backgroundColor: theme.colors.surfaceVariant },
       ]}>
       <LoadingDot delay={0} theme={theme} />
       <LoadingDot delay={200} theme={theme} />

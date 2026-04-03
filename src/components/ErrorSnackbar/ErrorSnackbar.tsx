@@ -1,11 +1,11 @@
 import React from 'react';
-import {View} from 'react-native';
-import {Portal, Snackbar, Text} from 'react-native-paper';
+import { View } from 'react-native';
+import { Portal, Snackbar, Text } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {useTheme} from '../../hooks';
-import {ErrorState} from '../../utils/errors';
-import {createStyles} from './styles';
+import { useTheme } from '../../hooks';
+import { ErrorState } from '../../utils/errors';
+import { createStyles } from './styles';
 
 interface ErrorSnackbarProps {
   error: ErrorState | null;
@@ -71,7 +71,7 @@ export const ErrorSnackbar: React.FC<ErrorSnackbarProps> = ({
       return {
         label,
         onPress: onSettings,
-        labelStyle: {color: theme.colors.secondary},
+        labelStyle: { color: theme.colors.secondary },
       };
     }
 
@@ -80,7 +80,7 @@ export const ErrorSnackbar: React.FC<ErrorSnackbarProps> = ({
       return {
         label: 'Report',
         onPress: onReport,
-        labelStyle: {color: theme.colors.secondary},
+        labelStyle: { color: theme.colors.secondary },
       };
     }
 
@@ -89,7 +89,7 @@ export const ErrorSnackbar: React.FC<ErrorSnackbarProps> = ({
       return {
         label: 'Retry',
         onPress: onRetry,
-        labelStyle: {color: theme.colors.secondary},
+        labelStyle: { color: theme.colors.secondary },
       };
     }
 
@@ -97,7 +97,7 @@ export const ErrorSnackbar: React.FC<ErrorSnackbarProps> = ({
     return {
       label: 'Dismiss',
       onPress: onDismiss,
-      labelStyle: {color: theme.colors.secondary},
+      labelStyle: { color: theme.colors.secondary },
     };
   };
 

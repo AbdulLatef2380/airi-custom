@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect, useContext} from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import {
   View,
   TouchableOpacity,
@@ -10,15 +10,15 @@ import {
   UIManager,
 } from 'react-native';
 
-import {Text} from 'react-native-paper';
+import { Text } from 'react-native-paper';
 import LinearGradient from 'react-native-linear-gradient';
 import MaskedView from '@react-native-masked-view/masked-view';
-import {ChevronDownIcon} from '../../assets/icons';
+import { ChevronDownIcon } from '../../assets/icons';
 
-import {useTheme} from '../../hooks';
-import {L10nContext} from '../../utils';
+import { useTheme } from '../../hooks';
+import { L10nContext } from '../../utils';
 
-import {createStyles} from './styles';
+import { createStyles } from './styles';
 
 // Enable LayoutAnimation for Android
 if (
@@ -38,7 +38,7 @@ interface ThinkingBubbleProps {
   children?: React.ReactNode;
 }
 
-export const ThinkingBubble: React.FC<ThinkingBubbleProps> = ({children}) => {
+export const ThinkingBubble: React.FC<ThinkingBubbleProps> = ({ children }) => {
   const theme = useTheme();
   const l10n = useContext(L10nContext);
   const styles = createStyles(theme);
@@ -185,7 +185,7 @@ export const ThinkingBubble: React.FC<ThinkingBubbleProps> = ({children}) => {
     if (isScrollable && scrollViewRef.current) {
       // Use setTimeout to ensure the content has been rendered
       setTimeout(() => {
-        scrollViewRef.current?.scrollToEnd({animated: true});
+        scrollViewRef.current?.scrollToEnd({ animated: true });
       }, 100);
     }
   }, [children, isScrollable]); // Re-run when children or scrollable state changes
@@ -260,8 +260,8 @@ export const ThinkingBubble: React.FC<ThinkingBubbleProps> = ({children}) => {
                 styles.collapsedChevronContainer, // Smaller chevron in collapsed state
               {
                 transform: [
-                  {rotate: chevronRotationDeg},
-                  {scale: chevronScale},
+                  { rotate: chevronRotationDeg },
+                  { scale: chevronScale },
                 ],
               },
             ]}>
@@ -285,7 +285,7 @@ export const ThinkingBubble: React.FC<ThinkingBubbleProps> = ({children}) => {
                 style={styles.contentContainer}
                 showsVerticalScrollIndicator={false}
                 onContentSizeChange={() =>
-                  scrollViewRef.current?.scrollToEnd({animated: true})
+                  scrollViewRef.current?.scrollToEnd({ animated: true })
                 }>
                 {children}
               </ScrollView>
@@ -312,7 +312,7 @@ export const ThinkingBubble: React.FC<ThinkingBubbleProps> = ({children}) => {
                   style={styles.contentContainer}
                   showsVerticalScrollIndicator={false}
                   onContentSizeChange={() =>
-                    scrollViewRef.current?.scrollToEnd({animated: true})
+                    scrollViewRef.current?.scrollToEnd({ animated: true })
                   }>
                   {children}
                 </ScrollView>

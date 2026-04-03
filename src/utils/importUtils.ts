@@ -5,16 +5,16 @@ import {
   types,
   errorCodes,
 } from '@react-native-documents/picker';
-import {Platform} from 'react-native';
-import {v4 as uuidv4} from 'uuid';
+import { Platform } from 'react-native';
+import { v4 as uuidv4 } from 'uuid';
 import 'react-native-get-random-values';
 
-import {chatSessionRepository} from '../repositories/ChatSessionRepository';
-import {MessageType} from './types';
-import {CompletionParams} from './completionTypes';
-import {migrateCompletionSettings} from './completionSettingsVersions';
-import {palStore} from '../store';
-import type {Pal, ParameterDefinition} from '../types/pal';
+import { chatSessionRepository } from '../repositories/ChatSessionRepository';
+import { MessageType } from './types';
+import { CompletionParams } from './completionTypes';
+import { migrateCompletionSettings } from './completionSettingsVersions';
+import { palStore } from '../store';
+import type { Pal, ParameterDefinition } from '../types/pal';
 
 /**
  * Interface for imported chat session data
@@ -220,7 +220,7 @@ const importSingleSession = async (
       msg =>
         ({
           id: msg.id,
-          author: {id: msg.author},
+          author: { id: msg.author },
           text: msg.text || '',
           type: msg.type as any,
           metadata: msg.metadata || {},

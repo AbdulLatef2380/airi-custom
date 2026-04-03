@@ -1,22 +1,24 @@
-import {View, Animated} from 'react-native';
-import React, {useRef, useState, useEffect} from 'react';
-import {StyleProp, TextStyle, ViewStyle} from 'react-native';
+import { View, Animated } from 'react-native';
+import React, { useRef, useState, useEffect } from 'react';
+import { StyleProp, TextStyle, ViewStyle } from 'react-native';
 
-import {Menu as PaperMenu, Icon} from 'react-native-paper';
+import { Menu as PaperMenu, Icon } from 'react-native-paper';
 import {
   MenuItemProps as PaperMenuItemProps,
   MenuProps as PaperMenuProps,
 } from 'react-native-paper';
-import {IconSource} from 'react-native-paper/lib/typescript/components/Icon';
+import { IconSource } from 'react-native-paper/lib/typescript/components/Icon';
 
-import {SubMenu} from '../SubMenu/SubMenu';
+import { SubMenu } from '../SubMenu/SubMenu';
 
-import {useTheme} from '../../../hooks';
+import { useTheme } from '../../../hooks';
 
-import {createStyles} from './styles';
+import { createStyles } from './styles';
 
-export interface MenuItemProps
-  extends Omit<PaperMenuItemProps, 'title' | 'titleStyle'> {
+export interface MenuItemProps extends Omit<
+  PaperMenuItemProps,
+  'title' | 'titleStyle'
+> {
   label: string;
   labelStyle?: StyleProp<TextStyle>;
   danger?: boolean;
@@ -49,7 +51,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({
   ...menuItemProps
 }) => {
   const [isSubmenuOpen, setIsSubmenuOpen] = useState(false);
-  const [submenuPosition, setSubmenuPosition] = useState({x: 0, y: 0});
+  const [submenuPosition, setSubmenuPosition] = useState({ x: 0, y: 0 });
   const itemRef = useRef<View>(null);
   const fadeAnim = useRef(new Animated.Value(1)).current;
 
@@ -75,7 +77,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({
         {selected && <Icon testID="selected-icon" source="check" size={18} />}
         {leadingIcon &&
           (typeof leadingIcon === 'function' ? (
-            leadingIcon({...props, size: 18})
+            leadingIcon({ ...props, size: 18 })
           ) : (
             <Icon source={leadingIcon} size={18} />
           ))}
@@ -91,7 +93,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({
       ]}>
       {trailingIcon ? (
         typeof trailingIcon === 'function' ? (
-          trailingIcon({...props, size: 18})
+          trailingIcon({ ...props, size: 18 })
         ) : (
           <Icon source={trailingIcon} size={18} />
         )
@@ -136,7 +138,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({
     if (submenu) {
       itemRef.current?.measure((x, y, width, height, pageX, pageY) => {
         const willOpen = !isSubmenuOpen;
-        setSubmenuPosition({x: pageX + width, y: pageY + height});
+        setSubmenuPosition({ x: pageX + width, y: pageY + height });
         setIsSubmenuOpen(willOpen);
         if (willOpen) {
           onSubmenuOpen?.();
@@ -150,7 +152,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({
   };
 
   return (
-    <Animated.View ref={itemRef} style={{opacity: fadeAnim}}>
+    <Animated.View ref={itemRef} style={{ opacity: fadeAnim }}>
       <PaperMenu.Item
         {...menuItemProps}
         onPress={handlePress}

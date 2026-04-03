@@ -5,12 +5,12 @@
  * Must be called from a component inside NavigationContainer
  */
 
-import {useEffect, useCallback} from 'react';
-import {Alert} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import {deepLinkService, DeepLinkParams} from '../services/DeepLinkService';
-import {chatSessionStore, palStore, deepLinkStore} from '../store';
-import {ROUTES} from '../utils/navigationConstants';
+import { useEffect, useCallback } from 'react';
+import { Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { deepLinkService, DeepLinkParams } from '../services/DeepLinkService';
+import { chatSessionStore, palStore, deepLinkStore } from '../store';
+import { ROUTES } from '../utils/navigationConstants';
 
 /**
  * Hook for handling deep link navigation
@@ -32,7 +32,7 @@ export const useDeepLinking = () => {
           Alert.alert(
             'Pal Not Found',
             `The pal "${palName || palId}" could not be found. It may have been deleted or is not available on this device.`,
-            [{text: 'OK'}],
+            [{ text: 'OK' }],
           );
           return;
         }
@@ -54,7 +54,7 @@ export const useDeepLinking = () => {
         Alert.alert(
           'Error Opening Chat',
           'An error occurred while trying to open the chat. Please try again.',
-          [{text: 'OK'}],
+          [{ text: 'OK' }],
         );
       }
     },
@@ -83,7 +83,7 @@ export const useDeepLinking = () => {
 
       // Handle chat deep links
       if (params.host === 'chat' && params.queryParams) {
-        const {palId, palName, message} = params.queryParams;
+        const { palId, palName, message } = params.queryParams;
 
         if (palId) {
           await handleChatDeepLink(palId, palName, message);

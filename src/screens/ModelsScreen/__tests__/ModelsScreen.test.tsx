@@ -1,8 +1,8 @@
 import React from 'react';
-import {Alert} from 'react-native';
+import { Alert } from 'react-native';
 
 import * as RNFS from '@dr.pogodin/react-native-fs';
-import {pick} from '@react-native-documents/picker';
+import { pick } from '@react-native-documents/picker';
 import {
   fireEvent,
   render as baseRender,
@@ -10,9 +10,9 @@ import {
   act,
 } from '../../../../jest/test-utils';
 
-import {ModelsScreen} from '../ModelsScreen';
+import { ModelsScreen } from '../ModelsScreen';
 
-import {modelStore, uiStore} from '../../../store';
+import { modelStore, uiStore } from '../../../store';
 import {
   basicModel,
   downloadedModel,
@@ -36,13 +36,13 @@ describe('ModelsScreen', () => {
   });
 
   it('renders correctly', async () => {
-    const {getByTestId} = render(<ModelsScreen />);
+    const { getByTestId } = render(<ModelsScreen />);
     expect(getByTestId('flat-list')).toBeTruthy();
     expect(getByTestId('fab-group')).toBeTruthy();
   });
 
   it('refreshes models on pull-to-refresh', async () => {
-    const {getByTestId} = render(<ModelsScreen />);
+    const { getByTestId } = render(<ModelsScreen />);
 
     const flatList = getByTestId('flat-list');
     const refreshControl = flatList.props.refreshControl;
@@ -54,7 +54,7 @@ describe('ModelsScreen', () => {
   });
 
   it('opens HF model search when the HF FAB is pressed', async () => {
-    const {getByTestId} = render(<ModelsScreen />);
+    const { getByTestId } = render(<ModelsScreen />);
 
     // Open the FAB group
     const fabGroup = getByTestId('fab-group');
@@ -62,10 +62,10 @@ describe('ModelsScreen', () => {
 
     // Wait for the FAB group to open and its children to be accessible
     await waitFor(() => {
-      const hfFab = getByTestId('hf-fab', {includeHiddenElements: true});
+      const hfFab = getByTestId('hf-fab', { includeHiddenElements: true });
       expect(hfFab).toBeTruthy();
     });
-    const hfFab = getByTestId('hf-fab', {includeHiddenElements: true});
+    const hfFab = getByTestId('hf-fab', { includeHiddenElements: true });
 
     await act(async () => {
       fireEvent.press(hfFab);
@@ -94,7 +94,7 @@ describe('ModelsScreen', () => {
       return true; // Other paths exist by default
     });
 
-    const {getByTestId} = render(<ModelsScreen />);
+    const { getByTestId } = render(<ModelsScreen />);
 
     // Open the FAB group
     const fabGroup = getByTestId('fab-group');
@@ -102,7 +102,9 @@ describe('ModelsScreen', () => {
 
     // Wait for the FAB group to open and its children to be accessible
     await waitFor(() => {
-      const localFab = getByTestId('local-fab', {includeHiddenElements: true});
+      const localFab = getByTestId('local-fab', {
+        includeHiddenElements: true,
+      });
       expect(localFab).toBeTruthy();
     });
     const addLocalModelButton = getByTestId('local-fab', {
@@ -140,7 +142,7 @@ describe('ModelsScreen', () => {
       buttons![0].onPress!();
     });
 
-    const {getByTestId} = render(<ModelsScreen />);
+    const { getByTestId } = render(<ModelsScreen />);
 
     // Open the FAB group
     const fabGroup = getByTestId('fab-group');
@@ -148,7 +150,9 @@ describe('ModelsScreen', () => {
 
     // Wait for the FAB group to open and its children to be accessible
     await waitFor(() => {
-      const localFab = getByTestId('local-fab', {includeHiddenElements: true});
+      const localFab = getByTestId('local-fab', {
+        includeHiddenElements: true,
+      });
       expect(localFab).toBeTruthy();
     });
     const addLocalModelButton = getByTestId('local-fab', {
@@ -183,14 +187,16 @@ describe('ModelsScreen', () => {
       buttons![2].onPress!();
     });
 
-    const {getByTestId} = render(<ModelsScreen />);
+    const { getByTestId } = render(<ModelsScreen />);
     // Open the FAB group
     const fabGroup = getByTestId('fab-group');
     fireEvent.press(fabGroup);
 
     // Wait for the FAB group to open and its children to be accessible
     await waitFor(() => {
-      const localFab = getByTestId('local-fab', {includeHiddenElements: true});
+      const localFab = getByTestId('local-fab', {
+        includeHiddenElements: true,
+      });
       expect(localFab).toBeTruthy();
     });
     const addLocalModelButton = getByTestId('local-fab', {
@@ -231,7 +237,7 @@ describe('ModelsScreen', () => {
       return true; // Original file exists
     });
 
-    const {getByTestId} = render(<ModelsScreen />);
+    const { getByTestId } = render(<ModelsScreen />);
 
     // Open the FAB group
     const fabGroup = getByTestId('fab-group');
@@ -239,7 +245,9 @@ describe('ModelsScreen', () => {
 
     // Wait for the FAB group to open and its children to be accessible
     await waitFor(() => {
-      const localFab = getByTestId('local-fab', {includeHiddenElements: true});
+      const localFab = getByTestId('local-fab', {
+        includeHiddenElements: true,
+      });
       expect(localFab).toBeTruthy();
     });
     const addLocalModelButton = getByTestId('local-fab', {
@@ -274,7 +282,7 @@ describe('ModelsScreen', () => {
     it('should filter downloaded models when downloaded filter is active', async () => {
       uiStore.pageStates.modelsScreen.filters = ['downloaded'];
 
-      const {getByText, queryByText} = render(<ModelsScreen />);
+      const { getByText, queryByText } = render(<ModelsScreen />);
 
       await waitFor(() => {
         expect(getByText('downloaded model')).toBeTruthy();
@@ -285,7 +293,7 @@ describe('ModelsScreen', () => {
     it('should filter HF models when HF filter is active', async () => {
       uiStore.pageStates.modelsScreen.filters = ['hf'];
 
-      const {getByText, queryByText, getAllByText} = render(<ModelsScreen />);
+      const { getByText, queryByText, getAllByText } = render(<ModelsScreen />);
 
       // Open the Available to Download group, since hf mocked models are not downloaded.
       const button = getByText('Available to Download');
@@ -302,7 +310,7 @@ describe('ModelsScreen', () => {
     it('should group models by type when grouped filter is active', async () => {
       uiStore.pageStates.modelsScreen.filters = ['grouped'];
 
-      const {getByText} = render(<ModelsScreen />);
+      const { getByText } = render(<ModelsScreen />);
 
       await waitFor(() => {
         expect(getByText('Test Model Type')).toBeTruthy();
@@ -312,7 +320,7 @@ describe('ModelsScreen', () => {
     it('should group models into ready-to-use and available-to-download when not grouped', async () => {
       uiStore.pageStates.modelsScreen.filters = [];
 
-      const {getByText} = render(<ModelsScreen />);
+      const { getByText } = render(<ModelsScreen />);
 
       await waitFor(() => {
         expect(getByText('Ready to Use')).toBeTruthy();
@@ -323,7 +331,7 @@ describe('ModelsScreen', () => {
     it('should handle group expansion and collapse', async () => {
       uiStore.pageStates.modelsScreen.filters = [];
 
-      const {getByText, queryByText} = render(<ModelsScreen />);
+      const { getByText, queryByText } = render(<ModelsScreen />);
 
       // Not downloaded model should not be visible
       await waitFor(() => {

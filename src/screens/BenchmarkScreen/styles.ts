@@ -1,5 +1,5 @@
-import {Platform, StyleSheet} from 'react-native';
-import type {Theme} from '../../utils/types';
+import { Platform, StyleSheet } from 'react-native';
+import type { Theme } from '../../utils/types';
 
 export const createStyles = (theme: Theme) =>
   StyleSheet.create({
@@ -150,7 +150,7 @@ export const createStyles = (theme: Theme) =>
       marginTop: 8,
     },
     codeBlock: {
-      fontFamily: Platform.select({ios: 'Menlo', android: 'monospace'}),
+      fontFamily: Platform.select({ ios: 'Menlo', android: 'monospace' }),
       fontSize: 11,
     },
     checkboxContainer: {

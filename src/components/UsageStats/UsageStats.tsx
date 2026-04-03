@@ -1,4 +1,4 @@
-import {View, TouchableWithoutFeedback, Text} from 'react-native';
+import { View, TouchableWithoutFeedback, Text } from 'react-native';
 import React, {
   useState,
   useEffect,
@@ -7,14 +7,14 @@ import React, {
   useContext,
 } from 'react';
 
-import {Surface, Portal} from 'react-native-paper';
+import { Surface, Portal } from 'react-native-paper';
 import DeviceInfo from 'react-native-device-info';
-import {Svg, Path, Rect, Line} from 'react-native-svg';
+import { Svg, Path, Rect, Line } from 'react-native-svg';
 
-import {useTheme} from '../../hooks';
-import {L10nContext} from '../../utils';
+import { useTheme } from '../../hooks';
+import { L10nContext } from '../../utils';
 
-import {createStyles} from './styles';
+import { createStyles } from './styles';
 
 interface MemoryStats {
   totalMemory: number;
@@ -48,7 +48,7 @@ export const UsageStats: React.FC<UsageStatsProps> = ({
       const total = await DeviceInfo.getTotalMemory();
       const used = await DeviceInfo.getUsedMemory();
       const percentage = (used / total) * 100;
-      setMemoryStats({totalMemory: total, usedMemory: used, percentage});
+      setMemoryStats({ totalMemory: total, usedMemory: used, percentage });
       setMemoryHistory(prev => [...prev.slice(-9), percentage]);
     } catch (error) {
       console.error('Failed to fetch memory stats:', error);
@@ -88,7 +88,7 @@ export const UsageStats: React.FC<UsageStatsProps> = ({
     [l10n.components.usageStats.byteSizes],
   );
 
-  const [menuPosition, setMenuPosition] = useState({x: 0, y: 0});
+  const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
 
   const Tooltip = useCallback(
     () => (
@@ -141,7 +141,7 @@ export const UsageStats: React.FC<UsageStatsProps> = ({
           pageX: number,
           pageY: number,
         ) => {
-          setMenuPosition({x: pageX, y: pageY});
+          setMenuPosition({ x: pageX, y: pageY });
           setShowTooltip(!showTooltip);
         },
       );
@@ -154,7 +154,7 @@ export const UsageStats: React.FC<UsageStatsProps> = ({
       <TouchableWithoutFeedback
         testID="memory-usage-touchable"
         onPress={handlePress}>
-        <View style={{width, height}}>
+        <View style={{ width, height }}>
           <Svg testID="memory-usage-svg" width={width} height={height}>
             <Rect
               x="0"

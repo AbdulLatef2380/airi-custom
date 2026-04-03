@@ -7,7 +7,7 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import {
   useComponentSize,
@@ -41,12 +41,12 @@ export const KeyboardAccessoryView = React.memo(
     style,
     useListenersOnAndroid,
   }: Props) => {
-    const {onLayout, size} = useComponentSize();
-    const {keyboardEndPositionY, keyboardHeight} = useKeyboardDimensions(
+    const { onLayout, size } = useComponentSize();
+    const { keyboardEndPositionY, keyboardHeight } = useKeyboardDimensions(
       useListenersOnAndroid,
     );
-    const {panHandlers, positionY} = usePanResponder();
-    const {bottom, left, right} = useSafeAreaInsets();
+    const { panHandlers, positionY } = usePanResponder();
+    const { bottom, left, right } = useSafeAreaInsets();
 
     const deltaY = Animated.subtract(
       positionY,

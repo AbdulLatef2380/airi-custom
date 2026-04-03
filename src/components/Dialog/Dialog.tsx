@@ -1,4 +1,4 @@
-import React, {ReactNode} from 'react';
+import React, { ReactNode } from 'react';
 import {
   ViewStyle,
   Keyboard,
@@ -6,13 +6,13 @@ import {
   View,
 } from 'react-native';
 
-import {ScrollView} from 'react-native-gesture-handler';
-import {Button, Portal, Dialog as PaperDialog} from 'react-native-paper';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-controller';
+import { ScrollView } from 'react-native-gesture-handler';
+import { Button, Portal, Dialog as PaperDialog } from 'react-native-paper';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
 
-import {useTheme} from '../../hooks';
+import { useTheme } from '../../hooks';
 
-import {createStyles} from './styles';
+import { createStyles } from './styles';
 
 export interface DialogAction {
   label: string;

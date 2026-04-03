@@ -5,7 +5,7 @@ import {
   validateContextInitParams,
   createDefaultContextInitParams,
 } from '../contextInitParamsVersions';
-import {CacheType} from '../types';
+import { CacheType } from '../types';
 
 describe('contextInitParamsVersions', () => {
   describe('createContextInitParams', () => {

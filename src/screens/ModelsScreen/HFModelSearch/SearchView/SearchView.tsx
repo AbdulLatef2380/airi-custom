@@ -1,10 +1,10 @@
-import React, {useState, useContext, useCallback, useRef} from 'react';
-import {TouchableOpacity, View} from 'react-native';
+import React, { useState, useContext, useCallback, useRef } from 'react';
+import { TouchableOpacity, View } from 'react-native';
 
-import {observer} from 'mobx-react';
-import {Text, Chip, Button} from 'react-native-paper';
+import { observer } from 'mobx-react';
+import { Text, Chip, Button } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {BottomSheetFlatList} from '@gorhom/bottom-sheet';
+import { BottomSheetFlatList } from '@gorhom/bottom-sheet';
 
 import {
   Divider,
@@ -13,13 +13,13 @@ import {
   Sheet,
 } from '../../../../components';
 
-import {useTheme} from '../../../../hooks';
+import { useTheme } from '../../../../hooks';
 
-import {createStyles} from './styles';
+import { createStyles } from './styles';
 
-import {hfStore} from '../../../../store';
+import { hfStore } from '../../../../store';
 
-import {HuggingFaceModel} from '../../../../utils/types';
+import { HuggingFaceModel } from '../../../../utils/types';
 import {
   extractHFModelTitle,
   formatNumber,
@@ -35,7 +35,7 @@ interface SearchViewProps {
 }
 
 export const SearchView = observer(
-  ({testID, onModelSelect, onChangeSearchQuery}: SearchViewProps) => {
+  ({ testID, onModelSelect, onChangeSearchQuery }: SearchViewProps) => {
     const theme = useTheme();
     const l10n = useContext(L10nContext);
 
@@ -71,7 +71,7 @@ export const SearchView = observer(
       hfStore.fetchMoreModels();
     }, []);
 
-    const renderItem = ({item}: {item: HuggingFaceModel}) => {
+    const renderItem = ({ item }: { item: HuggingFaceModel }) => {
       // Check if this is a vision repository
       const isVision = isVisionRepo(item.siblings || []);
 

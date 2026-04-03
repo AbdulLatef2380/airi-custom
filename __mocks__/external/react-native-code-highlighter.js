@@ -1,8 +1,8 @@
 import React from 'react';
-import {Text} from 'react-native';
+import { Text } from 'react-native';
 
 // Mock implementation of react-native-code-highlighter for testing
-const CodeHighlighter = ({children, ...props}) => {
+const CodeHighlighter = ({ children, ...props }) => {
   return React.createElement(Text, props, children);
 };
 

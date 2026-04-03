@@ -1,10 +1,10 @@
 import React from 'react';
-import {fireEvent} from '@testing-library/react-native';
-import {FormProvider, useForm, UseFormReturn} from 'react-hook-form';
+import { fireEvent } from '@testing-library/react-native';
+import { FormProvider, useForm, UseFormReturn } from 'react-hook-form';
 
-import {render} from '../../../../../jest/test-utils';
-import {ColorSection} from '../ColorSection';
-import type {PalFormData} from '../../types';
+import { render } from '../../../../../jest/test-utils';
+import { ColorSection } from '../ColorSection';
+import type { PalFormData } from '../../types';
 
 const TestWrapper = ({
   children,
@@ -28,7 +28,7 @@ const TestWrapper = ({
 
 describe('ColorSection', () => {
   it('renders all color options', () => {
-    const {getAllByTestId} = render(
+    const { getAllByTestId } = render(
       <TestWrapper>
         <ColorSection />
       </TestWrapper>,
@@ -39,7 +39,7 @@ describe('ColorSection', () => {
   });
 
   it('shows selected state for default color', () => {
-    const {getAllByTestId} = render(
+    const { getAllByTestId } = render(
       <TestWrapper>
         <ColorSection />
       </TestWrapper>,
@@ -52,7 +52,7 @@ describe('ColorSection', () => {
   });
 
   it('changes selected color on press', () => {
-    const {getAllByTestId} = render(
+    const { getAllByTestId } = render(
       <TestWrapper>
         <ColorSection />
       </TestWrapper>,
@@ -73,7 +73,7 @@ describe('ColorSection', () => {
   it('updates form context on color selection', () => {
     let formMethods: UseFormReturn<PalFormData> | undefined;
 
-    const {getAllByTestId} = render(
+    const { getAllByTestId } = render(
       <TestWrapper
         onFormReady={methods => {
           formMethods = methods;

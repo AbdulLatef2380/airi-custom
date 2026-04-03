@@ -1,11 +1,11 @@
 import React from 'react';
-import {View, ScrollView} from 'react-native';
-import {Chip} from 'react-native-paper';
-import {observer} from 'mobx-react-lite';
+import { View, ScrollView } from 'react-native';
+import { Chip } from 'react-native-paper';
+import { observer } from 'mobx-react-lite';
 
-import {useTheme} from '../../../../hooks';
-import {createStyles} from './styles';
-import {PAL_FILTER_LABELS} from '../../../../utils/palshub-display';
+import { useTheme } from '../../../../hooks';
+import { createStyles } from './styles';
+import { PAL_FILTER_LABELS } from '../../../../utils/palshub-display';
 
 export type FilterType =
   | 'all'
@@ -28,7 +28,7 @@ interface FilterOption {
 }
 
 export const FilterChips: React.FC<FilterChipsProps> = observer(
-  ({activeFilter, onFilterChange, isAuthenticated}) => {
+  ({ activeFilter, onFilterChange, isAuthenticated }) => {
     const theme = useTheme();
     const styles = createStyles(theme);
 

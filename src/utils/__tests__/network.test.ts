@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {checkConnectivity} from '../network';
+import { checkConnectivity } from '../network';
 
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
@@ -11,7 +11,7 @@ describe('network utilities', () => {
 
   describe('checkConnectivity', () => {
     it('should return true when network is available', async () => {
-      mockedAxios.head.mockResolvedValueOnce({status: 200});
+      mockedAxios.head.mockResolvedValueOnce({ status: 200 });
 
       const result = await checkConnectivity();
 
@@ -30,7 +30,7 @@ describe('network utilities', () => {
     });
 
     it('should use custom timeout when provided', async () => {
-      mockedAxios.head.mockResolvedValueOnce({status: 200});
+      mockedAxios.head.mockResolvedValueOnce({ status: 200 });
 
       await checkConnectivity(3000);
 
@@ -40,7 +40,7 @@ describe('network utilities', () => {
     });
 
     it('should return false on timeout', async () => {
-      mockedAxios.head.mockRejectedValueOnce({code: 'ECONNABORTED'});
+      mockedAxios.head.mockRejectedValueOnce({ code: 'ECONNABORTED' });
 
       const result = await checkConnectivity(1000);
 

@@ -3,9 +3,9 @@
  */
 
 import React from 'react';
-import {render, fireEvent} from '@testing-library/react-native';
-import {ChatInput} from '../ChatInput';
-import {UserContext} from '../../../utils';
+import { render, fireEvent } from '@testing-library/react-native';
+import { ChatInput } from '../ChatInput';
+import { UserContext } from '../../../utils';
 
 // Mock the theme hook
 jest.mock('../../../hooks', () => ({
@@ -89,7 +89,7 @@ describe('ChatInput Thinking Toggle', () => {
   });
 
   it('should not render thinking toggle when showThinkingToggle is false', () => {
-    const {queryByLabelText} = render(
+    const { queryByLabelText } = render(
       <UserContext.Provider value={mockUser}>
         <ChatInput
           {...defaultProps}
@@ -104,7 +104,7 @@ describe('ChatInput Thinking Toggle', () => {
   });
 
   it('should render thinking toggle when showThinkingToggle is true', () => {
-    const {getByLabelText} = render(
+    const { getByLabelText } = render(
       <UserContext.Provider value={mockUser}>
         <ChatInput
           {...defaultProps}
@@ -119,7 +119,7 @@ describe('ChatInput Thinking Toggle', () => {
   });
 
   it('should show correct accessibility label when thinking is disabled', () => {
-    const {getByLabelText} = render(
+    const { getByLabelText } = render(
       <UserContext.Provider value={mockUser}>
         <ChatInput
           {...defaultProps}
@@ -134,7 +134,7 @@ describe('ChatInput Thinking Toggle', () => {
   });
 
   it('should show correct accessibility label when thinking is enabled', () => {
-    const {getByLabelText} = render(
+    const { getByLabelText } = render(
       <UserContext.Provider value={mockUser}>
         <ChatInput
           {...defaultProps}
@@ -150,7 +150,7 @@ describe('ChatInput Thinking Toggle', () => {
 
   it('should call onThinkingToggle with correct value when pressed', () => {
     const mockOnThinkingToggle = jest.fn();
-    const {getByLabelText} = render(
+    const { getByLabelText } = render(
       <UserContext.Provider value={mockUser}>
         <ChatInput
           {...defaultProps}
@@ -169,7 +169,7 @@ describe('ChatInput Thinking Toggle', () => {
 
   it('should call onThinkingToggle with false when thinking is enabled and pressed', () => {
     const mockOnThinkingToggle = jest.fn();
-    const {getByLabelText} = render(
+    const { getByLabelText } = render(
       <UserContext.Provider value={mockUser}>
         <ChatInput
           {...defaultProps}
@@ -187,7 +187,7 @@ describe('ChatInput Thinking Toggle', () => {
   });
 
   it('should render thinking toggle even when streaming', () => {
-    const {getByLabelText} = render(
+    const { getByLabelText } = render(
       <UserContext.Provider value={mockUser}>
         <ChatInput
           {...defaultProps}
@@ -203,7 +203,7 @@ describe('ChatInput Thinking Toggle', () => {
   });
 
   it('should render thinking toggle even when stop is visible', () => {
-    const {getByLabelText} = render(
+    const { getByLabelText } = render(
       <UserContext.Provider value={mockUser}>
         <ChatInput
           {...defaultProps}
@@ -219,7 +219,7 @@ describe('ChatInput Thinking Toggle', () => {
   });
 
   it('should handle missing onThinkingToggle callback gracefully', () => {
-    const {getByLabelText} = render(
+    const { getByLabelText } = render(
       <UserContext.Provider value={mockUser}>
         <ChatInput
           {...defaultProps}

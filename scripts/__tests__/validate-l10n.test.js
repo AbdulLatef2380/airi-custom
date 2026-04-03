@@ -1,4 +1,4 @@
-const {execSync} = require('child_process');
+const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
@@ -62,7 +62,7 @@ function runWithLocales(overrides = {}) {
         encoding: 'utf-8',
         timeout: 10000,
       });
-      return {exitCode: 0, output};
+      return { exitCode: 0, output };
     } catch (e) {
       return {
         exitCode: e.status,
@@ -71,7 +71,7 @@ function runWithLocales(overrides = {}) {
     }
   } finally {
     // Clean up temp directory
-    fs.rmSync(tmpDir, {recursive: true, force: true});
+    fs.rmSync(tmpDir, { recursive: true, force: true });
   }
 }
 
@@ -114,7 +114,7 @@ describe('validate-l10n.js', () => {
 
   it('warns about missing keys in translation files', () => {
     const result = runWithLocales({
-      'ja.json': JSON.stringify({common: {cancel: 'test'}}),
+      'ja.json': JSON.stringify({ common: { cancel: 'test' } }),
     });
     // Missing keys are warnings, not errors -- script should still pass
     expect(result.exitCode).toBe(0);

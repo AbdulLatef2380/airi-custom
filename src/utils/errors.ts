@@ -3,7 +3,7 @@
  */
 
 import axios from 'axios';
-import {uiStore} from '../store/UIStore';
+import { uiStore } from '../store/UIStore';
 /**
  * NetworkError - Used for connectivity-related errors
  * Examples: No internet connection, timeout, etc.
@@ -174,7 +174,7 @@ export function createErrorState(
     // This handles cases where errors cross the JS-native boundary
     // and may not be proper Error instances
     if (error && typeof error === 'object' && 'message' in error) {
-      message = String((error as {message: unknown}).message);
+      message = String((error as { message: unknown }).message);
     } else if (typeof error === 'string') {
       message = error;
     } else if (error !== null && error !== undefined) {

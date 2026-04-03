@@ -1,5 +1,5 @@
-import {BenchmarkResult} from '../../src/utils/types';
-import {mockResult} from '../../jest/fixtures/benchmark';
+import { BenchmarkResult } from '../../src/utils/types';
+import { mockResult } from '../../jest/fixtures/benchmark';
 
 // Create mock functions
 const mockRemoveResult = jest.fn((timestamp: string) => {

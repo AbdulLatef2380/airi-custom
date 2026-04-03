@@ -1,4 +1,4 @@
-import {CompletionParams as LlamaRNCompletionParams} from 'llama.rn';
+import { CompletionParams as LlamaRNCompletionParams } from 'llama.rn';
 
 // Alias allows flexibility to switch API providers later
 // We should move towards OpenAI Compatible API Params
@@ -48,7 +48,7 @@ export type CompletionParams = ApiCompletionParams & AppOnlyCompletionParams;
 export function toApiCompletionParams(
   params: CompletionParams,
 ): ApiCompletionParams {
-  const apiParams: Partial<CompletionParams> = {...params};
+  const apiParams: Partial<CompletionParams> = { ...params };
 
   for (const key of APP_ONLY_KEYS) {
     delete apiParams[key];

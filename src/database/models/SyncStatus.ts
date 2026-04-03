@@ -1,5 +1,5 @@
-import {Model} from '@nozbe/watermelondb';
-import {field, readonly, date} from '@nozbe/watermelondb/decorators';
+import { Model } from '@nozbe/watermelondb';
+import { field, readonly, date } from '@nozbe/watermelondb/decorators';
 
 export type SyncStatusType = 'synced' | 'pending' | 'error';
 export type EntityType = 'library' | 'pal' | 'categories' | 'tags' | 'reviews';

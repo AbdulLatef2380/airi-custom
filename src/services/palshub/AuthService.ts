@@ -1,7 +1,7 @@
-import {makeAutoObservable, runInAction} from 'mobx';
-import {makePersistable} from 'mobx-persist-store';
+import { makeAutoObservable, runInAction } from 'mobx';
+import { makePersistable } from 'mobx-persist-store';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {supabase} from './supabase';
+import { supabase } from './supabase';
 import {
   SUPABASE_URL,
   SUPABASE_ANON_KEY,
@@ -9,7 +9,7 @@ import {
   GOOGLE_IOS_CLIENT_ID,
   GOOGLE_WEB_CLIENT_ID,
 } from '@env';
-import type {User, Session} from '@supabase/supabase-js';
+import type { User, Session } from '@supabase/supabase-js';
 import {
   GoogleSignin,
   statusCodes,
@@ -119,7 +119,7 @@ class AuthService {
 
     try {
       const {
-        data: {session},
+        data: { session },
         error,
       } = await supabase.auth.getSession();
 
@@ -171,7 +171,7 @@ class AuthService {
     }
 
     try {
-      const {data: profile, error} = await supabase
+      const { data: profile, error } = await supabase
         .from('profiles')
         .select('*')
         .eq('id', userId)
@@ -247,7 +247,7 @@ class AuthService {
         console.log('ID Token length:', userInfo.data.idToken.length);
 
         // Use the ID token to sign in with Supabase (nonce disabled)
-        const {data, error} = await supabase!.auth.signInWithIdToken({
+        const { data, error } = await supabase!.auth.signInWithIdToken({
           provider: 'google',
           token: userInfo.data.idToken,
         });
@@ -302,7 +302,7 @@ class AuthService {
         this.error = null;
       });
 
-      const {error} = await supabase!.auth.signInWithPassword({
+      const { error } = await supabase!.auth.signInWithPassword({
         email,
         password,
       });
@@ -339,7 +339,7 @@ class AuthService {
         this.error = null;
       });
 
-      const {error} = await supabase!.auth.signUp({
+      const { error } = await supabase!.auth.signUp({
         email,
         password,
         options: {
@@ -376,7 +376,7 @@ class AuthService {
 
       // Sign out from Supabase if configured
       if (supabase) {
-        const {error} = await supabase.auth.signOut();
+        const { error } = await supabase.auth.signOut();
         if (error) {
           console.error('Supabase sign-out error:', error);
         }
@@ -415,7 +415,7 @@ class AuthService {
         this.error = null;
       });
 
-      const {error} = await supabase!.auth.resetPasswordForEmail(email, {
+      const { error } = await supabase!.auth.resetPasswordForEmail(email, {
         redirectTo: `${APP_URL}/auth/reset-password`,
       });
 
@@ -458,7 +458,7 @@ class AuthService {
         this.error = null;
       });
 
-      const {error} = await supabase!.from('profiles').upsert({
+      const { error } = await supabase!.from('profiles').upsert({
         id: this.user.id,
         ...updates,
         updated_at: new Date().toISOString(),

@@ -11,15 +11,15 @@ const mockSyncService = {
   // Computed properties
   get syncState() {
     if (this.isSyncing) {
-      return {status: 'syncing'};
+      return { status: 'syncing' };
     }
     if (this.syncError) {
-      return {status: 'error', error: this.syncError};
+      return { status: 'error', error: this.syncError };
     }
     if (this.lastSyncTime > 0) {
-      return {status: 'success', lastSync: this.lastSyncTime};
+      return { status: 'success', lastSync: this.lastSyncTime };
     }
-    return {status: 'idle'};
+    return { status: 'idle' };
   },
 
   // Methods
@@ -49,7 +49,7 @@ const syncService = mockSyncService;
 export default syncService;
 
 // Named export for compatibility
-export {syncService};
+export { syncService };
 
 // CommonJS compatibility
 module.exports = syncService;

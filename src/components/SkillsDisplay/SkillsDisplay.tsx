@@ -1,12 +1,12 @@
 import React from 'react';
-import {View, TouchableOpacity} from 'react-native';
-import {Text, IconButton} from 'react-native-paper';
+import { View, TouchableOpacity } from 'react-native';
+import { Text, IconButton } from 'react-native-paper';
 
-import {useTheme} from '../../hooks';
-import {getModelSkills, SkillItem} from '../../utils';
-import {L10nContext} from '../../utils';
+import { useTheme } from '../../hooks';
+import { getModelSkills, SkillItem } from '../../utils';
+import { L10nContext } from '../../utils';
 
-import {createStyles} from './styles';
+import { createStyles } from './styles';
 
 interface SkillsDisplayProps {
   model: {
@@ -90,7 +90,7 @@ export const SkillsDisplay: React.FC<SkillsDisplayProps> = ({
           style={[
             styles.skillText,
             skill.isSpecial && styles.specialSkillText,
-            {color},
+            { color },
           ]}>
           {label}
         </Text>

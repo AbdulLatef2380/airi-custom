@@ -1,5 +1,5 @@
 import React from 'react';
-import {Alert} from 'react-native';
+import { Alert } from 'react-native';
 
 import {
   render as baseRender,
@@ -7,11 +7,11 @@ import {
   waitFor,
 } from '../../../../jest/test-utils';
 
-import {VideoPalScreen} from '../VideoPalScreen';
-import {palStore, chatSessionStore, modelStore} from '../../../store';
-import type {Pal} from '../../../types/pal';
-import {LlamaContext} from 'llama.rn';
-import {mockLlamaContextParams} from '../../../../jest/fixtures/models';
+import { VideoPalScreen } from '../VideoPalScreen';
+import { palStore, chatSessionStore, modelStore } from '../../../store';
+import type { Pal } from '../../../types/pal';
+import { LlamaContext } from 'llama.rn';
+import { mockLlamaContextParams } from '../../../../jest/fixtures/models';
 
 const render = (ui: React.ReactElement, options: any = {}) =>
   baseRender(ui, {
@@ -31,9 +31,9 @@ function makeVideoPal(overrides: Partial<Pal> = {}): Pal {
     isSystemPromptChanged: false,
     useAIPrompt: false,
     parameterSchema: [],
-    parameters: {captureInterval: 1500},
+    parameters: { captureInterval: 1500 },
     source: 'local',
-    capabilities: {video: true, multimodal: true},
+    capabilities: { video: true, multimodal: true },
     ...overrides,
   } as Pal;
 }
@@ -71,7 +71,7 @@ describe('VideoPalScreen', () => {
       configurable: true,
     });
 
-    const {getByLabelText, getByDisplayValue} = render(
+    const { getByLabelText, getByDisplayValue } = render(
       <VideoPalScreen activePal={videoPal} />,
     );
 
@@ -92,7 +92,7 @@ describe('VideoPalScreen', () => {
 
     const alertSpy = jest.spyOn(Alert, 'alert');
 
-    const {getByLabelText} = render(<VideoPalScreen activePal={videoPal} />);
+    const { getByLabelText } = render(<VideoPalScreen activePal={videoPal} />);
 
     fireEvent.press(getByLabelText('Start video analysis'));
 
@@ -121,7 +121,7 @@ describe('VideoPalScreen', () => {
 
     const alertSpy = jest.spyOn(Alert, 'alert');
 
-    const {getByLabelText} = render(<VideoPalScreen activePal={videoPal} />);
+    const { getByLabelText } = render(<VideoPalScreen activePal={videoPal} />);
 
     fireEvent.press(getByLabelText('Start video analysis'));
 
@@ -152,7 +152,7 @@ describe('VideoPalScreen', () => {
     // Allow multimodal
     jest.spyOn(modelStore, 'isMultimodalEnabled').mockResolvedValue(true);
 
-    const {getByLabelText, getByTestId, queryByTestId} = render(
+    const { getByLabelText, getByTestId, queryByTestId } = render(
       <VideoPalScreen activePal={videoPal} />,
     );
 
@@ -168,7 +168,7 @@ describe('VideoPalScreen', () => {
       expect(palStore.updatePal).toHaveBeenCalledWith(
         videoPal.id,
         expect.objectContaining({
-          parameters: expect.objectContaining({captureInterval: 2000}),
+          parameters: expect.objectContaining({ captureInterval: 2000 }),
         }),
       );
     });

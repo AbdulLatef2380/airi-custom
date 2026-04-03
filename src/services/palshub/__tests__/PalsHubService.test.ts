@@ -1,5 +1,5 @@
 jest.mock('../AuthService', () => ({
-  authService: {isAuthenticated: false, user: null},
+  authService: { isAuthenticated: false, user: null },
 }));
 
 jest.mock('../PalsHubApiService', () => ({
@@ -16,9 +16,9 @@ describe('PalsHubService', () => {
 
   it('checkPalOwnership returns owned=false when unauthenticated', async () => {
     jest.doMock('../AuthService', () => ({
-      authService: {isAuthenticated: false, user: null},
+      authService: { isAuthenticated: false, user: null },
     }));
-    const {palsHubService} = require('../PalsHubService');
+    const { palsHubService } = require('../PalsHubService');
     await expect(palsHubService.checkPalOwnership('pal-1')).resolves.toEqual({
       owned: false,
     });
@@ -26,14 +26,14 @@ describe('PalsHubService', () => {
 
   it('checkPalOwnership returns owned flag based on pal.is_owned', async () => {
     jest.doMock('../AuthService', () => ({
-      authService: {isAuthenticated: true, user: {id: 'u1'}},
+      authService: { isAuthenticated: true, user: { id: 'u1' } },
     }));
-    const {palsHubApiService} = require('../PalsHubApiService');
+    const { palsHubApiService } = require('../PalsHubApiService');
     (palsHubApiService.getPal as jest.Mock).mockResolvedValue({
       id: 'pal-1',
       is_owned: true,
     });
-    const {palsHubService} = require('../PalsHubService');
+    const { palsHubService } = require('../PalsHubService');
 
     await expect(palsHubService.checkPalOwnership('pal-1')).resolves.toEqual({
       owned: true,
@@ -52,13 +52,13 @@ describe('PalsHubService', () => {
 
   it('checkPalOwnership wraps unknown errors into PalsHubError', async () => {
     jest.doMock('../AuthService', () => ({
-      authService: {isAuthenticated: true, user: {id: 'u1'}},
+      authService: { isAuthenticated: true, user: { id: 'u1' } },
     }));
-    const {palsHubApiService} = require('../PalsHubApiService');
+    const { palsHubApiService } = require('../PalsHubApiService');
     (palsHubApiService.getPal as jest.Mock).mockRejectedValue(
       new Error('boom'),
     );
-    const {palsHubService, PalsHubError} = require('../PalsHubService');
+    const { palsHubService, PalsHubError } = require('../PalsHubService');
 
     await expect(palsHubService.checkPalOwnership('pal-1')).rejects.toThrow(
       PalsHubError,

@@ -1,11 +1,11 @@
-import {AxiosError} from 'axios';
-import {PalsHubErrorHandler, RetryHandler} from '../ErrorHandler';
-import {PalsHubError} from '../PalsHubService';
+import { AxiosError } from 'axios';
+import { PalsHubErrorHandler, RetryHandler } from '../ErrorHandler';
+import { PalsHubError } from '../PalsHubService';
 
 describe('PalsHubErrorHandler', () => {
   describe('handle', () => {
     it('should handle PalsHubError', () => {
-      const error = new PalsHubError('Test error', {code: 'TEST'});
+      const error = new PalsHubError('Test error', { code: 'TEST' });
 
       const result = PalsHubErrorHandler.handle(error);
 
@@ -67,7 +67,7 @@ describe('PalsHubErrorHandler', () => {
       const error = new AxiosError('Unauthorized');
       error.response = {
         status: 401,
-        data: {message: 'Unauthorized'},
+        data: { message: 'Unauthorized' },
         statusText: 'Unauthorized',
         headers: {},
         config: {} as any,
@@ -84,7 +84,7 @@ describe('PalsHubErrorHandler', () => {
       const error = new AxiosError('Forbidden');
       error.response = {
         status: 403,
-        data: {message: 'Forbidden'},
+        data: { message: 'Forbidden' },
         statusText: 'Forbidden',
         headers: {},
         config: {} as any,
@@ -101,7 +101,7 @@ describe('PalsHubErrorHandler', () => {
       const error = new AxiosError('Too Many Requests');
       error.response = {
         status: 429,
-        data: {message: 'Rate limit exceeded'},
+        data: { message: 'Rate limit exceeded' },
         statusText: 'Too Many Requests',
         headers: {},
         config: {} as any,
@@ -118,7 +118,7 @@ describe('PalsHubErrorHandler', () => {
       const error = new AxiosError('Bad Request');
       error.response = {
         status: 400,
-        data: {message: 'Invalid input'},
+        data: { message: 'Invalid input' },
         statusText: 'Bad Request',
         headers: {},
         config: {} as any,
@@ -135,7 +135,7 @@ describe('PalsHubErrorHandler', () => {
       const error = new AxiosError('Unprocessable Entity');
       error.response = {
         status: 422,
-        data: {message: 'Validation failed'},
+        data: { message: 'Validation failed' },
         statusText: 'Unprocessable Entity',
         headers: {},
         config: {} as any,
@@ -152,7 +152,7 @@ describe('PalsHubErrorHandler', () => {
       const error = new AxiosError('Internal Server Error');
       error.response = {
         status: 500,
-        data: {message: 'Server error'},
+        data: { message: 'Server error' },
         statusText: 'Internal Server Error',
         headers: {},
         config: {} as any,
@@ -169,7 +169,7 @@ describe('PalsHubErrorHandler', () => {
       const error = new AxiosError('Service Unavailable');
       error.response = {
         status: 503,
-        data: {message: 'Service unavailable'},
+        data: { message: 'Service unavailable' },
         statusText: 'Service Unavailable',
         headers: {},
         config: {} as any,
@@ -186,7 +186,7 @@ describe('PalsHubErrorHandler', () => {
       const error = new AxiosError('Error');
       error.response = {
         status: 400,
-        data: {message: 'Custom error message'},
+        data: { message: 'Custom error message' },
         statusText: 'Bad Request',
         headers: {},
         config: {} as any,
@@ -201,7 +201,7 @@ describe('PalsHubErrorHandler', () => {
       const error = new AxiosError('Error');
       error.response = {
         status: 400,
-        data: {error: 'Error from error field'},
+        data: { error: 'Error from error field' },
         statusText: 'Bad Request',
         headers: {},
         config: {} as any,
@@ -218,7 +218,7 @@ describe('PalsHubErrorHandler', () => {
         status: 400,
         data: {
           message: 'Validation error',
-          details: {field: 'email', issue: 'invalid format'},
+          details: { field: 'email', issue: 'invalid format' },
         },
         statusText: 'Bad Request',
         headers: {},
@@ -227,7 +227,10 @@ describe('PalsHubErrorHandler', () => {
 
       const result = PalsHubErrorHandler.handle(error);
 
-      expect(result.details).toEqual({field: 'email', issue: 'invalid format'});
+      expect(result.details).toEqual({
+        field: 'email',
+        issue: 'invalid format',
+      });
     });
   });
 
@@ -545,7 +548,7 @@ describe('RetryHandler', () => {
       const authError = new AxiosError('Unauthorized');
       authError.response = {
         status: 401,
-        data: {message: 'Unauthorized'},
+        data: { message: 'Unauthorized' },
         statusText: 'Unauthorized',
         headers: {},
         config: {} as any,
@@ -580,12 +583,12 @@ describe('RetryHandler', () => {
       expect(onError).toHaveBeenCalledTimes(2);
       expect(onError).toHaveBeenNthCalledWith(
         1,
-        expect.objectContaining({type: 'unknown', message: 'Error 1'}),
+        expect.objectContaining({ type: 'unknown', message: 'Error 1' }),
         1,
       );
       expect(onError).toHaveBeenNthCalledWith(
         2,
-        expect.objectContaining({type: 'unknown', message: 'Error 2'}),
+        expect.objectContaining({ type: 'unknown', message: 'Error 2' }),
         2,
       );
 
@@ -642,7 +645,7 @@ describe('RetryHandler', () => {
       const serverError = new AxiosError('Internal Server Error');
       serverError.response = {
         status: 500,
-        data: {message: 'Server error'},
+        data: { message: 'Server error' },
         statusText: 'Internal Server Error',
         headers: {},
         config: {} as any,
@@ -668,7 +671,7 @@ describe('RetryHandler', () => {
       const validationError = new AxiosError('Validation failed');
       validationError.response = {
         status: 400,
-        data: {message: 'Invalid input'},
+        data: { message: 'Invalid input' },
         statusText: 'Bad Request',
         headers: {},
         config: {} as any,

@@ -1,6 +1,6 @@
 import axios from 'axios';
-import {Platform} from 'react-native';
-import {urls} from '../config';
+import { Platform } from 'react-native';
+import { urls } from '../config';
 import {
   getAppCheckToken,
   checkConnectivity,
@@ -9,7 +9,7 @@ import {
   ServerError,
   initializeAppCheck,
 } from '../utils';
-import {BenchmarkResult, DeviceInfo} from '../utils/types';
+import { BenchmarkResult, DeviceInfo } from '../utils/types';
 
 type SubmissionData = {
   deviceInfo: DeviceInfo;
@@ -22,7 +22,7 @@ type SubmissionData = {
 export async function submitBenchmark(
   deviceInfo: DeviceInfo,
   benchmarkResult: BenchmarkResult,
-): Promise<{message: string; id: number}> {
+): Promise<{ message: string; id: number }> {
   try {
     // Check network connectivity first
     const isConnected = await checkConnectivity();

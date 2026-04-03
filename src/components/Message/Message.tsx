@@ -1,10 +1,10 @@
 import * as React from 'react';
-import {Pressable, Text, View, Animated} from 'react-native';
+import { Pressable, Text, View, Animated } from 'react-native';
 
-import {oneOf} from '@flyerhq/react-native-link-preview';
+import { oneOf } from '@flyerhq/react-native-link-preview';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 
-import {useTheme} from '../../hooks';
+import { useTheme } from '../../hooks';
 
 import styles from './styles';
 import {
@@ -16,8 +16,8 @@ import {
   TextMessageTopLevelProps,
 } from '..';
 
-import {MessageType} from '../../utils/types';
-import {excludeDerivedMessageProps, UserContext} from '../../utils';
+import { MessageType } from '../../utils/types';
+import { excludeDerivedMessageProps, UserContext } from '../../utils';
 
 const hapticOptions = {
   enableVibrateFallback: true,
@@ -105,7 +105,7 @@ export const Message = React.memo(
     const currentUserIsAuthor =
       message.type !== 'dateHeader' && user?.id === message.author.id;
 
-    const {container, contentContainer, dateHeader, pressable} = styles({
+    const { container, contentContainer, dateHeader, pressable } = styles({
       currentUserIsAuthor,
       message,
       messageWidth,
@@ -137,7 +137,7 @@ export const Message = React.memo(
           <Text
             style={[
               theme.fonts.dateDividerTextStyle,
-              {color: theme.colors.onSurface},
+              { color: theme.colors.onSurface },
             ]}>
             {message.text}
           </Text>

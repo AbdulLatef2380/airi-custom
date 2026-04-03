@@ -11,20 +11,20 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
-import {expect} from '@wdio/globals';
-import {ChatPage} from '../pages/ChatPage';
-import {DrawerPage} from '../pages/DrawerPage';
-import {ModelsPage} from '../pages/ModelsPage';
-import {HFSearchSheet} from '../pages/HFSearchSheet';
-import {ModelDetailsSheet} from '../pages/ModelDetailsSheet';
-import {Selectors, nativeTextElement} from '../helpers/selectors';
+import { expect } from '@wdio/globals';
+import { ChatPage } from '../pages/ChatPage';
+import { DrawerPage } from '../pages/DrawerPage';
+import { ModelsPage } from '../pages/ModelsPage';
+import { HFSearchSheet } from '../pages/HFSearchSheet';
+import { ModelDetailsSheet } from '../pages/ModelDetailsSheet';
+import { Selectors, nativeTextElement } from '../helpers/selectors';
 import {
   QUICK_TEST_MODEL,
   TIMEOUTS,
   getModelsToTest,
   ModelTestConfig,
 } from '../fixtures/models';
-import {SCREENSHOT_DIR, OUTPUT_DIR} from '../wdio.shared.conf';
+import { SCREENSHOT_DIR, OUTPUT_DIR } from '../wdio.shared.conf';
 
 declare const driver: WebdriverIO.Browser;
 declare const browser: WebdriverIO.Browser;
@@ -98,7 +98,7 @@ describe('Quick Smoke Test', () => {
       try {
         // Ensure screenshot directory exists
         if (!fs.existsSync(SCREENSHOT_DIR)) {
-          fs.mkdirSync(SCREENSHOT_DIR, {recursive: true});
+          fs.mkdirSync(SCREENSHOT_DIR, { recursive: true });
         }
         await driver.saveScreenshot(
           path.join(SCREENSHOT_DIR, `failure-${testName}-${timestamp}.png`),
@@ -138,13 +138,15 @@ describe('Quick Smoke Test', () => {
 
     // Wait for download to complete and load the model
     // Note: The model card element itself has no children - buttons are siblings in the container
-    const containerSelector = Selectors.modelCard.cardContainer(model.downloadFile);
+    const containerSelector = Selectors.modelCard.cardContainer(
+      model.downloadFile,
+    );
     const modelCardContainer = browser.$(containerSelector);
-    await modelCardContainer.waitForDisplayed({timeout: TIMEOUTS.download});
+    await modelCardContainer.waitForDisplayed({ timeout: TIMEOUTS.download });
 
     // Find and click the load button within the container
     const loadBtn = modelCardContainer.$(Selectors.modelCard.loadButtonElement);
-    await loadBtn.waitForDisplayed({timeout: 10000});
+    await loadBtn.waitForDisplayed({ timeout: 10000 });
     await loadBtn.click();
 
     // Handle potential memory/performance warning alert
@@ -167,7 +169,7 @@ describe('Quick Smoke Test', () => {
     // Wait for AI message to appear first (indicates response started)
     console.log('[Timing] Waiting for AI message to appear...');
     const aiMessageEl = browser.$(Selectors.chat.aiMessage);
-    await aiMessageEl.waitForExist({timeout: TIMEOUTS.inference});
+    await aiMessageEl.waitForExist({ timeout: TIMEOUTS.inference });
     console.log('[Timing] AI message exists');
 
     // Poll for completion by checking for timing pattern in accessibility label
@@ -187,7 +189,9 @@ describe('Quick Smoke Test', () => {
         console.log('[Timing] Inference complete - timing found');
         // Extract timing from accessibility label (content-desc on Android, label on iOS)
         const attrName = driver.isAndroid ? 'content-desc' : 'label';
-        const labelText = await timingElement.getAttribute(attrName).catch(() => '');
+        const labelText = await timingElement
+          .getAttribute(attrName)
+          .catch(() => '');
         const timingMatch = labelText.match(/(\d+(?:\.\d+)?ms\/token.*TTFT)/);
         timingText = timingMatch ? timingMatch[1] : labelText.slice(-100);
         inferenceComplete = true;
@@ -196,13 +200,18 @@ describe('Quick Smoke Test', () => {
 
       // Swipe up to scroll down while waiting (in case content is long)
       try {
-        const {width, height} = await driver.getWindowSize();
-        await driver.action('pointer', {
-          parameters: {pointerType: 'touch'},
-        })
-          .move({x: Math.floor(width / 2), y: Math.floor(height * 0.7)})
+        const { width, height } = await driver.getWindowSize();
+        await driver
+          .action('pointer', {
+            parameters: { pointerType: 'touch' },
+          })
+          .move({ x: Math.floor(width / 2), y: Math.floor(height * 0.7) })
           .down()
-          .move({x: Math.floor(width / 2), y: Math.floor(height * 0.3), duration: 300})
+          .move({
+            x: Math.floor(width / 2),
+            y: Math.floor(height * 0.3),
+            duration: 300,
+          })
           .up()
           .perform();
         console.log('[Timing] Swiped up to scroll');
@@ -222,7 +231,9 @@ describe('Quick Smoke Test', () => {
     // Get response text from AI message
     const aiMessage = browser.$(Selectors.chat.aiMessage);
     const textView = aiMessage.$(nativeTextElement());
-    const responseText = await textView.getText().catch(() => 'Unable to extract response text');
+    const responseText = await textView
+      .getText()
+      .catch(() => 'Unable to extract response text');
 
     console.log(`\nSmoke Test Results:`);
     console.log(`  Model: ${model.id}`);
@@ -232,7 +243,7 @@ describe('Quick Smoke Test', () => {
 
     // Save reports - use OUTPUT_DIR for Device Farm compatibility
     if (!fs.existsSync(OUTPUT_DIR)) {
-      fs.mkdirSync(OUTPUT_DIR, {recursive: true});
+      fs.mkdirSync(OUTPUT_DIR, { recursive: true });
     }
 
     const testResult = {
@@ -249,8 +260,11 @@ describe('Quick Smoke Test', () => {
     fs.writeFileSync(modelReportPath, JSON.stringify(testResult, null, 2));
 
     // Append to cumulative report (preserves all model results across runs)
-    const cumulativeReportPath = path.join(OUTPUT_DIR, 'all-models-report.json');
-    let allResults: typeof testResult[] = [];
+    const cumulativeReportPath = path.join(
+      OUTPUT_DIR,
+      'all-models-report.json',
+    );
+    let allResults: (typeof testResult)[] = [];
     if (fs.existsSync(cumulativeReportPath)) {
       try {
         allResults = JSON.parse(fs.readFileSync(cumulativeReportPath, 'utf8'));

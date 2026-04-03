@@ -7,9 +7,9 @@
  * 3. Add a migration step in migrateContextInitParams to handle the new parameter
  */
 
-import {ContextParams} from 'llama.rn';
-import {ContextInitParams, LegacyContextInitParams} from './types';
-import {Platform} from 'react-native';
+import { ContextParams } from 'llama.rn';
+import { ContextInitParams, LegacyContextInitParams } from './types';
+import { Platform } from 'react-native';
 
 // Current version of the context init params schema
 // Increment this when adding new parameters or changing existing ones
@@ -72,7 +72,7 @@ export function migrateContextInitParams(
   params: ContextInitParams | LegacyContextInitParams | any,
 ): ContextInitParams {
   // Clone the params to avoid modifying the original
-  const migratedParams = {...params};
+  const migratedParams = { ...params };
 
   // If no version is specified, assume it's legacy (pre-versioning)
   if (migratedParams.version === undefined) {

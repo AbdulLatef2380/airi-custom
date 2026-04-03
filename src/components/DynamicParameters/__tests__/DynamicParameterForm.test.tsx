@@ -1,15 +1,15 @@
 import React from 'react';
-import {FormProvider, useForm} from 'react-hook-form';
-import {render} from '../../../../jest/test-utils';
-import {DynamicParameterForm} from '../DynamicParameterForm';
-import type {ParameterDefinition} from '../../../types/pal';
+import { FormProvider, useForm } from 'react-hook-form';
+import { render } from '../../../../jest/test-utils';
+import { DynamicParameterForm } from '../DynamicParameterForm';
+import type { ParameterDefinition } from '../../../types/pal';
 
 // Wrapper component to provide form context
 const TestWrapper: React.FC<{
   children: React.ReactNode;
   defaultValues?: Record<string, any>;
-}> = ({children, defaultValues = {}}) => {
-  const methods = useForm({defaultValues});
+}> = ({ children, defaultValues = {} }) => {
+  const methods = useForm({ defaultValues });
   return <FormProvider {...methods}>{children}</FormProvider>;
 };
 
@@ -38,7 +38,7 @@ describe('DynamicParameterForm', () => {
   ];
 
   it('should render all parameter fields from schema', () => {
-    const {getByText} = render(
+    const { getByText } = render(
       <TestWrapper>
         <DynamicParameterForm schema={mockSchema} />
       </TestWrapper>,
@@ -50,7 +50,7 @@ describe('DynamicParameterForm', () => {
   });
 
   it('should render nothing when schema is empty', () => {
-    const {UNSAFE_root} = render(
+    const { UNSAFE_root } = render(
       <TestWrapper>
         <DynamicParameterForm schema={[]} />
       </TestWrapper>,
@@ -70,7 +70,7 @@ describe('DynamicParameterForm', () => {
       },
     ];
 
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <TestWrapper>
         <DynamicParameterForm schema={schema} />
       </TestWrapper>,
@@ -90,7 +90,7 @@ describe('DynamicParameterForm', () => {
       },
     ];
 
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <TestWrapper>
         <DynamicParameterForm schema={schema} />
       </TestWrapper>,
@@ -109,7 +109,7 @@ describe('DynamicParameterForm', () => {
       },
     ];
 
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <TestWrapper>
         <DynamicParameterForm schema={schema} />
       </TestWrapper>,
@@ -128,7 +128,7 @@ describe('DynamicParameterForm', () => {
       },
     ];
 
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <TestWrapper>
         <DynamicParameterForm schema={schema} />
       </TestWrapper>,
@@ -148,7 +148,7 @@ describe('DynamicParameterForm', () => {
       },
     ];
 
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <TestWrapper>
         <DynamicParameterForm schema={schema} disabled={true} />
       </TestWrapper>,
@@ -159,7 +159,7 @@ describe('DynamicParameterForm', () => {
   });
 
   it('should render multiple fields in order', () => {
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <TestWrapper>
         <DynamicParameterForm schema={mockSchema} />
       </TestWrapper>,

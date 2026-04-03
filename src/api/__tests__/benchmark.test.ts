@@ -1,9 +1,9 @@
 import axios from 'axios';
-import {submitBenchmark} from '../benchmark';
+import { submitBenchmark } from '../benchmark';
 import * as utils from '../../utils/fb';
 import * as networkUtils from '../../utils';
-import {urls} from '../../config';
-import {DeviceInfo, BenchmarkResult} from '../../utils/types';
+import { urls } from '../../config';
+import { DeviceInfo, BenchmarkResult } from '../../utils/types';
 
 jest.mock('axios');
 jest.mock('../../utils/fb');

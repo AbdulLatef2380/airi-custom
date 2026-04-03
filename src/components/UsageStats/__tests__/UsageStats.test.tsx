@@ -2,9 +2,9 @@ import React from 'react';
 
 import DeviceInfo from 'react-native-device-info';
 
-import {render, fireEvent, act} from '../../../../jest/test-utils';
+import { render, fireEvent, act } from '../../../../jest/test-utils';
 
-import {UsageStats} from '../UsageStats';
+import { UsageStats } from '../UsageStats';
 
 describe('UsageStats Component', () => {
   beforeEach(() => {
@@ -22,7 +22,7 @@ describe('UsageStats Component', () => {
     (DeviceInfo.getTotalMemory as jest.Mock).mockResolvedValueOnce(totalMemory);
     (DeviceInfo.getUsedMemory as jest.Mock).mockResolvedValueOnce(usedMemory);
 
-    const {getByText, queryByText, getByTestId} = render(
+    const { getByText, queryByText, getByTestId } = render(
       <UsageStats width={100} height={50} />,
     );
 
@@ -42,7 +42,7 @@ describe('UsageStats Component', () => {
     // Press the graph to display the tooltip
     fireEvent.press(touchable, {
       target: touchable,
-      nativeEvent: {pageX: 10, pageY: 20},
+      nativeEvent: { pageX: 10, pageY: 20 },
     });
 
     // Check if the tooltip shows the correct values
@@ -58,7 +58,7 @@ describe('UsageStats Component', () => {
     (DeviceInfo.getTotalMemory as jest.Mock).mockResolvedValueOnce(totalMemory);
     (DeviceInfo.getUsedMemory as jest.Mock).mockResolvedValueOnce(usedMemory);
 
-    const {getByTestId} = render(<UsageStats width={100} height={50} />);
+    const { getByTestId } = render(<UsageStats width={100} height={50} />);
 
     await act(async () => {
       jest.advanceTimersByTime(3000);
@@ -76,7 +76,7 @@ describe('UsageStats Component', () => {
     (DeviceInfo.getTotalMemory as jest.Mock).mockResolvedValueOnce(totalMemory);
     (DeviceInfo.getUsedMemory as jest.Mock).mockResolvedValueOnce(usedMemory);
 
-    const {queryByTestId, getByTestId} = render(
+    const { queryByTestId, getByTestId } = render(
       <UsageStats width={100} height={50} />,
     );
 
@@ -91,7 +91,7 @@ describe('UsageStats Component', () => {
     // Press the graph to display the tooltip
     fireEvent.press(touchable, {
       target: touchable,
-      nativeEvent: {pageX: 10, pageY: 20},
+      nativeEvent: { pageX: 10, pageY: 20 },
     });
 
     expect(getByTestId('memory-usage-tooltip')).toBeTruthy();
@@ -99,7 +99,7 @@ describe('UsageStats Component', () => {
     // hide the tooltip
     fireEvent.press(getByTestId('memory-usage-touchable'), {
       target: touchable,
-      nativeEvent: {pageX: 10, pageY: 20},
+      nativeEvent: { pageX: 10, pageY: 20 },
     });
 
     expect(queryByTestId('memory-usage-tooltip')).toBeNull();

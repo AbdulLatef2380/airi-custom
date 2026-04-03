@@ -3,7 +3,7 @@
  * Based on Qualcomm Snapdragon SoC chipsets
  */
 
-import {getAvailableDevices} from './deviceSelection';
+import { getAvailableDevices } from './deviceSelection';
 
 export type HexagonVersion = '690' | '730' | '750' | '790' | '810';
 
@@ -19,7 +19,7 @@ export interface HexagonInfo {
  */
 const HEXAGON_VERSION_MAP: Record<
   HexagonVersion,
-  {socs: string[]; displayName: string}
+  { socs: string[]; displayName: string }
 > = {
   '690': {
     socs: ['Snapdragon 855', 'Snapdragon 865', 'SM8150', 'SM8250'],

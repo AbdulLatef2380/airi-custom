@@ -1,9 +1,9 @@
 import React from 'react';
-import {render} from '../../../../jest/test-utils';
-import {ChatHeaderTitle} from '../ChatHeaderTitle';
-import {chatSessionStore, modelStore} from '../../../store';
-import {runInAction} from 'mobx';
-import {basicModel, downloadedModel} from '../../../../jest/fixtures/models';
+import { render } from '../../../../jest/test-utils';
+import { ChatHeaderTitle } from '../ChatHeaderTitle';
+import { chatSessionStore, modelStore } from '../../../store';
+import { runInAction } from 'mobx';
+import { basicModel, downloadedModel } from '../../../../jest/fixtures/models';
 
 describe('ChatHeaderTitle', () => {
   beforeEach(() => {
@@ -15,7 +15,7 @@ describe('ChatHeaderTitle', () => {
       chatSessionStore.resetActiveSession();
       chatSessionStore.sessions = [];
     });
-    const {getByText} = render(<ChatHeaderTitle />);
+    const { getByText } = render(<ChatHeaderTitle />);
     expect(getByText('Chat')).toBeTruthy();
   });
 
@@ -33,7 +33,7 @@ describe('ChatHeaderTitle', () => {
       });
     });
 
-    const {getByText} = render(<ChatHeaderTitle />);
+    const { getByText } = render(<ChatHeaderTitle />);
     expect(getByText('Test Session')).toBeTruthy();
   });
 
@@ -43,7 +43,7 @@ describe('ChatHeaderTitle', () => {
       modelStore.setActiveModel(basicModel.id);
     });
 
-    const {getByText} = render(<ChatHeaderTitle />);
+    const { getByText } = render(<ChatHeaderTitle />);
     expect(getByText('basic model')).toBeTruthy();
   });
 
@@ -54,7 +54,7 @@ describe('ChatHeaderTitle', () => {
       modelStore.setActiveModel(basicModel.id);
     });
 
-    const {getByText, rerender} = render(<ChatHeaderTitle />);
+    const { getByText, rerender } = render(<ChatHeaderTitle />);
     expect(getByText('basic model')).toBeTruthy();
 
     // Change model

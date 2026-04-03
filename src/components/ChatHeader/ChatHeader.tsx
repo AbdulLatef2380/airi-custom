@@ -1,18 +1,18 @@
 import React from 'react';
-import {Platform, View} from 'react-native';
-import {observer} from 'mobx-react';
+import { Platform, View } from 'react-native';
+import { observer } from 'mobx-react';
 
-import {createStyles} from './styles';
-import {HeaderRight} from '../HeaderRight';
-import {ChatHeaderTitle} from '../ChatHeaderTitle';
+import { createStyles } from './styles';
+import { HeaderRight } from '../HeaderRight';
+import { ChatHeaderTitle } from '../ChatHeaderTitle';
 import {
   useSafeAreaFrame,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
-import {getDefaultHeaderHeight} from '@react-navigation/elements';
-import {useTheme} from '../../hooks';
-import {chatSessionStore} from '../../store';
-import {HeaderLeft} from '../HeaderLeft';
+import { getDefaultHeaderHeight } from '@react-navigation/elements';
+import { useTheme } from '../../hooks';
+import { chatSessionStore } from '../../store';
+import { HeaderLeft } from '../HeaderLeft';
 
 export const ChatHeader: React.FC = observer(() => {
   const theme = useTheme();
@@ -29,7 +29,7 @@ export const ChatHeader: React.FC = observer(() => {
 
   const headerHeight = getDefaultHeaderHeight(layout, false, statusBarHeight);
 
-  const styles = createStyles({theme, insets, headerHeight});
+  const styles = createStyles({ theme, insets, headerHeight });
 
   const headerStyle = chatSessionStore?.shouldShowHeaderDivider
     ? styles.headerWithDivider

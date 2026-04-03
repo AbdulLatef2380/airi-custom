@@ -1,17 +1,17 @@
-import React, {useContext} from 'react';
-import {View, Alert} from 'react-native';
-import {Text, Button, Divider} from 'react-native-paper';
-import {observer} from 'mobx-react-lite';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import React, { useContext } from 'react';
+import { View, Alert } from 'react-native';
+import { Text, Button, Divider } from 'react-native-paper';
+import { observer } from 'mobx-react-lite';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import {UserIcon, LockIcon} from '../../../../assets/icons';
+import { UserIcon, LockIcon } from '../../../../assets/icons';
 
-import {useTheme} from '../../../../hooks';
-import {L10nContext} from '../../../../utils';
-import {Sheet} from '../../../../components';
-import {createStyles} from './styles';
+import { useTheme } from '../../../../hooks';
+import { L10nContext } from '../../../../utils';
+import { Sheet } from '../../../../components';
+import { createStyles } from './styles';
 
-import {authService} from '../../../../services';
+import { authService } from '../../../../services';
 
 interface ProfileSheetProps {
   isVisible: boolean;
@@ -20,7 +20,7 @@ interface ProfileSheetProps {
 }
 
 export const ProfileSheet: React.FC<ProfileSheetProps> = observer(
-  ({isVisible, onClose, onSignInPress}) => {
+  ({ isVisible, onClose, onSignInPress }) => {
     const theme = useTheme();
     const insets = useSafeAreaInsets();
     const styles = createStyles(theme);
@@ -31,7 +31,7 @@ export const ProfileSheet: React.FC<ProfileSheetProps> = observer(
         l10n.palsScreen.signOut,
         l10n.palsScreen.signOutConfirmation,
         [
-          {text: l10n.common.cancel, style: 'cancel'},
+          { text: l10n.common.cancel, style: 'cancel' },
           {
             text: l10n.palsScreen.signOut,
             style: 'destructive',

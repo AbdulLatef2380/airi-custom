@@ -1,16 +1,16 @@
-import React, {useState, useEffect, memo, useContext} from 'react';
-import {Button, Text, Divider} from 'react-native-paper';
+import React, { useState, useEffect, memo, useContext } from 'react';
+import { Button, Text, Divider } from 'react-native-paper';
 
-import {ModelSettings} from '../../screens/ModelsScreen/ModelSettings';
-import {Sheet} from '../Sheet';
-import {ProjectionModelSelector} from '../ProjectionModelSelector';
-import {Model} from '../../utils/types';
-import {modelStore} from '../../store';
-import {chatTemplates} from '../../utils/chat';
+import { ModelSettings } from '../../screens/ModelsScreen/ModelSettings';
+import { Sheet } from '../Sheet';
+import { ProjectionModelSelector } from '../ProjectionModelSelector';
+import { Model } from '../../utils/types';
+import { modelStore } from '../../store';
+import { chatTemplates } from '../../utils/chat';
 
-import {styles} from './styles';
-import {View} from 'react-native';
-import {L10nContext} from '../../utils';
+import { styles } from './styles';
+import { View } from 'react-native';
+import { L10nContext } from '../../utils';
 
 interface ModelSettingsSheetProps {
   isVisible: boolean;
@@ -19,7 +19,7 @@ interface ModelSettingsSheetProps {
 }
 
 export const ModelSettingsSheet: React.FC<ModelSettingsSheetProps> = memo(
-  ({isVisible, onClose, model}) => {
+  ({ isVisible, onClose, model }) => {
     const [tempModelName, setTempModelName] = useState(model?.name || '');
     const [tempChatTemplate, setTempChatTemplate] = useState(
       model?.chatTemplate || chatTemplates.default,
@@ -41,7 +41,7 @@ export const ModelSettingsSheet: React.FC<ModelSettingsSheetProps> = memo(
     const handleSettingsUpdate = (name: string, value: any) => {
       setTempChatTemplate(prev => {
         const newTemplate =
-          name === 'name' ? chatTemplates[value] : {...prev, [name]: value};
+          name === 'name' ? chatTemplates[value] : { ...prev, [name]: value };
         return newTemplate;
       });
     };

@@ -1,15 +1,15 @@
 import React from 'react';
-import {fireEvent, render, act} from '../../../../jest/test-utils';
-import {ModelSettingsSheet} from '../ModelSettingsSheet';
-import {modelStore} from '../../../store';
-import {Model, ModelOrigin} from '../../../utils/types';
-import {defaultCompletionParams} from '../../../utils/completionSettingsVersions';
+import { fireEvent, render, act } from '../../../../jest/test-utils';
+import { ModelSettingsSheet } from '../ModelSettingsSheet';
+import { modelStore } from '../../../store';
+import { Model, ModelOrigin } from '../../../utils/types';
+import { defaultCompletionParams } from '../../../utils/completionSettingsVersions';
 
 // Mock the ModelSettings component
 jest.mock('../../../screens/ModelsScreen/ModelSettings', () => {
-  const {View} = require('react-native');
+  const { View } = require('react-native');
   return {
-    ModelSettings: ({onChange, onStopWordsChange, onModelNameChange}) => (
+    ModelSettings: ({ onChange, onStopWordsChange, onModelNameChange }) => (
       <View testID="model-settings">
         <View
           testID="mock-settings-update"
@@ -30,8 +30,8 @@ jest.mock('../../../screens/ModelsScreen/ModelSettings', () => {
 
 // Mock Sheet component
 jest.mock('../../../components/Sheet', () => {
-  const {View, Button} = require('react-native');
-  const MockSheet = ({children, isVisible, onClose, title}) => {
+  const { View, Button } = require('react-native');
+  const MockSheet = ({ children, isVisible, onClose, title }) => {
     if (!isVisible) {
       return null;
     }
@@ -43,13 +43,13 @@ jest.mock('../../../components/Sheet', () => {
       </View>
     );
   };
-  MockSheet.ScrollView = ({children}) => (
+  MockSheet.ScrollView = ({ children }) => (
     <View testID="sheet-scroll-view">{children}</View>
   );
-  MockSheet.Actions = ({children}) => (
+  MockSheet.Actions = ({ children }) => (
     <View testID="sheet-actions">{children}</View>
   );
-  return {Sheet: MockSheet};
+  return { Sheet: MockSheet };
 });
 
 describe('ModelSettingsSheet', () => {
@@ -96,7 +96,7 @@ describe('ModelSettingsSheet', () => {
   });
 
   it('renders correctly when visible', () => {
-    const {getByTestId} = render(<ModelSettingsSheet {...defaultProps} />);
+    const { getByTestId } = render(<ModelSettingsSheet {...defaultProps} />);
 
     expect(getByTestId('sheet')).toBeTruthy();
     expect(getByTestId('model-settings')).toBeTruthy();
@@ -104,7 +104,7 @@ describe('ModelSettingsSheet', () => {
   });
 
   it('does not render when not visible', () => {
-    const {queryByTestId} = render(
+    const { queryByTestId } = render(
       <ModelSettingsSheet {...defaultProps} isVisible={false} />,
     );
 
@@ -112,7 +112,7 @@ describe('ModelSettingsSheet', () => {
   });
 
   it('returns null when no model is provided', () => {
-    const {queryByTestId} = render(
+    const { queryByTestId } = render(
       <ModelSettingsSheet {...defaultProps} model={undefined} />,
     );
 
@@ -120,7 +120,7 @@ describe('ModelSettingsSheet', () => {
   });
 
   it('handles save settings correctly', async () => {
-    const {getByText} = render(<ModelSettingsSheet {...defaultProps} />);
+    const { getByText } = render(<ModelSettingsSheet {...defaultProps} />);
 
     await act(async () => {
       fireEvent.press(getByText('Save Changes'));
@@ -138,7 +138,7 @@ describe('ModelSettingsSheet', () => {
   });
 
   it('handles cancel correctly', async () => {
-    const {getByText} = render(<ModelSettingsSheet {...defaultProps} />);
+    const { getByText } = render(<ModelSettingsSheet {...defaultProps} />);
 
     await act(async () => {
       fireEvent.press(getByText('Cancel'));
@@ -148,7 +148,7 @@ describe('ModelSettingsSheet', () => {
   });
 
   it('handles reset correctly', async () => {
-    const {getByText} = render(<ModelSettingsSheet {...defaultProps} />);
+    const { getByText } = render(<ModelSettingsSheet {...defaultProps} />);
 
     await act(async () => {
       fireEvent.press(getByText('Reset'));
@@ -161,7 +161,7 @@ describe('ModelSettingsSheet', () => {
   });
 
   it('handles reset model name correctly', async () => {
-    const {getByText} = render(<ModelSettingsSheet {...defaultProps} />);
+    const { getByText } = render(<ModelSettingsSheet {...defaultProps} />);
 
     await act(async () => {
       fireEvent.press(getByText('Reset'));
@@ -178,7 +178,7 @@ describe('ModelSettingsSheet', () => {
       origin: ModelOrigin.LOCAL,
     };
 
-    const {getByTestId, getByText} = render(
+    const { getByTestId, getByText } = render(
       <ModelSettingsSheet {...defaultProps} model={localModel} />,
     );
 
@@ -199,7 +199,7 @@ describe('ModelSettingsSheet', () => {
   });
 
   it('updates settings when model changes', () => {
-    const {rerender} = render(<ModelSettingsSheet {...defaultProps} />);
+    const { rerender } = render(<ModelSettingsSheet {...defaultProps} />);
 
     const newModel = {
       ...mockModel,

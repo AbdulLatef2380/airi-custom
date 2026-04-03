@@ -1,11 +1,11 @@
-import {AppState, AppStateStatus} from 'react-native';
-import {makeAutoObservable, observable, runInAction} from 'mobx';
+import { AppState, AppStateStatus } from 'react-native';
+import { makeAutoObservable, observable, runInAction } from 'mobx';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {makePersistable} from 'mobx-persist-store';
+import { makePersistable } from 'mobx-persist-store';
 import * as Keychain from 'react-native-keychain';
 
-import {fetchModels, testConnection, RemoteModelInfo} from '../api/openai';
-import {ServerConfig} from '../utils/types';
+import { fetchModels, testConnection, RemoteModelInfo } from '../api/openai';
+import { ServerConfig } from '../utils/types';
 
 const KEYCHAIN_SERVICE_PREFIX = 'pocketpal-server-';
 
@@ -15,7 +15,7 @@ const FETCH_THROTTLE_MS = 60000;
 class ServerStore {
   servers: ServerConfig[] = [];
   serverModels: Map<string, RemoteModelInfo[]> = observable.map();
-  userSelectedModels: Array<{serverId: string; remoteModelId: string}> = [];
+  userSelectedModels: Array<{ serverId: string; remoteModelId: string }> = [];
   isLoading = false;
   error: string | null = null;
   privacyNoticeAcknowledged = false;
@@ -78,7 +78,7 @@ class ServerStore {
       m => m.serverId === serverId && m.remoteModelId === remoteModelId,
     );
     if (!exists) {
-      this.userSelectedModels.push({serverId, remoteModelId});
+      this.userSelectedModels.push({ serverId, remoteModelId });
     }
   }
 
@@ -109,7 +109,7 @@ class ServerStore {
 
   getUserSelectedModelsForServer(
     serverId: string,
-  ): Array<{serverId: string; remoteModelId: string}> {
+  ): Array<{ serverId: string; remoteModelId: string }> {
     return this.userSelectedModels.filter(m => m.serverId === serverId);
   }
 
@@ -197,10 +197,10 @@ class ServerStore {
 
   async testServerConnection(
     serverId: string,
-  ): Promise<{ok: boolean; modelCount: number; error?: string}> {
+  ): Promise<{ ok: boolean; modelCount: number; error?: string }> {
     const server = this.servers.find(s => s.id === serverId);
     if (!server) {
-      return {ok: false, modelCount: 0, error: 'Server not found'};
+      return { ok: false, modelCount: 0, error: 'Server not found' };
     }
 
     const apiKey = await this.getApiKey(serverId);

@@ -58,7 +58,7 @@ export interface ComparisonResult {
   pass: boolean;
   regressions: Regression[];
   deltas: CheckpointDelta[];
-  thresholds: {pct: number; mb: number};
+  thresholds: { pct: number; mb: number };
   baseline_commit: string;
   current_commit: string;
   peak_baseline_mb: number;
@@ -142,7 +142,7 @@ export function compareReports(
     pass: regressions.length === 0,
     regressions,
     deltas,
-    thresholds: {pct, mb},
+    thresholds: { pct, mb },
     baseline_commit: baseline.commit,
     current_commit: current.commit,
     peak_baseline_mb: baseline.peak_memory_mb,
@@ -208,7 +208,7 @@ function main(): void {
     process.exit(2);
   }
 
-  const result = compareReports(baseline, current, {pct, mb});
+  const result = compareReports(baseline, current, { pct, mb });
 
   // Save result
   const resultJson = JSON.stringify(result, null, 2);

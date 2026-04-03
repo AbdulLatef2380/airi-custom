@@ -1,5 +1,5 @@
-import {authService} from './AuthService';
-import {palsHubApiService} from './PalsHubApiService';
+import { authService } from './AuthService';
+import { palsHubApiService } from './PalsHubApiService';
 
 import type {
   PalsQuery,
@@ -63,10 +63,10 @@ class PalsHubService {
   // Check if user owns a Pal - Using REST API
   async checkPalOwnership(
     palId: string,
-  ): Promise<{owned: boolean; purchase_date?: string}> {
+  ): Promise<{ owned: boolean; purchase_date?: string }> {
     try {
       if (!authService.user?.id) {
-        return {owned: false};
+        return { owned: false };
       }
 
       // Get pal details which includes ownership information

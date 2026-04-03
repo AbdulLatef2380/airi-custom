@@ -1,5 +1,5 @@
-import React, {useState, useContext, useMemo} from 'react';
-import {View} from 'react-native';
+import React, { useState, useContext, useMemo } from 'react';
+import { View } from 'react-native';
 import {
   Text,
   Button,
@@ -9,15 +9,15 @@ import {
 } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {Sheet} from '../Sheet';
-import {ProjectionModelSelector} from '../ProjectionModelSelector';
-import {useTheme} from '../../hooks';
-import {L10nContext, hfAsModel, getMmprojFiles} from '../../utils';
-import {Model, HuggingFaceModel, ModelFile} from '../../utils/types';
+import { Sheet } from '../Sheet';
+import { ProjectionModelSelector } from '../ProjectionModelSelector';
+import { useTheme } from '../../hooks';
+import { L10nContext, hfAsModel, getMmprojFiles } from '../../utils';
+import { Model, HuggingFaceModel, ModelFile } from '../../utils/types';
 
-import {modelStore} from '../../store';
+import { modelStore } from '../../store';
 
-import {createStyles} from './styles';
+import { createStyles } from './styles';
 
 interface VisionDownloadSheetProps {
   isVisible: boolean;
@@ -89,7 +89,7 @@ export const VisionDownloadSheet: React.FC<VisionDownloadSheetProps> = ({
           <Text
             style={[
               styles.toggleTitle,
-              !visionEnabled && {color: theme.colors.textSecondary},
+              !visionEnabled && { color: theme.colors.textSecondary },
             ]}>
             {l10n.models.multimodal.visionControls.visionEnabled}
           </Text>

@@ -4,9 +4,9 @@
  * Handles deep links from iOS Shortcuts and other sources
  */
 
-import {NativeModules, NativeEventEmitter, Platform} from 'react-native';
+import { NativeModules, NativeEventEmitter, Platform } from 'react-native';
 
-const {DeepLinkModule} = NativeModules;
+const { DeepLinkModule } = NativeModules;
 
 export interface DeepLinkParams {
   url: string;
@@ -115,7 +115,7 @@ class DeepLinkService {
   private parseURL(urlString: string): DeepLinkParams | null {
     try {
       const url = new URL(urlString);
-      const queryParams: {[key: string]: string} = {};
+      const queryParams: { [key: string]: string } = {};
 
       url.searchParams.forEach((value, key) => {
         queryParams[key] = value;

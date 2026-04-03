@@ -1,9 +1,9 @@
-import React, {useContext} from 'react';
-import {View, TouchableOpacity, Dimensions, Image, Alert} from 'react-native';
+import React, { useContext } from 'react';
+import { View, TouchableOpacity, Dimensions, Image, Alert } from 'react-native';
 
-import {observer} from 'mobx-react-lite';
-import {useNavigation} from '@react-navigation/native';
-import {Text, Card, Chip, IconButton} from 'react-native-paper';
+import { observer } from 'mobx-react-lite';
+import { useNavigation } from '@react-navigation/native';
+import { Text, Card, Chip, IconButton } from 'react-native-paper';
 
 import {
   StarIcon,
@@ -14,25 +14,25 @@ import {
   ShareIcon,
 } from '../../../../assets/icons';
 
-import {useTheme} from '../../../../hooks';
+import { useTheme } from '../../../../hooks';
 
-import {createStyles} from './styles';
+import { createStyles } from './styles';
 
-import type {Pal} from '../../../../store/PalStore';
-import {palStore} from '../../../../store/PalStore';
-import {chatSessionStore, modelStore} from '../../../../store';
+import type { Pal } from '../../../../store/PalStore';
+import { palStore } from '../../../../store/PalStore';
+import { chatSessionStore, modelStore } from '../../../../store';
 
-import type {PalsHubPal} from '../../../../types/palshub';
+import type { PalsHubPal } from '../../../../types/palshub';
 
-import {L10nContext} from '../../../../utils';
-import {t} from '../../../../locales';
-import {exportPal} from '../../../../utils/exportUtils';
-import {ROUTES} from '../../../../utils/navigationConstants';
-import {getContrastColor} from '../../../../utils/colorUtils';
-import {getFullThumbnailUri} from '../../../../utils/imageUtils';
-import {getPalDisplayLabel} from '../../../../utils/palshub-display';
-import {hasVideoCapability} from '../../../../utils/pal-capabilities';
-import {isLocalPal, isPalsHubPal} from '../../../../utils/pal-type-guards';
+import { L10nContext } from '../../../../utils';
+import { t } from '../../../../locales';
+import { exportPal } from '../../../../utils/exportUtils';
+import { ROUTES } from '../../../../utils/navigationConstants';
+import { getContrastColor } from '../../../../utils/colorUtils';
+import { getFullThumbnailUri } from '../../../../utils/imageUtils';
+import { getPalDisplayLabel } from '../../../../utils/palshub-display';
+import { hasVideoCapability } from '../../../../utils/pal-capabilities';
+import { isLocalPal, isPalsHubPal } from '../../../../utils/pal-type-guards';
 
 interface SquarePalCardProps {
   pal: PalsHubPal | Pal;
@@ -148,7 +148,7 @@ const PalThumbnail: React.FC<{
   pal: PalsHubPal | Pal;
   isLocal?: boolean;
   onChatPress: () => void;
-}> = ({pal, isLocal, onChatPress}) => {
+}> = ({ pal, isLocal, onChatPress }) => {
   const theme = useTheme();
   const styles = createStyles(theme);
 
@@ -203,7 +203,7 @@ const PalThumbnail: React.FC<{
       {thumbnailUrl ? (
         <>
           <Image
-            source={{uri: thumbnailUrl}}
+            source={{ uri: thumbnailUrl }}
             style={styles.thumbnailImage}
             resizeMode="cover"
           />
@@ -211,14 +211,14 @@ const PalThumbnail: React.FC<{
       ) : creatorAvatarUrl ? (
         <>
           <Image
-            source={{uri: creatorAvatarUrl}}
+            source={{ uri: creatorAvatarUrl }}
             style={styles.thumbnailImage}
             resizeMode="cover"
           />
         </>
       ) : (
         <>
-          <Text style={[styles.thumbnailText, {color: textColor}]}>
+          <Text style={[styles.thumbnailText, { color: textColor }]}>
             {firstLetter}
           </Text>
         </>
@@ -243,7 +243,7 @@ const PalThumbnail: React.FC<{
 };
 
 export const SquarePalCard: React.FC<SquarePalCardProps> = observer(
-  ({pal, onPress, isLocal = false}) => {
+  ({ pal, onPress, isLocal = false }) => {
     const theme = useTheme();
     const styles = createStyles(theme);
     const l10n = useContext(L10nContext);
@@ -276,7 +276,7 @@ export const SquarePalCard: React.FC<SquarePalCardProps> = observer(
               'Download Pal',
               `Download "${pal.title}" to start chatting?`,
               [
-                {text: 'Cancel', style: 'cancel'},
+                { text: 'Cancel', style: 'cancel' },
                 {
                   text: 'Download',
                   onPress: async () => {
@@ -333,7 +333,7 @@ export const SquarePalCard: React.FC<SquarePalCardProps> = observer(
               'Switch Model?',
               `Switch to "${palDefaultModel.name}" for this pal?`,
               [
-                {text: 'Keep Current', style: 'cancel'},
+                { text: 'Keep Current', style: 'cancel' },
                 {
                   text: 'Switch',
                   onPress: () => {
@@ -355,9 +355,9 @@ export const SquarePalCard: React.FC<SquarePalCardProps> = observer(
       const palName = isPalsHubPal(pal) ? pal.title : pal.name;
       Alert.alert(
         l10n.palsScreen.deletePal,
-        t(l10n.palsScreen.deletePalConfirmation, {palName}),
+        t(l10n.palsScreen.deletePalConfirmation, { palName }),
         [
-          {text: l10n.common.cancel, style: 'cancel'},
+          { text: l10n.common.cancel, style: 'cancel' },
           {
             text: l10n.common.delete,
             style: 'destructive',
@@ -373,7 +373,7 @@ export const SquarePalCard: React.FC<SquarePalCardProps> = observer(
       } catch (error) {
         console.error('Error sharing pal:', error);
         Alert.alert('Share Error', 'Failed to share pal. Please try again.', [
-          {text: 'OK'},
+          { text: 'OK' },
         ]);
       }
     };
@@ -407,7 +407,7 @@ export const SquarePalCard: React.FC<SquarePalCardProps> = observer(
     return (
       <View>
         <TouchableOpacity
-          style={[styles.container, {width: cardWidth}]}
+          style={[styles.container, { width: cardWidth }]}
           onPress={onPress}
           activeOpacity={0.7}>
           <Card elevation={0} style={cardStyle}>

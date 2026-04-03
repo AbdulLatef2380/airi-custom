@@ -1,8 +1,12 @@
-import {Model} from '@nozbe/watermelondb';
-import {field, readonly, date} from '@nozbe/watermelondb/decorators';
-import type {Pal, PalCapabilities, ParameterDefinition} from '../../types/pal';
-import type {Model as LlamaModel} from '../../utils/types';
-import {CompletionParams} from '../../utils/completionTypes';
+import { Model } from '@nozbe/watermelondb';
+import { field, readonly, date } from '@nozbe/watermelondb/decorators';
+import type {
+  Pal,
+  PalCapabilities,
+  ParameterDefinition,
+} from '../../types/pal';
+import type { Model as LlamaModel } from '../../utils/types';
+import { CompletionParams } from '../../utils/completionTypes';
 
 export default class LocalPal extends Model {
   static table = 'local_pals';

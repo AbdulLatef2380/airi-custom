@@ -1,7 +1,7 @@
-import {Platform} from 'react-native';
+import { Platform } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import NativeHardwareInfo from '../specs/NativeHardwareInfo';
-import type {CPUInfo, GPUInfo} from '../specs/NativeHardwareInfo';
+import type { CPUInfo, GPUInfo } from '../specs/NativeHardwareInfo';
 
 /**
  * Device GPU capabilities result

@@ -1,5 +1,8 @@
-import {SSEParser} from './sseParser';
-import {CompletionResult, CompletionStreamData} from '../utils/completionTypes';
+import { SSEParser } from './sseParser';
+import {
+  CompletionResult,
+  CompletionStreamData,
+} from '../utils/completionTypes';
 
 /** Raw API response shape from OpenAI /v1/models */
 export interface RemoteModelInfo {
@@ -13,7 +16,7 @@ export interface OpenAIChatMessage {
   role: string;
   content?:
     | string
-    | Array<{type: string; text?: string; image_url?: {url?: string}}>;
+    | Array<{ type: string; text?: string; image_url?: { url?: string } }>;
 }
 
 /** Parameters for streaming chat completion */
@@ -128,7 +131,7 @@ export async function fetchModels(
   serverUrl: string,
   apiKey?: string,
 ): Promise<RemoteModelInfo[]> {
-  const {models} = await fetchModelsWithHeaders(serverUrl, apiKey);
+  const { models } = await fetchModelsWithHeaders(serverUrl, apiKey);
   return models;
 }
 
@@ -139,12 +142,16 @@ export async function fetchModels(
 export async function testConnection(
   serverUrl: string,
   apiKey?: string,
-): Promise<{ok: boolean; modelCount: number; error?: string}> {
+): Promise<{ ok: boolean; modelCount: number; error?: string }> {
   try {
     const models = await fetchModels(serverUrl, apiKey);
-    return {ok: true, modelCount: models.length};
+    return { ok: true, modelCount: models.length };
   } catch (error: any) {
-    return {ok: false, modelCount: 0, error: error.message || 'Unknown error'};
+    return {
+      ok: false,
+      modelCount: 0,
+      error: error.message || 'Unknown error',
+    };
   }
 }
 
@@ -267,7 +274,7 @@ export async function streamChatCompletion(
         reject(new Error('Completion aborted'));
         return;
       }
-      signal.addEventListener('abort', onAbort, {once: true});
+      signal.addEventListener('abort', onAbort, { once: true });
     }
 
     const cleanup = () => {

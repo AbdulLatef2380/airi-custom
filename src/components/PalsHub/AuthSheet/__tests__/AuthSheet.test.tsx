@@ -1,14 +1,14 @@
 import React from 'react';
-import {Alert} from 'react-native';
-import {render, fireEvent, waitFor} from '../../../../../jest/test-utils';
+import { Alert } from 'react-native';
+import { render, fireEvent, waitFor } from '../../../../../jest/test-utils';
 
-import {AuthSheet} from '../AuthSheet';
-import {authService, PalsHubErrorHandler} from '../../../../services';
+import { AuthSheet } from '../AuthSheet';
+import { authService, PalsHubErrorHandler } from '../../../../services';
 
 // Mock Sheet component
 jest.mock('../../../Sheet/Sheet', () => {
-  const {View, Button} = require('react-native');
-  const MockSheet = ({children, isVisible, onClose, title}: any) => {
+  const { View, Button } = require('react-native');
+  const MockSheet = ({ children, isVisible, onClose, title }: any) => {
     if (!isVisible) {
       return null;
     }
@@ -20,10 +20,10 @@ jest.mock('../../../Sheet/Sheet', () => {
       </View>
     );
   };
-  MockSheet.ScrollView = ({children}: any) => (
+  MockSheet.ScrollView = ({ children }: any) => (
     <View testID="sheet-scroll-view">{children}</View>
   );
-  return {Sheet: MockSheet};
+  return { Sheet: MockSheet };
 });
 
 // Mock Alert
@@ -48,14 +48,14 @@ describe('AuthSheet', () => {
 
   describe('Rendering', () => {
     it('renders correctly when visible', () => {
-      const {getByTestId} = render(<AuthSheet {...defaultProps} />);
+      const { getByTestId } = render(<AuthSheet {...defaultProps} />);
 
       expect(getByTestId('sheet')).toBeTruthy();
       expect(getByTestId('sheet-scroll-view')).toBeTruthy();
     });
 
     it('does not render when not visible', () => {
-      const {queryByTestId} = render(
+      const { queryByTestId } = render(
         <AuthSheet {...defaultProps} isVisible={false} />,
       );
 
@@ -63,7 +63,7 @@ describe('AuthSheet', () => {
     });
 
     it('shows sign in form by default', () => {
-      const {getByText, queryByTestId} = render(
+      const { getByText, queryByTestId } = render(
         <AuthSheet {...defaultProps} />,
       );
 
@@ -72,7 +72,9 @@ describe('AuthSheet', () => {
     });
 
     it('shows sign up form when toggled', () => {
-      const {getByText, getByTestId} = render(<AuthSheet {...defaultProps} />);
+      const { getByText, getByTestId } = render(
+        <AuthSheet {...defaultProps} />,
+      );
 
       const signUpToggle = getByText('Sign Up');
       fireEvent.press(signUpToggle);
@@ -84,7 +86,7 @@ describe('AuthSheet', () => {
     it('shows loading indicator when auth is loading', () => {
       authService.isLoading = true;
 
-      const {getByText} = render(<AuthSheet {...defaultProps} />);
+      const { getByText } = render(<AuthSheet {...defaultProps} />);
 
       expect(getByText('Signing you in...')).toBeTruthy();
     });
@@ -92,7 +94,7 @@ describe('AuthSheet', () => {
     it('shows error message when auth has error', () => {
       authService.error = 'Invalid credentials';
 
-      const {getByText} = render(<AuthSheet {...defaultProps} />);
+      const { getByText } = render(<AuthSheet {...defaultProps} />);
 
       expect(getByText('Invalid credentials')).toBeTruthy();
     });
@@ -100,7 +102,7 @@ describe('AuthSheet', () => {
 
   describe('Email Sign In', () => {
     it('allows entering email and password', () => {
-      const {getByTestId} = render(<AuthSheet {...defaultProps} />);
+      const { getByTestId } = render(<AuthSheet {...defaultProps} />);
 
       const emailInput = getByTestId('email-input');
       const passwordInput = getByTestId('password-input');
@@ -113,7 +115,9 @@ describe('AuthSheet', () => {
     });
 
     it('signs in with email when sign in button is pressed', async () => {
-      const {getByTestId, getByText} = render(<AuthSheet {...defaultProps} />);
+      const { getByTestId, getByText } = render(
+        <AuthSheet {...defaultProps} />,
+      );
 
       const emailInput = getByTestId('email-input');
       const passwordInput = getByTestId('password-input');
@@ -137,7 +141,9 @@ describe('AuthSheet', () => {
     });
 
     it('shows error alert when email is empty', async () => {
-      const {getByTestId, getByText} = render(<AuthSheet {...defaultProps} />);
+      const { getByTestId, getByText } = render(
+        <AuthSheet {...defaultProps} />,
+      );
 
       const passwordInput = getByTestId('password-input');
       const signInButton = getByText('Sign In');
@@ -155,7 +161,9 @@ describe('AuthSheet', () => {
     });
 
     it('shows error alert when password is empty', async () => {
-      const {getByTestId, getByText} = render(<AuthSheet {...defaultProps} />);
+      const { getByTestId, getByText } = render(
+        <AuthSheet {...defaultProps} />,
+      );
 
       const emailInput = getByTestId('email-input');
       const signInButton = getByText('Sign In');
@@ -177,7 +185,9 @@ describe('AuthSheet', () => {
         new Error('Invalid credentials'),
       );
 
-      const {getByTestId, getByText} = render(<AuthSheet {...defaultProps} />);
+      const { getByTestId, getByText } = render(
+        <AuthSheet {...defaultProps} />,
+      );
 
       const emailInput = getByTestId('email-input');
       const passwordInput = getByTestId('password-input');
@@ -197,7 +207,9 @@ describe('AuthSheet', () => {
     });
 
     it('clears error before attempting sign in', async () => {
-      const {getByTestId, getByText} = render(<AuthSheet {...defaultProps} />);
+      const { getByTestId, getByText } = render(
+        <AuthSheet {...defaultProps} />,
+      );
 
       const emailInput = getByTestId('email-input');
       const passwordInput = getByTestId('password-input');
@@ -215,7 +227,9 @@ describe('AuthSheet', () => {
 
   describe('Email Sign Up', () => {
     it('allows entering full name, email, and password for sign up', () => {
-      const {getByTestId, getByText} = render(<AuthSheet {...defaultProps} />);
+      const { getByTestId, getByText } = render(
+        <AuthSheet {...defaultProps} />,
+      );
 
       // Toggle to sign up
       const signUpToggle = getByText('Sign Up');
@@ -235,7 +249,9 @@ describe('AuthSheet', () => {
     });
 
     it('signs up with email when create account button is pressed', async () => {
-      const {getByTestId, getByText} = render(<AuthSheet {...defaultProps} />);
+      const { getByTestId, getByText } = render(
+        <AuthSheet {...defaultProps} />,
+      );
 
       // Toggle to sign up
       const signUpToggle = getByText('Sign Up');
@@ -266,7 +282,9 @@ describe('AuthSheet', () => {
     });
 
     it('shows error alert when full name is empty during sign up', async () => {
-      const {getByTestId, getByText} = render(<AuthSheet {...defaultProps} />);
+      const { getByTestId, getByText } = render(
+        <AuthSheet {...defaultProps} />,
+      );
 
       const signUpToggle = getByText('Sign Up');
       fireEvent.press(signUpToggle);
@@ -291,7 +309,7 @@ describe('AuthSheet', () => {
 
   describe('Google Sign In', () => {
     it('signs in with Google when Google button is pressed', async () => {
-      const {getByText} = render(<AuthSheet {...defaultProps} />);
+      const { getByText } = render(<AuthSheet {...defaultProps} />);
 
       const googleButton = getByText('Continue with Google');
       fireEvent.press(googleButton);
@@ -307,7 +325,7 @@ describe('AuthSheet', () => {
         new Error('Google sign in failed'),
       );
 
-      const {getByText} = render(<AuthSheet {...defaultProps} />);
+      const { getByText } = render(<AuthSheet {...defaultProps} />);
 
       const googleButton = getByText('Continue with Google');
       fireEvent.press(googleButton);
@@ -324,13 +342,15 @@ describe('AuthSheet', () => {
 
   describe('Forgot Password', () => {
     it('shows forgot password button in sign in mode', () => {
-      const {getByText} = render(<AuthSheet {...defaultProps} />);
+      const { getByText } = render(<AuthSheet {...defaultProps} />);
 
       expect(getByText('Forgot Password?')).toBeTruthy();
     });
 
     it('does not show forgot password button in sign up mode', () => {
-      const {getByText, queryByText} = render(<AuthSheet {...defaultProps} />);
+      const { getByText, queryByText } = render(
+        <AuthSheet {...defaultProps} />,
+      );
 
       const signUpToggle = getByText('Sign Up');
       fireEvent.press(signUpToggle);
@@ -339,7 +359,9 @@ describe('AuthSheet', () => {
     });
 
     it('sends password reset email when forgot password is pressed', async () => {
-      const {getByTestId, getByText} = render(<AuthSheet {...defaultProps} />);
+      const { getByTestId, getByText } = render(
+        <AuthSheet {...defaultProps} />,
+      );
 
       const emailInput = getByTestId('email-input');
       fireEvent.changeText(emailInput, 'test@example.com');
@@ -360,7 +382,7 @@ describe('AuthSheet', () => {
     });
 
     it('shows error when email is empty for password reset', async () => {
-      const {getByText} = render(<AuthSheet {...defaultProps} />);
+      const { getByText } = render(<AuthSheet {...defaultProps} />);
 
       const forgotButton = getByText('Forgot Password?');
       fireEvent.press(forgotButton);
@@ -379,7 +401,9 @@ describe('AuthSheet', () => {
         new Error('Reset failed'),
       );
 
-      const {getByTestId, getByText} = render(<AuthSheet {...defaultProps} />);
+      const { getByTestId, getByText } = render(
+        <AuthSheet {...defaultProps} />,
+      );
 
       const emailInput = getByTestId('email-input');
       fireEvent.changeText(emailInput, 'test@example.com');
@@ -396,7 +420,7 @@ describe('AuthSheet', () => {
 
   describe('Form Toggle', () => {
     it('toggles between sign in and sign up modes', () => {
-      const {getByText} = render(<AuthSheet {...defaultProps} />);
+      const { getByText } = render(<AuthSheet {...defaultProps} />);
 
       // Initially in sign in mode
       expect(getByText('Sign In')).toBeTruthy();
@@ -415,7 +439,7 @@ describe('AuthSheet', () => {
 
   describe('Close Behavior', () => {
     it('resets form when closed', () => {
-      const {getByTestId, rerender} = render(<AuthSheet {...defaultProps} />);
+      const { getByTestId, rerender } = render(<AuthSheet {...defaultProps} />);
 
       // Enter some data
       const emailInput = getByTestId('email-input');
@@ -446,7 +470,7 @@ describe('AuthSheet', () => {
       authService.isLoading = true;
       authService.error = null;
 
-      const {getByTestId} = render(<AuthSheet {...defaultProps} />);
+      const { getByTestId } = render(<AuthSheet {...defaultProps} />);
 
       const emailInput = getByTestId('email-input');
       const passwordInput = getByTestId('password-input');
@@ -458,7 +482,9 @@ describe('AuthSheet', () => {
     });
 
     it('shows loading indicator on sign in button when loading', async () => {
-      const {getByTestId, getByText} = render(<AuthSheet {...defaultProps} />);
+      const { getByTestId, getByText } = render(
+        <AuthSheet {...defaultProps} />,
+      );
 
       const emailInput = getByTestId('email-input');
       const passwordInput = getByTestId('password-input');

@@ -1,4 +1,4 @@
-import {chatSessionRepository} from '../ChatSessionRepository';
+import { chatSessionRepository } from '../ChatSessionRepository';
 
 // Mock the database
 jest.mock('../../database', () => ({

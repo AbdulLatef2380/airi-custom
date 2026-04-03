@@ -1,4 +1,4 @@
-import {Model, GGUFMetadata, ContextInitParams} from './types';
+import { Model, GGUFMetadata, ContextInitParams } from './types';
 
 /**
  * Validate that GGUF metadata has valid numeric values for core fields.
@@ -55,7 +55,7 @@ function calculateKVCacheMemory(
     ? Number(metadata.sliding_window)
     : undefined;
 
-  const {n_ctx, cache_type_k, cache_type_v} = contextSettings;
+  const { n_ctx, cache_type_k, cache_type_v } = contextSettings;
 
   // For SWA (Sliding Window Attention) models like Gemma
   const effectiveCtx = sliding_window ? Math.min(n_ctx, sliding_window) : n_ctx;
@@ -82,7 +82,7 @@ function calculateComputeBuffer(
   // Defensive: Convert to numbers in case metadata was persisted as strings
   const n_vocab = Number(metadata.n_vocab);
   const n_embd = Number(metadata.n_embd);
-  const {n_ubatch} = contextSettings;
+  const { n_ubatch } = contextSettings;
 
   // Compute buffer: (n_vocab + n_embd) × n_ubatch × 4 bytes
   return (n_vocab + n_embd) * n_ubatch * 4;

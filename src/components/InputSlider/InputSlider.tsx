@@ -1,11 +1,11 @@
-import React, {useState, useEffect, useCallback, useRef} from 'react';
-import {View} from 'react-native';
-import {Text} from 'react-native-paper';
-import {useTheme} from '../../hooks';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { View } from 'react-native';
+import { Text } from 'react-native-paper';
+import { useTheme } from '../../hooks';
 import Slider from '@react-native-community/slider';
-import {createStyles} from './styles';
-import {TextInput} from '../TextInput';
-import {VariantProp} from 'react-native-paper/lib/typescript/components/Typography/types';
+import { createStyles } from './styles';
+import { TextInput } from '../TextInput';
+import { VariantProp } from 'react-native-paper/lib/typescript/components/Typography/types';
 
 interface InputSliderProps {
   label?: string;

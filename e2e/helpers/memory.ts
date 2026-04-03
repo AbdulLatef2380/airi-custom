@@ -12,11 +12,11 @@
  * - iOS real device: ios-deploy --download
  */
 
-import {execSync} from 'child_process';
+import { execSync } from 'child_process';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as os from 'os';
-import {byTestId} from './selectors';
+import { byTestId } from './selectors';
 
 declare const driver: WebdriverIO.Browser;
 
@@ -100,26 +100,27 @@ export async function readSnapshots(): Promise<MemorySnapshot[]> {
     // iOS: determine device type from UDID env var
     // Simulator UDIDs are UUID format (8-4-4-4-12 hex), real device UDIDs are not
     const udid = process.env.E2E_DEVICE_UDID || '';
-    const isSimulator = !udid ||
-      /^[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}$/i.test(udid);
+    const isSimulator =
+      !udid ||
+      /^[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}$/i.test(
+        udid,
+      );
 
     if (isSimulator) {
       // Simulator: read directly from filesystem via simctl
       const container = execSync(
         `xcrun simctl get_app_container booted ${IOS_BUNDLE_ID} data`,
-        {encoding: 'utf8', timeout: 5000},
+        { encoding: 'utf8', timeout: 5000 },
       ).trim();
       const filePath = path.join(container, 'Documents', SNAPSHOTS_FILENAME);
       const data = fs.readFileSync(filePath, 'utf8');
       return JSON.parse(data);
     } else {
       // Real device: use ios-deploy to download from app container
-      const tmpDir = fs.mkdtempSync(
-        path.join(os.tmpdir(), 'memory-profile-'),
-      );
+      const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'memory-profile-'));
       execSync(
         `ios-deploy --id ${udid} --bundle_id ${IOS_BUNDLE_ID} --download=/Documents/${SNAPSHOTS_FILENAME} --to ${tmpDir}`,
-        {timeout: 15000},
+        { timeout: 15000 },
       );
       const localPath = path.join(tmpDir, 'Documents', SNAPSHOTS_FILENAME);
       const data = fs.readFileSync(localPath, 'utf8');

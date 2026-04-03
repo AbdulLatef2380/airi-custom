@@ -1,7 +1,7 @@
 import React from 'react';
-import {Platform} from 'react-native';
-import {fireEvent, render, waitFor} from '../../../../../jest/test-utils';
-import {DeviceInfoCard} from '../DeviceInfoCard';
+import { Platform } from 'react-native';
+import { fireEvent, render, waitFor } from '../../../../../jest/test-utils';
+import { DeviceInfoCard } from '../DeviceInfoCard';
 
 // Mock react-native-device-info
 jest.mock('react-native-device-info', () => ({
@@ -25,7 +25,7 @@ describe('DeviceInfoCard', () => {
   });
 
   it('renders basic device information correctly', async () => {
-    const {getByText, getByTestId, debug} = render(
+    const { getByText, getByTestId, debug } = render(
       <DeviceInfoCard onDeviceInfo={mockOnDeviceInfo} />,
     );
 
@@ -42,7 +42,7 @@ describe('DeviceInfoCard', () => {
   });
 
   it('can be expanded and collapsed', async () => {
-    const {getByText, queryByText} = render(
+    const { getByText, queryByText } = render(
       <DeviceInfoCard onDeviceInfo={mockOnDeviceInfo} />,
     );
 
@@ -89,7 +89,7 @@ describe('DeviceInfoCard', () => {
   });
 
   it('allows specifying a custom testId', async () => {
-    const {getByTestId} = render(
+    const { getByTestId } = render(
       <DeviceInfoCard
         onDeviceInfo={mockOnDeviceInfo}
         testId="custom-device-info"

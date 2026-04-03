@@ -1,21 +1,21 @@
-import React, {useState, useCallback, useContext, useEffect} from 'react';
-import {View, StyleSheet} from 'react-native';
-import {observer} from 'mobx-react';
-import {ChatView, EmbeddedVideoView} from '../../components';
-import {PalSheet} from '../../components/PalsSheets';
-import {L10nContext, UserContext, safeAlert} from '../../utils';
-import {modelStore, palStore} from '../../store';
-import {Pal} from '../../types/pal';
+import React, { useState, useCallback, useContext, useEffect } from 'react';
+import { View, StyleSheet } from 'react-native';
+import { observer } from 'mobx-react';
+import { ChatView, EmbeddedVideoView } from '../../components';
+import { PalSheet } from '../../components/PalsSheets';
+import { L10nContext, UserContext, safeAlert } from '../../utils';
+import { modelStore, palStore } from '../../store';
+import { Pal } from '../../types/pal';
 import 'react-native-get-random-values';
-import {user as defaultUser} from '../../utils/chat';
+import { user as defaultUser } from '../../utils/chat';
 
-import {hasVideoCapability} from '../../utils/pal-capabilities';
+import { hasVideoCapability } from '../../utils/pal-capabilities';
 
 interface VideoPalScreenProps {
   activePal: Pal;
 }
 
-export const VideoPalScreen = observer(({activePal}: VideoPalScreenProps) => {
+export const VideoPalScreen = observer(({ activePal }: VideoPalScreenProps) => {
   const l10n = useContext(L10nContext);
 
   const contextUser = useContext(UserContext);

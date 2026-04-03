@@ -1,8 +1,8 @@
-import {AxiosError} from 'axios';
+import { AxiosError } from 'axios';
 
-import {PalsHubError} from './PalsHubService';
+import { PalsHubError } from './PalsHubService';
 
-import type {PalsHubErrorResponse} from '../../types/palshub';
+import type { PalsHubErrorResponse } from '../../types/palshub';
 
 export interface ErrorInfo {
   type: 'network' | 'auth' | 'rate_limit' | 'validation' | 'server' | 'unknown';
