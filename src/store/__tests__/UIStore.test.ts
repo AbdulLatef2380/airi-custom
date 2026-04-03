@@ -69,7 +69,6 @@ describe('UIStore', () => {
     });
 
     it('should fall back to en for unknown language', () => {
-      // Simulate a persisted language value that is no longer supported
       // @ts-ignore - Testing invalid input
       uiStore._language = 'xx';
       expect(uiStore.language).toBe('en');
@@ -98,6 +97,7 @@ describe('UIStore', () => {
     it('supportedLanguages contains all expected languages', () => {
       expect(uiStore.supportedLanguages).toEqual([
         'en',
+        'ar',
         'fa',
         'he',
         'id',
