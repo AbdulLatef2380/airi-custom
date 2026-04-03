@@ -1,4 +1,4 @@
-name: CI Pipeline
+Name: CI Pipeline
 
 on:
   pull_request:
@@ -78,7 +78,6 @@ jobs:
       - name: Validate l10n files
         run: node scripts/validate-l10n.js
 
-      # ✅ الحل هنا
       - name: Fix formatting (Prettier + ESLint)
         run: |
           npx prettier --write .
@@ -148,15 +147,19 @@ jobs:
           GOOGLE_WEB_CLIENT_ID=dummy-web-client-id.apps.googleusercontent.com
           EOL
 
-      - name: Generate JS bundle
+      # 🔥 الخطوة الأولى: إنشاء مجلد الـ assets
+      - name: Create assets directory
+        run: mkdir -p android/app/src/main/assets
+
+      # 🔥 الخطوة الثانية: عملية الـ Bundling (توليد كود الـ JS)
+      - name: Bundle React Native JS
         run: |
-          mkdir -p android/app/src/main/assets
           npx react-native bundle \
             --platform android \
             --dev false \
             --entry-file index.js \
             --bundle-output android/app/src/main/assets/index.android.bundle \
-            --assets-dest android/app/src/main/res
+            --assets-dest android/app/src/main/res/
 
       - name: Create dummy release keystore for CI
         working-directory: android/app
