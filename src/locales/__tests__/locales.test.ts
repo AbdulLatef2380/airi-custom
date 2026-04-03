@@ -36,6 +36,7 @@ const EXPECTED_SECTIONS = [
 
 const ALL_LANGUAGES: AvailableLanguage[] = [
   'en',
+  'ar',
   'fa',
   'he',
   'id',
@@ -53,7 +54,7 @@ describe('l10n object', () => {
   });
 
   it('l10n.en is eagerly loaded and equals raw enData', () => {
-    expect(l10n.en).toBe(enData); // same reference, not a copy
+    expect(l10n.en).toBe(enData);
   });
 
   it.each(ALL_LANGUAGES)(
@@ -72,6 +73,7 @@ describe('l10n object', () => {
   });
 
   it.each([
+    'ar',
     'fa',
     'he',
     'id',
@@ -90,6 +92,7 @@ describe('l10n object', () => {
   );
 
   it.each([
+    'ar',
     'fa',
     'he',
     'id',
@@ -103,19 +106,15 @@ describe('l10n object', () => {
     lang => {
       const first = l10n[lang];
       const second = l10n[lang];
-      expect(first).toBe(second); // same reference = cached
+      expect(first).toBe(second);
     },
   );
 
   it('l10n.ja falls back to English for missing keys', () => {
-    // Verify the merge mechanism by building a partial ja
-    // and checking that merge fills in the gap.
     const partialJa = { common: { cancel: 'partial-ja-cancel' } };
     const merged: Translations = _.merge({}, enData, partialJa);
 
-    // The key we set should have the partial value
     expect(merged.common.cancel).toBe('partial-ja-cancel');
-    // Keys not in partialJa should fall back to English
     expect(merged.common.delete).toBe(enData.common.delete);
     expect(merged.settings).toEqual(enData.settings);
   });
@@ -131,12 +130,12 @@ describe('l10n object', () => {
 
   it('_.merge does not mutate enData', () => {
     const enClone = JSON.parse(JSON.stringify(enData));
-    // The l10n module already ran _.merge; verify enData was not mutated
     expect(enData).toEqual(enClone);
   });
 
   it('supports in operator for all languages', () => {
     expect('en' in l10n).toBe(true);
+    expect('ar' in l10n).toBe(true);
     expect('fa' in l10n).toBe(true);
     expect('he' in l10n).toBe(true);
     expect('id' in l10n).toBe(true);
@@ -150,10 +149,7 @@ describe('l10n object', () => {
   });
 
   it('returns undefined for unsupported language key', () => {
-    // Access a property that does not exist on the l10n object
-
     expect((l10n as any).xx).toBeUndefined();
-
     expect((l10n as any).fr).toBeUndefined();
   });
 
@@ -161,14 +157,11 @@ describe('l10n object', () => {
     jest.isolateModules(() => {
       const freshModule = require('../index');
 
-      // Before any property access, only en is cached
       expect(freshModule._testGetCacheKeys()).toEqual(['en']);
 
-      // Object.keys should enumerate property names without invoking getters
       const keys = Object.keys(freshModule.l10n);
       expect(keys).toEqual(ALL_LANGUAGES);
 
-      // Cache should still only have en -- getters were not called
       expect(freshModule._testGetCacheKeys()).toEqual(['en']);
     });
   });
@@ -178,7 +171,6 @@ describe('l10n object', () => {
       const freshModule = require('../index');
       expect(freshModule._testGetCacheKeys()).toEqual(['en']);
 
-      // Access en -- should NOT add any non-en languages to cache
       const _en = freshModule.l10n.en;
       expect(_en).toBeDefined();
       expect(freshModule._testGetCacheKeys()).toEqual(['en']);
@@ -200,6 +192,7 @@ describe('exports', () => {
 
   it('languageDisplayNames contains expected values', () => {
     expect(languageDisplayNames.en).toBe('English (EN)');
+    expect(languageDisplayNames.ar).toBe('العربية (AR)');
     expect(languageDisplayNames.he).toBe('\u05E2\u05D1\u05E8\u05D9\u05EA (HE)');
     expect(languageDisplayNames.id).toBe('Indonesia (ID)');
     expect(languageDisplayNames.ja).toBe('\u65E5\u672C\u8A9E (JA)');
@@ -228,8 +221,6 @@ describe('exports', () => {
 
 describe('lazy loading', () => {
   it('non-en languages are NOT loaded at module import time', () => {
-    // Use jest.isolateModules to get a fresh module instance
-    // and verify only 'en' is in cache before any property access.
     jest.isolateModules(() => {
       const freshModule = require('../index');
       const cacheKeys = freshModule._testGetCacheKeys();
@@ -238,6 +229,7 @@ describe('lazy loading', () => {
   });
 
   it.each([
+    'ar',
     'fa',
     'he',
     'id',
@@ -262,7 +254,6 @@ describe('lazy loading', () => {
       const freshModule = require('../index');
       expect(freshModule._testGetCacheKeys()).toEqual(['en']);
 
-      // Access each non-en language
       const nonEn = ALL_LANGUAGES.filter(l => l !== 'en');
       for (const lang of nonEn) {
         const _data = freshModule.l10n[lang];
@@ -291,9 +282,9 @@ describe('type safety', () => {
   });
 
   it('keyof typeof l10n resolves to literal union', () => {
-    // At runtime we verify the keys match
     const keys: Array<keyof typeof l10n> = [
       'en',
+      'ar',
       'fa',
       'he',
       'id',
@@ -305,7 +296,6 @@ describe('type safety', () => {
     ];
     expect(Object.keys(l10n).sort()).toEqual(keys.sort());
 
-    // This would cause a compile error if the type were wrong:
     const lang: keyof typeof l10n = 'en';
     expect(l10n[lang]).toBeDefined();
   });
