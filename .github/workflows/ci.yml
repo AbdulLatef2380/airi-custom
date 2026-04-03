@@ -12,7 +12,6 @@ permissions:
   contents: read
 
 jobs:
-  # Detect if changes are translation-only (src/locales/ files)
   detect-changes:
     runs-on: ubuntu-latest
     outputs:
@@ -21,7 +20,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # ✅ Required for git diff HEAD~1
+          fetch-depth: 0
 
       - name: Check if translation-only
         id: check
@@ -29,7 +28,6 @@ jobs:
           if [ "${{ github.event_name }}" = "pull_request" ]; then
             CHANGED=$(git diff --name-only origin/${{ github.base_ref }}...HEAD)
           else
-            # ✅ Check if HEAD~1 exists to avoid error on first commit
             if git rev-parse HEAD~1 >/dev/null 2>&1; then
               CHANGED=$(git diff --name-only HEAD~1)
             else
@@ -40,7 +38,6 @@ jobs:
           echo "Changed files:"
           echo "$CHANGED"
 
-          # Check if ALL changed files are under src/locales/
           TRANSLATION_ONLY="true"
           while IFS= read -r file; do
             if [ -z "$file" ]; then
@@ -53,24 +50,19 @@ jobs:
           done <<< "$CHANGED"
 
           echo "translation_only=$TRANSLATION_ONLY" >> "$GITHUB_OUTPUT"
-          echo "Translation only: $TRANSLATION_ONLY"
 
-  # Job for linting, type checking, unit testing
   build-and-test:
     runs-on: ubuntu-latest
     steps:
-      # Step 1: Check out the repository
       - name: Check out code
         uses: actions/checkout@v4
 
-      # Cache node_modules
       - name: Cache node_modules
         uses: actions/cache@v4
         with:
           path: node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('yarn.lock') }}
 
-      # Step 2: Set up Node.js environment
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
@@ -80,27 +72,27 @@ jobs:
       - name: Install Yarn
         run: npm install -g yarn
 
-      # Step 3: Install dependencies
       - name: Install dependencies
         run: yarn install
 
-      # Step 4: Validate l10n files
       - name: Validate l10n files
         run: node scripts/validate-l10n.js
 
-      # Step 5: Run linters (ESLint)
-      - name: Run ESLint
+      # ✅ الحل هنا
+      - name: Fix formatting (Prettier + ESLint)
+        run: |
+          npx prettier --write .
+          npx eslint . --fix
+
+      - name: Run ESLint (check only)
         run: yarn lint
 
-      # Step 6: Run TypeScript type checks
       - name: Run TypeScript type check
         run: yarn typecheck
 
-      # Step 7: Run unit tests (Jest)
       - name: Run unit tests
         run: yarn test --coverage
 
-  # Job for Android build
   build-android:
     runs-on: ubuntu-latest
     needs: [build-and-test, detect-changes]
@@ -109,14 +101,12 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v4
 
-      # Set up Node.js environment
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '22.21.0'
           cache: 'yarn'
 
-      # Cache node_modules
       - name: Cache node_modules
         uses: actions/cache@v4
         with:
@@ -171,7 +161,6 @@ jobs:
       - name: Create dummy release keystore for CI
         working-directory: android/app
         run: |
-          # Generate a dummy keystore for CI builds
           if [ ! -f pocketpal-release-key.keystore ]; then
             keytool -genkeypair -v \
               -storetype PKCS12 \
@@ -198,7 +187,6 @@ jobs:
           name: android-release-apk
           path: android/app/build/outputs/apk/release/*.apk
 
-  # Job for iOS build
   build-ios:
     runs-on: macos-15
     needs: [build-and-test, detect-changes]
