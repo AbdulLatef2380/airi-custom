@@ -1,5 +1,5 @@
 {
-  "name": "PocketPal",
+  "name": "AIRI.AI",
   "version": "1.13.1",
   "private": true,
   "scripts": {
@@ -131,7 +131,7 @@
     "type": "all",
     "jsSrcsDir": "src/specs",
     "android": {
-      "javaPackageName": "com.pocketpal.specs"
+      "javaPackageName": ""com.abdullatef.airi.specs"
     }
   }
 }
