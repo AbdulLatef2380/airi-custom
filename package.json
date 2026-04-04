@@ -131,7 +131,7 @@
     "type": "all",
     "jsSrcsDir": "src/specs",
     "android": {
-      "javaPackageName": ""com.abdullatef.airi.specs"
+      "javaPackageName": "com.abdullatef.airi.specs"
     }
   }
 }
