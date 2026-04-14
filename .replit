@@ -1,4 +1,4 @@
-modules = ["swift-5.8", "nodejs-22"]
+modules = ["nodejs-20", "swift-5.8"]
 [agent]
 expertMode = true
 
@@ -26,7 +26,7 @@ outputType = "console"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "yarn start --port 8080 --reset-cache"
+args = "npx react-native start --port 8080 --reset-cache"
 waitForPort = 8080
 
 [[ports]]

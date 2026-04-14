@@ -2,7 +2,7 @@ package com.abdullatef.airi
 
 import com.facebook.react.bridge.*
 import com.facebook.react.module.annotations.ReactModule
-import com.pocketpal.specs.NativeHardwareInfoSpec
+import com.abdullatef.airi.specs.NativeHardwareInfoSpec
 import android.os.Build
 import android.os.Debug
 import java.io.File

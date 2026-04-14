@@ -3,7 +3,7 @@ package com.abdullatef.airi
 import android.view.WindowManager
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.module.annotations.ReactModule
-import com.pocketpal.specs.NativeKeepAwakeSpec
+import com.abdullatef.airi.specs.NativeKeepAwakeSpec
 
 @ReactModule(name = NativeKeepAwakeSpec.NAME)
 class KeepAwakeModule(reactContext: ReactApplicationContext) :

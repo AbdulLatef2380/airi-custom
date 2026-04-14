@@ -70,9 +70,9 @@ package-lock.json
 /coverage
 .env
 
-# Firebase config files
-android/app/google-services.json
-ios/GoogleService-Info.plist
+# Firebase config files — real credentials injected by CI secrets
+# android/app/google-services.json is committed (contains project info, no private keys)
+ios/PocketPal/GoogleService-Info.plist
 
 # Environment files
 .env

@@ -1,8 +1,0 @@
-uploads = []
-generated = []
-
-[[outputs]]
-id = "Cfr6G5imBe8APk5J2nNF0"
-uri = "file://android/app/src/main/res/mipmap-xxxhdpi/icon_master_1024.png"
-type = "image"
-title = "AIRI.AI Icon — Clean Version 1024×1024"

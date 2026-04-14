@@ -5,7 +5,7 @@ platform :ios do
   lane :release_ios_testflight do
     # Create GoogleService-Info.plist from GitHub secret
     File.write(
-      File.join(Dir.pwd, "../GoogleService-Info.plist"),
+      File.join(Dir.pwd, "../PocketPal/GoogleService-Info.plist"),
       ENV["GOOGLE_SERVICES_PLIST"]
     )
     
